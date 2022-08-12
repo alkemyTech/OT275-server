@@ -1,0 +1,12 @@
+# Database
+spring:
+  datasource:
+    url: jdbc:h2:mem:ong;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+  jpa:
+    properties.hibernate:
+      dialect: org.hibernate.dialect.H2Dialect
+      show_sql: false
+      hbm2ddl.auto: create-drop
+  h2.console.enabled: false
+  sql.init.platform: h2

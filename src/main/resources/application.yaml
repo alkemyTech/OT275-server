@@ -1,0 +1,13 @@
+# Database
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/ong}
+    name: ${DATABASE_NAME:somosmas}
+    username: ${DATABASE_USER:root}
+    password: ${DATABASE_PASSWORD:root}
+    driver-class-name: ${DATABASE_CLASS:com.mysql.jdbc.Driver}
+  jpa:
+    database-platform: ${DATABASE_PLATFORM:org.hibernate.dialect.MySQL5InnoDBDialect}
+    show-sql: false
+    defer-datasource-initialization: false
+    hibernate.ddl-auto: update

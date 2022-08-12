@@ -1,13 +1,13 @@
-package com.alkemy.ong;
+package com.alkemy.ong.application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OngApplicationTests {
+class OngApplicationTest {
 
-	@Test
-	void contextLoads() {
-	}
+  @Test
+  void contextLoads() {
+  }
 
 }
