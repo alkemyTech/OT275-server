@@ -38,7 +38,7 @@ from [Google Java Style Guide](https://google.github.io/styleguide/javaguide.htm
 - If you add a new endpoint, make sure to set the role access for it in the SecurityConfig class.
 
 - [ Optional ] You will find an example of how to work with the project architecture in
-  architecture-example branch.
+  `architecture-example` branch.
 
 ### KEEP IN MIND FOR PULL REQUEST AND CODE REVIEW
 
