@@ -12,15 +12,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE NEWS SET SOFT_DELETED = true WHERE NEWS_ID=?")
-@Where(clause = "SOFT_DELETED = false")
 @Entity
 @Table(name = "NEWS")
 public class NewsEntity {
