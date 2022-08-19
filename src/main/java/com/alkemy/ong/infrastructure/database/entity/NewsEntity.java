@@ -1,8 +1,10 @@
 package com.alkemy.ong.infrastructure.database.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +39,7 @@ public class NewsEntity {
   @Column(name = "IMAGE_URL", nullable = false)
   private String imageUrl;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinColumn(name = "CATEGORY_ID")
   private CategoryEntity category;
 
