@@ -21,8 +21,6 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @Entity
 @Table(name = "ACTIVITIES")
-@SQLDelete(sql = "UPDATE ACTIVITIES SET SOFT_DELETED = true WHERE ACTIVITY_ID = ?")
-@Where(clause = "SOFT_DELETED = false")
 public class ActivityEntity {
 
   @Id
