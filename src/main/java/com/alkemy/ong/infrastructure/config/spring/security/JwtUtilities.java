@@ -17,12 +17,13 @@ public class JwtUtilities {
   private static final String SECRET_KEY = Base64.getEncoder().encodeToString("secret".getBytes());
   private static final String BEARER_PART = "Bearer ";
   private static final String EMPTY = "";
+  private static final String ROLES_CLAIM = "roles";
 
   public String createToken(UserDetails userDetails) {
     int tokenDuration = 1800000;
     return Jwts.builder()
         .setSubject(userDetails.getUsername())
-        .claim("roles", userDetails.getAuthorities().stream()
+        .claim(ROLES_CLAIM, userDetails.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList()))
         .setExpiration(new Date(System.currentTimeMillis() + tokenDuration))
@@ -38,6 +39,7 @@ public class JwtUtilities {
     Claims claims = extractAllClaims(token);
     return claimsResolver.apply(claims);
   }
+
   public Claims extractAllClaims(String token) {
     return Jwts.parser()
         .setSigningKey(SECRET_KEY)
