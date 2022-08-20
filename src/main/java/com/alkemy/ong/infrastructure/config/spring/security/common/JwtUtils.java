@@ -35,24 +35,24 @@ public class JwtUtils {
         .compact();
   }
 
-  public static JWT extract(String authorizationHeader) {
-    return JWT.extract(authorizationHeader);
+  public static Jwt extract(String authorizationHeader) {
+    return Jwt.extract(authorizationHeader);
   }
 
-  public static class JWT {
+  public static class Jwt {
 
     private final String username;
 
     private final List<GrantedAuthority> grantedAuthorities;
 
-    private JWT(String token) {
+    private Jwt(String token) {
       Claims claims = extractAllClaims(token);
       this.username = claims.getSubject();
       this.grantedAuthorities = buildGrantedAuthorities(claims);
     }
 
-    public static JWT extract(String authorizationHeader) {
-      return new JWT(getTokenFrom(authorizationHeader));
+    public static Jwt extract(String authorizationHeader) {
+      return new Jwt(getTokenFrom(authorizationHeader));
     }
 
     public String getUsername() {

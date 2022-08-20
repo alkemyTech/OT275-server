@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.config.spring.security.filter;
 
 import com.alkemy.ong.infrastructure.config.spring.security.common.JwtUtils;
-import com.alkemy.ong.infrastructure.config.spring.security.common.JwtUtils.JWT;
+import com.alkemy.ong.infrastructure.config.spring.security.common.JwtUtils.Jwt;
 import io.jsonwebtoken.JwtException;
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -34,7 +34,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     }
 
     try {
-      JWT jwt = JwtUtils.extract(authorizationHeader);
+      Jwt jwt = JwtUtils.extract(authorizationHeader);
       Authentication authentication = new UsernamePasswordAuthenticationToken(
           jwt.getUsername(),
           CREDENTIALS,
