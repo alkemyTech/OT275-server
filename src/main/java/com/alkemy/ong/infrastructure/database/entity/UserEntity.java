@@ -1,6 +1,5 @@
 package com.alkemy.ong.infrastructure.database.entity;
 
-
 import java.sql.Timestamp;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -74,5 +73,4 @@ public class UserEntity {
   public int hashCode() {
     return Objects.hash(userId, email);
   }
-
 }
