@@ -31,9 +31,12 @@ public class AuthorizationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
       FilterChain filterChain) throws ServletException, IOException {
     String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-    if (checkAuthorizationHeader(authorizationHeader, request, response, filterChain)) {
+
+    if (checkAuthorizationHeader(authorizationHeader)) {
+      filterChain.doFilter(request, response);
       return;
     }
+
     try {
       String jwToken = authorizationHeader.replace("Bearer ", "");
       Claims claims = jwtUtilities.extractAllClaims(jwToken);
@@ -50,19 +53,9 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     }
   }
 
-  private boolean checkAuthorizationHeader(
-      String authorizationHeader,
-      HttpServletRequest request,
-      HttpServletResponse response,
-      FilterChain filterChain
-  ) throws ServletException, IOException {
-    if (authorizationHeader == null || authorizationHeader.isBlank()
-        || !authorizationHeader.startsWith("Bearer")) {
-      filterChain.doFilter(request, response);
-      return true;
-    } else {
-      return false;
-    }
+  private boolean checkAuthorizationHeader(String authorizationHeader) {
+    return authorizationHeader == null || authorizationHeader.isBlank()
+        || !authorizationHeader.startsWith("Bearer");
   }
 
   private Collection<GrantedAuthority> getGrantedAuthorities(Claims claims) {
