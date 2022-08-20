@@ -1,7 +1,6 @@
 package com.alkemy.ong.infrastructure.database.entity;
 
 import java.sql.Timestamp;
-import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,7 +45,7 @@ public class UserEntity {
   @Column(name = "IMAGE_URL")
   private String imageUrl;
 
-  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
   private RoleEntity role;
 
@@ -57,20 +56,4 @@ public class UserEntity {
   @Column(name = "SOFT_DELETED")
   private boolean softDeleted;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    UserEntity that = (UserEntity) o;
-    return userId.equals(that.userId) && email.equals(that.email);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(userId, email);
-  }
 }
