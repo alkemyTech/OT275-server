@@ -26,6 +26,7 @@ public class JwtUtilities {
         .claim(ROLES_CLAIM, userDetails.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList()))
+        .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
         .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(90).toInstant()))
         .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
         .compact();
