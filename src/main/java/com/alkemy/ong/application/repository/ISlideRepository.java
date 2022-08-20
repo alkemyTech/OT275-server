@@ -1,5 +1,5 @@
 package com.alkemy.ong.application.repository;
 
-public interface ISlidesRepository {
+public interface ISlideRepository {
 
 }
