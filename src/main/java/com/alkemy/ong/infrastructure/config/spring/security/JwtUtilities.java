@@ -39,18 +39,6 @@ public class JwtUtilities {
     return extractClaim(token, Claims::getSubject);
   }
 
-  private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-    Claims claims = extractAllClaims(token);
-    return claimsResolver.apply(claims);
-  }
-
-  public Claims extractAllClaims(String token) {
-    return Jwts.parser()
-        .setSigningKey(SECRET_KEY)
-        .parseClaimsJws(token)
-        .getBody();
-  }
-
   public List<GrantedAuthority> getGrantedAuthorities(String token) {
     return AuthorityUtils.commaSeparatedStringToAuthorityList(
         Objects.toString(extractAllClaims(token).get(ROLES_CLAIM)));
@@ -58,6 +46,18 @@ public class JwtUtilities {
 
   public String getTokenFrom(String authorizationHeader) {
     return authorizationHeader.replace(BEARER_PART, EMPTY);
+  }
+
+  private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    Claims claims = extractAllClaims(token);
+    return claimsResolver.apply(claims);
+  }
+
+  private Claims extractAllClaims(String token) {
+    return Jwts.parser()
+        .setSigningKey(SECRET_KEY)
+        .parseClaimsJws(token)
+        .getBody();
   }
 
 }
