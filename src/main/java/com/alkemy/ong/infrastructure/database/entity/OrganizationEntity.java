@@ -19,7 +19,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Getter
 @Setter
 @Table(name = "ORGANIZATIONS")
-public class OrganitzationEntity {
+public class OrganizationEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,14 +44,14 @@ public class OrganitzationEntity {
   @Column(name = "WELCOME_TEXT", nullable = false)
   private String welcomeText;
 
-  @Column(name = "ABOUT_US", nullable = false)
+  @Column(name = "ABOUT_US")
   private String aboutUsText;
 
   @Column(name = "CREATE_TIMESTAMP", updatable = false)
   @CreationTimestamp
   private Timestamp createTimestamp;
 
-  @Column(name = "SOFT_DELETED", updatable = false)
+  @Column(name = "SOFT_DELETED")
   private boolean softDeleted;
 
 
