@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 public class JwtUtilities {
 
   private static final String SECRET_KEY = Base64.getEncoder().encodeToString("secret".getBytes());
+  private static final String BEARER_PART = "Bearer ";
+  private static final String EMPTY = "";
 
   public String createJwToken(User user) {
     int tokenDuration = 1800000;
@@ -33,4 +35,9 @@ public class JwtUtilities {
         .parseClaimsJws(token)
         .getBody();
   }
+
+  public String getTokenFrom(String authorizationHeader) {
+    return authorizationHeader.replace(BEARER_PART, EMPTY);
+  }
+
 }
