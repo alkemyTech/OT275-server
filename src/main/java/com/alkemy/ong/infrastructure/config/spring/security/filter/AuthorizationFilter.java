@@ -29,6 +29,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
     if (!isValid(authorizationHeader)) {
+      SecurityContextHolder.clearContext();
       filterChain.doFilter(request, response);
       return;
     }
