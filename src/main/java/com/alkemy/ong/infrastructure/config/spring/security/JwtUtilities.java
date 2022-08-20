@@ -35,28 +35,28 @@ public class JwtUtilities {
         .compact();
   }
 
-  public String extractUsername(String token) {
-    return extractClaim(token, Claims::getSubject);
+  public String extractUsername(String authorizationHeader) {
+    return extractClaim(authorizationHeader, Claims::getSubject);
   }
 
-  public List<GrantedAuthority> getGrantedAuthorities(String token) {
+  public List<GrantedAuthority> getGrantedAuthorities(String authorizationHeader) {
     return AuthorityUtils.commaSeparatedStringToAuthorityList(
-        Objects.toString(extractAllClaims(token).get(ROLES_CLAIM)));
+        Objects.toString(extractAllClaims(authorizationHeader).get(ROLES_CLAIM)));
   }
 
-  public String getTokenFrom(String authorizationHeader) {
+  private String getTokenFrom(String authorizationHeader) {
     return authorizationHeader.replace(BEARER_PART, EMPTY);
   }
 
-  private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-    Claims claims = extractAllClaims(token);
+  private <T> T extractClaim(String authorizationHeader, Function<Claims, T> claimsResolver) {
+    Claims claims = extractAllClaims(authorizationHeader);
     return claimsResolver.apply(claims);
   }
 
-  private Claims extractAllClaims(String token) {
+  private Claims extractAllClaims(String authorizationHeader) {
     return Jwts.parser()
         .setSigningKey(SECRET_KEY)
-        .parseClaimsJws(token)
+        .parseClaimsJws(getTokenFrom(authorizationHeader))
         .getBody();
   }
 
