@@ -8,14 +8,11 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
-@Component
 public class JwtUtilities {
 
   private static final String SECRET_KEY = Base64.getEncoder().encodeToString("secret".getBytes());
@@ -23,7 +20,9 @@ public class JwtUtilities {
   private static final String EMPTY = "";
   private static final String ROLES_CLAIM = "roles";
 
-  public String createToken(UserDetails userDetails) {
+  private JwtUtilities() {
+  }
+  public static String create(UserDetails userDetails) {
     return Jwts.builder()
         .setSubject(userDetails.getUsername())
         .claim(ROLES_CLAIM, userDetails.getAuthorities().stream()
@@ -35,29 +34,49 @@ public class JwtUtilities {
         .compact();
   }
 
-  public String extractUsername(String authorizationHeader) {
-    return extractClaim(authorizationHeader, Claims::getSubject);
+  public static JWT extract(String authorizationHeader) {
+    return JWT.extract(authorizationHeader);
   }
 
-  public List<GrantedAuthority> getGrantedAuthorities(String authorizationHeader) {
-    return AuthorityUtils.commaSeparatedStringToAuthorityList(
-        Objects.toString(extractAllClaims(authorizationHeader).get(ROLES_CLAIM)));
-  }
+  public static class JWT {
 
-  private String getTokenFrom(String authorizationHeader) {
-    return authorizationHeader.replace(BEARER_PART, EMPTY);
-  }
+    private final String username;
 
-  private <T> T extractClaim(String authorizationHeader, Function<Claims, T> claimsResolver) {
-    Claims claims = extractAllClaims(authorizationHeader);
-    return claimsResolver.apply(claims);
-  }
+    private final List<GrantedAuthority> grantedAuthorities;
 
-  private Claims extractAllClaims(String authorizationHeader) {
-    return Jwts.parser()
-        .setSigningKey(SECRET_KEY)
-        .parseClaimsJws(getTokenFrom(authorizationHeader))
-        .getBody();
-  }
+    private JWT(String token) {
+      Claims claims = extractAllClaims(token);
+      this.username = claims.getSubject();
+      this.grantedAuthorities = buildGrantedAuthorities(claims);
+    }
 
+    public static JWT extract(String authorizationHeader) {
+      return new JWT(getTokenFrom(authorizationHeader));
+    }
+
+    public String getUsername() {
+      return username;
+    }
+
+    public List<GrantedAuthority> getGrantedAuthorities() {
+      return grantedAuthorities;
+    }
+
+    private List<GrantedAuthority> buildGrantedAuthorities(Claims claims) {
+      return AuthorityUtils.commaSeparatedStringToAuthorityList(
+          Objects.toString(claims.get(ROLES_CLAIM)));
+    }
+
+    private static String getTokenFrom(String authorizationHeader) {
+      return authorizationHeader.replace(BEARER_PART, EMPTY);
+    }
+
+    private static Claims extractAllClaims(String token) {
+      return Jwts.parser()
+          .setSigningKey(SECRET_KEY)
+          .parseClaimsJws(token)
+          .getBody();
+    }
+
+  }
 }
