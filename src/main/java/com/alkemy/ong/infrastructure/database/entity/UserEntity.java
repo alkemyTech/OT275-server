@@ -45,7 +45,10 @@ public class UserEntity {
   @Column(name = "IMAGE_URL")
   private String imageUrl;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+  @ManyToOne(
+      fetch = FetchType.LAZY,
+      cascade = {CascadeType.MERGE, CascadeType.PERSIST}
+  )
   @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
   private RoleEntity role;
 
