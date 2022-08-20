@@ -1,7 +1,6 @@
 package com.alkemy.ong.infrastructure.config.spring.security;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Base64;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUtilities {
 
-  private final String secretKey = Base64.getEncoder().encodeToString("secret".getBytes());
+  private static final String SECRET_KEY = Base64.getEncoder().encodeToString("secret".getBytes());
 
   public String createJwToken(User user) {
     int tokenDuration = 1800000;
@@ -24,13 +23,14 @@ public class JwtUtilities {
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList()))
         .setExpiration(new Date(System.currentTimeMillis() + tokenDuration))
-        .signWith(SignatureAlgorithm.HS256, secretKey)
+        .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
         .compact();
   }
 
-  public Claims getClaims(String jwToken) throws JwtException {
+  public Claims extractAllClaims(String token) {
     return Jwts.parser()
-        .setSigningKey(secretKey)
-        .parseClaimsJws(jwToken).getBody();
+        .setSigningKey(SECRET_KEY)
+        .parseClaimsJws(token)
+        .getBody();
   }
 }
