@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,12 +22,10 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table(name = "ROLES")
 public class RoleEntity {
 
-
   @Id
   @GeneratedValue(strategy = IDENTITY)
   @Column(name = "ROLE_ID")
   private Long roleId;
-
 
   @Column(name = "NAME", nullable = false, length = 5)
   private String name;
