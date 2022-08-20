@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class RoleRepository implements IRoleRepository {
+public class  RoleRepository implements IRoleRepository {
 
   private final IRoleSpringRepository roleSpringRepository;
 
