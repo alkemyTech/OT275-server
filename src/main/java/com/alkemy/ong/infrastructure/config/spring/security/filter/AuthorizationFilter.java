@@ -20,6 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class AuthorizationFilter extends OncePerRequestFilter {
 
   private static final String BEARER_PART = "Bearer ";
+  private static final Object CREDENTIALS = null;
   @Autowired
   private JwtUtilities jwtUtilities;
 
@@ -38,7 +39,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
       String jwtToken = jwtUtilities.getTokenFrom(authorizationHeader);
       Authentication authentication = new UsernamePasswordAuthenticationToken(
           jwtUtilities.extractUsername(jwtToken),
-          null,
+          CREDENTIALS,
           jwtUtilities.getGrantedAuthorities(jwtToken)
       );
       SecurityContextHolder.getContext().setAuthentication(authentication);
