@@ -14,23 +14,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUtilities {
 
-  private final String SECRET_KEY = Base64.getEncoder().encodeToString("secret".getBytes());
+  private final String secretKey = Base64.getEncoder().encodeToString("secret".getBytes());
 
   public String createJwToken(User user) {
-    int TOKEN_DURATION = 1800000;
+    int tokenDuration = 1800000;
     return Jwts.builder()
         .setSubject(user.getUsername())
         .claim("roles", user.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList()))
-        .setExpiration(new Date(System.currentTimeMillis() + TOKEN_DURATION))
-        .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+        .setExpiration(new Date(System.currentTimeMillis() + tokenDuration))
+        .signWith(SignatureAlgorithm.HS256, secretKey)
         .compact();
   }
 
   public Claims getClaims(String jwToken) throws JwtException {
     return Jwts.parser()
-        .setSigningKey(SECRET_KEY)
+        .setSigningKey(secretKey)
         .parseClaimsJws(jwToken).getBody();
   }
 }
