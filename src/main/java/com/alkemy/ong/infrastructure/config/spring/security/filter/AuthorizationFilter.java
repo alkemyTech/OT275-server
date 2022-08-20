@@ -43,7 +43,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
       );
       SecurityContextHolder.getContext().setAuthentication(authentication);
     } catch (JwtException e) {
-      throw new IllegalStateException("Invalid JW Token");
+      throw new IllegalStateException("Invalid JWT signature.");
     }
   }
 
