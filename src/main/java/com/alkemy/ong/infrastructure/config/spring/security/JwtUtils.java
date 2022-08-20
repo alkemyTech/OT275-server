@@ -13,14 +13,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class JwtUtilities {
+public class JwtUtils {
 
   private static final String SECRET_KEY = Base64.getEncoder().encodeToString("secret".getBytes());
   private static final String BEARER_PART = "Bearer ";
   private static final String EMPTY = "";
   private static final String ROLES_CLAIM = "roles";
 
-  private JwtUtilities() {
+  private JwtUtils() {
   }
   public static String create(UserDetails userDetails) {
     return Jwts.builder()
