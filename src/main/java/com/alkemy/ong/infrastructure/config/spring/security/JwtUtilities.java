@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Base64;
 import java.util.Date;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -29,6 +30,14 @@ public class JwtUtilities {
         .compact();
   }
 
+  public String extractUsername(String token) {
+    return extractClaim(token, Claims::getSubject);
+  }
+
+  private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    Claims claims = extractAllClaims(token);
+    return claimsResolver.apply(claims);
+  }
   public Claims extractAllClaims(String token) {
     return Jwts.parser()
         .setSigningKey(SECRET_KEY)
