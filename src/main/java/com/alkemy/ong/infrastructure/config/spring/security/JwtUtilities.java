@@ -3,6 +3,7 @@ package com.alkemy.ong.infrastructure.config.spring.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.time.ZonedDateTime;
 import java.util.Base64;
 import java.util.Date;
 import java.util.function.Function;
@@ -20,13 +21,12 @@ public class JwtUtilities {
   private static final String ROLES_CLAIM = "roles";
 
   public String createToken(UserDetails userDetails) {
-    int tokenDuration = 1800000;
     return Jwts.builder()
         .setSubject(userDetails.getUsername())
         .claim(ROLES_CLAIM, userDetails.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList()))
-        .setExpiration(new Date(System.currentTimeMillis() + tokenDuration))
+        .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(90).toInstant()))
         .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
         .compact();
   }
