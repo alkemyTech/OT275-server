@@ -1,11 +1,10 @@
 package com.alkemy.ong.infrastructure.database.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,11 +18,11 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "organizations")
+@Table(name = "ORGANIZATIONS")
 public class OrganitzationEntity {
 
   @Id
-  @GeneratedValue(strategy = IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ORGANIZATION_ID")
   private Long organizationId;
 
@@ -53,7 +52,7 @@ public class OrganitzationEntity {
   private Timestamp createTimestamp;
 
   @Column(name = "SOFT_DELETED", updatable = false)
-  private boolean softDelete;
+  private boolean softDeleted;
 
 
 

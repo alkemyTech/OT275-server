@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrganizationRepository implements IOrganizationRepository {
 
-  private final IOrganizationSpringRepository organizationRepository;
+  private final IOrganizationSpringRepository organizationSpringRepository;
 
 }
