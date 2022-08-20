@@ -38,8 +38,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
       Authentication authentication = new UsernamePasswordAuthenticationToken(
           jwt.getUsername(),
           CREDENTIALS,
-          jwt.getGrantedAuthorities()
-      );
+          jwt.getGrantedAuthorities());
       SecurityContextHolder.getContext().setAuthentication(authentication);
     } catch (JwtException e) {
       throw new IllegalStateException("Invalid JWT signature.");

@@ -36,7 +36,11 @@ public class JwtUtils {
   }
 
   public static Jwt extract(String authorizationHeader) {
-    return Jwt.extract(authorizationHeader);
+    return Jwt.build(getTokenFrom(authorizationHeader));
+  }
+
+  private static String getTokenFrom(String authorizationHeader) {
+    return authorizationHeader.replace(BEARER_PART, EMPTY);
   }
 
   public static class Jwt {
@@ -51,8 +55,8 @@ public class JwtUtils {
       this.grantedAuthorities = buildGrantedAuthorities(claims);
     }
 
-    public static Jwt extract(String authorizationHeader) {
-      return new Jwt(getTokenFrom(authorizationHeader));
+    public static Jwt build(String token) {
+      return new Jwt(token);
     }
 
     public String getUsername() {
@@ -66,10 +70,6 @@ public class JwtUtils {
     private List<GrantedAuthority> buildGrantedAuthorities(Claims claims) {
       return AuthorityUtils.commaSeparatedStringToAuthorityList(
           Objects.toString(claims.get(ROLES_CLAIM)));
-    }
-
-    private static String getTokenFrom(String authorizationHeader) {
-      return authorizationHeader.replace(BEARER_PART, EMPTY);
     }
 
     private static Claims extractAllClaims(String token) {
