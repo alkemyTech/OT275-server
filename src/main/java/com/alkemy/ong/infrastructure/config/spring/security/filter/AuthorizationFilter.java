@@ -35,11 +35,11 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     }
 
     try {
-      String jwToken = authorizationHeader.replace(BEARER_PART, "");
+      String jwtToken = jwtUtilities.getTokenFrom(authorizationHeader);
       Authentication authentication = new UsernamePasswordAuthenticationToken(
-          jwtUtilities.extractUsername(jwToken),
+          jwtUtilities.extractUsername(jwtToken),
           null,
-          jwtUtilities.getGrantedAuthorities(jwToken)
+          jwtUtilities.getGrantedAuthorities(jwtToken)
       );
       SecurityContextHolder.getContext().setAuthentication(authentication);
     } catch (JwtException e) {
