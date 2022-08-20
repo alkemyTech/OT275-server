@@ -32,7 +32,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
       FilterChain filterChain) throws ServletException, IOException {
     String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-    if (checkAuthorizationHeader(authorizationHeader)) {
+    if (isValid(authorizationHeader)) {
       filterChain.doFilter(request, response);
       return;
     }
@@ -53,7 +53,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     }
   }
 
-  private boolean checkAuthorizationHeader(String authorizationHeader) {
+  private boolean isValid(String authorizationHeader) {
     return authorizationHeader == null || authorizationHeader.isBlank()
         || !authorizationHeader.startsWith("Bearer");
   }
