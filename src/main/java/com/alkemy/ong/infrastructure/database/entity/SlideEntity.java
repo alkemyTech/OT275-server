@@ -30,6 +30,6 @@ public class SlideEntity {
   @Column(name = "TEXT")
   private String text;
 
-  @Column(name = "[ORDER]", nullable = false)
-  private Integer order;
+  @Column(name = "POSITION", nullable = false)
+  private Integer position;
 }
