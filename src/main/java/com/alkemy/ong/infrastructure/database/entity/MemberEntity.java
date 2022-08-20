@@ -35,8 +35,8 @@ public class MemberEntity {
   @Column(name = "INSTAGRAM_URL")
   private String instagramUrl;
 
-  @Column(name = "LINKEDIN_URL")
-  private String linkedinUrl;
+  @Column(name = "LINKED_IN_URL")
+  private String linkedInUrl;
 
   @Column(name = "IMAGE_URL", nullable = false)
   private String imageUrl;
