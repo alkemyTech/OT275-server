@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,11 +18,11 @@ public class JwtUtilities {
   private static final String BEARER_PART = "Bearer ";
   private static final String EMPTY = "";
 
-  public String createJwToken(User user) {
+  public String createToken(UserDetails userDetails) {
     int tokenDuration = 1800000;
     return Jwts.builder()
-        .setSubject(user.getUsername())
-        .claim("roles", user.getAuthorities().stream()
+        .setSubject(userDetails.getUsername())
+        .claim("roles", userDetails.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList()))
         .setExpiration(new Date(System.currentTimeMillis() + tokenDuration))
