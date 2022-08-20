@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
@@ -27,7 +28,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
       FilterChain filterChain) throws ServletException, IOException {
     String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-    if (isValid(authorizationHeader)) {
+    if (!isValid(authorizationHeader)) {
       filterChain.doFilter(request, response);
       return;
     }
@@ -46,8 +47,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
   }
 
   private boolean isValid(String authorizationHeader) {
-    return authorizationHeader == null || authorizationHeader.isBlank()
-        || !authorizationHeader.startsWith(BEARER_PART);
+    return StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith(BEARER_PART);
   }
 
 }
