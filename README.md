@@ -81,15 +81,21 @@ mvn checkstyle:checkstyle
 
 ### LINKS
 
-- [Do NOT expose entities](https://thorben-janssen.com/dont-expose-entities-in-api/)
-- [Data-Transfer Objects (DTO)](https://dzone.com/articles/dtos)
+- DTO:
+    - [Do NOT expose entities](https://thorben-janssen.com/dont-expose-entities-in-api/)
+    - [Data-Transfer Objects (DTO)](https://dzone.com/articles/dtos)
 - SOLID:
     - [SOLID principles](http://www.blackwasp.co.uk/SOLIDPrinciples.aspx)
     - [Design principles](https://www.oodesign.com/design-principles.html)
-- [Best practices API design](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design)
-- [Writing clean code](https://github.com/jnguyen095/clean-code/blob/master/Clean.Code.A.Handbook.of.Agile.Software.Craftsmanship.pdf)
-- [Design patterns](https://refactoring.guru/design-patterns)
-- [Clean architecture](https://github.com/GunterMueller/Books-3/blob/master/Clean%20Architecture%20A%20Craftsman%20Guide%20to%20Software%20Structure%20and%20Design.pdf)
+- YAGNI:
+    - [You Aren't Gonna Need It](https://martinfowler.com/bliki/Yagni.html)
+- Design patterns:
+    - [Best practices API design](https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design)
+    - [Design patterns](https://refactoring.guru/design-patterns)
+    - [Java Design Patterns](https://java-design-patterns.com/)
+- Clean code:
+    - [Writing clean code](https://github.com/jnguyen095/clean-code/blob/master/Clean.Code.A.Handbook.of.Agile.Software.Craftsmanship.pdf)
+    - [Clean architecture](https://github.com/GunterMueller/Books-3/blob/master/Clean%20Architecture%20A%20Craftsman%20Guide%20to%20Software%20Structure%20and%20Design.pdf)
 - Exception handling
     - [Exception handling for REST with Spring](https://www.baeldung.com/exception-handling-for-rest-with-spring)
     - [Handling exceptions and custom exceptions](https://www.javadevjournal.com/spring/exception-handling-for-rest-with-spring/)
@@ -107,12 +113,13 @@ mvn checkstyle:checkstyle
     - [How to perfect Software Design with Test Driven Development](https://www.youtube.com/watch?v=ln4WnxX-wrw&ab_channel=ContinuousDelivery)
 - API documentation:
     - [OpenAPI 3 with Spring Boot](https://springdoc.org/)
+    - [Async API](https://www.asyncapi.com/)
 - Agile:
     - [How do you measure value?](https://www.thoughtworks.com/insights/blog/how-do-you-measure-value)
     - [Exploring value oriented incremental delivery](https://www.thoughtworks.com/insights/blog/exploring-value-oriented-incremental-delivery)
 - Pair programming:
     - [On pair programming](https://martinfowler.com/articles/on-pair-programming.html)
-    - [Design principles](https://www.oodesign.com/design-principles.html)
+    - [Code with me](https://www.jetbrains.com/help/idea/code-with-me.html)
 
 ### USERS
 
