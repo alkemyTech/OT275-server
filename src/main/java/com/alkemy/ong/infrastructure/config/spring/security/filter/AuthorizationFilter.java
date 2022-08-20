@@ -24,6 +24,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 public class AuthorizationFilter extends OncePerRequestFilter {
 
+  private static final String BEARER_PART = "Bearer ";
   @Autowired
   private JwtUtilities jwtUtilities;
 
@@ -38,7 +39,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     }
 
     try {
-      String jwToken = authorizationHeader.replace("Bearer ", "");
+      String jwToken = authorizationHeader.replace(BEARER_PART, "");
       Claims claims = jwtUtilities.extractAllClaims(jwToken);
       String username = claims.getSubject();
       Collection<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(claims);
@@ -55,7 +56,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 
   private boolean isValid(String authorizationHeader) {
     return authorizationHeader == null || authorizationHeader.isBlank()
-        || !authorizationHeader.startsWith("Bearer");
+        || !authorizationHeader.startsWith(BEARER_PART);
   }
 
   private Collection<GrantedAuthority> getGrantedAuthorities(Claims claims) {
