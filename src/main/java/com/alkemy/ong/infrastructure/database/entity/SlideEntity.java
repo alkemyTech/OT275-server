@@ -17,11 +17,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "SLIDES")
-public class SlidesEntity {
+public class SlideEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "SLIDES_ID")
+  @Column(name = "SLIDE_ID")
   private Long slideId;
 
   @Column(name = "IMAGE_URL", nullable = false)
