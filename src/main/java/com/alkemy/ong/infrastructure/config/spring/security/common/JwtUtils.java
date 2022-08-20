@@ -1,4 +1,4 @@
-package com.alkemy.ong.infrastructure.config.spring.security;
+package com.alkemy.ong.infrastructure.config.spring.security.common;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -22,6 +22,7 @@ public class JwtUtils {
 
   private JwtUtils() {
   }
+
   public static String create(UserDetails userDetails) {
     return Jwts.builder()
         .setSubject(userDetails.getUsername())

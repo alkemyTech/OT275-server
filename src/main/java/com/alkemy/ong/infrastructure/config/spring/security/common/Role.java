@@ -1,4 +1,4 @@
-package com.alkemy.ong.infrastructure.config.spring.security;
+package com.alkemy.ong.infrastructure.config.spring.security.common;
 
 public enum Role {
 

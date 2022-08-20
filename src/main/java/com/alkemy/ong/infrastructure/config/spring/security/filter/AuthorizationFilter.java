@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.config.spring.security.filter;
 
-import com.alkemy.ong.infrastructure.config.spring.security.JwtUtils;
-import com.alkemy.ong.infrastructure.config.spring.security.JwtUtils.JWT;
+import com.alkemy.ong.infrastructure.config.spring.security.common.JwtUtils;
+import com.alkemy.ong.infrastructure.config.spring.security.common.JwtUtils.JWT;
 import io.jsonwebtoken.JwtException;
 import java.io.IOException;
 import javax.servlet.FilterChain;
