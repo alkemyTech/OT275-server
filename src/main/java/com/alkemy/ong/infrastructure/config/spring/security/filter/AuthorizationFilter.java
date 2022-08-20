@@ -1,12 +1,8 @@
 package com.alkemy.ong.infrastructure.config.spring.security.filter;
 
 import com.alkemy.ong.infrastructure.config.spring.security.JwtUtilities;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -40,12 +34,10 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 
     try {
       String jwToken = authorizationHeader.replace(BEARER_PART, "");
-      Claims claims = jwtUtilities.extractAllClaims(jwToken);
-      Collection<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(claims);
       Authentication authentication = new UsernamePasswordAuthenticationToken(
           jwtUtilities.extractUsername(jwToken),
           null,
-          grantedAuthorities
+          jwtUtilities.getGrantedAuthorities(jwToken)
       );
       SecurityContextHolder.getContext().setAuthentication(authentication);
     } catch (JwtException e) {
@@ -58,10 +50,4 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         || !authorizationHeader.startsWith(BEARER_PART);
   }
 
-  private Collection<GrantedAuthority> getGrantedAuthorities(Claims claims) {
-    List<String> roleList = (List<String>) claims.get("roles");
-    Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-    roleList.forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(role)));
-    return grantedAuthorities;
-  }
 }

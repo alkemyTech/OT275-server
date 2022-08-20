@@ -6,9 +6,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.time.ZonedDateTime;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -46,6 +49,11 @@ public class JwtUtilities {
         .setSigningKey(SECRET_KEY)
         .parseClaimsJws(token)
         .getBody();
+  }
+
+  public List<GrantedAuthority> getGrantedAuthorities(String token) {
+    return AuthorityUtils.commaSeparatedStringToAuthorityList(
+        Objects.toString(extractAllClaims(token).get(ROLES_CLAIM)));
   }
 
   public String getTokenFrom(String authorizationHeader) {
