@@ -1,8 +1,5 @@
 package com.alkemy.ong.infrastructure.database.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.sql.Time;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,6 +41,5 @@ public class TestimonialEntity {
 
   @Column(name = "SOFT_DELETED")
   private boolean softDeleted;
-
 
 }
