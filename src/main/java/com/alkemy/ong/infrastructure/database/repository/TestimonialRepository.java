@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestimonialRepository implements ITestimonialRepository {
 
-  private final ITestimonialRepository testimonialRepository;
+  private final ITestimonialRepository testimonialSpringRepository;
 
 }
