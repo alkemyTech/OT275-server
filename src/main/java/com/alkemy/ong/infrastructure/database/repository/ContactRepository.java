@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ContactRepository implements IContactRepository {
 
-  private final IContactSpringRepository iContactSpringRepository;
-
+  private final IContactSpringRepository contactSpringRepository;
 
 }

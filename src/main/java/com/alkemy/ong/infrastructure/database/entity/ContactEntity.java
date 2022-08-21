@@ -23,7 +23,7 @@ public class ContactEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "CONTACT_ID")
-  private Long id;
+  private Long contactId;
 
   @Column(name = "NAME", nullable = false)
   private String name;
