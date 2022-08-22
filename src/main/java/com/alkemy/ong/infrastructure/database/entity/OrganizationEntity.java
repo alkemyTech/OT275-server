@@ -43,6 +43,15 @@ public class OrganizationEntity {
   @Column(name = "EMAIL", nullable = false)
   private String email;
 
+  @Column(name="FACEBOOK_URL")
+  private String facebookUrl;
+
+  @Column(name="LINKEDIN_URL")
+  private String linkedInUrl;
+
+  @Column(name="INSTAGRAM_URL")
+  private String instagramUrl;
+
   @Column(name = "WELCOME_TEXT", nullable = false)
   private String welcomeText;
 
