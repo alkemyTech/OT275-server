@@ -37,8 +37,8 @@ public class ContactEntity {
   @Column(name = "MESSAGE", nullable = false)
   private String message;
 
-  @Column(name = "DELETE_AT")
-  private LocalDate deleteAt;
+  @Column(name = "DELETED_AT")
+  private LocalDate deletedAt;
 
 
 }
