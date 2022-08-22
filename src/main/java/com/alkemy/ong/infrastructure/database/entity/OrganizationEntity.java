@@ -44,7 +44,7 @@ public class OrganizationEntity {
   @Column(name = "WELCOME_TEXT", nullable = false)
   private String welcomeText;
 
-  @Column(name = "ABOUT_US")
+  @Column(name = "ABOUT_US_TEXT")
   private String aboutUsText;
 
   @Column(name = "CREATE_TIMESTAMP", updatable = false)
