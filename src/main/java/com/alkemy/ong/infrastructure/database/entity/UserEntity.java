@@ -16,12 +16,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Entity
+@DynamicUpdate
 @Table(name = "USERS")
 public class UserEntity {
 
@@ -45,10 +47,7 @@ public class UserEntity {
   @Column(name = "IMAGE_URL")
   private String imageUrl;
 
-  @ManyToOne(
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.MERGE, CascadeType.PERSIST}
-  )
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
   private RoleEntity role;
 
