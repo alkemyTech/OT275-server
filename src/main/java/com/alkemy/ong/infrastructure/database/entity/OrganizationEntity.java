@@ -46,7 +46,7 @@ public class OrganizationEntity {
   @Column(name = "FACEBOOK_URL")
   private String facebookUrl;
 
-  @Column(name = "LINKEDIN_URL")
+  @Column(name = "LINKED_IN_URL")
   private String linkedInUrl;
 
   @Column(name = "INSTAGRAM_URL")
