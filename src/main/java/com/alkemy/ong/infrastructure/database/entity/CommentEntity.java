@@ -33,11 +33,11 @@ public class CommentEntity {
   private Long commentId;
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-  @JoinColumn(name = "USER_ID", insertable = false, updatable = false)
+  @JoinColumn(name = "USER_ID", updatable = false)
   private UserEntity user;
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-  @JoinColumn(name = "NEWS_ID", insertable = false, updatable = false)
+  @JoinColumn(name = "NEWS_ID", updatable = false)
   private NewsEntity news;
 
   @Column(name = "CREATE_TIMESTAMP", updatable = false)
