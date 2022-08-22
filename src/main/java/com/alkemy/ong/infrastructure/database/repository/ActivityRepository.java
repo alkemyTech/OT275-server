@@ -1,6 +1,7 @@
 package com.alkemy.ong.infrastructure.database.repository;
 
 import com.alkemy.ong.application.repository.IActivityRepository;
+import com.alkemy.ong.infrastructure.database.repository.abstraction.IActivitySpringRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

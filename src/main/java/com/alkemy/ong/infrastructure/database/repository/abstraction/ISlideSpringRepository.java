@@ -1,4 +1,4 @@
-package com.alkemy.ong.infrastructure.database.repository;
+package com.alkemy.ong.infrastructure.database.repository.abstraction;
 
 import com.alkemy.ong.infrastructure.database.entity.SlideEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
