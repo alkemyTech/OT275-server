@@ -21,10 +21,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().anyRequest().authenticated().and().sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-    http.addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class);
+    http.csrf()
+        .disable()
+        .cors()
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .authorizeRequests()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class);
   }
 
 }
