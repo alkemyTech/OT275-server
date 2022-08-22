@@ -65,5 +65,4 @@ public class OrganizationEntity {
   @Column(name = "SOFT_DELETED")
   private boolean softDeleted;
 
-
 }
