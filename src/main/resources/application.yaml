@@ -11,4 +11,3 @@ spring:
     show-sql: false
     defer-datasource-initialization: false
     hibernate.ddl-auto: update
-

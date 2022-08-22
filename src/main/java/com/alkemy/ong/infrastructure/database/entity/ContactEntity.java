@@ -40,5 +40,4 @@ public class ContactEntity {
   @Column(name = "DELETED_AT")
   private LocalDate deletedAt;
 
-
 }
