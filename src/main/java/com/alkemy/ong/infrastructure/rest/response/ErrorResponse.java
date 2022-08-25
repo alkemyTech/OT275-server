@@ -12,9 +12,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ErrorResponse {
-  private int statusCode;
+
+  private String statusCode;
   private String message;
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   private List<String> moreInfo;
+
+  public ErrorResponse(String statusCode, String message, String moreInfo) {
+    this.statusCode = statusCode;
+    this.message = message;
+    this.moreInfo = List.of(moreInfo);
+  }
 
 }
