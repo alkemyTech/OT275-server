@@ -17,7 +17,7 @@ public class UserResource {
   private final IDeleteUserUseCase deleteUserUseCase;
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
     deleteUserUseCase.delete(() -> id);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
