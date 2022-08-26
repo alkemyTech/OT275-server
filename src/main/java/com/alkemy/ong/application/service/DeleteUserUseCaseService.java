@@ -1,5 +1,7 @@
 package com.alkemy.ong.application.service;
 
+import com.alkemy.ong.application.exception.ErrorMessage;
+import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.domain.Identifiable;
@@ -14,7 +16,9 @@ public class DeleteUserUseCaseService implements IDeleteUserUseCase {
   @Transactional
   @Override
   public void delete(Identifiable<Long> identifiable) {
-
+    if (!userRepository.exists(identifiable)) {
+      throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("User"));
+    }
     userRepository.delete(identifiable);
   }
 }
