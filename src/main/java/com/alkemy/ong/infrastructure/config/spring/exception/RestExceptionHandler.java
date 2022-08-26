@@ -24,8 +24,7 @@ public class RestExceptionHandler {
   }
 
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-      HttpStatus status) {
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
 
     List<String> errors = new ArrayList<>();
 
@@ -35,8 +34,8 @@ public class RestExceptionHandler {
     ex.getBindingResult().getGlobalErrors().forEach(objectError -> errors.add(
         String.format("%s : %s", objectError.getObjectName(), objectError.getDefaultMessage())));
 
-    ErrorResponse errorResponse = new ErrorResponse(status.value(), ex.getLocalizedMessage(),
+    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(),
         errors);
-    return new ResponseEntity<>(errorResponse, status);
+    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
 }
