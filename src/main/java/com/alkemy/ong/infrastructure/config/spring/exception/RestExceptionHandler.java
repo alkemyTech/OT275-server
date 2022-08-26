@@ -18,7 +18,7 @@ public class RestExceptionHandler {
 
   @ExceptionHandler(value = ObjectNotFound.class)
   protected ResponseEntity<ErrorResponse> handleObjectNotFound(ObjectNotFound e) {
-    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.toString(),
+    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(),
         OBJECT_NOT_FOUND, e.getMessage());
     return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
   }
@@ -35,7 +35,7 @@ public class RestExceptionHandler {
     ex.getBindingResult().getGlobalErrors().forEach(objectError -> errors.add(
         String.format("%s : %s", objectError.getObjectName(), objectError.getDefaultMessage())));
 
-    ErrorResponse errorResponse = new ErrorResponse(status.toString(), ex.getLocalizedMessage(),
+    ErrorResponse errorResponse = new ErrorResponse(status.value(), ex.getLocalizedMessage(),
         errors);
     return new ResponseEntity<>(errorResponse, status);
   }
