@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class RestExceptionHandler {
 
   private static final String OBJECT_NOT_FOUND = "Object not found in database.";
+  private static final String INVALID_ARGUMENT = "Invalid input data";
 
   @ExceptionHandler(value = ObjectNotFound.class)
   protected ResponseEntity<ErrorResponse> handleObjectNotFound(ObjectNotFound e) {
-    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(),
-        OBJECT_NOT_FOUND, e.getMessage());
+    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), OBJECT_NOT_FOUND,
+        e.getMessage());
     return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
   }
 
@@ -29,14 +30,14 @@ public class RestExceptionHandler {
 
     List<String> errors = collectErrors(ex);
 
-    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(),
-        errors);
+    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
+        INVALID_ARGUMENT, errors);
+
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
 
   private List<String> collectErrors(MethodArgumentNotValidException ex) {
-    return ex.getBindingResult().getFieldErrors().stream()
-        .map(this::formatErrorField)
+    return ex.getBindingResult().getFieldErrors().stream().map(this::formatErrorField)
         .collect(Collectors.toList());
   }
 
