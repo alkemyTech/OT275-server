@@ -26,8 +26,8 @@ public class RestExceptionHandler {
   }
 
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-
+  protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex) {
     List<String> errors = collectErrors(ex);
 
     ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
