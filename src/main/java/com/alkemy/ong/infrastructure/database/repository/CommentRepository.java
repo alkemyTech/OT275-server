@@ -14,11 +14,11 @@ public class CommentRepository implements ICommentRepository {
 
   @Override
   public void delete(Identifiable<Long> identifiable) {
-
+    commentSpringRepository.deleteById(identifiable.getId());
   }
 
   @Override
   public boolean exists(Identifiable<Long> identifiable) {
-    return false;
+    return commentSpringRepository.existsById(identifiable.getId());
   }
 }
