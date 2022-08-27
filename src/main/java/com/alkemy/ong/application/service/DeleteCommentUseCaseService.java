@@ -14,7 +14,7 @@ public class DeleteCommentUseCaseService implements IDeleteCommentUseCase {
 
   @Override
   public void delete(Identifiable<Long> identifiable) {
-    if(!repository.exists(identifiable)) {
+    if (!repository.exists(identifiable)) {
       throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Comment"));
     }
 
