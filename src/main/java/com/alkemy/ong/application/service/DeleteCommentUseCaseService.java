@@ -2,7 +2,9 @@ package com.alkemy.ong.application.service;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.ObjectNotFound;
+import com.alkemy.ong.application.exception.OperationNotPermitted;
 import com.alkemy.ong.application.repository.ICommentRepository;
+import com.alkemy.ong.application.service.usecase.IAuthorization;
 import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
 import com.alkemy.ong.domain.Identifiable;
 import lombok.AllArgsConstructor;
@@ -12,10 +14,16 @@ public class DeleteCommentUseCaseService implements IDeleteCommentUseCase {
 
   private ICommentRepository repository;
 
+  private IAuthorization authorization;
+
   @Override
   public void delete(Identifiable<Long> identifiable) {
     if (!repository.exists(identifiable)) {
       throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Comment"));
+    }
+
+    if (!authorization.isAuthorized(identifiable)) {
+      throw new OperationNotPermitted(ErrorMessage.OPERATION_NOT_PERMITTED.name());
     }
 
     repository.delete(identifiable);
