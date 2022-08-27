@@ -1,28 +1,18 @@
 package com.alkemy.ong.infrastructure.rest.mapper;
 
 import com.alkemy.ong.domain.User;
-import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.rest.response.UserResponse;
+import org.springframework.stereotype.Component;
 
-public class UserMapper implements IUserMapper {
+@Component
+public class UserMapper {
 
-  @Override
-  public User toDomain(UserEntity entity) {
-    User user = new User();
-
-    user.setEmail(entity.getEmail());
-
-    return user;
-  }
-
-  @Override
-  public UserResponse fromDomain(User user) {
+  public UserResponse toResponse(User user) {
     UserResponse userResponse = new UserResponse();
 
     userResponse.setEmail(user.getEmail());
 
     return userResponse;
   }
-
 
 }

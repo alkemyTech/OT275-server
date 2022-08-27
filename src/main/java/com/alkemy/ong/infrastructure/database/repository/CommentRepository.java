@@ -3,8 +3,8 @@ package com.alkemy.ong.infrastructure.database.repository;
 import com.alkemy.ong.application.repository.ICommentRepository;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.Identifiable;
+import com.alkemy.ong.infrastructure.database.mapper.CommentEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICommentSpringRepository;
-import com.alkemy.ong.infrastructure.rest.mapper.ICommentMapper;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class CommentRepository implements ICommentRepository {
 
   private final ICommentSpringRepository commentSpringRepository;
 
-  private final ICommentMapper commentMapper;
+  private final CommentEntityMapper commentMapper;
 
   @Override
   public void delete(Identifiable<Long> identifiable) {

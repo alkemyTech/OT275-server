@@ -4,7 +4,7 @@ import com.alkemy.ong.application.repository.ICommentRepository;
 import com.alkemy.ong.application.service.usecase.IAuthorization;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.Identifiable;
-import com.alkemy.ong.infrastructure.rest.mapper.ICommentMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.CommentMapper;
 import com.alkemy.ong.infrastructure.rest.response.CommentResponse;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +18,12 @@ import org.springframework.stereotype.Component;
 public class CommentAuthorization implements IAuthorization {
 
   private final ICommentRepository commentRepository;
-  private final ICommentMapper commentMapper;
+  private final CommentMapper commentMapper;
 
   @Override
   public boolean isAuthorized(Identifiable<Long> identifiable) {
     Optional<Comment> comment = commentRepository.find(identifiable);
-    Optional<CommentResponse> commentResponse = comment.map(commentMapper::fromDomain);
+    Optional<CommentResponse> commentResponse = comment.map(commentMapper::toResponse);
 
     Authentication authentication = getAuthentication();
 
