@@ -7,6 +7,7 @@ import com.alkemy.ong.infrastructure.rest.response.CommentResponse;
 public interface ICommentMapper {
 
   Comment toDomain(CommentEntity entity);
+
   CommentResponse fromDomain(Comment comment);
 
 }

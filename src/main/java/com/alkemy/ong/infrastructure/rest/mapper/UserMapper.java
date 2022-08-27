@@ -4,7 +4,7 @@ import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.rest.response.UserResponse;
 
-public class UserMapper implements IUserMapper{
+public class UserMapper implements IUserMapper {
 
   @Override
   public User toDomain(UserEntity entity) {
