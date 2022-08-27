@@ -4,6 +4,6 @@ import com.alkemy.ong.domain.Identifiable;
 
 public interface IDeleteMemberUseCase {
 
-  void delete(Identifiable<Long> Identifiable);
+  void delete(Identifiable<Long> identifiable);
 
 }
