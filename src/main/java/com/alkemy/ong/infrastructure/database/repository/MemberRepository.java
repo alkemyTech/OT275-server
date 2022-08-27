@@ -15,10 +15,13 @@ public class MemberRepository implements IMemberRepository {
   @Override
   public void delete(Identifiable<Long> identifiable) {
     memberSpringRepository.softDelete(identifiable.getId());
+
   }
 
   @Override
   public boolean exists(Identifiable<Long> identifiable) {
     return memberSpringRepository.exists(identifiable.getId()).isPresent();
+
   }
+
 }
