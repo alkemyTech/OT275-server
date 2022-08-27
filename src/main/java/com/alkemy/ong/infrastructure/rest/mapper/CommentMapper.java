@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CommentMapper implements ICommentMapper{
+public class CommentMapper implements ICommentMapper {
 
   private final UserMapper userMapper;
 
