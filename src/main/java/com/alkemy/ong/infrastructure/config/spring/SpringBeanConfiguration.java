@@ -1,26 +1,18 @@
 package com.alkemy.ong.infrastructure.config.spring;
 
-<<<<<<<HEAD
+
 import com.alkemy.ong.application.repository.ICategoryRepository;
-=======
 import com.alkemy.ong.application.repository.IMemberRepository;
->>>>>>>main
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.repository.ITestimonialRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
-<<<<<<<HEAD
 import com.alkemy.ong.application.service.DeleteCategoryUseCaseService;
-=======
 import com.alkemy.ong.application.service.DeleteMemberUseCaseService;
->>>>>>>main
 import com.alkemy.ong.application.service.DeleteSlideUseCaseService;
 import com.alkemy.ong.application.service.DeleteTestimonialUseCaseService;
 import com.alkemy.ong.application.service.DeleteUserUseCaseService;
-<<<<<<<HEAD
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
-=======
 import com.alkemy.ong.application.service.usecase.IDeleteMemberUseCase;
->>>>>>>main
 import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
