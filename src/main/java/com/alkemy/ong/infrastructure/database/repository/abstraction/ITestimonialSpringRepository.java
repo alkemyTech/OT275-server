@@ -15,7 +15,8 @@ public interface ITestimonialSpringRepository extends JpaRepository<TestimonialE
   @Query("UPDATE TestimonialEntity t SET t.softDeleted = true WHERE t.testimonialId = :id")
   void softDelete(@Param("id") Long id);
 
-  @Query(value = "SELECT t FROM TestimonialEntity t WHERE t.softDeleted = false AND t.testimonialId = :id")
+  @Query(value = "SELECT t FROM TestimonialEntity t "
+      + "WHERE t.softDeleted = false AND t.testimonialId = :id")
   Optional<TestimonialEntity> exists(@Param("id") Long id);
 
 }
