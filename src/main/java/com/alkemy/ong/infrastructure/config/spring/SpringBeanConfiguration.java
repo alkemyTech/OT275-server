@@ -18,7 +18,7 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public IDeleteSlideUseCase deleteSlideUseCase(ISlideRepository slideRepository){
+  public IDeleteSlideUseCase deleteSlideUseCase(ISlideRepository slideRepository) {
     return new DeleteSlideUseCaseService(slideRepository);
   }
 }
