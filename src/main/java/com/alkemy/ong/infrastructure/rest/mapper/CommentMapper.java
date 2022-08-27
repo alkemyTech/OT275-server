@@ -25,6 +25,8 @@ public class CommentMapper implements ICommentMapper{
   public CommentResponse fromDomain(Comment comment) {
     CommentResponse commentResponse = new CommentResponse();
 
-    commentResponse.setUser();
+    commentResponse.setUser(userMapper.fromDomain(comment.getUser()));
+
+    return commentResponse;
   }
 }
