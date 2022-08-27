@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 @Configuration
+@SuppressWarnings("deprecation")
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -34,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.DELETE, "/users/{id:[\\d+]}")
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, "/slides/{id:[\\d+]}")
+        .hasRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.DELETE, "/members/{id:[\\d+]}")
         .hasRole(Role.ADMIN.name())
         .anyRequest()
         .authenticated()

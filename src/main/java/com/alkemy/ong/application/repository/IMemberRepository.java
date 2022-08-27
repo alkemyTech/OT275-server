@@ -7,5 +7,4 @@ public interface IMemberRepository {
   void delete(Identifiable<Long> identificable);
 
   boolean exists(Identifiable<Long> identificable);
-
 }

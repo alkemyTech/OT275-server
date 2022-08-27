@@ -19,9 +19,7 @@ public class DeleteMemberUseCaseService implements IDeleteMemberUseCase {
   public void delete(Identifiable<Long> identifiable) {
     if (!memberRepository.exists(identifiable)) {
       throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Member"));
-
     }
     memberRepository.delete(identifiable);
   }
-
 }

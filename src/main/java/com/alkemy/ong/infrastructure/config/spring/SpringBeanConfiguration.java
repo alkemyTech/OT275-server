@@ -18,20 +18,16 @@ public class SpringBeanConfiguration {
   @Bean
   public IDeleteMemberUseCase deleteMemberUseCase(IMemberRepository memberRepository) {
     return new DeleteMemberUseCaseService(memberRepository);
-
   }
 
   @Bean
   public IDeleteUserUseCase deleteUserUseCase(IUserRepository userRepository) {
     return new DeleteUserUseCaseService(userRepository);
-
   }
 
   @Bean
   public IDeleteSlideUseCase deleteSlideUseCase(ISlideRepository slideRepository) {
     return new DeleteSlideUseCaseService(slideRepository);
-
   }
-
 }
 
