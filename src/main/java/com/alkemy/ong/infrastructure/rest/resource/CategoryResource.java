@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/Categories")
+@RequestMapping("/categories")
 @RestController
 @RequiredArgsConstructor
 public class CategoryResource {
 
   private final IDeleteCategoryUseCase deleteCategoryUseCase;
 
-@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
- public ResponseEntity<Void>delete(@PathVariable Long id){
-  deleteCategoryUseCase.delete(() -> id);
-  return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-}
+  @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    deleteCategoryUseCase.delete(() -> id);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
 }

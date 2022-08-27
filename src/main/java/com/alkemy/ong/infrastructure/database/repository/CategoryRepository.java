@@ -18,7 +18,7 @@ public class CategoryRepository implements ICategoryRepository {
   }
 
   @Override
-  public boolean exist(Identifiable<Long> identifiable) {
+  public boolean exists(Identifiable<Long> identifiable) {
     return categorySpringRepository.exists(identifiable.getId()).isPresent();
   }
 }

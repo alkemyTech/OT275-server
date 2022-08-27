@@ -26,7 +26,7 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public IDeleteCategoryUseCase deleteCategoryUseCase(ICategoryRepository categoryRepository){
+  public IDeleteCategoryUseCase deleteCategoryUseCase(ICategoryRepository categoryRepository) {
     return new DeleteCategoryUseCaseService(categoryRepository);
   }
 }

@@ -6,5 +6,5 @@ public interface ICategoryRepository {
 
   void delete(Identifiable<Long> identifiable);
 
-  boolean exist(Identifiable<Long> identifiable);
+  boolean exists(Identifiable<Long> identifiable);
 }

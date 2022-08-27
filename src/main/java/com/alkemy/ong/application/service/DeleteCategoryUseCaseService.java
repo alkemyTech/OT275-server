@@ -16,7 +16,7 @@ public class DeleteCategoryUseCaseService implements IDeleteCategoryUseCase {
   @Transactional
   @Override
   public void delete(Identifiable<Long> identifiable) {
-    if (!categoryRepository.exist(identifiable)) {
+    if (!categoryRepository.exists(identifiable)) {
       throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Category"));
     }
     categoryRepository.delete(identifiable);
