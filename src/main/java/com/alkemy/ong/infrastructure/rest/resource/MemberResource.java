@@ -4,6 +4,7 @@ import com.alkemy.ong.application.service.usecase.IDeleteMemberUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +19,10 @@ public class MemberResource {
   @Autowired
   private final IDeleteMemberUseCase deleteMemberUseCase;
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> delete(@PathVariable Long id) {
     deleteMemberUseCase.delete(() -> id);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
   }
-
 
 }
