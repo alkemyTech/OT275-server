@@ -43,7 +43,7 @@ public class CommentAuthorization implements IAuthorization {
     return authentication.getAuthorities()
         .stream()
         .map(GrantedAuthority::getAuthority)
-        .anyMatch(authority -> authority.equals(Role.ADMIN.name()));
+        .anyMatch(authority -> authority.equals(Role.ADMIN.getFullRoleName()));
   }
 
 }
