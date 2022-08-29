@@ -44,13 +44,13 @@ public class SendGridUtils implements IMailSend {
       log.info(String.valueOf(response.getHeaders()));
     } catch (IOException ex) {
       log.error(ex.getMessage());
-      throw new ServiceException(ErrorMessage.SERVICE_EMAIL_ERROR.getMessage());
+      throw new ServiceException(ErrorMessage.SERVICE_MAIL_FAILURE.getMessage());
     }
 
   }
 
   @Override
-  public MailService getServiceName() {
+  public MailService getService() {
     return MailService.SENDGRID;
   }
 
