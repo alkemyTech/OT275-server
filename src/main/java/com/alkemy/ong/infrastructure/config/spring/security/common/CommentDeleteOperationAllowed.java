@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.config.spring.security.common;
 
 import com.alkemy.ong.application.repository.ICommentRepository;
-import com.alkemy.ong.application.service.usecase.IAuthorization;
+import com.alkemy.ong.application.service.usecase.IOperationAllowed;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.infrastructure.rest.mapper.CommentMapper;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CommentAuthorization implements IAuthorization {
+public class CommentDeleteOperationAllowed implements IOperationAllowed {
 
   private final ICommentRepository commentRepository;
   private final CommentMapper commentMapper;

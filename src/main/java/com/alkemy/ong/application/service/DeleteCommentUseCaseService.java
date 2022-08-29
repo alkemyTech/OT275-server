@@ -4,8 +4,8 @@ import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.application.exception.OperationNotPermitted;
 import com.alkemy.ong.application.repository.ICommentRepository;
-import com.alkemy.ong.application.service.usecase.IAuthorization;
 import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
+import com.alkemy.ong.application.service.usecase.IOperationAllowed;
 import com.alkemy.ong.domain.Identifiable;
 import lombok.AllArgsConstructor;
 
@@ -14,11 +14,11 @@ public class DeleteCommentUseCaseService implements IDeleteCommentUseCase {
 
   private ICommentRepository commentRepository;
 
-  private IAuthorization authorization;
+  private IOperationAllowed operationAllowed;
 
   @Override
   public void delete(Identifiable<Long> identifiable) {
-    if (!authorization.isAuthorized(identifiable)) {
+    if (!operationAllowed.isAuthorized(identifiable)) {
       throw new OperationNotPermitted(ErrorMessage.OPERATION_NOT_PERMITTED.name());
     }
 

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.application.exception.OperationNotPermitted;
 import com.alkemy.ong.application.repository.ICommentRepository;
-import com.alkemy.ong.application.service.usecase.IAuthorization;
+import com.alkemy.ong.application.service.usecase.IOperationAllowed;
 import com.alkemy.ong.domain.Identifiable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,14 +25,14 @@ class DeleteCommentUseCaseServiceTest {
   private ICommentRepository repository;
 
   @Mock
-  private IAuthorization authorization;
+  private IOperationAllowed operationAllowed;
 
   @Mock
   private Identifiable<Long> identifiable;
 
   @BeforeEach
   void setUp() {
-    deleteCommentUseCaseService = new DeleteCommentUseCaseService(repository, authorization);
+    deleteCommentUseCaseService = new DeleteCommentUseCaseService(repository, operationAllowed);
   }
 
   @Test
@@ -45,7 +45,7 @@ class DeleteCommentUseCaseServiceTest {
   @Test
   void shouldThrowExceptionWhenUserIsNotAuthorized() {
     given(repository.exists(identifiable)).willReturn(true);
-    when(authorization.isAuthorized(identifiable)).thenReturn(false);
+    when(operationAllowed.isAuthorized(identifiable)).thenReturn(false);
 
     assertThrows(OperationNotPermitted.class,
         () -> deleteCommentUseCaseService.delete(identifiable));
@@ -54,7 +54,7 @@ class DeleteCommentUseCaseServiceTest {
   @Test
   void shouldDeleteCommentWhenUserIsAuthorized() {
     given(repository.exists(identifiable)).willReturn(true);
-    when(authorization.isAuthorized(identifiable)).thenReturn(true);
+    when(operationAllowed.isAuthorized(identifiable)).thenReturn(true);
 
     deleteCommentUseCaseService.delete(identifiable);
 

@@ -12,13 +12,13 @@ import com.alkemy.ong.application.service.DeleteMemberUseCaseService;
 import com.alkemy.ong.application.service.DeleteSlideUseCaseService;
 import com.alkemy.ong.application.service.DeleteTestimonialUseCaseService;
 import com.alkemy.ong.application.service.DeleteUserUseCaseService;
-import com.alkemy.ong.application.service.usecase.IAuthorization;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteMemberUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
+import com.alkemy.ong.application.service.usecase.IOperationAllowed;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -53,7 +53,7 @@ public class SpringBeanConfiguration {
 
   @Bean
   public IDeleteCommentUseCase deleteCommentUseCase(ICommentRepository commentRepository,
-      IAuthorization authorization) {
+      IOperationAllowed authorization) {
     return new DeleteCommentUseCaseService(commentRepository, authorization);
   }
 
