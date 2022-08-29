@@ -1,5 +1,6 @@
 package com.alkemy.ong.infrastructure.config.spring.exception;
 
+import com.alkemy.ong.application.exception.InvalidCredentials;
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.infrastructure.rest.response.ErrorResponse;
 import java.util.List;
@@ -26,6 +27,13 @@ public class RestExceptionHandler {
         e);
 
     return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  @ExceptionHandler(value = InvalidCredentials.class)
+  protected ResponseEntity<ErrorResponse> handleInvalidCredentials(InvalidCredentials e) {
+    ErrorResponse errorResponse = buildErrorResponse(HttpStatus.UNAUTHORIZED, INVALID_ARGUMENT, e);
+
+    return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
   }
 
   @ExceptionHandler(value = ObjectNotFound.class)
