@@ -7,6 +7,7 @@ import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.repository.ITestimonialRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
+import com.alkemy.ong.application.service.CreateUserUseCaseService;
 import com.alkemy.ong.application.service.DeleteCategoryUseCaseService;
 import com.alkemy.ong.application.service.DeleteCommentUseCaseService;
 import com.alkemy.ong.application.service.DeleteMemberUseCaseService;
@@ -14,6 +15,7 @@ import com.alkemy.ong.application.service.DeleteNewsUseCaseService;
 import com.alkemy.ong.application.service.DeleteSlideUseCaseService;
 import com.alkemy.ong.application.service.DeleteTestimonialUseCaseService;
 import com.alkemy.ong.application.service.DeleteUserUseCaseService;
+import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteMemberUseCase;
@@ -22,6 +24,7 @@ import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IOperationAllowed;
+import com.alkemy.ong.infrastructure.database.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -63,6 +66,11 @@ public class SpringBeanConfiguration {
   public IDeleteCommentUseCase deleteCommentUseCase(ICommentRepository commentRepository,
       IOperationAllowed authorization) {
     return new DeleteCommentUseCaseService(commentRepository, authorization);
+  }
+
+  @Bean
+  public ICreateUserUseCase createUserService(UserRepository userRepository) {
+    return new CreateUserUseCaseService(userRepository);
   }
 
 }
