@@ -2,6 +2,7 @@ package com.alkemy.ong.infrastructure.config.spring.security;
 
 import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
 import com.alkemy.ong.infrastructure.config.spring.security.filter.AuthorizationFilter;
+import com.alkemy.ong.infrastructure.config.spring.security.filter.CustomAuthEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -20,6 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   private AuthorizationFilter authorizationFilter;
+  @Autowired
+  private CustomAuthEntryPoint authEntryPoint;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -47,6 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasRole(Role.ADMIN.name())
         .anyRequest()
         .authenticated()
+        .and()
+        .exceptionHandling()
+        .authenticationEntryPoint(authEntryPoint)
         .and()
         .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class);
   }
