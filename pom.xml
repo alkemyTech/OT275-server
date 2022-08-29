@@ -131,6 +131,11 @@
 			<groupId>com.h2database</groupId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.sendgrid</groupId>
+			<artifactId>sendgrid-java</artifactId>
+			<version>4.9.3</version>
+		</dependency>
 	</dependencies>
 
 	<description>ONG project with Spring Boot</description>
