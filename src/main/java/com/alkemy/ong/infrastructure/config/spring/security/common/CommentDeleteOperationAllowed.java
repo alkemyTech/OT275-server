@@ -24,28 +24,23 @@ public class CommentDeleteOperationAllowed implements IOperationAllowed {
 
     Authentication authentication = getAuthentication();
 
-    return comment.isPresent() && (isAdmin(authentication) || isUserCreator(
-        comment.get().getCreatedBy(),
-        buildUser(authentication.getName())));
+    return comment.isPresent() && (isAdmin(authentication)
+        || isUserCreator(comment.get().getCreatedBy(), authentication.getName()));
   }
 
   private Authentication getAuthentication() {
     return SecurityContextHolder.getContext().getAuthentication();
   }
 
-  private boolean isUserCreator(User owner, User user) {
-    return owner.equals(user);
+  private boolean isUserCreator(User owner, String user) {
+    return owner.getEmail().equals(user);
   }
 
   private boolean isAdmin(Authentication authentication) {
-    return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+    return authentication.getAuthorities()
+        .stream()
+        .map(GrantedAuthority::getAuthority)
         .anyMatch(authority -> authority.equals(Role.ADMIN.getFullRoleName()));
-  }
-
-  private User buildUser(String email) {
-    User user = new User();
-    user.setEmail(email);
-    return user;
   }
 
 }
