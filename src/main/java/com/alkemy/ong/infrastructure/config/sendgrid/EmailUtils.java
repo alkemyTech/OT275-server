@@ -23,7 +23,7 @@ public class EmailUtils implements IMailSend {
 
   @Value("${app.email}")
   private String fromEmail;
-  @Value("${spring.sendgrid.api-key}")
+  @Value("${sendgrid.api-key}")
   private String sendGridApiKey;
 
 
