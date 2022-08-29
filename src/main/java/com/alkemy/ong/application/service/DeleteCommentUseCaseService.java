@@ -19,7 +19,7 @@ public class DeleteCommentUseCaseService implements IDeleteCommentUseCase {
   @Override
   public void delete(Identifiable<Long> identifiable) {
     if (!operationAllowed.isAuthorized(identifiable)) {
-      throw new OperationNotPermitted(ErrorMessage.OPERATION_NOT_PERMITTED.name());
+      throw new OperationNotPermitted(ErrorMessage.OPERATION_NOT_PERMITTED.getMessage());
     }
 
     if (!commentRepository.exists(identifiable)) {

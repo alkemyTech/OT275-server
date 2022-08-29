@@ -16,4 +16,7 @@ public enum ErrorMessage {
     return MessageFormat.format(message, object);
   }
 
+  public String getMessage() {
+    return message;
+  }
 }
