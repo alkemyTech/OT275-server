@@ -37,6 +37,7 @@ class DeleteCommentUseCaseServiceTest {
 
   @Test
   void shouldThrowExceptionWhenCommentDoesNotExist() {
+    when(operationAllowed.isAuthorized(identifiable)).thenReturn(true);
     given(repository.exists(identifiable)).willReturn(false);
 
     assertThrows(ObjectNotFound.class, () -> deleteCommentUseCaseService.delete(identifiable));
@@ -44,7 +45,6 @@ class DeleteCommentUseCaseServiceTest {
 
   @Test
   void shouldThrowExceptionWhenUserIsNotAuthorized() {
-    given(repository.exists(identifiable)).willReturn(true);
     when(operationAllowed.isAuthorized(identifiable)).thenReturn(false);
 
     assertThrows(OperationNotPermitted.class,
