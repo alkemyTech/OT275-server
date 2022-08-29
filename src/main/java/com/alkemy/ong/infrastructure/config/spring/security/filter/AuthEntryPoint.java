@@ -34,9 +34,9 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
   private static class AuthenticationError {
 
     public Timestamp timestamp;
-    public final int STATUS_CODE = 403;
-    public final String ERROR = "Forbidden";
-    public final String MESSAGE = "Invalid Credentials";
+    public final int statusCode = 403;
+    public final String error = "Forbidden";
+    public final String message = "Invalid Credentials";
     public String path;
 
     public AuthenticationError(Timestamp timestamp, String path) {
