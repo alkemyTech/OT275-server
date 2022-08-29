@@ -18,12 +18,12 @@ public class DeleteCommentUseCaseService implements IDeleteCommentUseCase {
 
   @Override
   public void delete(Identifiable<Long> identifiable) {
-    if (!commentRepository.exists(identifiable)) {
-      throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Comment"));
-    }
-
     if (!authorization.isAuthorized(identifiable)) {
       throw new OperationNotPermitted(ErrorMessage.OPERATION_NOT_PERMITTED.name());
+    }
+
+    if (!commentRepository.exists(identifiable)) {
+      throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Comment"));
     }
 
     commentRepository.delete(identifiable);
