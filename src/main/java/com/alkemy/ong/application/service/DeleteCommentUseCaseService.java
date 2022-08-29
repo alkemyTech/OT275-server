@@ -12,13 +12,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DeleteCommentUseCaseService implements IDeleteCommentUseCase {
 
-  private ICommentRepository repository;
+  private ICommentRepository commentRepository;
 
   private IAuthorization authorization;
 
   @Override
   public void delete(Identifiable<Long> identifiable) {
-    if (!repository.exists(identifiable)) {
+    if (!commentRepository.exists(identifiable)) {
       throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Comment"));
     }
 
@@ -26,6 +26,6 @@ public class DeleteCommentUseCaseService implements IDeleteCommentUseCase {
       throw new OperationNotPermitted(ErrorMessage.OPERATION_NOT_PERMITTED.name());
     }
 
-    repository.delete(identifiable);
+    commentRepository.delete(identifiable);
   }
 }
