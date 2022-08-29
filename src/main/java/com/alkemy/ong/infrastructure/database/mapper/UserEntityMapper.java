@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserEntityMapper {
 
-  private final JwtUtils jwtUtils;
   private final RoleEntityMapper roleEntityMapper;
 
   public User toDomain(UserEntity entity) {
