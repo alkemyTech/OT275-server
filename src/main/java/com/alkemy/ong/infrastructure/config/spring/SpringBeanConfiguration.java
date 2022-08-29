@@ -1,15 +1,18 @@
 package com.alkemy.ong.infrastructure.config.spring;
 
+import com.alkemy.ong.application.repository.ICategoryRepository;
 import com.alkemy.ong.application.repository.IMemberRepository;
 import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.repository.ITestimonialRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
+import com.alkemy.ong.application.service.DeleteCategoryUseCaseService;
 import com.alkemy.ong.application.service.DeleteMemberUseCaseService;
 import com.alkemy.ong.application.service.DeleteNewsUseCaseService;
 import com.alkemy.ong.application.service.DeleteSlideUseCaseService;
 import com.alkemy.ong.application.service.DeleteTestimonialUseCaseService;
 import com.alkemy.ong.application.service.DeleteUserUseCaseService;
+import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteMemberUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteNewsUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
@@ -45,6 +48,11 @@ public class SpringBeanConfiguration {
   @Bean
   public IDeleteNewsUseCase deleteNewsUseCase(INewsRepository newsRepository) {
     return new DeleteNewsUseCaseService(newsRepository);
+  }
+  
+  @Bean
+  public IDeleteCategoryUseCase deleteCategoryUseCase(ICategoryRepository categoryRepository) {
+    return new DeleteCategoryUseCaseService(categoryRepository);
   }
 
 }

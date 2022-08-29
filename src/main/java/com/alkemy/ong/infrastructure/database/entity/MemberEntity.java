@@ -51,6 +51,6 @@ public class MemberEntity {
   private Timestamp createTimestamp;
 
   @Column(name = "SOFT_DELETE")
-  private boolean softDelete;
+  private boolean softDeleted;
 
 }
