@@ -17,22 +17,22 @@ public class UserRegisterMapper {
     if (registerRequest == null) {
       return null;
     }
-    return User.builder()
-        .firstName(registerRequest.getFirstName())
-        .lastName(registerRequest.getLastName())
-        .email(registerRequest.getEmail())
-        .password(passwordEncoder.encode(registerRequest.getPassword()))
-        .build();
+    User user = new User();
+    user.setEmail(registerRequest.getEmail());
+    user.setFirstName(registerRequest.getFirstName());
+    user.setLastName(registerRequest.getLastName());
+    user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+    return user;
   }
 
   public UserRegisterResponse toResponse(User user) {
     if (user == null) {
       return null;
     }
-    return UserRegisterResponse.builder()
-        .firstName(user.getFirstName())
-        .lastName(user.getLastName())
-        .email(user.getEmail())
-        .build();
+    UserRegisterResponse registerResponse = new UserRegisterResponse();
+    registerResponse.setEmail(user.getEmail());
+    registerResponse.setFirstName(user.getFirstName());
+    registerResponse.setLastName(user.getLastName());
+    return registerResponse;
   }
 }
