@@ -15,3 +15,10 @@ spring:
     api-key: foo
 app:
   email: foo@example.com
+aws:
+  credentials:
+    access-key: foo
+    secret-key: foo
+    region : us-east-1
+  bucket:
+    name: cohorte-agosto-38d749a7

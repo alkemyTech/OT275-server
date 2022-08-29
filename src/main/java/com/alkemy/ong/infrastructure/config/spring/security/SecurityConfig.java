@@ -2,15 +2,20 @@ package com.alkemy.ong.infrastructure.config.spring.security;
 
 import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
 import com.alkemy.ong.infrastructure.config.spring.security.filter.AuthorizationFilter;
+import com.alkemy.ong.infrastructure.config.spring.security.filter.CustomAccessDeniedHandler;
+import com.alkemy.ong.infrastructure.config.spring.security.filter.CustomAuthEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
@@ -20,6 +25,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   private AuthorizationFilter authorizationFilter;
+
+  @Bean
+  public AccessDeniedHandler accessDeniedHandler() {
+    return new CustomAccessDeniedHandler();
+  }
+
+  @Bean
+  public AuthenticationEntryPoint authenticationEntryPoint() {
+    return new CustomAuthEntryPoint();
+  }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -48,7 +63,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .anyRequest()
         .authenticated()
         .and()
-        .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
+        .exceptionHandling()
+        .accessDeniedHandler(accessDeniedHandler())
+        .authenticationEntryPoint(authenticationEntryPoint());
   }
 
 }
