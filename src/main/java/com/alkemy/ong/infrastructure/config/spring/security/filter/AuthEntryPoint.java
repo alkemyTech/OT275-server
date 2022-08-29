@@ -3,7 +3,6 @@ package com.alkemy.ong.infrastructure.config.spring.security.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.sql.Time;
 import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +18,10 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
   @Override
   public void commence(HttpServletRequest request, HttpServletResponse response,
       AuthenticationException authException) throws IOException, ServletException {
+
     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+
     OutputStream responseStream = response.getOutputStream();
     ObjectMapper mapper = new ObjectMapper();
     mapper.writeValue(responseStream,
