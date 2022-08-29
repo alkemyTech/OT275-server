@@ -70,17 +70,17 @@ public class RestExceptionHandler {
     return String.format("%s : %s", fieldError.getField(), fieldError.getDefaultMessage());
   }
 
-  private static ErrorResponse buildErrorResponse(HttpStatus httpStatus, String message,
-      Exception e) {
-    return new ErrorResponse(httpStatus.value(), message, e.getMessage());
-  }
-
   @ExceptionHandler(value = UserAlreadyExists.class)
   protected ResponseEntity<ErrorResponse> handleUserAlreadyExists(UserAlreadyExists e) {
     ErrorResponse errorResponse = buildErrorResponse(HttpStatus.BAD_REQUEST,
         INVALID_ARGUMENT,
         Collections.singletonList(e.getMessage()));
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
+
+  private static ErrorResponse buildErrorResponse(HttpStatus httpStatus, String message,
+      Exception e) {
+    return new ErrorResponse(httpStatus.value(), message, e.getMessage());
   }
 
   private static ErrorResponse buildErrorResponse(HttpStatus httpStatus, String message,

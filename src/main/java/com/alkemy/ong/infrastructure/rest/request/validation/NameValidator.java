@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 
 public class NameValidator implements ConstraintValidator<Name, String> {
 
-  private final String REGEXP_NAME = "^\\p{L}+[\\p{L}\\s]*$";
+  private static final String REGEXP_NAME = "^\\p{L}+[\\p{L}\\s]*$";
 
   @Override
   public void initialize(Name constraintAnnotation) {
