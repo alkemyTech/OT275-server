@@ -13,7 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 public class UserRegisterRequest {
 
   @Name(message = "First name must contain only spaces and letters.")

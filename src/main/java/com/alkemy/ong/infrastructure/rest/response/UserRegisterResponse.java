@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 public class UserRegisterResponse {
 
   private String firstName;
