@@ -26,4 +26,17 @@ public class UserEntityMapper {
         .build();
   }
 
+  public UserEntity toEntity(User user) {
+    if (user == null) {
+      return null;
+    }
+    UserEntity userEntity = new UserEntity();
+    userEntity.setEmail(user.getEmail());
+    userEntity.setFirstName(user.getFirstName());
+    userEntity.setLastName(user.getLastName());
+    userEntity.setPassword(user.getPassword());
+    userEntity.setImageUrl(user.getImageUrl());
+    userEntity.setRole(roleEntityMapper.toEntity(user.getRole()));
+    return userEntity;
+  }
 }
