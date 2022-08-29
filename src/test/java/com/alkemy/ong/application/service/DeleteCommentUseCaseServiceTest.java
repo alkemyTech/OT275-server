@@ -3,7 +3,6 @@ package com.alkemy.ong.application.service;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.application.exception.OperationNotPermitted;
@@ -37,7 +36,7 @@ class DeleteCommentUseCaseServiceTest {
 
   @Test
   void shouldThrowExceptionWhenCommentDoesNotExist() {
-    when(operationAllowed.isAuthorized(identifiable)).thenReturn(true);
+    given(operationAllowed.isAuthorized(identifiable)).willReturn(true);
     given(repository.exists(identifiable)).willReturn(false);
 
     assertThrows(ObjectNotFound.class, () -> deleteCommentUseCaseService.delete(identifiable));
@@ -45,7 +44,7 @@ class DeleteCommentUseCaseServiceTest {
 
   @Test
   void shouldThrowExceptionWhenUserIsNotAuthorized() {
-    when(operationAllowed.isAuthorized(identifiable)).thenReturn(false);
+    given(operationAllowed.isAuthorized(identifiable)).willReturn(false);
 
     assertThrows(OperationNotPermitted.class,
         () -> deleteCommentUseCaseService.delete(identifiable));
@@ -54,7 +53,7 @@ class DeleteCommentUseCaseServiceTest {
   @Test
   void shouldDeleteCommentWhenUserIsAuthorized() {
     given(repository.exists(identifiable)).willReturn(true);
-    when(operationAllowed.isAuthorized(identifiable)).thenReturn(true);
+    given(operationAllowed.isAuthorized(identifiable)).willReturn(true);
 
     deleteCommentUseCaseService.delete(identifiable);
 
