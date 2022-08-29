@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class Comment {
 
-  private User user;
+  private User createdBy;
 
 }

@@ -24,7 +24,7 @@ public class CommentDeleteOperationAllowed implements IOperationAllowed {
 
     Authentication authentication = getAuthentication();
 
-    return comment.isPresent() && (isAdmin(authentication) || isUserCreator(comment.get().getUser(),
+    return comment.isPresent() && (isAdmin(authentication) || isUserCreator(comment.get().getCreatedBy(),
         buildUser(authentication.getName())));
   }
 

@@ -14,7 +14,7 @@ public class CommentEntityMapper {
   public Comment toDomain(CommentEntity entity) {
     Comment comment = new Comment();
 
-    comment.setUser(userEntityMapper.toDomain(entity.getUser()));
+    comment.setCreatedBy(userEntityMapper.toDomain(entity.getUser()));
 
     return comment;
   }
