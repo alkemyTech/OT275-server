@@ -19,7 +19,7 @@ public class AwsConfig {
   @Value("${aws.credentials.secret-key}")
   private String secretKey;
 
-  @Value("${aws.credentials.region}")
+  @Value("${aws.region}")
   private String region;
 
   @Value("${aws.bucket.name}")
@@ -39,6 +39,5 @@ public class AwsConfig {
   public String getBucketName() {
     return bucketName;
   }
-
 
 }
