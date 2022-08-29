@@ -38,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.DELETE, "/members/{id:[\\d+]}")
         .hasRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, "/testimonials/{id:[\\d+]}")
+        .hasRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.DELETE, "/news/{id:[\\d+]}")
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .anyRequest()
         .authenticated()
