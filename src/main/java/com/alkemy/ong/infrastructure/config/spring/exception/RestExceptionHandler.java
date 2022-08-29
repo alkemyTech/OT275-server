@@ -2,6 +2,7 @@ package com.alkemy.ong.infrastructure.config.spring.exception;
 
 import com.alkemy.ong.application.exception.InvalidCredentials;
 import com.alkemy.ong.application.exception.ObjectNotFound;
+import com.alkemy.ong.application.exception.OperationNotPermitted;
 import com.alkemy.ong.infrastructure.rest.response.ErrorResponse;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ public class RestExceptionHandler {
   private static final String OBJECT_NOT_FOUND = "Object not found in database.";
   private static final String INVALID_ARGUMENT = "Invalid input data.";
   private static final String ERROR_OCCURS = "Application has encountered an error.";
+  private static final String OPERATION_NOT_PERMITTED = "Operation not permitted";
 
   @ExceptionHandler(value = Exception.class)
   protected ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
@@ -41,6 +43,14 @@ public class RestExceptionHandler {
     ErrorResponse errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND, OBJECT_NOT_FOUND, e);
 
     return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(value = OperationNotPermitted.class)
+  protected ResponseEntity<ErrorResponse> handleOperationNotPermitted(OperationNotPermitted e) {
+    ErrorResponse errorResponse = buildErrorResponse(HttpStatus.FORBIDDEN, OPERATION_NOT_PERMITTED,
+        e);
+
+    return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
   }
 
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -74,4 +84,5 @@ public class RestExceptionHandler {
       List<String> moreInfo) {
     return new ErrorResponse(httpStatus.value(), message, moreInfo);
   }
+
 }

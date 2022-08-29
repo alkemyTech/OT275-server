@@ -4,7 +4,8 @@ import java.text.MessageFormat;
 
 public enum ErrorMessage {
   OBJECT_NOT_FOUND("{0} not found."),
-  INVALID_CREDENTIALS("Incorrect Username or Password.");
+  INVALID_CREDENTIALS("Incorrect Username or Password."),
+  OPERATION_NOT_PERMITTED("Operation not permitted.");
 
   private final String message;
 
@@ -20,4 +21,7 @@ public enum ErrorMessage {
     return MessageFormat.format(message, object);
   }
 
+  public String getMessage() {
+    return message;
+  }
 }
