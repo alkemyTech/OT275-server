@@ -14,7 +14,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = NameValidator.class)
 public @interface Name {
 
-  String message() default "{com.alkemy.ong.infrastructure.rest.request.Name.message}";
+  String message() default "{com.alkemy.ong.infrastructure.rest.request.validation.Name.message}";
 
   Class<?>[] groups() default {};
 
