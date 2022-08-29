@@ -4,7 +4,8 @@ import java.text.MessageFormat;
 
 public enum ErrorMessage {
   OBJECT_NOT_FOUND("{0} not found."),
-  OPERATION_NOT_PERMITTED("Operation not permitted.");
+  OPERATION_NOT_PERMITTED("Operation not permitted."),
+  USER_ALREADY_EXISTS("Email is being used, try another!");
 
   private final String message;
 
