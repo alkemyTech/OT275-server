@@ -4,8 +4,7 @@ import com.alkemy.ong.application.repository.ICommentRepository;
 import com.alkemy.ong.application.service.usecase.IOperationAllowed;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.Identifiable;
-import com.alkemy.ong.infrastructure.rest.mapper.CommentMapper;
-import com.alkemy.ong.infrastructure.rest.response.CommentResponse;
+import com.alkemy.ong.domain.User;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -18,32 +17,34 @@ import org.springframework.stereotype.Component;
 public class CommentDeleteOperationAllowed implements IOperationAllowed {
 
   private final ICommentRepository commentRepository;
-  private final CommentMapper commentMapper;
 
   @Override
   public boolean isAuthorized(Identifiable<Long> identifiable) {
     Optional<Comment> comment = commentRepository.find(identifiable);
-    Optional<CommentResponse> commentResponse = comment.map(commentMapper::toResponse);
 
     Authentication authentication = getAuthentication();
 
-    return commentResponse.filter(
-        response -> isAdmin(authentication) || isUserCreator(authentication, response)).isPresent();
+    return comment.isPresent() && (isAdmin(authentication) || isUserCreator(comment.get().getUser(),
+        buildUser(authentication.getName())));
   }
 
   private Authentication getAuthentication() {
     return SecurityContextHolder.getContext().getAuthentication();
   }
 
-  private boolean isUserCreator(Authentication authentication, CommentResponse response) {
-    return authentication.getName().equals(response.getUser().getEmail());
+  private boolean isUserCreator(User owner, User user) {
+    return owner.equals(user);
   }
 
   private boolean isAdmin(Authentication authentication) {
-    return authentication.getAuthorities()
-        .stream()
-        .map(GrantedAuthority::getAuthority)
+    return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
         .anyMatch(authority -> authority.equals(Role.ADMIN.getFullRoleName()));
+  }
+
+  private User buildUser(String email) {
+    User user = new User();
+    user.setEmail(email);
+    return user;
   }
 
 }
