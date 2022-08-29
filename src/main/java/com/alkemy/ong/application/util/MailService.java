@@ -5,14 +5,12 @@ import lombok.Getter;
 @Getter
 public enum MailService {
 
-  SENDGRID("SENDGRID", "A");
+  SENDGRID("SENDGRID");
 
   private final String serviceName;
-  private final String vendor;
 
-  MailService(String serviceName, String vendor) {
+  MailService(String serviceName) {
     this.serviceName = serviceName;
-    this.vendor = vendor;
   }
 
 }
