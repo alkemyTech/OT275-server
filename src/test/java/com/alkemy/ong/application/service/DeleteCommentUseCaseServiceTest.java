@@ -43,17 +43,6 @@ class DeleteCommentUseCaseServiceTest {
   }
 
   @Test
-  void shouldDeleteCommentWhenUserExist() {
-    given(repository.exists(identifiable)).willReturn(true);
-    when(authorization.isAuthorized(identifiable)).thenReturn(true);
-
-    deleteCommentUseCaseService.delete(identifiable);
-
-    verify(repository).exists(identifiable);
-    verify(repository).delete(identifiable);
-  }
-
-  @Test
   void shouldThrowExceptionWhenUserIsNotAuthorized() {
     given(repository.exists(identifiable)).willReturn(true);
     when(authorization.isAuthorized(identifiable)).thenReturn(false);
