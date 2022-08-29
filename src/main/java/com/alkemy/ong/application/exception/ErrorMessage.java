@@ -6,7 +6,7 @@ public enum ErrorMessage {
   OBJECT_NOT_FOUND("{0} not found."),
   OPERATION_NOT_PERMITTED("Operation not permitted."),
 
-  SERVICE_EMAIL_ERROR("Something goes wrong when sending email");
+  SERVICE_MAIL_FAILURE("Something goes wrong when sending email");
 
   private final String message;
 
