@@ -11,11 +11,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IUserSpringRepository extends JpaRepository<UserEntity, Long> {
 
+  UserEntity findByUsername(String username);
+
   @Modifying
   @Query("UPDATE UserEntity u SET u.softDeleted = true WHERE u.userId = :id")
   void softDelete(@Param("id") Long id);
 
   @Query(value = "SELECT u FROM UserEntity u WHERE u.softDeleted = false AND u.userId = :id")
   Optional<UserEntity> exists(@Param("id") Long id);
-  
+
 }
