@@ -17,10 +17,9 @@ public class CreateUserUseCaseService implements ICreateUserUseCase {
     if (userRepository.find(user.getEmail()).isPresent()) {
       throw new UserAlreadyExists(ErrorMessage.USER_ALREADY_EXISTS.getMessage());
     }
-    user.setRole(
-        com.alkemy.ong.domain.Role.builder()
-            .name(Role.USER.toString())
-            .build());
+    com.alkemy.ong.domain.Role role = new com.alkemy.ong.domain.Role();
+    role.setName(Role.USER.toString());
+    user.setRole(role);
     return userRepository.add(user);
   }
 }
