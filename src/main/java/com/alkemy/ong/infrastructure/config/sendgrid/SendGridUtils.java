@@ -42,7 +42,7 @@ public class SendGridUtils implements IMailSend {
       log.info(String.valueOf(response.getStatusCode()));
       log.info(response.getBody());
       log.info(String.valueOf(response.getHeaders()));
-    } catch (IOException ex) {
+    } catch (Exception ex) {
       log.error(ex.getMessage());
       throw new ServiceException(ErrorMessage.SERVICE_MAIL_FAILURE.getMessage());
     }
