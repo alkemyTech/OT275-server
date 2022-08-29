@@ -4,6 +4,6 @@ public interface IMailSend {
 
   void send(IMail mail);
 
-  EmailService getServiceName();
+  MailService getServiceName();
 
 }

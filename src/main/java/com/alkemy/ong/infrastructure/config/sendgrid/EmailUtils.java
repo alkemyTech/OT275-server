@@ -2,7 +2,7 @@ package com.alkemy.ong.infrastructure.config.sendgrid;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.ServiceException;
-import com.alkemy.ong.application.util.EmailService;
+import com.alkemy.ong.application.util.MailService;
 import com.alkemy.ong.application.util.IMail;
 import com.alkemy.ong.application.util.IMailSend;
 import com.sendgrid.Method;
@@ -50,8 +50,8 @@ public class EmailUtils implements IMailSend {
   }
 
   @Override
-  public EmailService getServiceName() {
-    return EmailService.SENDGRID;
+  public MailService getServiceName() {
+    return MailService.SENDGRID;
   }
 
   private Mail buildMail(IMail mail) {
