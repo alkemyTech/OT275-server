@@ -11,3 +11,7 @@ spring:
     show-sql: false
     defer-datasource-initialization: false
     hibernate.ddl-auto: update
+  sendgrid:
+    api-key: foo
+app:
+  email: foo@example.com
