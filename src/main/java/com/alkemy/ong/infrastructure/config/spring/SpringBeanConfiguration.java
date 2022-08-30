@@ -58,7 +58,6 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-
   public IGetOrganizationUseCase getOrganizationUseCase(
       IOrganizationRepository organizationRepository) {
     return new GetOrganizationUseCaseService(organizationRepository);
@@ -66,7 +65,6 @@ public class SpringBeanConfiguration {
 
 
   @Bean
-
   public IDeleteNewsUseCase deleteNewsUseCase(INewsRepository newsRepository) {
     return new DeleteNewsUseCaseService(newsRepository);
   }
