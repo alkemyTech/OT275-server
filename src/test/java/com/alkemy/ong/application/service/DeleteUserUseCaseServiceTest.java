@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class DeleteUserUseCaseServiceTest {
 
-  private DeleteUserUseCaseService userService;
+  private DeleteUserUseCaseService deleteUserUseCaseService;
 
   @Mock
   private IUserRepository userRepository;
@@ -26,21 +26,21 @@ class DeleteUserUseCaseServiceTest {
 
   @BeforeEach
   void setup() {
-    userService = new DeleteUserUseCaseService(userRepository);
+    deleteUserUseCaseService = new DeleteUserUseCaseService(userRepository);
   }
 
   @Test
   void shouldThrowExceptionWhenUserDoesNotExist() {
     given(userRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFound.class, () -> userService.delete(identifiable));
+    assertThrows(ObjectNotFound.class, () -> deleteUserUseCaseService.delete(identifiable));
   }
 
   @Test
   void shouldDeleteUserWhenUserExist() {
     given(userRepository.exists(identifiable)).willReturn(true);
 
-    userService.delete(identifiable);
+    deleteUserUseCaseService.delete(identifiable);
 
     verify(userRepository).exists(identifiable);
     verify(userRepository).delete(identifiable);

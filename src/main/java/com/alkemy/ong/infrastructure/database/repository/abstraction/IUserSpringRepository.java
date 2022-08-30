@@ -17,5 +17,6 @@ public interface IUserSpringRepository extends JpaRepository<UserEntity, Long> {
 
   @Query(value = "SELECT u FROM UserEntity u WHERE u.softDeleted = false AND u.userId = :id")
   Optional<UserEntity> exists(@Param("id") Long id);
-  
+
+  Optional<UserEntity> findByEmail(String email);
 }

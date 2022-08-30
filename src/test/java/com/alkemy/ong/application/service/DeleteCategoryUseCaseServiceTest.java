@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class DeleteCategoryUseCaseServiceTest {
 
-  private DeleteCategoryUseCaseService categoryService;
+  private DeleteCategoryUseCaseService deleteCategoryUseCaseService;
   @Mock
   private ICategoryRepository categoryRepository;
 
@@ -25,21 +25,22 @@ class DeleteCategoryUseCaseServiceTest {
 
   @BeforeEach
   void setup() {
-    categoryService = new DeleteCategoryUseCaseService(categoryRepository);
+    deleteCategoryUseCaseService = new DeleteCategoryUseCaseService(categoryRepository);
   }
 
   @Test
   void shouldThrowExceptionWhenCategoryDoesNotExist() {
     given(categoryRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFound.class, () -> categoryService.delete(identifiable));
+    assertThrows(ObjectNotFound.class,
+        () -> deleteCategoryUseCaseService.delete(identifiable));
   }
 
   @Test
   void shouldDeleteCategoryWhenCategoryExist() {
     given(categoryRepository.exists(identifiable)).willReturn(true);
 
-    categoryService.delete(identifiable);
+    deleteCategoryUseCaseService.delete(identifiable);
 
     verify(categoryRepository).exists(identifiable);
     verify(categoryRepository).delete(identifiable);

@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class DeleteSlideUseCaseServiceTest {
 
-  private DeleteSlideUseCaseService slideService;
+  private DeleteSlideUseCaseService deleteSlideUseCaseService;
   @Mock
   private ISlideRepository slideRepository;
 
@@ -25,21 +25,21 @@ class DeleteSlideUseCaseServiceTest {
 
   @BeforeEach
   void setup() {
-    slideService = new DeleteSlideUseCaseService(slideRepository);
+    deleteSlideUseCaseService = new DeleteSlideUseCaseService(slideRepository);
   }
 
   @Test
   void shouldThrowExceptionWhenSlideDoesNotExist() {
     given(slideRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFound.class, () -> slideService.delete(identifiable));
+    assertThrows(ObjectNotFound.class, () -> deleteSlideUseCaseService.delete(identifiable));
   }
 
   @Test
   void shouldDeleteSlideWhenSlideExist() {
     given(slideRepository.exists(identifiable)).willReturn(true);
 
-    slideService.delete(identifiable);
+    deleteSlideUseCaseService.delete(identifiable);
 
     verify(slideRepository).exists(identifiable);
     verify(slideRepository).delete(identifiable);
