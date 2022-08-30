@@ -2,9 +2,9 @@ package com.alkemy.ong.infrastructure.config.sendgrid;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.ServiceException;
-import com.alkemy.ong.application.util.MailService;
 import com.alkemy.ong.application.util.IMail;
 import com.alkemy.ong.application.util.IMailSend;
+import com.alkemy.ong.application.util.MailService;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
