@@ -29,7 +29,7 @@ public class RoleEntity {
   @Column(name = "ROLE_ID")
   private Long roleId;
 
-  @Column(name = "NAME", nullable = false, length = 5)
+  @Column(name = "NAME", nullable = false, length = 10)
   private String name;
 
   @Column(name = "DESCRIPTION")

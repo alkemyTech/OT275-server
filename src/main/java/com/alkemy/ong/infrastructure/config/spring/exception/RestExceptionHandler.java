@@ -7,7 +7,6 @@ import com.alkemy.ong.infrastructure.rest.response.ErrorResponse;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -22,7 +21,7 @@ public class RestExceptionHandler {
   private static final String OBJECT_NOT_FOUND = "Object not found in database.";
   private static final String INVALID_ARGUMENT = "Invalid input data.";
   private static final String ERROR_OCCURS = "Application has encountered an error.";
-  private static final String OPERATION_NOT_PERMITTED = "Operation not permitted";
+  private static final String OPERATION_NOT_PERMITTED = "Operation not permitted.";
 
   @ExceptionHandler(value = Exception.class)
   protected ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
@@ -67,7 +66,7 @@ public class RestExceptionHandler {
   }
 
   private String formatErrorField(FieldError fieldError) {
-    return String.format("%s : %s", fieldError.getField(), fieldError.getDefaultMessage());
+    return fieldError.getDefaultMessage();
   }
 
   @ExceptionHandler(value = UserAlreadyExists.class)

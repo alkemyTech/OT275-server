@@ -25,6 +25,7 @@ public class RoleEntityMapper {
       return null;
     }
     RoleEntity roleEntity = new RoleEntity();
+    roleEntity.setRoleId(role.getId());
     roleEntity.setName(role.getName());
     roleEntity.setDescription(role.getDescription());
     return roleEntity;

@@ -10,3 +10,18 @@ spring:
       hbm2ddl.auto: create-drop
   h2.console.enabled: false
   sql.init.platform: h2
+
+# AWS
+aws:
+  credentials:
+    access-key: foo
+    secret-key: foo
+  region: us-east-1
+  bucket:
+    name: cohorte-agosto-38d749a7
+
+# Send Email
+sendgrid:
+  api-key: foo
+app:
+  email: foo@example.com
