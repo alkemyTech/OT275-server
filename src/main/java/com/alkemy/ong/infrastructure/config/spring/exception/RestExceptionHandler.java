@@ -2,9 +2,12 @@ package com.alkemy.ong.infrastructure.config.spring.exception;
 
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.application.exception.OperationNotPermitted;
+import com.alkemy.ong.application.exception.UserAlreadyExists;
 import com.alkemy.ong.infrastructure.rest.response.ErrorResponse;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -67,6 +70,14 @@ public class RestExceptionHandler {
     return String.format("%s : %s", fieldError.getField(), fieldError.getDefaultMessage());
   }
 
+  @ExceptionHandler(value = UserAlreadyExists.class)
+  protected ResponseEntity<ErrorResponse> handleUserAlreadyExists(UserAlreadyExists e) {
+    ErrorResponse errorResponse = buildErrorResponse(HttpStatus.BAD_REQUEST,
+        INVALID_ARGUMENT,
+        Collections.singletonList(e.getMessage()));
+    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
+
   private static ErrorResponse buildErrorResponse(HttpStatus httpStatus, String message,
       Exception e) {
     return new ErrorResponse(httpStatus.value(), message, e.getMessage());
@@ -76,5 +87,4 @@ public class RestExceptionHandler {
       List<String> moreInfo) {
     return new ErrorResponse(httpStatus.value(), message, moreInfo);
   }
-
 }

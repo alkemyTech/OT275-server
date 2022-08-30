@@ -5,8 +5,8 @@ import java.text.MessageFormat;
 public enum ErrorMessage {
   OBJECT_NOT_FOUND("{0} not found."),
   OPERATION_NOT_PERMITTED("Operation not permitted."),
-
-  SERVICE_MAIL_FAILURE("Something goes wrong when sending email");
+  USER_ALREADY_EXISTS("Email is being used, try another!"),
+  SERVICE_MAIL_FAILURE("Something goes wrong when sending email.");
 
   private final String message;
 
