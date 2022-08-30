@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class DeleteTestimonialUseCaseServiceTest {
 
-  private DeleteTestimonialUseCaseService testimonialService;
+  private DeleteTestimonialUseCaseService deleteTestimonialUseCaseService;
 
   @Mock
   private ITestimonialRepository testimonialRepository;
@@ -26,21 +26,21 @@ class DeleteTestimonialUseCaseServiceTest {
 
   @BeforeEach
   void setup() {
-    testimonialService = new DeleteTestimonialUseCaseService(testimonialRepository);
+    deleteTestimonialUseCaseService = new DeleteTestimonialUseCaseService(testimonialRepository);
   }
 
   @Test
   void shouldThrowExceptionWhenTestimonialDoesNotExist() {
     given(testimonialRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFound.class, () -> testimonialService.delete(identifiable));
+    assertThrows(ObjectNotFound.class, () -> deleteTestimonialUseCaseService.delete(identifiable));
   }
 
   @Test
   void shouldDeleteTestimonialWhenTestimonialExist() {
     given(testimonialRepository.exists(identifiable)).willReturn(true);
 
-    testimonialService.delete(identifiable);
+    deleteTestimonialUseCaseService.delete(identifiable);
 
     verify(testimonialRepository).exists(identifiable);
     verify(testimonialRepository).delete(identifiable);

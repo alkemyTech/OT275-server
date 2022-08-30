@@ -5,7 +5,7 @@ import com.alkemy.ong.domain.Organization;
 
 public interface IOrganizationRepository {
 
-Organization findById(0);
+Organization findById();
 
 }
 

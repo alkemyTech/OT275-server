@@ -20,7 +20,7 @@ public class OrganizationResource {
 
   @GetMapping(value = "/{public}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> getAll()  {
-   getOrganizationUseCaseService.getAll(()-> );
+   getOrganizationUseCaseService.getAll(()-> Id);
 
 
   }

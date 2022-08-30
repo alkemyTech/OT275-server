@@ -15,7 +15,7 @@ public class OrganizationRepository implements IOrganizationRepository {
   private final static Long ZERO_VALUE = 0L;
 
   public Organization getPublicOrganization() {
-    return organizationSpringRepository.finById(ZERO_VALUE).;
+    return organizationSpringRepository.finById(ZERO_VALUE).getOrganizationId()).map(commentMapper::toDomain);;
 
 
   }
