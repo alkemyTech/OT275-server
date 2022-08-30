@@ -15,7 +15,7 @@ public class OrganizationRepository implements IOrganizationRepository {
 
   private final IOrganizationSpringRepository organizationSpringRepository;
 
-  private final static Long ZERO_VALUE = 0L;
+  private static final Long ZERO_VALUE = 0L;
 
   public Organization getPublicOrganization() {
     return organizationMapper.toDomain(organizationSpringRepository.findById(ZERO_VALUE).get());
