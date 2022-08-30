@@ -1,10 +1,8 @@
 package com.alkemy.ong.infrastructure.database.mapper;
 
 import com.alkemy.ong.domain.User;
-import com.alkemy.ong.infrastructure.config.spring.security.common.JwtUtils;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
