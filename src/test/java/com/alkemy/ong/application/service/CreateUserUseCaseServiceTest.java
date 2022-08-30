@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.exception.UserAlreadyExists;
+import com.alkemy.ong.application.repository.IRoleRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.domain.Role;
@@ -17,19 +18,22 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateUserUseCaseServiceTest {
+class CreateUserUseCaseServiceTest {
 
   private static final String EMAIL = "ricky@fort.com";
   private static final String ROLE = "ROLE_USER";
 
-  private ICreateUserUseCase userService;
+  private ICreateUserUseCase createUserUseCase;
 
   @Mock
   private IUserRepository userRepository;
 
+  @Mock
+  private IRoleRepository roleRepository;
+
   @BeforeEach
   void setup() {
-    userService = new CreateUserUseCaseService(userRepository);
+    createUserUseCase = new CreateUserUseCaseService(userRepository, roleRepository);
   }
 
   @Test
@@ -37,25 +41,26 @@ public class CreateUserUseCaseServiceTest {
     User user = new User();
     user.setEmail(EMAIL);
 
-    given(userRepository.find(EMAIL)).willReturn(Optional.ofNullable(user));
+    given(userRepository.find(EMAIL)).willReturn(Optional.of(user));
 
-    assertThrows(UserAlreadyExists.class, () -> userService.add(user));
+    assertThrows(UserAlreadyExists.class, () -> createUserUseCase.add(user));
   }
 
   @Test
   void shouldSaveUserWhenUserDoesNotExist() {
-    given(userRepository.find(EMAIL)).willReturn(Optional.empty());
-
     Role role = new Role();
     role.setName(ROLE);
 
+    given(userRepository.find(EMAIL)).willReturn(Optional.empty());
+    given(roleRepository.findRoleUser()).willReturn(role);
+
     User user = new User();
     user.setEmail(EMAIL);
-    user.setRole(role);
 
-    userService.add(user);
+    createUserUseCase.add(user);
 
     verify(userRepository).find(EMAIL);
+    verify(roleRepository).findRoleUser();
     verify(userRepository).add(user);
   }
 }

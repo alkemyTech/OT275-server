@@ -14,7 +14,6 @@ public class User {
   private String password;
   private String imageUrl;
   private Role role;
-  private Boolean softDeleted;
 
 }
 

@@ -4,6 +4,7 @@ import com.alkemy.ong.application.repository.ICategoryRepository;
 import com.alkemy.ong.application.repository.ICommentRepository;
 import com.alkemy.ong.application.repository.IMemberRepository;
 import com.alkemy.ong.application.repository.INewsRepository;
+import com.alkemy.ong.application.repository.IRoleRepository;
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.repository.ITestimonialRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
@@ -56,7 +57,7 @@ public class SpringBeanConfiguration {
   public IDeleteNewsUseCase deleteNewsUseCase(INewsRepository newsRepository) {
     return new DeleteNewsUseCaseService(newsRepository);
   }
-  
+
   @Bean
   public IDeleteCategoryUseCase deleteCategoryUseCase(ICategoryRepository categoryRepository) {
     return new DeleteCategoryUseCaseService(categoryRepository);
@@ -69,8 +70,9 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public ICreateUserUseCase createUserService(UserRepository userRepository) {
-    return new CreateUserUseCaseService(userRepository);
+  public ICreateUserUseCase createUserService(UserRepository userRepository,
+      IRoleRepository roleRepository) {
+    return new CreateUserUseCaseService(userRepository, roleRepository);
   }
 
 }

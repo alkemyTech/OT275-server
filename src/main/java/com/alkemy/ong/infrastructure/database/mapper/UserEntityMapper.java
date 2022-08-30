@@ -18,7 +18,6 @@ public class UserEntityMapper {
     user.setLastName(entity.getLastName());
     user.setImageUrl(entity.getImageUrl());
     user.setPassword(entity.getPassword());
-    user.setSoftDeleted(entity.isSoftDeleted());
     user.setRole(roleEntityMapper.toDomain(entity.getRole()));
     return user;
   }

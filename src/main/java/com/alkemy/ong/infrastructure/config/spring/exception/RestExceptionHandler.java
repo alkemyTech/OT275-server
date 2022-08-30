@@ -62,7 +62,7 @@ public class RestExceptionHandler {
     return ex.getBindingResult()
         .getFieldErrors()
         .stream()
-        .map(DefaultMessageSourceResolvable::getDefaultMessage)
+        .map(this::formatErrorField)
         .collect(Collectors.toList());
   }
 

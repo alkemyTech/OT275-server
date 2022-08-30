@@ -8,6 +8,7 @@ import com.alkemy.ong.infrastructure.rest.response.UserRegisterResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,16 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthResource {
+
   private final ICreateUserUseCase createUserUseCase;
   private final UserRegisterMapper userRegisterMapper;
 
   @PostMapping(
       value = "/register",
-      produces = {"application/json"},
-      consumes = {"application/json"})
+      produces = MediaType.APPLICATION_JSON_VALUE,
+      consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<UserRegisterResponse> register(
-      @Valid @RequestBody UserRegisterRequest registerRequest
-  ) {
+      @Valid @RequestBody UserRegisterRequest registerRequest) {
     User user = userRegisterMapper.toDomain(registerRequest);
     User savedUser = createUserUseCase.add(user);
     UserRegisterResponse response = userRegisterMapper.toResponse(savedUser);

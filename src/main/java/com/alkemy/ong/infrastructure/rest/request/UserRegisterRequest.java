@@ -20,7 +20,7 @@ public class UserRegisterRequest {
   @Name(message = "Last name must contain only spaces and letters.")
   private String lastName;
 
-  @Email(message = "Email should be valid")
+  @Email(message = "Email should be valid.")
   private String email;
 
   @Size(min = 8, max = 16, message = "Password must be between 8 and 16 characters long.")
