@@ -19,8 +19,6 @@ public class OrganizationRepository implements IOrganizationRepository {
 
   public Organization getPublicOrganization() {
     return organizationMapper.toDomain(organizationSpringRepository.findById(ZERO_VALUE).get());
-
-
   }
 
 }

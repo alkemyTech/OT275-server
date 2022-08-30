@@ -14,7 +14,7 @@ public class Organization {
   private String name;
   private String imageUrl;
   private String phone;
-  private String adress;
+  private String address;
 
 
 }

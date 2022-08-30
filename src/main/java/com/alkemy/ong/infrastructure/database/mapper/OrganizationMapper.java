@@ -16,7 +16,7 @@ public class OrganizationMapper {
     organization.setName(entity.getName());
     organization.setImageUrl(entity.getImageUrl());
     organization.setPhone(entity.getPhone());
-    organization.setAdress(entity.getAddress());
+    organization.setAddress(entity.getAddress());
     return organization;
 
   }

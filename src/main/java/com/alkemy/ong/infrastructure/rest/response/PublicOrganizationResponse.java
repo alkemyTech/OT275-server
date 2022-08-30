@@ -12,8 +12,8 @@ import lombok.Setter;
 public class PublicOrganizationResponse {
 
   private String name;
-  private String ImageUrl;
-  private String Phone;
-  private String adress;
+  private String imageUrl;
+  private String phone;
+  private String address;
 
 }
