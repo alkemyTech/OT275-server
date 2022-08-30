@@ -67,4 +67,5 @@ public class RestExceptionHandler {
     return new ErrorResponse(httpStatus.value(), message, moreInfo);
   }
 
+
 }

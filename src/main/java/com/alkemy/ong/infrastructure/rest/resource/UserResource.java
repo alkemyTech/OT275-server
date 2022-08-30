@@ -19,7 +19,7 @@ public class UserResource {
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> delete(@PathVariable Long id) {
-    deleteUserUseCase.delete(() -> id);
+
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 }
