@@ -1,7 +1,9 @@
 package com.alkemy.ong.application.service.usecase;
 
+import com.alkemy.ong.domain.Organization;
+
 public interface IGetOrganizationUseCase {
 
-  void getAll(IdentifiableTwo<Long> identifiableTwo);
+  Organization getPublicOrganization();
 
 }
