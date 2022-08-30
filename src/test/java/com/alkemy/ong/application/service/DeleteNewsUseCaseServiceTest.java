@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class DeleteNewsUseCaseServiceTest {
 
-  private DeleteNewsUseCaseService newsService;
+  private DeleteNewsUseCaseService deleteNewsUseCaseService;
 
   @Mock
   private INewsRepository newsRepository;
@@ -26,21 +26,21 @@ class DeleteNewsUseCaseServiceTest {
 
   @BeforeEach
   void setup() {
-    newsService = new DeleteNewsUseCaseService(newsRepository);
+    deleteNewsUseCaseService = new DeleteNewsUseCaseService(newsRepository);
   }
 
   @Test
   void shouldThrowAnExceptionWhenNewsDoesNotExist() {
     given(newsRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFound.class, () -> newsService.delete(identifiable));
+    assertThrows(ObjectNotFound.class, () -> deleteNewsUseCaseService.delete(identifiable));
   }
 
   @Test
   void shouldDeleteNewsWhenNewsExist() {
     given(newsRepository.exists(identifiable)).willReturn(true);
 
-    newsService.delete(identifiable);
+    deleteNewsUseCaseService.delete(identifiable);
 
     verify(newsRepository).exists(identifiable);
     verify(newsRepository).delete(identifiable);
