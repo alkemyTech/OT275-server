@@ -18,7 +18,7 @@ public class UserRegisterRequest {
   @Name(message = "First name must contain only spaces and letters.")
   private String firstName;
 
-  @Name(message = "First name must contain only spaces and letters.")
+  @Name(message = "Last name must contain only spaces and letters.")
   private String lastName;
 
   @Email(message = "Email should be valid")
