@@ -12,7 +12,6 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
-import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -35,18 +34,24 @@ public class SendGridUtils implements IMailSend {
     Request request = new Request();
 
     try {
+      Response response = sendGrid.api(request);
+      ensureStatusCodeIsDifferentTo202(response);
       request.setMethod(Method.POST);
       request.setEndpoint("mail/send");
       request.setBody(mailRequest.build());
-      Response response = sendGrid.api(request);
-      log.info(String.valueOf(response.getStatusCode()));
-      log.info(response.getBody());
-      log.info(String.valueOf(response.getHeaders()));
     } catch (Exception ex) {
       log.error(ex.getMessage());
       throw new ServiceException(ErrorMessage.SERVICE_MAIL_FAILURE.getMessage());
     }
 
+  }
+
+  private static void ensureStatusCodeIsDifferentTo202(Response response) {
+    if (response.getStatusCode() != 202) {
+      log.warn(String.valueOf(response.getStatusCode()));
+      log.warn(response.getBody());
+      throw new ServiceException(ErrorMessage.SERVICE_MAIL_FAILURE.getMessage());
+    }
   }
 
   @Override
