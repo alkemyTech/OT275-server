@@ -3,7 +3,7 @@ package com.alkemy.ong.infrastructure.config.sendgrid;
 import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.ServiceException;
 import com.alkemy.ong.application.util.IMail;
-import com.alkemy.ong.application.util.IMailSend;
+import com.alkemy.ong.application.util.IMailSender;
 import com.alkemy.ong.application.util.MailService;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class SendGridUtils implements IMailSend {
+public class SendGridUtils implements IMailSender {
 
   @Value("${app.email}")
   private String fromEmail;
@@ -34,11 +34,12 @@ public class SendGridUtils implements IMailSend {
     Request request = new Request();
 
     try {
-      Response response = sendGrid.api(request);
-      ensureStatusCodeIsDifferentTo202(response);
       request.setMethod(Method.POST);
       request.setEndpoint("mail/send");
       request.setBody(mailRequest.build());
+      Response response = sendGrid.api(request);
+
+      ensureStatusCodeIsDifferentTo202(response);
     } catch (Exception ex) {
       log.error(ex.getMessage());
       throw new ServiceException(ErrorMessage.SERVICE_MAIL_FAILURE.getMessage());

@@ -1,6 +1,6 @@
 package com.alkemy.ong.application.util;
 
-public interface IMailSend {
+public interface IMailSender {
 
   void send(IMail mail);
 
