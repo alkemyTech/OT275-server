@@ -1,6 +1,5 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.domain.Organization;
 import com.alkemy.ong.infrastructure.rest.mapper.PublicOrganizationMapper;
