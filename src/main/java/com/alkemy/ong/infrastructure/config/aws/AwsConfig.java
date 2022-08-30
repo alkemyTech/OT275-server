@@ -40,5 +40,4 @@ public class AwsConfig {
     return bucketName;
   }
 
-
 }

@@ -20,3 +20,9 @@ aws:
   region : us-east-1
   bucket:
     name: cohorte-agosto-38d749a7
+
+# Send Email
+sendgrid:
+  api-key: foo
+app:
+  email: foo@example.com
