@@ -14,10 +14,10 @@ public class UpdateCategoryUserCaseService implements IUpdateCategoryUseCase {
   private final ICategoryRepository categoryRepository;
 
   @Override
-  public Category update(Identifiable<Long> identifiable, Category category) {
-    if (!categoryRepository.exists(identifiable)) {
+  public Category update(Category category) {
+    if (!categoryRepository.exists(category::getCategoryId)) {
       throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Category"));
     }
-    return categoryRepository.update(identifiable, category);
+    return categoryRepository.update(category);
   }
 }

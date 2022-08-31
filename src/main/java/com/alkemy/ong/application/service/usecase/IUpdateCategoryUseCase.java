@@ -5,5 +5,5 @@ import com.alkemy.ong.domain.Identifiable;
 
 public interface IUpdateCategoryUseCase {
 
-  Category update(Identifiable<Long> identifiable, Category category);
+  Category update(Category category);
 }

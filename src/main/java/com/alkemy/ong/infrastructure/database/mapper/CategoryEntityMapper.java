@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 public class CategoryEntityMapper {
 
   public CategoryEntity toEntity(Category category) {
+    if (category == null) {
+      return null;
+    }
     CategoryEntity categoryEntity = new CategoryEntity();
     categoryEntity.setName(category.getName());
     categoryEntity.setDescription(category.getDescription());
@@ -18,6 +21,9 @@ public class CategoryEntityMapper {
   }
 
   public Category toDomain(CategoryEntity categoryEntity) {
+    if (categoryEntity == null) {
+      return null;
+    }
     Category category = new Category();
     category.setName(categoryEntity.getName());
     category.setDescription(categoryEntity.getDescription());

@@ -9,9 +9,7 @@ import lombok.Getter;
 public class CategoryUpdateRequest {
 
   @NotEmpty
-  @Pattern(
-      regexp = "^\\p{L}+[\\p{L}\\s]*$",
-      message = "Category name must contain only spaces and letters.")
+  @Name(message = "Category name must contain only spaces and letters.")
   private String name;
   private String description;
   private String imageUrl;

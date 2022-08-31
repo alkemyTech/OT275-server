@@ -34,8 +34,8 @@ public class CategoryResource {
   public ResponseEntity<CategoryUpdateResponse> update(
       @PathVariable Long id,
       @Valid @RequestBody CategoryUpdateRequest categoryUpdateRequest) {
-    Category category = categoryUpdateMapper.toDomain(categoryUpdateRequest);
-    Category updatedCategory = updateCategoryUseCase.update(() -> id,category);
+    Category category = categoryUpdateMapper.toUpdateDomain(() -> id, categoryUpdateRequest);
+    Category updatedCategory = updateCategoryUseCase.update(category);
     CategoryUpdateResponse categoryUpdateResponse = categoryUpdateMapper.toResponse(
         updatedCategory);
     return new ResponseEntity<>(categoryUpdateResponse,HttpStatus.OK);

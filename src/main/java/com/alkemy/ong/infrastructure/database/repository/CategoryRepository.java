@@ -18,9 +18,9 @@ public class CategoryRepository implements ICategoryRepository {
   private final CategoryEntityMapper categoryEntityMapper;
 
   @Override
-  public Category update(Identifiable<Long> identifiable, Category category) {
+  public Category update(Category category) {
     CategoryEntity categoryEntity = categoryEntityMapper.toEntity(category);
-    categoryEntity.setCategoryId(identifiable.getId());
+    categoryEntity.setCategoryId(category.getCategoryId());
     return categoryEntityMapper.toDomain(categorySpringRepository.save(categoryEntity));
   }
 
