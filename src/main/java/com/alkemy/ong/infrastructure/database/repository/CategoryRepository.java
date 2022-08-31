@@ -1,7 +1,10 @@
 package com.alkemy.ong.infrastructure.database.repository;
 
 import com.alkemy.ong.application.repository.ICategoryRepository;
+import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.domain.Identifiable;
+import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
+import com.alkemy.ong.infrastructure.database.mapper.CategoryEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,6 +14,13 @@ import org.springframework.stereotype.Component;
 public class CategoryRepository implements ICategoryRepository {
 
   private final ICategorySpringRepository categorySpringRepository;
+  private final CategoryEntityMapper categoryEntityMapper;
+
+  @Override
+  public Category update(Category category) {
+    CategoryEntity categoryEntity = categoryEntityMapper.toEntity(category);
+    return categoryEntityMapper.toDomain(categorySpringRepository.save(categoryEntity));
+  }
 
   @Override
   public void delete(Identifiable<Long> identifiable) {
