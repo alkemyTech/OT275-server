@@ -95,7 +95,7 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public IListSlideUseCase listSlideUseCaseService(SlideRepository slideRepository){
+  public IListSlideUseCase listSlideUseCaseService(SlideRepository slideRepository) {
     return new ListSlideUseCaseService(slideRepository);
   }
 }
