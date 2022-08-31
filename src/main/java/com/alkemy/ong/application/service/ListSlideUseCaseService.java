@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ListSlideUseCaseService implements IListSlideUseCase {
 
-  private ISlideRepository slideRepository;
+  private final ISlideRepository slideRepository;
 
   @Override
   public List<Slide> findAll() {
