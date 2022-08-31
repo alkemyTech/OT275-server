@@ -44,4 +44,9 @@ public class ActivityEntity {
   @Column(name = "SOFT_DELETED")
   private boolean softDeleted;
 
+  public ActivityEntity(String name, String content, String imageUrl) {
+    this.name = name;
+    this.content = content;
+    this.imageUrl = imageUrl;
+  }
 }
