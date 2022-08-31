@@ -26,7 +26,7 @@ import com.alkemy.ong.application.service.usecase.IDeleteNewsUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
-import com.alkemy.ong.application.service.usecase.ILoginUser;
+import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.application.service.usecase.IOperationAllowed;
 import com.alkemy.ong.infrastructure.database.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -79,7 +79,8 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public ILoginUser loginUser(IUserRepository userRepository, IAuthenticateUser authenticateUser) {
+  public ILoginUserUseCase loginUser(IUserRepository userRepository,
+      IAuthenticateUser authenticateUser) {
     return new LoginUserUseCaseService(userRepository, authenticateUser);
   }
 
