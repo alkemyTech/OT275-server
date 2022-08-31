@@ -1,6 +1,7 @@
 package com.alkemy.ong.infrastructure.database.mapper;
 
 import com.alkemy.ong.domain.User;
+import com.alkemy.ong.infrastructure.config.spring.security.common.JwtUtils;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class UserEntityMapper {
     user.setImageUrl(entity.getImageUrl());
     user.setPassword(entity.getPassword());
     user.setRole(roleEntityMapper.toDomain(entity.getRole()));
+    user.setToken(JwtUtils.create(entity));
     return user;
   }
 

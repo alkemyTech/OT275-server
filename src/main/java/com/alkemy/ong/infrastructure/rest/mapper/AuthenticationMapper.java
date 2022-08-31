@@ -27,6 +27,7 @@ public class AuthenticationMapper {
     authenticationResponse.setLastName(user.getLastName());
     authenticationResponse.setEmail(user.getEmail());
     authenticationResponse.setImageUrl(user.getImageUrl());
+    authenticationResponse.setToken(user.getToken());
     return authenticationResponse;
   }
 

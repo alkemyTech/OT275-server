@@ -35,9 +35,8 @@ public class AuthResource {
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<UserRegisterResponse> register(
       @Valid @RequestBody UserRegisterRequest registerRequest) {
-    User user = userRegisterMapper.toDomain(registerRequest);
-    User savedUser = createUserUseCase.add(user);
-    UserRegisterResponse response = userRegisterMapper.toResponse(savedUser);
+    User user = createUserUseCase.add(userRegisterMapper.toDomain(registerRequest));
+    UserRegisterResponse response = userRegisterMapper.toResponse(user);
     return new ResponseEntity<>(response, HttpStatus.CREATED);
   }
 
