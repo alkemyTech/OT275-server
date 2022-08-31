@@ -10,5 +10,5 @@ public interface ISlideRepository {
 
   void delete(Identifiable<Long> identifiable);
 
-  List<Slide> findAllByOrderByOrder();
+  List<Slide> findAll();
 }

@@ -27,7 +27,7 @@ public class SlideRepository implements ISlideRepository {
   }
 
   @Override
-  public List<Slide> findAllByOrderByOrder() {
+  public List<Slide> findAll() {
     return slideEntityMapper.toDomain(slideSpringRepository.findAllByOrderByPosition());
   }
 }
