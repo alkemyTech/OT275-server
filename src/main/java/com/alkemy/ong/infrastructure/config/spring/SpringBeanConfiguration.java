@@ -4,6 +4,7 @@ import com.alkemy.ong.application.repository.ICategoryRepository;
 import com.alkemy.ong.application.repository.ICommentRepository;
 import com.alkemy.ong.application.repository.IMemberRepository;
 import com.alkemy.ong.application.repository.INewsRepository;
+import com.alkemy.ong.application.repository.IOrganizationRepository;
 import com.alkemy.ong.application.repository.IRoleRepository;
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.repository.ITestimonialRepository;
@@ -17,6 +18,7 @@ import com.alkemy.ong.application.service.DeleteSlideUseCaseService;
 import com.alkemy.ong.application.service.DeleteTestimonialUseCaseService;
 import com.alkemy.ong.application.service.DeleteUserUseCaseService;
 import com.alkemy.ong.application.service.ListSlideUseCaseService;
+import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
@@ -26,6 +28,7 @@ import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
+import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IOperationAllowed;
 import com.alkemy.ong.infrastructure.database.repository.SlideRepository;
 import com.alkemy.ong.infrastructure.database.repository.UserRepository;
@@ -57,6 +60,12 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
+  public IGetOrganizationUseCase getOrganizationUseCase(
+      IOrganizationRepository organizationRepository) {
+    return new GetOrganizationUseCaseService(organizationRepository);
+  }
+
+  @Bean
   public IDeleteNewsUseCase deleteNewsUseCase(INewsRepository newsRepository) {
     return new DeleteNewsUseCaseService(newsRepository);
   }
@@ -77,6 +86,7 @@ public class SpringBeanConfiguration {
       IRoleRepository roleRepository) {
     return new CreateUserUseCaseService(userRepository, roleRepository);
   }
+}
 
   @Bean
   public IListSlideUseCase listSlideUseCaseService(SlideRepository slideRepository) {
