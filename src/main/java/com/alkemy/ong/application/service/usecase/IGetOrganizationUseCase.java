@@ -4,6 +4,6 @@ import com.alkemy.ong.domain.Organization;
 
 public interface IGetOrganizationUseCase {
 
-  Organization getPublicOrganization();
+  Organization get();
 
 }

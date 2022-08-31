@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Organization {
 
   private String name;
-  private String imageUrl;
+  private String image;
   private String phone;
   private String address;
 

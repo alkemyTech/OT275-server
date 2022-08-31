@@ -9,15 +9,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrganizationMapper {
 
-
   public Organization toDomain(OrganizationEntity entity) {
+    if (entity == null) {
+      return null;
+    }
 
     Organization organization = new Organization();
     organization.setName(entity.getName());
-    organization.setImageUrl(entity.getImageUrl());
+    organization.setImage(entity.getImageUrl());
     organization.setPhone(entity.getPhone());
     organization.setAddress(entity.getAddress());
     return organization;
-
   }
 }
