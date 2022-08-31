@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ListSlideMapper {
+
+  private final SlideMapper slideMapper;
 
   public ListSlideResponse toResponse(List<Slide> slides) {
     if (slides == null || slides.isEmpty()) {
@@ -18,7 +22,7 @@ public class ListSlideMapper {
     }
 
     List<SlideResponse> slideResponses = slides.stream()
-        .map(slide -> new SlideResponse(slide.getImageUrl(), slide.getOrder()))
+        .map(slideMapper::toResponse)
         .collect(Collectors.toCollection(() -> new ArrayList<>(slides.size())));
 
     return new ListSlideResponse(slideResponses);
