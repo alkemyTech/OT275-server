@@ -3,7 +3,6 @@ package com.alkemy.ong.infrastructure.config.seeder;
 import com.alkemy.ong.infrastructure.database.entity.ActivityEntity;
 import com.alkemy.ong.infrastructure.database.repository.ActivityRepository;
 import java.util.ArrayList;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -16,7 +15,7 @@ public class ActivitySeeder {
   private final ActivityRepository activityRepository;
 
 
-  private ArrayList<ActivityEntity> getActivitiesList() {
+  private ArrayList<ActivityEntity> getActivities() {
     ArrayList<ActivityEntity> activities = new ArrayList<>(3);
 
     activities.add(new ActivityEntity("Elementary School",
@@ -37,7 +36,7 @@ public class ActivitySeeder {
   @EventListener()
   public void seed(ContextRefreshedEvent event) {
     if (activityRepository.count() == 0) {
-      activityRepository.saveAll(getActivitiesList());
+      activityRepository.saveAll(getActivities());
     }
   }
 
