@@ -18,16 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrganizationResource {
 
   private final IGetOrganizationUseCase getOrganizationUseCaseService;
- 
   private final PublicOrganizationMapper publicOrganizationMapper;
 
   @GetMapping(value = "/public", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<PublicOrganizationResponse> get() {
     Organization organization = getOrganizationUseCaseService.get();
-    PublicOrganizationResponse publicOrganizationResponse = publicOrganizationMapper
-        .toResponse(organization);
-
-    return new ResponseEntity<>(publicOrganizationResponse, HttpStatus.OK);
-
+    return new ResponseEntity<>(publicOrganizationMapper.toResponse(organization), HttpStatus.OK);
   }
 }

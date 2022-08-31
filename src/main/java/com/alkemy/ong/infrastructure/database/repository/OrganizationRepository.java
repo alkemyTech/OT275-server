@@ -12,10 +12,9 @@ import org.springframework.stereotype.Component;
 public class OrganizationRepository implements IOrganizationRepository {
 
   private final OrganizationMapper organizationMapper;
-
   private final IOrganizationSpringRepository organizationSpringRepository;
 
-  public Organization get() {
+  public Organization getOrganization() {
     return organizationMapper.toDomain(organizationSpringRepository.findAll().get(0));
   }
 

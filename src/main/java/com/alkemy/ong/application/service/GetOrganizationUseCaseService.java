@@ -11,8 +11,7 @@ public class GetOrganizationUseCaseService implements IGetOrganizationUseCase {
   private final IOrganizationRepository organizationRepository;
 
   public Organization get() {
-
-    return organizationRepository.get();
+    return organizationRepository.getOrganization();
   }
 }
 

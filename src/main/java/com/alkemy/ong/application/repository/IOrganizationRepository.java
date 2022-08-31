@@ -4,6 +4,7 @@ import com.alkemy.ong.domain.Organization;
 
 public interface IOrganizationRepository {
 
-  Organization get();
+  Organization getOrganization();
+
 }
 
