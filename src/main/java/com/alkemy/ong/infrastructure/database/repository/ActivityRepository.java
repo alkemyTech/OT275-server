@@ -11,4 +11,12 @@ public class ActivityRepository implements IActivityRepository {
 
   private final IActivitySpringRepository activitySpringRepository;
 
+  public void save(ActivityEntity activityEntity) {
+    activitySpringRepository.save(activityEntity);
+  }
+
+  public Boolean existSeed(String activityName) {
+    return activitySpringRepository.findByName(activityName).isPresent();
+  }
+
 }
