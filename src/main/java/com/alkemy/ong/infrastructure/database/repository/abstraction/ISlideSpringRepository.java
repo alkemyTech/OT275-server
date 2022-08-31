@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ISlideSpringRepository extends JpaRepository<SlideEntity, Long> {
 
-  List<Slide> findAllByOrderByPosition();
+  List<SlideEntity> findAllByOrderByPosition();
 }
