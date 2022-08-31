@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,10 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class SlideResource {
 
   private final IDeleteSlideUseCase deleteSlideUseCase;
+  private final IListSlideUseCase listSlideUseCase;
+  private final SlideMapper slideMapper;
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> delete(@PathVariable Long id) {
     deleteSlideUseCase.delete(() -> id);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
+
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ListSlideResponse> list() {
+    return ResponseEntity.ok().body(slideMapper
+        .toResponse(listSlideUseCase.findAllByOrder()));
   }
 }
