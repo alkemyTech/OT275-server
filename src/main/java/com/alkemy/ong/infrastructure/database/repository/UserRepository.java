@@ -39,4 +39,9 @@ public class UserRepository implements IUserRepository {
     return userEntityMapper.toDomain(userSpringRepository.save(userEntity));
   }
 
+  @Override
+  public User getByEmail(String email) {
+    return userEntityMapper.toDomain(userSpringRepository.getByEmail(email));
+  }
+
 }
