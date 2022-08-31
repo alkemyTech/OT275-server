@@ -28,7 +28,7 @@ public class UserRepository implements IUserRepository {
   }
 
   @Override
-  public Optional<User> find(String email) {
+  public Optional<User> findBy(String email) {
     return userSpringRepository.findByEmail(email).map(userEntityMapper::toDomain);
   }
 
@@ -37,11 +37,6 @@ public class UserRepository implements IUserRepository {
     UserEntity userEntity = userEntityMapper.toEntity(user);
     userEntity.setSoftDeleted(false);
     return userEntityMapper.toDomain(userSpringRepository.save(userEntity));
-  }
-
-  @Override
-  public User getByEmail(String email) {
-    return userEntityMapper.toDomain(userSpringRepository.getByEmail(email));
   }
 
 }

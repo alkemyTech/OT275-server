@@ -16,7 +16,7 @@ public class CreateUserUseCaseService implements ICreateUserUseCase {
 
   @Override
   public User add(User user) {
-    if (userRepository.find(user.getEmail()).isPresent()) {
+    if (userRepository.findBy(user.getEmail()).isPresent()) {
       throw new UserAlreadyExists(ErrorMessage.USER_ALREADY_EXISTS.getMessage());
     }
     user.setRole(roleRepository.findRoleUser());
