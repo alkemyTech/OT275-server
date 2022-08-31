@@ -17,7 +17,7 @@ aws:
   credentials:
     access-key: foo
     secret-key: foo
-  region : us-east-1
+  region: us-east-1
   bucket:
     name: cohorte-agosto-38d749a7
 
