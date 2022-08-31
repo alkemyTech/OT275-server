@@ -18,6 +18,6 @@ public class UpdateCategoryUserCaseService implements IUpdateCategoryUseCase {
     if (!categoryRepository.exists(identifiable)) {
       throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Category"));
     }
-    return categoryRepository.update(identifiable , category);
+    return categoryRepository.update(identifiable, category);
   }
 }
