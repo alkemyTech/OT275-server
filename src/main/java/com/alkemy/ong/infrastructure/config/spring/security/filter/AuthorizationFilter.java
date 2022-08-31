@@ -20,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class AuthorizationFilter extends OncePerRequestFilter {
 
   private static final String BEARER_PART = "Bearer ";
-  private static final Object CREDENTIALS = null;
+  private static final Object CREDENTIALS = "";
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
