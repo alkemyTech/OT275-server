@@ -1,4 +1,4 @@
-package com.alkemy.ong.infrastructure.config.spring.security.common;
+package com.alkemy.ong.infrastructure.config.spring.security.service;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.ObjectNotFound;
