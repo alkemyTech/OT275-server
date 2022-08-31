@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import com.alkemy.ong.application.exception.UserAlreadyExists;
+import com.alkemy.ong.application.exception.UserAlreadyExistsException;
 import com.alkemy.ong.application.repository.IRoleRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
@@ -43,7 +43,7 @@ class CreateUserUseCaseServiceTest {
 
     given(userRepository.findBy(EMAIL)).willReturn(Optional.of(user));
 
-    assertThrows(UserAlreadyExists.class, () -> createUserUseCase.add(user));
+    assertThrows(UserAlreadyExistsException.class, () -> createUserUseCase.add(user));
   }
 
   @Test

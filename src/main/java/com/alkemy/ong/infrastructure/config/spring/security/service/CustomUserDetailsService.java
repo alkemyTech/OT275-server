@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.config.spring.security.service;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
-import com.alkemy.ong.application.exception.ObjectNotFound;
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
 import java.util.Optional;
@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Optional<UserEntity> userEntity = userSpringRepository.findByEmail(username);
     if (userEntity.isEmpty()) {
-      throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("User"));
+      throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("User"));
     }
     return userEntity.get();
   }

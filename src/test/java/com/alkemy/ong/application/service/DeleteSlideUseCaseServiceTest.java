@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import com.alkemy.ong.application.exception.ObjectNotFound;
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.domain.Identifiable;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +32,7 @@ class DeleteSlideUseCaseServiceTest {
   void shouldThrowExceptionWhenSlideDoesNotExist() {
     given(slideRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFound.class, () -> deleteSlideUseCaseService.delete(identifiable));
+    assertThrows(ObjectNotFoundException.class, () -> deleteSlideUseCaseService.delete(identifiable));
   }
 
   @Test

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import com.alkemy.ong.application.exception.ObjectNotFound;
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.domain.Identifiable;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +33,7 @@ class DeleteNewsUseCaseServiceTest {
   void shouldThrowAnExceptionWhenNewsDoesNotExist() {
     given(newsRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFound.class, () -> deleteNewsUseCaseService.delete(identifiable));
+    assertThrows(ObjectNotFoundException.class, () -> deleteNewsUseCaseService.delete(identifiable));
   }
 
   @Test

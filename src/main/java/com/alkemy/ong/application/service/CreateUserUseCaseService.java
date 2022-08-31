@@ -1,7 +1,7 @@
 package com.alkemy.ong.application.service;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
-import com.alkemy.ong.application.exception.UserAlreadyExists;
+import com.alkemy.ong.application.exception.UserAlreadyExistsException;
 import com.alkemy.ong.application.repository.IRoleRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
@@ -17,7 +17,7 @@ public class CreateUserUseCaseService implements ICreateUserUseCase {
   @Override
   public User add(User user) {
     if (userRepository.findBy(user.getEmail()).isPresent()) {
-      throw new UserAlreadyExists(ErrorMessage.USER_ALREADY_EXISTS.getMessage());
+      throw new UserAlreadyExistsException(ErrorMessage.USER_ALREADY_EXISTS.getMessage());
     }
     user.setRole(roleRepository.findRoleUser());
     return userRepository.add(user);

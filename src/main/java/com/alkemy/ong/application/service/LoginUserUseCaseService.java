@@ -1,7 +1,7 @@
 package com.alkemy.ong.application.service;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
-import com.alkemy.ong.application.exception.ObjectNotFound;
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.delegate.IAuthenticationManager;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
@@ -24,7 +24,7 @@ public class LoginUserUseCaseService implements ILoginUserUseCase {
   private User findBy(String email) {
     Optional<User> user = userRepository.findBy(email);
     if (user.isEmpty()) {
-      throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("User"));
+      throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("User"));
     }
     return user.get();
   }

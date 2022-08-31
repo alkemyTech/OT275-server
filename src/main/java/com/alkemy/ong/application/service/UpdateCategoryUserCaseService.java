@@ -1,7 +1,7 @@
 package com.alkemy.ong.application.service;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
-import com.alkemy.ong.application.exception.ObjectNotFound;
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.ICategoryRepository;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.domain.Category;
@@ -15,7 +15,7 @@ public class UpdateCategoryUserCaseService implements IUpdateCategoryUseCase {
   @Override
   public Category update(Category category) {
     if (!categoryRepository.exists(category::getId)) {
-      throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Category"));
+      throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Category"));
     }
     return categoryRepository.update(category);
   }
