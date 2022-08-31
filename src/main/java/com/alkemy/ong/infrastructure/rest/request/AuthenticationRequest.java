@@ -15,7 +15,6 @@ public class AuthenticationRequest {
   @Size(message = "Password must be between 8 and 16 characters long", min = 8, max = 16)
   private String password;
 
-
 }
 
 
