@@ -4,8 +4,8 @@ import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.application.exception.OperationNotPermitted;
 import com.alkemy.ong.application.repository.ICommentRepository;
-import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
+import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
 import com.alkemy.ong.domain.Identifiable;
 import lombok.AllArgsConstructor;
 
