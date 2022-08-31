@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.application.exception.OperationNotPermitted;
 import com.alkemy.ong.application.repository.ICommentRepository;
-import com.alkemy.ong.application.service.usecase.IOperationAllowed;
+import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.domain.Identifiable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

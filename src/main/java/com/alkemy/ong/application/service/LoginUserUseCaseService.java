@@ -3,7 +3,7 @@ package com.alkemy.ong.application.service;
 import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.application.repository.IUserRepository;
-import com.alkemy.ong.application.service.usecase.IAuthenticateUser;
+import com.alkemy.ong.application.service.delegate.IAuthenticateUser;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.domain.User;
 import java.util.Optional;

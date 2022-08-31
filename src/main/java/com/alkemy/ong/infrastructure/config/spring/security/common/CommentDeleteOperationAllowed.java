@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.config.spring.security.common;
 
 import com.alkemy.ong.application.repository.ICommentRepository;
-import com.alkemy.ong.application.service.usecase.IOperationAllowed;
+import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.User;
