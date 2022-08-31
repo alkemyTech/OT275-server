@@ -10,7 +10,8 @@ public interface IUserRepository {
 
   boolean exists(Identifiable<Long> identifiable);
 
-  Optional<User> find(String email);
+  Optional<User> findBy(String email);
 
   User add(User user);
+
 }

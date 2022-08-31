@@ -41,7 +41,7 @@ class CreateUserUseCaseServiceTest {
     User user = new User();
     user.setEmail(EMAIL);
 
-    given(userRepository.find(EMAIL)).willReturn(Optional.of(user));
+    given(userRepository.findBy(EMAIL)).willReturn(Optional.of(user));
 
     assertThrows(UserAlreadyExists.class, () -> createUserUseCase.add(user));
   }
@@ -51,7 +51,7 @@ class CreateUserUseCaseServiceTest {
     Role role = new Role();
     role.setName(ROLE);
 
-    given(userRepository.find(EMAIL)).willReturn(Optional.empty());
+    given(userRepository.findBy(EMAIL)).willReturn(Optional.empty());
     given(roleRepository.findRoleUser()).willReturn(role);
 
     User user = new User();
@@ -59,7 +59,7 @@ class CreateUserUseCaseServiceTest {
 
     createUserUseCase.add(user);
 
-    verify(userRepository).find(EMAIL);
+    verify(userRepository).findBy(EMAIL);
     verify(roleRepository).findRoleUser();
     verify(userRepository).add(user);
   }

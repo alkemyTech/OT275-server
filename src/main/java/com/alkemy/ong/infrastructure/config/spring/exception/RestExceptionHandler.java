@@ -1,5 +1,6 @@
 package com.alkemy.ong.infrastructure.config.spring.exception;
 
+import com.alkemy.ong.application.exception.InvalidCredentialsException;
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.application.exception.OperationNotPermitted;
 import com.alkemy.ong.application.exception.UserAlreadyExists;
@@ -22,6 +23,7 @@ public class RestExceptionHandler {
   private static final String INVALID_ARGUMENT = "Invalid input data.";
   private static final String ERROR_OCCURS = "Application has encountered an error.";
   private static final String OPERATION_NOT_PERMITTED = "Operation not permitted.";
+  private static final String INVALID_CREDENTIALS = "Invalid credentials.";
 
   @ExceptionHandler(value = Exception.class)
   protected ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
@@ -37,6 +39,15 @@ public class RestExceptionHandler {
     ErrorResponse errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND, OBJECT_NOT_FOUND, e);
 
     return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(value = InvalidCredentialsException.class)
+  protected ResponseEntity<ErrorResponse> handleInvalidCredentials(InvalidCredentialsException e) {
+    ErrorResponse errorResponse = buildErrorResponse(HttpStatus.FORBIDDEN,
+        INVALID_CREDENTIALS,
+        e);
+
+    return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
   }
 
   @ExceptionHandler(value = OperationNotPermitted.class)

@@ -1,6 +1,9 @@
 package com.alkemy.ong.infrastructure.database.entity;
 
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,15 +20,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @DynamicUpdate
 @Table(name = "USERS")
-public class UserEntity {
+public class UserEntity implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,5 +63,52 @@ public class UserEntity {
 
   @Column(name = "SOFT_DELETED")
   private boolean softDeleted;
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority(role.getName()));
+  }
+
+  @Override
+  public String getUsername() {
+    return email;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return !this.softDeleted;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (!(obj instanceof UserEntity)) {
+      return false;
+    }
+    UserEntity user = (UserEntity) obj;
+    return userId.equals(user.getUserId()) && email.equals(user.getEmail());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(userId, email);
+  }
 
 }

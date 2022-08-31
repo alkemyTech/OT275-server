@@ -19,7 +19,10 @@ import com.alkemy.ong.application.service.DeleteTestimonialUseCaseService;
 import com.alkemy.ong.application.service.DeleteUserUseCaseService;
 import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.ListSlideUseCaseService;
+import com.alkemy.ong.application.service.LoginUserUseCaseService;
 import com.alkemy.ong.application.service.UpdateCategoryUserCaseService;
+import com.alkemy.ong.application.service.delegate.IAuthenticationManager;
+import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
@@ -30,7 +33,7 @@ import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
-import com.alkemy.ong.application.service.usecase.IOperationAllowed;
+import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.infrastructure.database.repository.CategoryRepository;
 import com.alkemy.ong.infrastructure.database.repository.SlideRepository;
@@ -99,4 +102,11 @@ public class SpringBeanConfiguration {
   public IUpdateCategoryUseCase updateCategoryUseCase(CategoryRepository categoryRepository) {
     return new UpdateCategoryUserCaseService(categoryRepository);
   }
+
+  @Bean
+  public ILoginUserUseCase loginUserCase(IUserRepository userRepository,
+      IAuthenticationManager authenticationManager) {
+    return new LoginUserUseCaseService(userRepository, authenticationManager);
+  }
+
 }
