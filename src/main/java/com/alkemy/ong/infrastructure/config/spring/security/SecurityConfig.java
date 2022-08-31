@@ -1,6 +1,7 @@
 package com.alkemy.ong.infrastructure.config.spring.security;
 
 import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
+import com.alkemy.ong.infrastructure.config.spring.security.common.UserDetailsService;
 import com.alkemy.ong.infrastructure.config.spring.security.filter.AuthorizationFilter;
 import com.alkemy.ong.infrastructure.config.spring.security.filter.CustomAccessDeniedHandler;
 import com.alkemy.ong.infrastructure.config.spring.security.filter.CustomAuthEntryPoint;
@@ -11,7 +12,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.BeanIds;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,10 +24,18 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @EnableWebSecurity
 @Configuration
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+  //private UserAuthentication userAuthentication;
+  @Autowired
+  private UserDetailsService userDetailsService;
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   @Autowired
   private AuthorizationFilter authorizationFilter;
@@ -42,6 +54,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
+  }
+
+  @Bean
+  public AuthenticationProvider authenticationProvider() {
+    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder.encoder());
+    daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+    return daoAuthenticationProvider;
+  }
+
+  @Override
+  public void configure(AuthenticationManagerBuilder auth) throws Exception {
+    //auth.userDetailsService(userAuthentication).passwordEncoder(passwordEncoder.encoder());
+    auth.authenticationProvider(authenticationProvider());
   }
 
   @Override
