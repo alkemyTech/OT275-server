@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
-import com.alkemy.ong.application.service.usecase.ILoginUser;
+import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.mapper.AuthenticationMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.UserRegisterMapper;
@@ -26,7 +26,7 @@ public class AuthResource {
 
   private final ICreateUserUseCase createUserUseCase;
 
-  private final ILoginUser loginUser;
+  private final ILoginUserUseCase loginUser;
 
   private final UserRegisterMapper userRegisterMapper;
 
