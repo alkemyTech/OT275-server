@@ -16,7 +16,7 @@ public class ActivityRepository implements IActivityRepository {
     activitySpringRepository.save(activityEntity);
   }
 
-  public Boolean existSeed(String activityName) {
+  public Boolean exists(String activityName) {
     return activitySpringRepository.findByName(activityName).isPresent();
   }
 

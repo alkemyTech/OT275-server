@@ -36,7 +36,7 @@ public class ActivitySeeder {
     this.addActivitiesToList();
 
     for (ActivityEntity a : activities) {
-      if (!activityRepository.existSeed(a.getName())) {
+      if (!activityRepository.exists(a.getName())) {
         activityRepository.save(a);
       }
     }
