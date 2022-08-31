@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.config.spring.security.common;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
-import com.alkemy.ong.application.exception.InvalidCredentials;
+import com.alkemy.ong.application.exception.InvalidCredentialsException;
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.application.service.delegate.IAuthenticateUser;
 import com.alkemy.ong.domain.User;
@@ -39,7 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService, IAuthentica
           user.getEmail(),
           user.getPassword()));
     } catch (Exception e) {
-      throw new InvalidCredentials(ErrorMessage.INVALID_CREDENTIALS.getMessage());
+      throw new InvalidCredentialsException(ErrorMessage.INVALID_CREDENTIALS.getMessage());
     }
   }
 }
