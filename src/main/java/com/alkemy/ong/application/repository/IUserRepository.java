@@ -13,4 +13,6 @@ public interface IUserRepository {
   Optional<User> find(String email);
 
   User add(User user);
+
+  User getByEmail(String email);
 }
