@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class SlideMapper {
 
   public SlideResponse toResponse(Slide slide) {
-    if(slide == null){
+    if (slide == null) {
       return null;
     }
     return new SlideResponse(slide.getImageUrl(), slide.getOrder());
