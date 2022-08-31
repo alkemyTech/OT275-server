@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -36,6 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return new CustomAuthEntryPoint();
   }
 
+  @Bean(BeanIds.AUTHENTICATION_MANAGER)
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf()
@@ -60,7 +68,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, "/news/{id:[\\d+]}")
         .hasRole(Role.ADMIN.name())
-        .antMatchers(HttpMethod.POST,  "/auth/register")
+        .antMatchers(HttpMethod.POST, "/auth/register")
+        .permitAll()
+        .antMatchers(HttpMethod.POST, "/auth/login")
         .permitAll()
         .anyRequest()
         .authenticated()
