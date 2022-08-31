@@ -1,10 +1,11 @@
-package com.alkemy.ong.infrastructure.config.spring.security.common;
+package com.alkemy.ong.infrastructure.config.spring.security.delegate;
 
 import com.alkemy.ong.application.repository.ICommentRepository;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.User;
+import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CommentDeleteOperationAllowed implements IOperationAllowed {
+public class CommentDeleteOperationAllowedDelegate implements IOperationAllowed {
 
   private final ICommentRepository commentRepository;
 

@@ -1,4 +1,4 @@
-package com.alkemy.ong.infrastructure.config.spring.security.service;
+package com.alkemy.ong.infrastructure.config.spring.security.delegate;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.InvalidCredentialsException;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class AuthenticationService implements IAuthenticationManager {
+public class AuthenticationDelegate implements IAuthenticationManager {
 
   private final AuthenticationManager authenticationManager;
 

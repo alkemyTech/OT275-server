@@ -1,4 +1,4 @@
-package com.alkemy.ong.infrastructure.config.spring.security.service;
+package com.alkemy.ong.infrastructure.config.spring.security.delegate;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.ObjectNotFoundException;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailsDelegate implements UserDetailsService {
 
   private final IUserSpringRepository userSpringRepository;
 
