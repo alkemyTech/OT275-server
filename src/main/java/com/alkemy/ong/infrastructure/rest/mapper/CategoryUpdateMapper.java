@@ -10,7 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CategoryUpdateMapper {
-  public Category toUpdateDomain(Identifiable<Long> identifiable,CategoryUpdateRequest categoryUpdateRequest) {
+
+  public Category toUpdateDomain(
+      Identifiable<Long> identifiable,
+      CategoryUpdateRequest categoryUpdateRequest) {
     if (categoryUpdateRequest == null) {
       return null;
     }
