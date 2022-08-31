@@ -12,8 +12,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class LoginUserUseCaseService implements ILoginUserUseCase {
 
-  private IUserRepository userRepository;
-  private IAuthenticationManager authenticationManager;
+  private final IUserRepository userRepository;
+  private final IAuthenticationManager authenticationManager;
 
   @Override
   public User login(User user) {

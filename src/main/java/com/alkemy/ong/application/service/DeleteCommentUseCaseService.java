@@ -12,9 +12,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DeleteCommentUseCaseService implements IDeleteCommentUseCase {
 
-  private ICommentRepository commentRepository;
-
-  private IOperationAllowed operationAllowed;
+  private final ICommentRepository commentRepository;
+  private final IOperationAllowed operationAllowed;
 
   @Override
   public void delete(Identifiable<Long> identifiable) {
