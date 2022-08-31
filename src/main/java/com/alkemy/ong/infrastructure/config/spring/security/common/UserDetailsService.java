@@ -4,6 +4,7 @@ import com.alkemy.ong.application.exception.ErrorMessage;
 import com.alkemy.ong.application.exception.ObjectNotFound;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,10 +19,10 @@ public class UserDetailsService implements
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UserEntity userEntity = userSpringRepository.getByEmail(username);
-    if (userEntity == null) {
+    Optional<UserEntity> userEntity = userSpringRepository.findByEmail(username);
+    if (userEntity.isEmpty()) {
       throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("User"));
     }
-    return userEntity;
+    return userEntity.get();
   }
 }
