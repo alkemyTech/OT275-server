@@ -104,7 +104,7 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public ILoginUserUseCase loginUser(IUserRepository userRepository,
+  public ILoginUserUseCase loginUserCase(IUserRepository userRepository,
       IAuthenticationManager authenticationManager) {
     return new LoginUserUseCaseService(userRepository, authenticationManager);
   }

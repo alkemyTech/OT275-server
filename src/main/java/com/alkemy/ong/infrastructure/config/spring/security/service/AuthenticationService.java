@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService implements IAuthenticationManager {
 
-    private final AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
 
   @Override
   public void authenticate(User user) {
