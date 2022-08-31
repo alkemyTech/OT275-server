@@ -24,7 +24,6 @@ public class UserRegisterIntegrationTest extends BigTest {
   private static final String LAST_NAME = "Ray";
   private static final String PASSWORD = "abcd1234";
   private static final String EMAIL = "charles.lee@ray.com";
-  private static final String INVALID_INPUT_DATA = "Invalid input data.";
 
   @Test
   public void shouldCreateUserWhenRequestIsValid() throws Exception {
@@ -45,7 +44,7 @@ public class UserRegisterIntegrationTest extends BigTest {
             .content(buildRequest(USER_EMAIL, PASSWORD))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
-        .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA)))
+        .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasItem("Email is being used, try another!")))
         .andExpect(status().isBadRequest());
   }
@@ -56,7 +55,7 @@ public class UserRegisterIntegrationTest extends BigTest {
             .content(buildRequest("wrongEmailFormat", PASSWORD))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
-        .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA)))
+        .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasItems("Email should be valid.")))
         .andExpect(status().isBadRequest());
   }
