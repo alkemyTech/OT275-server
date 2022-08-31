@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SlideMapper {
+public class ListSlideMapper {
 
   public ListSlideResponse toResponse(List<Slide> slides) {
     if (slides == null || slides.isEmpty()) {
