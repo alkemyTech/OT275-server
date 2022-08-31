@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PublicOrganizationResponse {
+public class GetOrganizationResponse {
 
   private String name;
   private String image;
