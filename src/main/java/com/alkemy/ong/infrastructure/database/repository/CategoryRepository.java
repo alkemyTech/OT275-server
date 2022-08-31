@@ -14,13 +14,11 @@ import org.springframework.stereotype.Component;
 public class CategoryRepository implements ICategoryRepository {
 
   private final ICategorySpringRepository categorySpringRepository;
-
   private final CategoryEntityMapper categoryEntityMapper;
 
   @Override
   public Category update(Category category) {
     CategoryEntity categoryEntity = categoryEntityMapper.toEntity(category);
-    categoryEntity.setCategoryId(category.getCategoryId());
     return categoryEntityMapper.toDomain(categorySpringRepository.save(categoryEntity));
   }
 

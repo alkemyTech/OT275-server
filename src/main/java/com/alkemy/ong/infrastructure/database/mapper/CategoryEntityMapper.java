@@ -14,6 +14,7 @@ public class CategoryEntityMapper {
       return null;
     }
     CategoryEntity categoryEntity = new CategoryEntity();
+    categoryEntity.setCategoryId(category.getId());
     categoryEntity.setName(category.getName());
     categoryEntity.setDescription(category.getDescription());
     categoryEntity.setImageUrl(category.getImageUrl());
@@ -25,6 +26,7 @@ public class CategoryEntityMapper {
       return null;
     }
     Category category = new Category();
+    category.setId(categoryEntity.getCategoryId());
     category.setName(categoryEntity.getName());
     category.setDescription(categoryEntity.getDescription());
     category.setImageUrl(categoryEntity.getImageUrl());

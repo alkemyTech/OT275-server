@@ -34,11 +34,9 @@ public class CategoryResource {
   public ResponseEntity<CategoryUpdateResponse> update(
       @PathVariable Long id,
       @Valid @RequestBody CategoryUpdateRequest categoryUpdateRequest) {
-    Category category = categoryUpdateMapper.toUpdateDomain(() -> id, categoryUpdateRequest);
+    Category category = categoryUpdateMapper.toDomain(() -> id, categoryUpdateRequest);
     Category updatedCategory = updateCategoryUseCase.update(category);
-    CategoryUpdateResponse categoryUpdateResponse = categoryUpdateMapper.toResponse(
-        updatedCategory);
-    return new ResponseEntity<>(categoryUpdateResponse,HttpStatus.OK);
+    return new ResponseEntity<>(categoryUpdateMapper.toResponse(updatedCategory), HttpStatus.OK);
   }
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

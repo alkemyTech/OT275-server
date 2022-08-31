@@ -11,14 +11,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CategoryUpdateMapper {
 
-  public Category toUpdateDomain(
-      Identifiable<Long> identifiable,
+  public Category toDomain(Identifiable<Long> identifiable,
       CategoryUpdateRequest categoryUpdateRequest) {
     if (categoryUpdateRequest == null) {
       return null;
     }
     Category category = new Category();
-    category.setCategoryId(identifiable.getId());
+    category.setId(identifiable.getId());
     category.setName(categoryUpdateRequest.getName());
     category.setDescription(categoryUpdateRequest.getDescription());
     category.setImageUrl(categoryUpdateRequest.getImageUrl());
@@ -30,7 +29,7 @@ public class CategoryUpdateMapper {
       return null;
     }
     CategoryUpdateResponse categoryUpdateResponse = new CategoryUpdateResponse();
-    categoryUpdateResponse.setCategoryId(updatedCategory.getCategoryId());
+    categoryUpdateResponse.setId(updatedCategory.getId());
     categoryUpdateResponse.setName(updatedCategory.getName());
     categoryUpdateResponse.setDescription(updatedCategory.getDescription());
     categoryUpdateResponse.setImageUrl(updatedCategory.getImageUrl());
