@@ -13,32 +13,32 @@ import org.springframework.stereotype.Component;
 @Component
 public class ActivitySeeder {
 
-  ActivityRepository activityRepository;
+  private final ActivityRepository activityRepository;
 
-  private List<ActivityEntity> activities;
 
-  private void addActivitiesToList() {
-    activities = new ArrayList<>();
+  private ArrayList<ActivityEntity> getActivitiesList() {
+    ArrayList<ActivityEntity> activities = new ArrayList<>(3);
 
     activities.add(new ActivityEntity("Elementary School",
-        "Elementary School school-based support programmes", "01"));
+        "Elementary School school-based support programmes",
+        "s3.amazonaws.com/bucket/path/image.png"));
 
     activities.add(new ActivityEntity("High School",
-        "High School school-based support programmes", "01"));
+        "High School school-based support programmes",
+        "s3.amazonaws.com/bucket/path/image2.png"));
 
     activities.add(new ActivityEntity("Lessons",
-        "Math and English lessons", "01"));
+        "Math and English lessons",
+        "s3.amazonaws.com/bucket/path/image3.png"));
+
+    return activities;
   }
 
   @EventListener()
   public void seed(ContextRefreshedEvent event) {
-
-    this.addActivitiesToList();
-
-    for (ActivityEntity a : activities) {
-      if (!activityRepository.exists(a.getName())) {
-        activityRepository.save(a);
-      }
+    if (activityRepository.count() == 0) {
+      activityRepository.saveAll(getActivitiesList());
     }
   }
+
 }
