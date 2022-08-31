@@ -3,6 +3,7 @@ package com.alkemy.ong.infrastructure.database.entity;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -23,6 +25,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -61,21 +64,6 @@ public class UserEntity implements UserDetails {
   @Column(name = "SOFT_DELETED")
   private boolean softDeleted;
 
-  private boolean accountNonExpired;
-
-  private boolean accountNonLocked;
-
-  private boolean credentialsNonExpired;
-
-  private boolean enabled;
-
-  public UserEntity() {
-    this.accountNonExpired = true;
-    this.accountNonLocked = true;
-    this.credentialsNonExpired = true;
-    this.enabled = !softDeleted;
-  }
-
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return List.of(new SimpleGrantedAuthority(role.getName()));
@@ -88,22 +76,39 @@ public class UserEntity implements UserDetails {
 
   @Override
   public boolean isAccountNonExpired() {
-    return accountNonExpired;
+    return true;
   }
 
   @Override
   public boolean isAccountNonLocked() {
-    return accountNonLocked;
+    return true;
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
-    return credentialsNonExpired;
+    return true;
   }
 
   @Override
   public boolean isEnabled() {
-    return enabled;
+    return !this.softDeleted;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (!(obj instanceof UserEntity)) {
+      return false;
+    }
+    UserEntity user = (UserEntity) obj;
+    return userId.equals(user.getUserId()) && email.equals(user.getEmail());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(userId, email);
   }
 
 }
