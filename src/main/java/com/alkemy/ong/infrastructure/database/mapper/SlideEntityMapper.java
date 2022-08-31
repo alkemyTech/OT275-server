@@ -16,10 +16,8 @@ public class SlideEntityMapper {
       return Collections.emptyList();
     }
 
-    List<Slide> slides = slideEntities.stream()
+    return slideEntities.stream()
         .map(slideEntity -> new Slide(slideEntity.getImageUrl(), slideEntity.getPosition()))
         .collect(Collectors.toCollection(() -> new ArrayList<>(slideEntities.size())));
-
-    return slides;
   }
 }
