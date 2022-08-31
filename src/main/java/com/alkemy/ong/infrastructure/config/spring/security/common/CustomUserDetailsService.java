@@ -1,27 +1,21 @@
 package com.alkemy.ong.infrastructure.config.spring.security.common;
 
 import com.alkemy.ong.application.exception.ErrorMessage;
-import com.alkemy.ong.application.exception.InvalidCredentialsException;
 import com.alkemy.ong.application.exception.ObjectNotFound;
-import com.alkemy.ong.application.service.delegate.IAuthenticateUser;
-import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
-@Component
-public class CustomUserDetailsService implements UserDetailsService, IAuthenticateUser {
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
 
   private final IUserSpringRepository userSpringRepository;
-  private final AuthenticationManager authenticationManager;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -32,14 +26,4 @@ public class CustomUserDetailsService implements UserDetailsService, IAuthentica
     return userEntity.get();
   }
 
-  @Override
-  public void authenticate(User user) {
-    try {
-      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-          user.getEmail(),
-          user.getPassword()));
-    } catch (Exception e) {
-      throw new InvalidCredentialsException(ErrorMessage.INVALID_CREDENTIALS.getMessage());
-    }
-  }
 }
