@@ -18,6 +18,7 @@ import com.alkemy.ong.application.service.DeleteSlideUseCaseService;
 import com.alkemy.ong.application.service.DeleteTestimonialUseCaseService;
 import com.alkemy.ong.application.service.DeleteUserUseCaseService;
 import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
+import com.alkemy.ong.application.service.ListSlideUseCaseService;
 import com.alkemy.ong.application.service.UpdateCategoryUserCaseService;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
@@ -28,8 +29,10 @@ import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
+import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IOperationAllowed;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
+import com.alkemy.ong.infrastructure.database.repository.SlideRepository;
 import com.alkemy.ong.infrastructure.database.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -89,5 +92,10 @@ public class SpringBeanConfiguration {
   public ICreateUserUseCase createUserService(UserRepository userRepository,
       IRoleRepository roleRepository) {
     return new CreateUserUseCaseService(userRepository, roleRepository);
+  }
+
+  @Bean
+  public IListSlideUseCase listSlideUseCaseService(SlideRepository slideRepository){
+    return new ListSlideUseCaseService(slideRepository);
   }
 }
