@@ -14,6 +14,12 @@ public class ActivitySeeder {
 
   private final ActivityRepository activityRepository;
 
+  @EventListener()
+  public void seed(ContextRefreshedEvent event) {
+    if (activityRepository.count() == 0) {
+      activityRepository.saveAll(getActivities());
+    }
+  }
 
   private ArrayList<ActivityEntity> getActivities() {
     ArrayList<ActivityEntity> activities = new ArrayList<>(3);
@@ -31,13 +37,6 @@ public class ActivitySeeder {
         "s3.amazonaws.com/bucket/path/image3.png"));
 
     return activities;
-  }
-
-  @EventListener()
-  public void seed(ContextRefreshedEvent event) {
-    if (activityRepository.count() == 0) {
-      activityRepository.saveAll(getActivities());
-    }
   }
 
 }
