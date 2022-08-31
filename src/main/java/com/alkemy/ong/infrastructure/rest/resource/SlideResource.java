@@ -32,6 +32,6 @@ public class SlideResource {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ListSlideResponse> list() {
     return ResponseEntity.ok().body(slideMapper
-        .toResponse(listSlideUseCase.findAllByOrder()));
+        .toResponse(listSlideUseCase.findAll()));
   }
 }

@@ -5,6 +5,5 @@ import java.util.List;
 
 public interface IListSlideUseCase {
 
-  List<Slide> findAllByOrder();
-
+  List<Slide> findAll();
 }

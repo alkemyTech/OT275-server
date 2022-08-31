@@ -12,7 +12,7 @@ public class ListSlideUseCaseService implements IListSlideUseCase {
   private ISlideRepository slideRepository;
 
   @Override
-  public List<Slide> findAllByOrder() {
+  public List<Slide> findAll() {
     return slideRepository.findAllByOrderByOrder();
   }
 }
