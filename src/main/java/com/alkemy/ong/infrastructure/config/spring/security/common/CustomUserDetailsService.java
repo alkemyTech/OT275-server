@@ -7,13 +7,13 @@ import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpring
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class UserDetailsService implements
-    org.springframework.security.core.userdetails.UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
   private IUserSpringRepository userSpringRepository;
 
