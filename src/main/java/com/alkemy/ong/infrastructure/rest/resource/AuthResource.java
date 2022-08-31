@@ -25,12 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthResource {
 
   private final ICreateUserUseCase createUserUseCase;
-
-  private final ILoginUserUseCase loginUser;
-
+  private final ILoginUserUseCase loginUserUseCase;
   private final UserRegisterMapper userRegisterMapper;
-
-  private final AuthenticationMapper authMapper;
+  private final AuthenticationMapper authenticationMapper;
 
   @PostMapping(
       value = "/register",
@@ -49,9 +46,9 @@ public class AuthResource {
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<AuthenticationResponse> login(
-      @Valid @RequestBody AuthenticationRequest authRequest) {
-    User user = loginUser.login(authMapper.toDomain(authRequest));
-    return ResponseEntity.ok().body(authMapper.toResponse(user));
+      @Valid @RequestBody AuthenticationRequest authenticationRequest) {
+    User user = loginUserUseCase.login(authenticationMapper.toDomain(authenticationRequest));
+    return ResponseEntity.ok().body(authenticationMapper.toResponse(user));
   }
 
 }

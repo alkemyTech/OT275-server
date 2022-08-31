@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationMapper {
 
-  public User toDomain(AuthenticationRequest authRequest) {
-    if (authRequest == null) {
+  public User toDomain(AuthenticationRequest authenticationRequest) {
+    if (authenticationRequest == null) {
       return null;
     }
     User user = new User();
-    user.setEmail(authRequest.getEmail());
-    user.setPassword(authRequest.getPassword());
+    user.setEmail(authenticationRequest.getEmail());
+    user.setPassword(authenticationRequest.getPassword());
     return user;
   }
 
@@ -22,12 +22,12 @@ public class AuthenticationMapper {
     if (user == null) {
       return null;
     }
-    AuthenticationResponse authResponse = new AuthenticationResponse();
-    authResponse.setFirstName(user.getFirstName());
-    authResponse.setLastName(user.getLastName());
-    authResponse.setEmail(user.getEmail());
-    authResponse.setImageUrl(user.getImageUrl());
-    return authResponse;
+    AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+    authenticationResponse.setFirstName(user.getFirstName());
+    authenticationResponse.setLastName(user.getLastName());
+    authenticationResponse.setEmail(user.getEmail());
+    authenticationResponse.setImageUrl(user.getImageUrl());
+    return authenticationResponse;
   }
 
 }
