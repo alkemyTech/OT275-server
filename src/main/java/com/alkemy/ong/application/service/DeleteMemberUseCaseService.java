@@ -14,6 +14,7 @@ public class DeleteMemberUseCaseService implements IDeleteMemberUseCase {
 
   private final IMemberRepository memberRepository;
 
+
   @Transactional
   @Override
   public void delete(Identifiable<Long> identifiable) {
