@@ -33,6 +33,7 @@ public class UserRegisterMapper {
     registerResponse.setEmail(user.getEmail());
     registerResponse.setFirstName(user.getFirstName());
     registerResponse.setLastName(user.getLastName());
+    registerResponse.setToken(user.getToken());
     return registerResponse;
   }
 }

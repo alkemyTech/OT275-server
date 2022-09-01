@@ -28,8 +28,12 @@ public class UserRepository implements IUserRepository {
   }
 
   @Override
-  public Optional<User> find(String email) {
-    return userSpringRepository.findByEmail(email).map(userEntityMapper::toDomain);
+  public Optional<User> findBy(String email) {
+    Optional<UserEntity> userEntity = userSpringRepository.findByEmail(email);
+    if (userEntity.isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.of(userEntityMapper.toDomain(userEntity.get()));
   }
 
   @Override

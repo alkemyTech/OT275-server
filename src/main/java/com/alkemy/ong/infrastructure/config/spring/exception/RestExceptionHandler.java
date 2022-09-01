@@ -1,8 +1,9 @@
 package com.alkemy.ong.infrastructure.config.spring.exception;
 
-import com.alkemy.ong.application.exception.ObjectNotFound;
-import com.alkemy.ong.application.exception.OperationNotPermitted;
-import com.alkemy.ong.application.exception.UserAlreadyExists;
+import com.alkemy.ong.application.exception.InvalidCredentialsException;
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
+import com.alkemy.ong.application.exception.OperationNotPermittedException;
+import com.alkemy.ong.application.exception.UserAlreadyExistsException;
 import com.alkemy.ong.infrastructure.rest.response.ErrorResponse;
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +23,7 @@ public class RestExceptionHandler {
   private static final String INVALID_ARGUMENT = "Invalid input data.";
   private static final String ERROR_OCCURS = "Application has encountered an error.";
   private static final String OPERATION_NOT_PERMITTED = "Operation not permitted.";
+  private static final String INVALID_CREDENTIALS = "Invalid credentials.";
 
   @ExceptionHandler(value = Exception.class)
   protected ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
@@ -32,16 +34,27 @@ public class RestExceptionHandler {
     return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
-  @ExceptionHandler(value = ObjectNotFound.class)
-  protected ResponseEntity<ErrorResponse> handleObjectNotFound(ObjectNotFound e) {
+  @ExceptionHandler(value = ObjectNotFoundException.class)
+  protected ResponseEntity<ErrorResponse> handleObjectNotFound(ObjectNotFoundException e) {
     ErrorResponse errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND, OBJECT_NOT_FOUND, e);
 
     return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
   }
 
-  @ExceptionHandler(value = OperationNotPermitted.class)
-  protected ResponseEntity<ErrorResponse> handleOperationNotPermitted(OperationNotPermitted e) {
-    ErrorResponse errorResponse = buildErrorResponse(HttpStatus.FORBIDDEN, OPERATION_NOT_PERMITTED,
+  @ExceptionHandler(value = InvalidCredentialsException.class)
+  protected ResponseEntity<ErrorResponse> handleInvalidCredentials(InvalidCredentialsException e) {
+    ErrorResponse errorResponse = buildErrorResponse(HttpStatus.FORBIDDEN,
+        INVALID_CREDENTIALS,
+        e);
+
+    return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+  }
+
+  @ExceptionHandler(value = OperationNotPermittedException.class)
+  protected ResponseEntity<ErrorResponse> handleOperationNotPermitted(
+      OperationNotPermittedException e) {
+    ErrorResponse errorResponse = buildErrorResponse(HttpStatus.FORBIDDEN,
+        OPERATION_NOT_PERMITTED,
         e);
 
     return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
@@ -69,8 +82,8 @@ public class RestExceptionHandler {
     return fieldError.getDefaultMessage();
   }
 
-  @ExceptionHandler(value = UserAlreadyExists.class)
-  protected ResponseEntity<ErrorResponse> handleUserAlreadyExists(UserAlreadyExists e) {
+  @ExceptionHandler(value = UserAlreadyExistsException.class)
+  protected ResponseEntity<ErrorResponse> handleUserAlreadyExists(UserAlreadyExistsException e) {
     ErrorResponse errorResponse = buildErrorResponse(HttpStatus.BAD_REQUEST,
         INVALID_ARGUMENT,
         Collections.singletonList(e.getMessage()));

@@ -8,7 +8,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,13 +26,22 @@ public class JwtUtils {
   public static String create(UserDetails userDetails) {
     return Jwts.builder()
         .setSubject(userDetails.getUsername())
-        .claim(ROLES_CLAIM, userDetails.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.toList()))
+        .claim(ROLES_CLAIM, getAuthority(userDetails))
         .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
         .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(90).toInstant()))
         .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
         .compact();
+  }
+
+  private static String getAuthority(UserDetails userDetails) {
+    Optional<? extends GrantedAuthority> authority = userDetails.getAuthorities()
+        .stream()
+        .findFirst();
+
+    if (authority.isEmpty()) {
+      throw new IllegalArgumentException("Should have at least one authority.");
+    }
+    return authority.get().getAuthority();
   }
 
   public static Jwt extract(String authorizationHeader) {

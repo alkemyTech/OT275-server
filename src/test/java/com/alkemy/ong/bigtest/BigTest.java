@@ -1,5 +1,7 @@
 package com.alkemy.ong.bigtest;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 import com.alkemy.ong.OngApplication;
 import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
 import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
@@ -8,7 +10,11 @@ import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizationSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
+import com.alkemy.ong.infrastructure.rest.request.AuthenticationRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -16,6 +22,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -29,7 +36,15 @@ public abstract class BigTest {
 
   protected static final String ADMIN_EMAIL = "jason@voorhees.com";
   protected static final String USER_EMAIL = "freedy@krueger.com";
+  protected static final String INVALID_TOKEN = "invalid-token";
+  protected static final String ACCESS_DENIED_MESSAGE = "Access denied.";
+  protected static final String ACCESS_DENIED_MORE_INFO = "Access Denied. Contact your administrator.";
+  protected static final String OBJECT_NOT_FOUND_MESSAGE = "Object not found in database.";
+  protected static final String INVALID_INPUT_DATA_MESSAGE = "Invalid input data.";
+
   private static final String PASSWORD_ENCODED = "$2a$10$6KLdPa9azXYgkMOo1zw16.JSngJvSGRvPqokwzi9vzO4OJLKS2bX2";
+  private static final String PASSWORD = "abcd1234";
+  private static final String BEARER_PART = "Bearer ";
 
   @Autowired
   protected MockMvc mockMvc;
@@ -60,6 +75,10 @@ public abstract class BigTest {
 
   private void deleteAllEntities() {
     organizationRepository.deleteAll();
+  }
+
+  protected void cleanUsersData(UserEntity... users) {
+    userRepository.deleteAllInBatch(Arrays.asList(users));
   }
 
   private void createUserData() {
@@ -130,6 +149,28 @@ public abstract class BigTest {
     organizationEntity.setInstagramUrl("https://www.instagram.com/SomosMas/");
     organizationEntity.setSoftDeleted(false);
     return organizationEntity;
+  }
+
+  protected String getAuthorizationTokenForAdminUser() throws Exception {
+    return getAuthorizationTokenForUser(ADMIN_EMAIL);
+  }
+
+  protected String getAuthorizationTokenForStandardUser() throws Exception {
+    return getAuthorizationTokenForUser(USER_EMAIL);
+  }
+
+  private String getAuthorizationTokenForUser(String email) throws Exception {
+    String content = mockMvc.perform(post("/auth/login")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(new AuthenticationRequest(email, PASSWORD))))
+        .andReturn()
+        .getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+    return BEARER_PART + JsonPath.read(content, "$.token");
+  }
+
+  protected UserEntity getRandomUser() {
+    return userRepository.save(buildUser("Michael", "Myers", "michael@myers.com", Role.USER));
   }
 
 }

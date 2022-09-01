@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import com.alkemy.ong.application.exception.UserAlreadyExists;
+import com.alkemy.ong.application.exception.UserAlreadyExistsException;
 import com.alkemy.ong.application.repository.IRoleRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
@@ -41,9 +41,9 @@ class CreateUserUseCaseServiceTest {
     User user = new User();
     user.setEmail(EMAIL);
 
-    given(userRepository.find(EMAIL)).willReturn(Optional.of(user));
+    given(userRepository.findBy(EMAIL)).willReturn(Optional.of(user));
 
-    assertThrows(UserAlreadyExists.class, () -> createUserUseCase.add(user));
+    assertThrows(UserAlreadyExistsException.class, () -> createUserUseCase.add(user));
   }
 
   @Test
@@ -51,7 +51,7 @@ class CreateUserUseCaseServiceTest {
     Role role = new Role();
     role.setName(ROLE);
 
-    given(userRepository.find(EMAIL)).willReturn(Optional.empty());
+    given(userRepository.findBy(EMAIL)).willReturn(Optional.empty());
     given(roleRepository.findRoleUser()).willReturn(role);
 
     User user = new User();
@@ -59,7 +59,7 @@ class CreateUserUseCaseServiceTest {
 
     createUserUseCase.add(user);
 
-    verify(userRepository).find(EMAIL);
+    verify(userRepository).findBy(EMAIL);
     verify(roleRepository).findRoleUser();
     verify(userRepository).add(user);
   }

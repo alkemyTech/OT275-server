@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import com.alkemy.ong.application.exception.ObjectNotFound;
-import com.alkemy.ong.application.exception.OperationNotPermitted;
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
+import com.alkemy.ong.application.exception.OperationNotPermittedException;
 import com.alkemy.ong.application.repository.ICommentRepository;
-import com.alkemy.ong.application.service.usecase.IOperationAllowed;
+import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.domain.Identifiable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,14 +39,14 @@ class DeleteCommentUseCaseServiceTest {
     given(operationAllowed.isAuthorized(identifiable)).willReturn(true);
     given(repository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFound.class, () -> deleteCommentUseCaseService.delete(identifiable));
+    assertThrows(ObjectNotFoundException.class, () -> deleteCommentUseCaseService.delete(identifiable));
   }
 
   @Test
   void shouldThrowExceptionWhenUserIsNotAuthorized() {
     given(operationAllowed.isAuthorized(identifiable)).willReturn(false);
 
-    assertThrows(OperationNotPermitted.class,
+    assertThrows(OperationNotPermittedException.class,
         () -> deleteCommentUseCaseService.delete(identifiable));
   }
 

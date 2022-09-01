@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 class ForbiddenResponseFilter {
 
   private static final int STATUS_CODE = HttpStatus.FORBIDDEN.value();
-  private static final String MESSAGE = "Access Denied";
+  private static final String MESSAGE = "Access denied.";
   private static final List<String> MORE_INFO = List.of(
       "Access Denied. Contact your administrator.");
 

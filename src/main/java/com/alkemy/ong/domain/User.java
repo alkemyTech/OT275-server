@@ -14,6 +14,7 @@ public class User {
   private String password;
   private String imageUrl;
   private Role role;
+  private String token;
 
 }
 
