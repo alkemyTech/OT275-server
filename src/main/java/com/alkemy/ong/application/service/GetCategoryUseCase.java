@@ -15,7 +15,7 @@ public class GetCategoryUseCase implements IGetCategoryUseCase {
 
   @Override
   public Category get(Identifiable<Long> identifiable) {
-    if(!categoryRepository.exists(identifiable)){
+    if (!categoryRepository.exists(identifiable)) {
       throw new ObjectNotFound(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Category"));
     }
     return categoryRepository.get(identifiable);
