@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class Category {
 
-  private String content;
+  private String description;
 
   private String imageUrl;
 

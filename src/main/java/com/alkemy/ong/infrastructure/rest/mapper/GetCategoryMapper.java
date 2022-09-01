@@ -13,9 +13,9 @@ public class GetCategoryMapper {
     }
 
     GetCategoryResponse categoryResponse = new GetCategoryResponse();
-    categoryResponse.setName(categoryResponse.getName());
-    categoryResponse.setContent(categoryResponse.getContent());
-    categoryResponse.setImageUrl(categoryResponse.getImageUrl());
+    categoryResponse.setName(category.getName());
+    categoryResponse.setDescription(category.getDescription());
+    categoryResponse.setImageUrl(category.getImageUrl());
 
     return categoryResponse;
   }
