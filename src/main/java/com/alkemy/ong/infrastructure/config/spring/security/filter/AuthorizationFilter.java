@@ -20,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class AuthorizationFilter extends OncePerRequestFilter {
 
   private static final String BEARER_PART = "Bearer ";
-  private static final Object CREDENTIALS = null;
+  private static final Object CREDENTIALS = "";
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -34,15 +34,20 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     }
 
     try {
-      Jwt jwt = JwtUtils.extract(authorizationHeader);
-      Authentication authentication = new UsernamePasswordAuthenticationToken(
-          jwt.getUsername(),
-          CREDENTIALS,
-          jwt.getGrantedAuthorities());
-      SecurityContextHolder.getContext().setAuthentication(authentication);
+      setAuthentication(authorizationHeader);
+      filterChain.doFilter(request, response);
     } catch (JwtException e) {
       throw new IllegalStateException("Invalid JWT signature.");
     }
+  }
+
+  private static void setAuthentication(String authorizationHeader) {
+    Jwt jwt = JwtUtils.extract(authorizationHeader);
+    Authentication authentication = new UsernamePasswordAuthenticationToken(
+        jwt.getUsername(),
+        CREDENTIALS,
+        jwt.getGrantedAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
   }
 
   private boolean isValid(String authorizationHeader) {
