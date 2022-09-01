@@ -2,7 +2,9 @@ package com.alkemy.ong.infrastructure.rest.mapper;
 
 import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.infrastructure.rest.response.GetCategoryResponse;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GetCategoryMapper {
 
   public GetCategoryResponse toResponse(Category category) {
