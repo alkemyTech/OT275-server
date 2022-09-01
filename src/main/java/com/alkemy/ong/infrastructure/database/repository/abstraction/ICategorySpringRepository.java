@@ -18,4 +18,7 @@ public interface ICategorySpringRepository extends JpaRepository<CategoryEntity,
   @Query(value = "SELECT c FROM CategoryEntity c "
       + "WHERE c.softDeleted = false AND c.categoryId = :id")
   Optional<CategoryEntity> exists(@Param("id") Long id);
+
+  Optional<CategoryEntity>findById(Long Id);
+
 }

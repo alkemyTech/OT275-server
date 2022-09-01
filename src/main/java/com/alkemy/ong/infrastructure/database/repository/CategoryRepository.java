@@ -31,4 +31,11 @@ public class CategoryRepository implements ICategoryRepository {
   public boolean exists(Identifiable<Long> identifiable) {
     return categorySpringRepository.exists(identifiable.getId()).isPresent();
   }
+
+  @Override
+  public Category post(Category category) {
+    CategoryEntity categoryEntity = categoryEntityMapper.toEntity(category);
+    categoryEntity.setSoftDeleted(false);
+    return categoryEntityMapper.toDomain(categorySpringRepository.save(categoryEntity));
+  }
 }
