@@ -14,7 +14,7 @@ public class CreateCategoryUseCaseService implements ICreateCategoryUseCase {
 
   @Override
   public Category post(Category category) {
-    if(categoryRepository.exists(category::getId)){
+    if (categoryRepository.exists(category::getId)) {
       throw new CategoryAlreadyExists(ErrorMessage.CATEGORY_ALREADY_EXISTS.getMessage("category"));
     }
     return categoryRepository.post(category);

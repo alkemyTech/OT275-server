@@ -1,10 +1,14 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
+import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.domain.Category;
+import com.alkemy.ong.infrastructure.rest.mapper.CategoryPostMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.CategoryUpdateMapper;
+import com.alkemy.ong.infrastructure.rest.request.CategoryPostRequest;
 import com.alkemy.ong.infrastructure.rest.request.CategoryUpdateRequest;
+import com.alkemy.ong.infrastructure.rest.response.CategoryPostResponse;
 import com.alkemy.ong.infrastructure.rest.response.CategoryUpdateResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +31,8 @@ public class CategoryResource {
   private final IUpdateCategoryUseCase updateCategoryUseCase;
   private final IDeleteCategoryUseCase deleteCategoryUseCase;
   private final CategoryUpdateMapper categoryUpdateMapper;
+  private final CategoryPostMapper categoryPostMapper;
+  private final ICreateCategoryUseCase createCategoryUseCase;
 
   @PutMapping(
       value = "/{id}",
@@ -44,4 +51,18 @@ public class CategoryResource {
     deleteCategoryUseCase.delete(() -> id);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
+
+  @PostMapping(
+      value = "/",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<CategoryPostResponse> post(
+      @Valid @RequestBody CategoryPostRequest postRequest) {
+    Category category = categoryPostMapper.toDomain(postRequest);
+    Category savedCategory = createCategoryUseCase.post(category);
+    CategoryPostResponse response = categoryPostMapper.toResponse(savedCategory);
+    return new ResponseEntity<>(response, HttpStatus.CREATED);
+
+  }
+
 }
