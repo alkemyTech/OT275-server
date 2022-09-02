@@ -12,9 +12,7 @@ public class OrganizationUpdateResponse {
   private String address;
   private String phone;
   private String email;
-  private String facebookUrl;
-  private String linkedInUrl;
-  private String instagramUrl;
+  private SocialMediaResponse socialMedia;
   private String aboutUsText;
   private String welcomeText;
 
