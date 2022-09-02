@@ -9,5 +9,8 @@ public interface ICategoryRepository {
 
   boolean exists(Identifiable<Long> identifiable);
 
+  Category get(Identifiable<Long> identifiable);
+
   Category update(Category category);
+
 }

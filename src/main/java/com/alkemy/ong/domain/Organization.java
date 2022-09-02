@@ -20,5 +20,4 @@ public class Organization {
   private SocialMedia socialMedia;
   private String aboutUsText;
   private String welcomeText;
-
 }

@@ -22,6 +22,7 @@ public class CategoryRepository implements ICategoryRepository {
     return categoryEntityMapper.toDomain(categorySpringRepository.save(categoryEntity));
   }
 
+
   @Override
   public void delete(Identifiable<Long> identifiable) {
     categorySpringRepository.softDelete(identifiable.getId());
@@ -30,5 +31,11 @@ public class CategoryRepository implements ICategoryRepository {
   @Override
   public boolean exists(Identifiable<Long> identifiable) {
     return categorySpringRepository.exists(identifiable.getId()).isPresent();
+  }
+
+  @Override
+  public Category get(Identifiable<Long> identifiable) {
+    return categoryEntityMapper.toDomain(
+        categorySpringRepository.findByCategoryIdAndSoftDeletedFalse(identifiable.getId()));
   }
 }
