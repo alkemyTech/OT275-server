@@ -73,8 +73,8 @@ public class SpringBeanConfiguration {
 
   @Bean
   public IGetOrganizationUseCase getOrganizationUseCase(
-      IOrganizationRepository organizationRepository) {
-    return new GetOrganizationUseCaseService(organizationRepository);
+      IOrganizationRepository organizationRepository, ISlideRepository slideRepository) {
+    return new GetOrganizationUseCaseService(organizationRepository, slideRepository);
   }
 
   @Bean
@@ -125,7 +125,7 @@ public class SpringBeanConfiguration {
   public IGetSlideUseCase getSlideUseCase(ISlideRepository slideRepository) {
     return new GetSlideUseCaseService(slideRepository);
   }
-  
+
   @Bean
   public IUpdateOrganizationUseCase updateOrganizationUseCase(
       IOrganizationRepository organizationRepository) {
