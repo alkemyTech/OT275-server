@@ -21,6 +21,7 @@ import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.ListSlideUseCaseService;
 import com.alkemy.ong.application.service.LoginUserUseCaseService;
 import com.alkemy.ong.application.service.UpdateCategoryUserCaseService;
+import com.alkemy.ong.application.service.UpdateOrganizationUseCaseService;
 import com.alkemy.ong.application.service.delegate.IAuthenticationManager;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
@@ -35,6 +36,7 @@ import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
+import com.alkemy.ong.application.service.usecase.IUpdateOrganizationUseCase;
 import com.alkemy.ong.infrastructure.database.repository.CategoryRepository;
 import com.alkemy.ong.infrastructure.database.repository.SlideRepository;
 import com.alkemy.ong.infrastructure.database.repository.UserRepository;
@@ -107,6 +109,12 @@ public class SpringBeanConfiguration {
   public ILoginUserUseCase loginUserCase(IUserRepository userRepository,
       IAuthenticationManager authenticationManager) {
     return new LoginUserUseCaseService(userRepository, authenticationManager);
+  }
+
+  @Bean
+  public IUpdateOrganizationUseCase updateOrganizationUseCase(
+      IOrganizationRepository organizationRepository) {
+    return new UpdateOrganizationUseCaseService(organizationRepository);
   }
 
 }
