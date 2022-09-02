@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Organization {
 
+  private Long id;
   private String name;
   private String image;
   private String phone;

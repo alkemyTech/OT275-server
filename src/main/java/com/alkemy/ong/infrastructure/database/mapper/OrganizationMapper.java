@@ -16,6 +16,7 @@ public class OrganizationMapper {
     }
 
     Organization organization = new Organization();
+    organization.setId(entity.getOrganizationId());
     organization.setName(entity.getName());
     organization.setImage(entity.getImageUrl());
     organization.setPhone(entity.getPhone());
@@ -34,6 +35,7 @@ public class OrganizationMapper {
     }
 
     OrganizationEntity entity = new OrganizationEntity();
+    entity.setOrganizationId(organization.getId());
     entity.setName(organization.getName());
     entity.setImageUrl(organization.getImage());
     entity.setPhone(organization.getPhone());
