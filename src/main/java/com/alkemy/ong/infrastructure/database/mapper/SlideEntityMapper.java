@@ -5,25 +5,22 @@ import com.alkemy.ong.infrastructure.database.entity.SlideEntity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SlideEntityMapper {
 
   public List<Slide> toDomain(List<SlideEntity> slideEntities) {
-    if (slideEntities.isEmpty() || slideEntities == null) {
+    if (slideEntities == null || slideEntities.isEmpty()) {
       return Collections.emptyList();
     }
 
-    return slideEntities.stream()
-        .map(slideEntity -> {
-          Slide slide = new Slide();
-          slide.setImageUrl(slideEntity.getImageUrl());
-          slide.setOrder(slideEntity.getPosition());
-          return slide;
-        })
-        .collect(Collectors.toCollection(() -> new ArrayList<>(slideEntities.size())));
+    List<Slide> slides = new ArrayList<>(slideEntities.size());
+    for (SlideEntity slideEntity : slideEntities) {
+      slides.add(toDomain(slideEntity));
+    }
+
+    return slides;
   }
 
   public Slide toDomain(SlideEntity slideEntity) {
