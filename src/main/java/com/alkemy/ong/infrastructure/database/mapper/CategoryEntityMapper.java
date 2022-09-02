@@ -30,7 +30,6 @@ public class CategoryEntityMapper {
     category.setName(categoryEntity.getName());
     category.setDescription(categoryEntity.getDescription());
     category.setImageUrl(categoryEntity.getImageUrl());
-
     return category;
   }
 }

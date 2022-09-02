@@ -13,6 +13,7 @@ public class GetCategoryMapper {
     }
 
     GetCategoryResponse categoryResponse = new GetCategoryResponse();
+    categoryResponse.setId(category.getId());
     categoryResponse.setName(category.getName());
     categoryResponse.setDescription(category.getDescription());
     categoryResponse.setImageUrl(category.getImageUrl());

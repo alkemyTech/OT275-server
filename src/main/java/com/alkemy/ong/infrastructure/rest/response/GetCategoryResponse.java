@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GetCategoryResponse {
 
+  private Long id;
+
   private String description;
 
   private String imageUrl;
