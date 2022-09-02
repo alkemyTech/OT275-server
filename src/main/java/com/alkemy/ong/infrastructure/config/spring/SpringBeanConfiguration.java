@@ -18,6 +18,7 @@ import com.alkemy.ong.application.service.DeleteSlideUseCaseService;
 import com.alkemy.ong.application.service.DeleteTestimonialUseCaseService;
 import com.alkemy.ong.application.service.DeleteUserUseCaseService;
 import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
+import com.alkemy.ong.application.service.GetSlideUseCaseService;
 import com.alkemy.ong.application.service.ListSlideUseCaseService;
 import com.alkemy.ong.application.service.LoginUserUseCaseService;
 import com.alkemy.ong.application.service.UpdateCategoryUserCaseService;
@@ -33,6 +34,7 @@ import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
+import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
@@ -111,6 +113,11 @@ public class SpringBeanConfiguration {
     return new LoginUserUseCaseService(userRepository, authenticationManager);
   }
 
+  @Bean
+  public IGetSlideUseCase getSlideUseCase(ISlideRepository slideRepository) {
+    return new GetSlideUseCaseService(slideRepository);
+  }
+  
   @Bean
   public IUpdateOrganizationUseCase updateOrganizationUseCase(
       IOrganizationRepository organizationRepository) {

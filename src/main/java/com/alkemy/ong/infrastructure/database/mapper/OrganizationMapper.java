@@ -16,6 +16,7 @@ public class OrganizationMapper {
     }
 
     Organization organization = new Organization();
+    organization.setId(entity.getOrganizationId());
     organization.setName(entity.getName());
     organization.setImage(entity.getImageUrl());
     organization.setPhone(entity.getPhone());
@@ -34,16 +35,21 @@ public class OrganizationMapper {
     }
 
     OrganizationEntity entity = new OrganizationEntity();
+    entity.setOrganizationId(organization.getId());
     entity.setName(organization.getName());
     entity.setImageUrl(organization.getImage());
     entity.setPhone(organization.getPhone());
     entity.setAddress(organization.getAddress());
     entity.setEmail(organization.getEmail());
-    entity.setFacebookUrl(organization.getSocialMedia().getFacebookUrl());
-    entity.setLinkedInUrl(organization.getSocialMedia().getLinkedInUrl());
-    entity.setInstagramUrl(organization.getSocialMedia().getInstagramUrl());
     entity.setAboutUsText(organization.getAboutUsText());
     entity.setWelcomeText(organization.getWelcomeText());
+
+    SocialMedia socialMedia = organization.getSocialMedia();
+    if (socialMedia != null) {
+      entity.setFacebookUrl(socialMedia.getFacebookUrl());
+      entity.setLinkedInUrl(socialMedia.getLinkedInUrl());
+      entity.setInstagramUrl(socialMedia.getInstagramUrl());
+    }
 
     return entity;
   }
