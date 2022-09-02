@@ -9,7 +9,6 @@ import com.alkemy.ong.application.repository.IRoleRepository;
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.repository.ITestimonialRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
-import com.alkemy.ong.application.service.CreateCategoryUseCaseService;
 import com.alkemy.ong.application.service.CreateUserUseCaseService;
 import com.alkemy.ong.application.service.DeleteCategoryUseCaseService;
 import com.alkemy.ong.application.service.DeleteCommentUseCaseService;
@@ -22,7 +21,6 @@ import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.ListSlideUseCaseService;
 import com.alkemy.ong.application.service.LoginUserUseCaseService;
 import com.alkemy.ong.application.service.UpdateCategoryUserCaseService;
-import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
 import com.alkemy.ong.application.service.delegate.IAuthenticationManager;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
@@ -50,56 +48,65 @@ public class SpringBeanConfiguration {
   public IDeleteMemberUseCase deleteMemberUseCase(IMemberRepository memberRepository) {
     return new DeleteMemberUseCaseService(memberRepository);
   }
+
   @Bean
   public IDeleteUserUseCase deleteUserUseCase(IUserRepository userRepository) {
     return new DeleteUserUseCaseService(userRepository);
   }
+
   @Bean
   public IDeleteSlideUseCase deleteSlideUseCase(ISlideRepository slideRepository) {
     return new DeleteSlideUseCaseService(slideRepository);
   }
+
   @Bean
   public IDeleteTestimonialUseCase deleteTestimonialUseCase(
       ITestimonialRepository testimonialRepository) {
     return new DeleteTestimonialUseCaseService(testimonialRepository);
   }
+
   @Bean
   public IGetOrganizationUseCase getOrganizationUseCase(
       IOrganizationRepository organizationRepository) {
     return new GetOrganizationUseCaseService(organizationRepository);
   }
+
   @Bean
   public IDeleteNewsUseCase deleteNewsUseCase(INewsRepository newsRepository) {
     return new DeleteNewsUseCaseService(newsRepository);
   }
+
   @Bean
   public IDeleteCategoryUseCase deleteCategoryUseCase(ICategoryRepository categoryRepository) {
     return new DeleteCategoryUseCaseService(categoryRepository);
   }
+
   @Bean
   public IDeleteCommentUseCase deleteCommentUseCase(ICommentRepository commentRepository,
       IOperationAllowed authorization) {
     return new DeleteCommentUseCaseService(commentRepository, authorization);
   }
+
   @Bean
   public ICreateUserUseCase createUserService(UserRepository userRepository,
       IRoleRepository roleRepository) {
     return new CreateUserUseCaseService(userRepository, roleRepository);
   }
+
   @Bean
   public IListSlideUseCase listSlideUseCaseService(SlideRepository slideRepository) {
     return new ListSlideUseCaseService(slideRepository);
   }
+
   @Bean
   public IUpdateCategoryUseCase updateCategoryUseCase(CategoryRepository categoryRepository) {
     return new UpdateCategoryUserCaseService(categoryRepository);
   }
+
   @Bean
-  public ICreateCategoryUseCase createCategoryUseCase (CategoryRepository categoryRepository) {
-    return new CreateCategoryUseCaseService(categoryRepository);
-  }
   public ILoginUserUseCase loginUserCase(IUserRepository userRepository,
       IAuthenticationManager authenticationManager) {
     return new LoginUserUseCaseService(userRepository, authenticationManager);
   }
+
 }
