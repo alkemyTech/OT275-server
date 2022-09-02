@@ -11,6 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Slide {
 
+  private Long id;
+
   private String imageUrl;
+
   private Integer order;
+
+  private String text;
+
 }
