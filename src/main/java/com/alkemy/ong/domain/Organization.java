@@ -15,6 +15,7 @@ public class Organization {
   private String image;
   private String phone;
   private String address;
-
+  private String email;
+  private SocialNetworks socialNetwork;
 
 }
