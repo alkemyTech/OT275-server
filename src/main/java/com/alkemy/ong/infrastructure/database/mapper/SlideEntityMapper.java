@@ -17,7 +17,21 @@ public class SlideEntityMapper {
     }
 
     return slideEntities.stream()
-        .map(slideEntity -> new Slide(slideEntity.getImageUrl(), slideEntity.getPosition()))
+        .map(slideEntity -> new Slide(null, slideEntity.getImageUrl(),
+            slideEntity.getPosition(), null))
         .collect(Collectors.toCollection(() -> new ArrayList<>(slideEntities.size())));
   }
+
+  public Slide toDomain(SlideEntity slideEntity) {
+    if (slideEntity == null) {
+      return null;
+    }
+    Slide slide = new Slide();
+    slide.setId(slideEntity.getSlideId());
+    slide.setImageUrl(slideEntity.getImageUrl());
+    slide.setOrder(slideEntity.getPosition());
+    slide.setText(slideEntity.getText());
+    return slide;
+  }
+
 }
