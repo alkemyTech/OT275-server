@@ -41,6 +41,7 @@ public class WelcomeEmailTemplate implements IMail {
     return readString.replace(OrganizationInfo.IMAGE.name(), organization.getImage())
         .replace(OrganizationInfo.ORG_NAME.name(), organization.getName())
         .replace(OrganizationInfo.ORG_EMAIL.name(), organization.getEmail())
+        .replace(OrganizationInfo.WELCOME_TEXT.name(), organization.getWelcomeText())
         .replace(OrganizationInfo.ORG_ADDRESS.name(), organization.getAddress())
         .replace(OrganizationInfo.ORG_PHONE.name(), organization.getPhone())
         .replace(OrganizationInfo.INSTAGRAM_URL.name(),
