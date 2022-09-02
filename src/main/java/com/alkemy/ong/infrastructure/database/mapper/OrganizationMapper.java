@@ -1,6 +1,7 @@
 package com.alkemy.ong.infrastructure.database.mapper;
 
 import com.alkemy.ong.domain.Organization;
+import com.alkemy.ong.domain.SocialMedia;
 import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,45 +21,40 @@ public class OrganizationMapper {
     organization.setPhone(entity.getPhone());
     organization.setAddress(entity.getAddress());
     organization.setEmail(entity.getEmail());
-    organization.setFacebookUrl(entity.getFacebookUrl());
-    organization.setLinkedInUrl(entity.getLinkedInUrl());
-    organization.setInstagramUrl(entity.getInstagramUrl());
+    organization.setSocialMedia(buildSocialMedia(entity));
     organization.setAboutUsText(entity.getAboutUsText());
     organization.setWelcomeText(entity.getWelcomeText());
+
     return organization;
   }
 
-  public void update(OrganizationEntity entity, Organization organization) {
-    if (organization.getName() != null) {
-      entity.setName(organization.getName());
-    }
-    if (organization.getImage() != null) {
-      entity.setImageUrl(organization.getImage());
-    }
-    if (organization.getPhone() != null) {
-      entity.setPhone(organization.getPhone());
-    }
-    if (organization.getAddress() != null) {
-      entity.setAddress(organization.getAddress());
-    }
-    if (organization.getEmail() != null) {
-      entity.setEmail(organization.getEmail());
-    }
-    if (organization.getFacebookUrl() != null) {
-      entity.setFacebookUrl(organization.getFacebookUrl());
-    }
-    if (organization.getLinkedInUrl() != null) {
-      entity.setLinkedInUrl(organization.getLinkedInUrl());
-    }
-    if (organization.getInstagramUrl() != null) {
-      entity.setLinkedInUrl(organization.getLinkedInUrl());
-    }
-    if (organization.getAboutUsText() != null) {
-      entity.setAboutUsText(organization.getAboutUsText());
-    }
-    if (organization.getWelcomeText() != null) {
-      entity.setWelcomeText(organization.getWelcomeText());
+  public OrganizationEntity toEntity(Organization organization) {
+    if (organization == null) {
+      return null;
     }
 
+    OrganizationEntity entity = new OrganizationEntity();
+    entity.setName(organization.getName());
+    entity.setImageUrl(organization.getImage());
+    entity.setPhone(organization.getPhone());
+    entity.setAddress(organization.getAddress());
+    entity.setEmail(organization.getEmail());
+    entity.setFacebookUrl(organization.getSocialMedia().getFacebookUrl());
+    entity.setLinkedInUrl(organization.getSocialMedia().getLinkedInUrl());
+    entity.setInstagramUrl(organization.getSocialMedia().getInstagramUrl());
+    entity.setAboutUsText(organization.getAboutUsText());
+    entity.setWelcomeText(organization.getWelcomeText());
+
+    return entity;
   }
+
+  private SocialMedia buildSocialMedia(OrganizationEntity entity) {
+    SocialMedia socialMedia = new SocialMedia();
+    socialMedia.setInstagramUrl(entity.getInstagramUrl());
+    socialMedia.setLinkedInUrl(entity.getLinkedInUrl());
+    socialMedia.setFacebookUrl(entity.getFacebookUrl());
+
+    return socialMedia;
+  }
+
 }

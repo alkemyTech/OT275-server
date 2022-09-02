@@ -16,15 +16,18 @@ public class OrganizationRepository implements IOrganizationRepository {
   private final IOrganizationSpringRepository organizationSpringRepository;
 
   public Organization getOrganization() {
-    return organizationMapper.toDomain(organizationSpringRepository.findAll().get(0));
+    return organizationMapper.toDomain(find());
   }
 
   @Override
   public Organization update(Organization organization) {
-    OrganizationEntity organizationEntity = organizationSpringRepository.findAll().get(0);
-    organizationMapper.update(organizationEntity, organization);
-    return organizationMapper.toDomain(
-        organizationSpringRepository.save(organizationEntity));
+    OrganizationEntity entity = organizationMapper.toEntity(organization);
+    entity.setOrganizationId(find().getOrganizationId());
+    return organizationMapper.toDomain(organizationSpringRepository.save(entity));
+  }
+
+  private OrganizationEntity find() {
+    return organizationSpringRepository.findAll().get(0);
   }
 
 }
