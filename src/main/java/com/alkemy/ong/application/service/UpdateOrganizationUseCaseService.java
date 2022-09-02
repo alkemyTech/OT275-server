@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UpdateOrganizationUseCaseService implements IUpdateOrganizationUseCase {
 
-  private IOrganizationRepository organizationRepository;
+  private final IOrganizationRepository organizationRepository;
 
   @Transactional
   @Override
