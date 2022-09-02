@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class Comment {
 
+  private Long id;
   private User createdBy;
 
 }

@@ -14,6 +14,7 @@ public class UserEntityMapper {
 
   public User toDomain(UserEntity entity) {
     User user = new User();
+    user.setId(entity.getUserId());
     user.setEmail(entity.getEmail());
     user.setFirstName(entity.getFirstName());
     user.setLastName(entity.getLastName());
@@ -29,6 +30,7 @@ public class UserEntityMapper {
       return null;
     }
     UserEntity userEntity = new UserEntity();
+    userEntity.setUserId(user.getId());
     userEntity.setEmail(user.getEmail());
     userEntity.setFirstName(user.getFirstName());
     userEntity.setLastName(user.getLastName());

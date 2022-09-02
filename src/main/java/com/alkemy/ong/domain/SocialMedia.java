@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Slide {
+public class SocialMedia {
 
-  private Long id;
-  private String imageUrl;
-  private Integer order;
-  private String text;
+  private String facebookUrl;
+  private String linkedInUrl;
+  private String instagramUrl;
 
 }
+
