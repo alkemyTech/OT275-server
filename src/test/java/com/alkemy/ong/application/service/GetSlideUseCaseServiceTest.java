@@ -36,14 +36,13 @@ class GetSlideUseCaseServiceTest {
 
   @Test
   void shouldThrowExceptionWhenSlideDoesNotExist() {
-    given(slideRepository.exists(identifiable)).willReturn(false);
+    given(slideRepository.getBy(identifiable)).willReturn(Optional.empty());
 
     assertThrows(ObjectNotFoundException.class, () -> getSlideUseCaseService.getBy(identifiable));
   }
 
   @Test
   void shouldGetSlideById() {
-    given(slideRepository.exists(identifiable)).willReturn(true);
     given(slideRepository.getBy(identifiable)).willReturn(Optional.of(slide));
 
     getSlideUseCaseService.getBy(identifiable);
