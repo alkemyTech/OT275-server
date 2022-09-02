@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import com.alkemy.ong.application.exception.ObjectNotFound;
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.ICategoryRepository;
 import com.alkemy.ong.domain.Identifiable;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +32,7 @@ class DeleteCategoryUseCaseServiceTest {
   void shouldThrowExceptionWhenCategoryDoesNotExist() {
     given(categoryRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFound.class,
+    assertThrows(ObjectNotFoundException.class,
         () -> deleteCategoryUseCaseService.delete(identifiable));
   }
 

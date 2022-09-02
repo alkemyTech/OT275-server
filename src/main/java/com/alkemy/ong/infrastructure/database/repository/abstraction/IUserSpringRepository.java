@@ -19,4 +19,5 @@ public interface IUserSpringRepository extends JpaRepository<UserEntity, Long> {
   Optional<UserEntity> exists(@Param("id") Long id);
 
   Optional<UserEntity> findByEmail(String email);
+
 }
