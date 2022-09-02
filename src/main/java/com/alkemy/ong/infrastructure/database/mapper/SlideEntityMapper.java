@@ -17,8 +17,12 @@ public class SlideEntityMapper {
     }
 
     return slideEntities.stream()
-        .map(slideEntity -> new Slide(null, slideEntity.getImageUrl(),
-            slideEntity.getPosition(), null))
+        .map(slideEntity -> {
+          Slide slide = new Slide();
+          slide.setImageUrl(slideEntity.getImageUrl());
+          slide.setOrder(slideEntity.getPosition());
+          return slide;
+        })
         .collect(Collectors.toCollection(() -> new ArrayList<>(slideEntities.size())));
   }
 

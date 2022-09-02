@@ -17,7 +17,7 @@ public class GetSlideUseCaseService implements IGetSlideUseCase {
   @Override
   public Slide getBy(Identifiable<Long> identifiable) {
     Optional<Slide> slide = slideRepository.getBy(identifiable);
-    if (!slideRepository.exists(identifiable)) {
+    if (slide.isEmpty()) {
       throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Slide"));
     }
     return slide.get();
