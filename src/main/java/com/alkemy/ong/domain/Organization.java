@@ -17,5 +17,6 @@ public class Organization {
   private String address;
   private String email;
   private SocialNetwork socialNetwork;
+  private String welcomeText;
 
 }
