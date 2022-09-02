@@ -2,6 +2,7 @@ package com.alkemy.ong.application.repository;
 
 import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.domain.Identifiable;
+import java.util.List;
 
 public interface ICategoryRepository {
 
@@ -13,4 +14,5 @@ public interface ICategoryRepository {
 
   Category update(Category category);
 
+  List<Category> findAll();
 }
