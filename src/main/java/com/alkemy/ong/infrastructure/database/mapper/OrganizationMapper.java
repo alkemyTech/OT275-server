@@ -39,11 +39,15 @@ public class OrganizationMapper {
     entity.setPhone(organization.getPhone());
     entity.setAddress(organization.getAddress());
     entity.setEmail(organization.getEmail());
-    entity.setFacebookUrl(organization.getSocialMedia().getFacebookUrl());
-    entity.setLinkedInUrl(organization.getSocialMedia().getLinkedInUrl());
-    entity.setInstagramUrl(organization.getSocialMedia().getInstagramUrl());
     entity.setAboutUsText(organization.getAboutUsText());
     entity.setWelcomeText(organization.getWelcomeText());
+
+    SocialMedia socialMedia = organization.getSocialMedia();
+    if (socialMedia != null) {
+      entity.setFacebookUrl(socialMedia.getFacebookUrl());
+      entity.setLinkedInUrl(socialMedia.getLinkedInUrl());
+      entity.setInstagramUrl(socialMedia.getInstagramUrl());
+    }
 
     return entity;
   }
