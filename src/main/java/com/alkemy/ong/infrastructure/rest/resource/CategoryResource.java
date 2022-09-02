@@ -30,7 +30,7 @@ public class CategoryResource {
   private final IUpdateCategoryUseCase updateCategoryUseCase;
   private final IDeleteCategoryUseCase deleteCategoryUseCase;
 
-  private final IGetCategoryUseCase categoryUseCase;
+  private final IGetCategoryUseCase getCategoryUseCase;
   private final CategoryUpdateMapper categoryUpdateMapper;
 
   private final GetCategoryMapper getCategoryMapper;
@@ -56,7 +56,7 @@ public class CategoryResource {
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<GetCategoryResponse> get(@PathVariable Long id) {
-    Category category = categoryUseCase.get(() -> id);
+    Category category = getCategoryUseCase.get(() -> id);
     return new ResponseEntity<>(getCategoryMapper.toResponse(category), HttpStatus.OK);
   }
 

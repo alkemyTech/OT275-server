@@ -6,7 +6,6 @@ import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import com.alkemy.ong.infrastructure.database.mapper.CategoryEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -36,11 +35,7 @@ public class CategoryRepository implements ICategoryRepository {
 
   @Override
   public Category get(Identifiable<Long> identifiable) {
-    Category category = null;
-    Optional<CategoryEntity> categoryEntity = categorySpringRepository.exists(identifiable.getId());
-    if (categoryEntity.isPresent()) {
-      category = categoryEntityMapper.toDomain(categoryEntity.get());
-    }
-    return category;
+    return categoryEntityMapper.toDomain(
+        categorySpringRepository.findByCategoryIdAndSoftDeletedFalse(identifiable.getId()));
   }
 }
