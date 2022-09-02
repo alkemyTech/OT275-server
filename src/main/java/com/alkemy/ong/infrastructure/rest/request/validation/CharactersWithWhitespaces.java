@@ -11,8 +11,8 @@ import javax.validation.Payload;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = NameValidator.class)
-public @interface Name {
+@Constraint(validatedBy = CharactersWithWhitespacesValidator.class)
+public @interface CharactersWithWhitespaces {
 
   String message() default "{com.alkemy.ong.infrastructure.rest.request.validation.Name.message}";
 
