@@ -4,6 +4,7 @@ import com.alkemy.ong.application.service.delegate.IUploadImage;
 import com.alkemy.ong.infrastructure.config.aws.AwsConfig;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import java.io.InputStream;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,22 +16,40 @@ public class ImageDelegate implements IUploadImage {
 
   private final AwsConfig awsConfig;
 
-  private static final String HTTPS_PART = "https://";
-  private static final String AMAZON_PART = ".s3.amazonaws.com/";
-
   public String upload(InputStream content, String contentType, String fileName) {
-    ObjectMetadata metadata = new ObjectMetadata();
-    metadata.setContentType(contentType);
     AmazonS3 awsClient = awsConfig.generateS3client();
-    awsClient.putObject(
-        awsConfig.getBucketName(),
-        fileName,
+    String bucketName = awsConfig.getBucketName();
+    ObjectMetadata objectMetadata = buildObjectMetadata(contentType);
+    PutObjectRequest putObjectRequest = buildPutObjectRequest(
+        bucketName,
         content,
-        metadata);
-    return buildObjectUrl(fileName);
+        fileName,
+        objectMetadata,
+        awsClient);
+    awsClient.putObject(putObjectRequest);
+    return getObjectUrl(awsClient, bucketName, fileName);
   }
 
-  private String buildObjectUrl(String fileName) {
-    return HTTPS_PART + awsConfig.getBucketName() + AMAZON_PART + fileName;
+  private ObjectMetadata buildObjectMetadata(String contentType) {
+    ObjectMetadata objectMetadata = new ObjectMetadata();
+    objectMetadata.setContentType(contentType);
+    return objectMetadata;
+  }
+
+  private PutObjectRequest buildPutObjectRequest(String bucketName,
+      InputStream inputStream,
+      String fileName,
+      ObjectMetadata objectMetadata, AmazonS3 awsClient) {
+    PutObjectRequest putObjectRequest = new PutObjectRequest(
+        bucketName,
+        fileName,
+        inputStream,
+        objectMetadata);
+    putObjectRequest.withAccessControlList(awsClient.getBucketAcl(bucketName));
+    return putObjectRequest;
+  }
+
+  public String getObjectUrl(AmazonS3 awsClient, String bucketName, String fileName) {
+    return awsClient.getUrl(bucketName, fileName).toString();
   }
 }
