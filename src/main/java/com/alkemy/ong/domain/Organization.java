@@ -16,11 +16,8 @@ public class Organization {
   private String phone;
   private String address;
   private String email;
-  private String facebookUrl;
-  private String linkedInUrl;
-  private String instagramUrl;
+  private SocialMedia socialMedia;
   private String aboutUsText;
   private String welcomeText;
-
 
 }
