@@ -1,6 +1,6 @@
 package com.alkemy.ong.infrastructure.rest.request;
 
-import com.alkemy.ong.infrastructure.rest.request.validation.Name;
+import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhitespaces;
 import javax.validation.constraints.Email;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
 public class OrganizationUpdateRequest {
 
   @Nullable
-  @Name(message = "Name must contain only spaces and letters")
+  @CharactersWithWhitespaces(message = "Name must contain only spaces and letters")
   private String name;
 
   private String imageUrl;
