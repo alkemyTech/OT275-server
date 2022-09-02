@@ -29,6 +29,7 @@ class UpdateOrganizationUseCaseServiceTest {
 
   @Test
   void shouldUpdateOrganization() {
+    given(organizationRepository.getOrganization()).willReturn(organization);
     given(organizationRepository.update(organization)).willReturn(organization);
 
     updateOrganizationUseCaseService.update(organization);
