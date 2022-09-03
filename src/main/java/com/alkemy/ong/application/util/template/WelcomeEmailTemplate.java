@@ -50,7 +50,7 @@ public class WelcomeEmailTemplate implements IMail {
   public String replacePlaceHolders(String readFile) {
     SocialMedia socialMedia = organization.getSocialMedia();
     String html = "";
-    if(socialMedia != null && !readFile.isEmpty()) {
+    if (socialMedia != null && !readFile.isEmpty()) {
       html += readFile.replace(PlaceHolder.LOGO.name(), organization.getImage())
           .replace(PlaceHolder.ORG_NAME.name(), organization.getName())
           .replace(PlaceHolder.WELCOME_TEXT.name(), organization.getWelcomeText())
@@ -58,11 +58,11 @@ public class WelcomeEmailTemplate implements IMail {
           .replace(PlaceHolder.ORG_ADDRESS.name(), organization.getAddress())
           .replace(PlaceHolder.ORG_PHONE.name(), organization.getPhone())
           .replace(PlaceHolder.INSTAGRAM_URL.name(),
-                organization.getSocialMedia().getInstagramUrl())
-            .replace(PlaceHolder.FACEBOOK_URL.name(),
-                organization.getSocialMedia().getFacebookUrl())
-            .replace(PlaceHolder.LINKEDIN_URL.name(),
-                organization.getSocialMedia().getLinkedInUrl());
+              organization.getSocialMedia().getInstagramUrl())
+          .replace(PlaceHolder.FACEBOOK_URL.name(),
+              organization.getSocialMedia().getFacebookUrl())
+          .replace(PlaceHolder.LINKEDIN_URL.name(),
+              organization.getSocialMedia().getLinkedInUrl());
     }
     return html;
   }
@@ -77,6 +77,6 @@ public class WelcomeEmailTemplate implements IMail {
     LINKEDIN_URL,
     FACEBOOK_URL,
     INSTAGRAM_URL
-    
+
   }
 }
