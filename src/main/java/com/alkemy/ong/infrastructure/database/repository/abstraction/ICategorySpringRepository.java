@@ -24,5 +24,3 @@ public interface ICategorySpringRepository extends JpaRepository<CategoryEntity,
   CategoryEntity findByCategoryIdAndSoftDeletedFalse(Long id);
 
 }
-
-

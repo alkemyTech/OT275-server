@@ -67,12 +67,14 @@ public class CategoryResource {
     Category savedCategory = createCategoryUseCase.post(category);
     CategoryPostResponse response = categoryPostMapper.toResponse(savedCategory);
     return new ResponseEntity<>(response, HttpStatus.CREATED);
+
   }
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<GetCategoryResponse> get(@PathVariable Long id) {
     Category category = getCategoryUseCase.get(() -> id);
     return new ResponseEntity<>(getCategoryMapper.toResponse(category), HttpStatus.OK);
+
   }
 
 }
