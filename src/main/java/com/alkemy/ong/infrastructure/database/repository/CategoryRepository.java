@@ -25,7 +25,7 @@ public class CategoryRepository implements ICategoryRepository {
 
   @Override
   public List<Category> findAll() {
-    return categoryEntityMapper.ToDomain(categorySpringRepository.findAll());
+    return categoryEntityMapper.toDomain(categorySpringRepository.findByCategoryIdAndSoftDeletedFalse());
   }
 
 
