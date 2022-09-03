@@ -1,6 +1,6 @@
 package com.alkemy.ong.application.util;
 
-public interface IContact {
+public interface IAddressContact {
 
   String getEmail();
 
