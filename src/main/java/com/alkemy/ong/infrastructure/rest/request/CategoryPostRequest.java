@@ -1,6 +1,6 @@
 package com.alkemy.ong.infrastructure.rest.request;
 
-import com.alkemy.ong.infrastructure.rest.request.validation.Name;
+import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhitespaces;
 import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import lombok.Setter;
 public class CategoryPostRequest {
 
   @NotEmpty
-  @Name(message = "Category name must contain only spaces and letters.")
+  @CharactersWithWhitespaces(message = "Category name must contain only spaces and letters.")
   private String name;
   private String description;
   private String image;
