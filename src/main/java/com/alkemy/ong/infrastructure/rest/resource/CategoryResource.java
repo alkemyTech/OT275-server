@@ -34,7 +34,7 @@ public class CategoryResource {
   private final IUpdateCategoryUseCase updateCategoryUseCase;
   private final IDeleteCategoryUseCase deleteCategoryUseCase;
 
-private final IListCategoryUseCase listcategoryUseCase;
+  private final IListCategoryUseCase listcategoryUseCase;
   private final IGetCategoryUseCase getCategoryUseCase;
   private final CategoryUpdateMapper categoryUpdateMapper;
 
@@ -69,8 +69,9 @@ private final IListCategoryUseCase listcategoryUseCase;
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ListCategoryResponse> list() {
-    ListCategoryResponse listCategoryResponse = listCategoryMapper.toResponse(listcategoryUseCase.findAll());
-    return new ResponseEntity<>(listCategoryResponse,HttpStatus.OK);
+    ListCategoryResponse listCategoryResponse = listCategoryMapper.toResponse(
+        listcategoryUseCase.findAll());
+    return new ResponseEntity<>(listCategoryResponse, HttpStatus.OK);
   }
 
 }

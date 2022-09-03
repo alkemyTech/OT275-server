@@ -1,6 +1,5 @@
 package com.alkemy.ong.infrastructure.rest.mapper;
 
-
 import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.infrastructure.rest.response.CategoryShortResponse;
 import org.springframework.stereotype.Component;

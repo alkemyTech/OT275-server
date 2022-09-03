@@ -135,7 +135,7 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public IListCategoryUseCase ListCategoryUseCaseService(ICategoryRepository categoryRepository) {
+  public IListCategoryUseCase listCategoryUseCaseService(ICategoryRepository categoryRepository) {
     return new ListCategoryUseCaseService(categoryRepository);
   }
 

@@ -36,7 +36,7 @@ public class CategoryEntityMapper {
     return category;
   }
 
-  public List<Category> ToDomain(List<CategoryEntity> categoryEntities) {
+  public List<Category> toDomain(List<CategoryEntity> categoryEntities) {
     if (categoryEntities == null || categoryEntities.isEmpty()) {
       return Collections.emptyList();
     }

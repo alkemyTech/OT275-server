@@ -12,5 +12,7 @@ public class ListCategoryUseCaseService implements IListCategoryUseCase {
   private final ICategoryRepository categoryRepository;
 
   @Override
-  public List<Category> findAll() { return categoryRepository.findAll(); }
+  public List<Category> findAll() {
+    return categoryRepository.findAll();
+  }
 }

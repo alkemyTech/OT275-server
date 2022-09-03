@@ -15,15 +15,14 @@ public class ListCategoryMapper {
 
   private final ShortCategoryMapper shortCategoryMapper;
 
-  public ListCategoryResponse toResponse(List<Category> categoryList){
-    if(categoryList== null || categoryList.isEmpty()){
+  public ListCategoryResponse toResponse(List<Category> categoryList) {
+    if (categoryList == null || categoryList.isEmpty()) {
       return new ListCategoryResponse(Collections.emptyList());
     }
-    List<CategoryShortResponse>categories = new ArrayList<>();
-    for(Category category : categoryList){
+    List<CategoryShortResponse> categories = new ArrayList<>();
+    for (Category category : categoryList) {
       categories.add(shortCategoryMapper.toResponse(category));
     }
     return new ListCategoryResponse(categories);
   }
-
 }
