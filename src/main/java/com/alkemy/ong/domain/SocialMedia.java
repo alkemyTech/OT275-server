@@ -5,15 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class Category {
+@AllArgsConstructor
+@NoArgsConstructor
+public class SocialMedia {
 
-  private Long id;
-  private String name;
-  private String description;
-  private String imageUrl;
+  private String facebookUrl;
+  private String linkedInUrl;
+  private String instagramUrl;
 
 }
+

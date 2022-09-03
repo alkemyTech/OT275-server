@@ -1,19 +1,22 @@
-package com.alkemy.ong.domain;
+package com.alkemy.ong.infrastructure.rest.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-public class Category {
+public class GetSlideResponse {
 
   private Long id;
-  private String name;
-  private String description;
+
   private String imageUrl;
+
+  private String text;
+
+  private Integer position;
 
 }

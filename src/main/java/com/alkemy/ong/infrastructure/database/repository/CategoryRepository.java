@@ -36,6 +36,12 @@ public class CategoryRepository implements ICategoryRepository {
   public Category post(Category category) {
     CategoryEntity categoryEntity = categoryEntityMapper.toEntity(category);
     categoryEntity.setSoftDeleted(false);
-    return categoryEntityMapper.toDomain(categorySpringRepository.save(categoryEntity));
+    return categoryEntityMapper.toDomain(categorySpringRepository.save(categoryEntity))
+   }  
+  
+  @Override 
+  public Category get(Identifiable<Long> identifiable) {
+    return categoryEntityMapper.toDomain(
+    categorySpringRepository.findByCategoryIdAndSoftDeletedFalse(identifiable.getId()));
   }
 }
