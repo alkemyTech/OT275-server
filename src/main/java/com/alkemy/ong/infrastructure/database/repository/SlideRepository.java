@@ -3,9 +3,11 @@ package com.alkemy.ong.infrastructure.database.repository;
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.Slide;
+import com.alkemy.ong.infrastructure.database.entity.SlideEntity;
 import com.alkemy.ong.infrastructure.database.mapper.SlideEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ISlideSpringRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class SlideRepository implements ISlideRepository {
 
   private final ISlideSpringRepository slideSpringRepository;
+
   private final SlideEntityMapper slideEntityMapper;
 
   @Override
@@ -30,4 +33,14 @@ public class SlideRepository implements ISlideRepository {
   public List<Slide> findAll() {
     return slideEntityMapper.toDomain(slideSpringRepository.findAll());
   }
+
+  @Override
+  public Optional<Slide> getBy(Identifiable<Long> identifiable) {
+    Optional<SlideEntity> slideEntity = slideSpringRepository.findById(identifiable.getId());
+    if (slideEntity.isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.of(slideEntityMapper.toDomain(slideEntity.get()));
+  }
+
 }

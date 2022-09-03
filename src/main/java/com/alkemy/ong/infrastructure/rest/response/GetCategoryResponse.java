@@ -1,19 +1,21 @@
-package com.alkemy.ong.domain;
+package com.alkemy.ong.infrastructure.rest.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class Category {
+@AllArgsConstructor
+@NoArgsConstructor
+public class GetCategoryResponse {
 
   private Long id;
-  private String name;
+
   private String description;
+
   private String imageUrl;
 
+  private String name;
 }

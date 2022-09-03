@@ -5,12 +5,13 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class NameValidator implements ConstraintValidator<Name, String> {
+public class CharactersWithWhitespacesValidator implements
+    ConstraintValidator<CharactersWithWhitespaces, String> {
 
   private static final String REGEXP_NAME = "^\\p{L}+[\\p{L}\\s]*$";
 
   @Override
-  public void initialize(Name constraintAnnotation) {
+  public void initialize(CharactersWithWhitespaces constraintAnnotation) {
     ConstraintValidator.super.initialize(constraintAnnotation);
   }
 

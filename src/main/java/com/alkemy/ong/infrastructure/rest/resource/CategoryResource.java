@@ -2,20 +2,24 @@ package com.alkemy.ong.infrastructure.rest.resource;
 
 import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
+import com.alkemy.ong.application.service.usecase.IGetCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.infrastructure.rest.mapper.CategoryPostMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.CategoryUpdateMapper;
 import com.alkemy.ong.infrastructure.rest.request.CategoryPostRequest;
+import com.alkemy.ong.infrastructure.rest.mapper.GetCategoryMapper;
 import com.alkemy.ong.infrastructure.rest.request.CategoryUpdateRequest;
 import com.alkemy.ong.infrastructure.rest.response.CategoryPostResponse;
 import com.alkemy.ong.infrastructure.rest.response.CategoryUpdateResponse;
+import com.alkemy.ong.infrastructure.rest.response.GetCategoryResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,9 +34,11 @@ public class CategoryResource {
 
   private final IUpdateCategoryUseCase updateCategoryUseCase;
   private final IDeleteCategoryUseCase deleteCategoryUseCase;
+  private final IGetCategoryUseCase getCategoryUseCase;
   private final CategoryUpdateMapper categoryUpdateMapper;
   private final CategoryPostMapper categoryPostMapper;
   private final ICreateCategoryUseCase createCategoryUseCase;
+  private final GetCategoryMapper getCategoryMapper;
 
   @PutMapping(
       value = "/{id}",
@@ -52,7 +58,6 @@ public class CategoryResource {
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
-
   @PostMapping(
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,7 +67,12 @@ public class CategoryResource {
     Category savedCategory = createCategoryUseCase.post(category);
     CategoryPostResponse response = categoryPostMapper.toResponse(savedCategory);
     return new ResponseEntity<>(response, HttpStatus.CREATED);
+  }
 
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<GetCategoryResponse> get(@PathVariable Long id) {
+    Category category = getCategoryUseCase.get(() -> id);
+    return new ResponseEntity<>(getCategoryMapper.toResponse(category), HttpStatus.OK);
   }
 
 }
