@@ -35,4 +35,17 @@ public class SlideEntityMapper {
     return slide;
   }
 
+  public SlideEntity toEntity(Slide slide) {
+    if (slide == null) {
+      return null;
+    }
+
+    SlideEntity entity = new SlideEntity();
+    entity.setPosition(slide.getOrder());
+    entity.setText(slide.getText());
+    entity.setImageUrl(slide.getImageUrl());
+
+    return entity;
+  }
+
 }
