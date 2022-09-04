@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 public interface IImage {
 
-  InputStream getInputStream();
+  InputStream getContent();
 
   String getContentType();
 

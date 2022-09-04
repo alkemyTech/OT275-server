@@ -4,6 +4,7 @@ import com.alkemy.ong.application.util.IImage;
 import com.alkemy.ong.application.util.IImageUploader;
 import com.alkemy.ong.application.util.ImageService;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.AllArgsConstructor;
@@ -12,27 +13,24 @@ import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class ImageDelegate implements IImageUploader {
+public class S3Utils implements IImageUploader {
 
   private final AwsConfig awsConfig;
 
-  public String upload(IImage object) {
-    AmazonS3 awsClient = awsConfig.generateS3client();
-    PutObjectRequest putObjectRequest = buildPutObjectRequest(object, awsClient);
+  public String upload(IImage image) {
+    AmazonS3 awsClient = awsConfig.init();
+    PutObjectRequest putObjectRequest = buildPutObjectRequest(image);
     awsClient.putObject(putObjectRequest);
     return awsClient.getUrl(awsConfig.getBucketName(), putObjectRequest.getKey()).toString();
   }
 
-  private PutObjectRequest buildPutObjectRequest(IImage image, AmazonS3 awsClient) {
-    String bucketName = awsConfig.getBucketName();
+  private PutObjectRequest buildPutObjectRequest(IImage image) {
     ObjectMetadata objectMetadata = buildObjectMetadata(image);
-    PutObjectRequest putObjectRequest = new PutObjectRequest(
-        bucketName,
+    return new PutObjectRequest(
+        awsConfig.getBucketName(),
         image.getFileName(),
-        image.getInputStream(),
-        objectMetadata);
-    putObjectRequest.withAccessControlList(awsClient.getBucketAcl(bucketName));
-    return putObjectRequest;
+        image.getContent(),
+        objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead);
   }
 
   private ObjectMetadata buildObjectMetadata(IImage object) {
