@@ -17,4 +17,8 @@ public interface ISlideRepository {
 
   List<Slide> findAllSortedByPosition();
 
+  Integer findMaxPosition();
+
+  Slide add(Slide slide);
+
 }
