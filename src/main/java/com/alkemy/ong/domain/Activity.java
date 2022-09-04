@@ -12,11 +12,8 @@ import lombok.Setter;
 public class Activity {
 
   private Long id;
-
   private String content;
-
   private String imageUrl;
-
   private String name;
 
 }
