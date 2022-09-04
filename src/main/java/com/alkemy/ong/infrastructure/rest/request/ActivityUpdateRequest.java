@@ -8,14 +8,14 @@ import lombok.Getter;
 public class ActivityUpdateRequest {
 
   @NotEmpty
-  @CharactersWithWhitespaces(message = "Activity content must contain only spaces and letters.")
+  @CharactersWithWhitespaces(message = "Content must contain only spaces and letters.")
   private String content;
 
-  @NotEmpty(message = "Activity image must be an URL.")
+  @NotEmpty(message = "Image must be an URL.")
   private String imageUrl;
 
   @NotEmpty
-  @CharactersWithWhitespaces(message = "Activity name must contain only spaces and letters.")
+  @CharactersWithWhitespaces(message = "Name must contain only spaces and letters.")
   private String name;
 
 }

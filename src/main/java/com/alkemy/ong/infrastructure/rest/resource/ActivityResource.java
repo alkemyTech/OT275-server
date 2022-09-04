@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ActivityResource {
 
   private final IUpdateActivityUseCase updateActivityUseCase;
-
   private final ActivityUpdateMapper activityUpdateMapper;
 
   @PutMapping(
