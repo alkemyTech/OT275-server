@@ -2,6 +2,7 @@ package com.alkemy.ong.application.repository;
 
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.Identifiable;
+import java.util.List;
 import java.util.Optional;
 
 public interface ICommentRepository {
@@ -12,4 +13,5 @@ public interface ICommentRepository {
 
   Optional<Comment> find(Identifiable<Long> identifiable);
 
+  List<Comment> findAllOrdered();
 }
