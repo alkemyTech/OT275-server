@@ -12,6 +12,7 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
+import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -28,12 +29,12 @@ public class SendGridUtils implements IMailSender {
 
   @Override
   public void send(IMail mail) {
-    Mail mailRequest = buildMail(mail);
-
-    SendGrid sendGrid = new SendGrid(sendGridApiKey);
-    Request request = new Request();
-
     try {
+      Mail mailRequest = buildMail(mail);
+
+      SendGrid sendGrid = new SendGrid(sendGridApiKey);
+      Request request = new Request();
+
       request.setMethod(Method.POST);
       request.setEndpoint("mail/send");
       request.setBody(mailRequest.build());
@@ -44,7 +45,6 @@ public class SendGridUtils implements IMailSender {
       log.error(ex.getMessage());
       throw new ServiceException(ErrorMessage.SERVICE_MAIL_FAILURE.getMessage());
     }
-
   }
 
   private static void ensureStatusCodeIsDifferentTo202(Response response) {
@@ -60,7 +60,7 @@ public class SendGridUtils implements IMailSender {
     return MailService.SENDGRID;
   }
 
-  private Mail buildMail(IMail mail) {
+  private Mail buildMail(IMail mail) throws IOException {
     Email from = new Email(fromEmail);
     String subject = mail.getSubject();
     Email to = new Email(mail.getTo());

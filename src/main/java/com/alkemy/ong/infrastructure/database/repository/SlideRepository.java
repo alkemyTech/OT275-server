@@ -43,4 +43,9 @@ public class SlideRepository implements ISlideRepository {
     return Optional.of(slideEntityMapper.toDomain(slideEntity.get()));
   }
 
+  @Override
+  public List<Slide> findAllSortedByPosition() {
+    return slideEntityMapper.toDomain(slideSpringRepository.findAllByOrderByPosition());
+  }
+
 }
