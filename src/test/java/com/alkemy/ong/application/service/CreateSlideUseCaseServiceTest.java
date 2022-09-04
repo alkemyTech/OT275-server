@@ -45,13 +45,13 @@ class CreateSlideUseCaseServiceTest {
   void shouldSetNextPositionWhenOrderIsNull() {
     Slide slideWithNullOrder = SlideMother.withNullOrder();
     Integer random = IntegerMother.random();
-    Slide expected = SlideMother.build("url", "text", random + 1, "");
+    Integer expected = random + 1;
 
     given(slideRepository.findMaxPosition()).willReturn(random);
 
     createSlideUseCaseService.add(slideWithNullOrder);
 
-    assertThat(slideWithNullOrder.getOrder()).isEqualTo(expected.getOrder());
+    assertThat(slideWithNullOrder.getOrder()).isEqualTo(expected);
   }
 
 }
