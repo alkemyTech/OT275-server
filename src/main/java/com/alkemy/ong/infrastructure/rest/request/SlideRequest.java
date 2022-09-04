@@ -9,7 +9,7 @@ import lombok.Setter;
 public class SlideRequest {
 
   private String text;
-  private String order;
+  private Integer order;
   @NotBlank(message = "File must not be empty and must be base64 encoded")
   private String base64FileEncoded;
 
