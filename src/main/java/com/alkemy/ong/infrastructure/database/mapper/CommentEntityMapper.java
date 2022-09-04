@@ -2,6 +2,9 @@ package com.alkemy.ong.infrastructure.database.mapper;
 
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.infrastructure.database.entity.CommentEntity;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,4 +21,14 @@ public class CommentEntityMapper {
     return comment;
   }
 
+  public List<Comment> toDomain(List<CommentEntity> commentEntities) {
+    if (commentEntities.isEmpty()) {
+      return Collections.emptyList();
+    }
+    List<Comment> commentList = new ArrayList<>(commentEntities.size());
+    for (CommentEntity commentEntity : commentEntities) {
+      commentList.add(toDomain(commentEntity));
+    }
+    return commentList;
+  }
 }

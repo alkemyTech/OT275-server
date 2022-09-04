@@ -5,6 +5,7 @@ import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.infrastructure.database.mapper.CommentEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICommentSpringRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -30,5 +31,10 @@ public class CommentRepository implements ICommentRepository {
   @Override
   public Optional<Comment> find(Identifiable<Long> identifiable) {
     return commentSpringRepository.findById(identifiable.getId()).map(commentMapper::toDomain);
+  }
+
+  @Override
+  public List<Comment> findAllOrdered() {
+    return commentMapper.toDomain(commentSpringRepository.findAllByOrderByCreateTimestampDesc());
   }
 }
