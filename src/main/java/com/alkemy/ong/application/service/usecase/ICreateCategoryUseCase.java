@@ -4,6 +4,6 @@ import com.alkemy.ong.domain.Category;
 
 public interface ICreateCategoryUseCase {
 
-  Category post(Category category);
+  Category create(Category category);
 
 }

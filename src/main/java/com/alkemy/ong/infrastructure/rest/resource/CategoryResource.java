@@ -5,12 +5,12 @@ import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IGetCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.domain.Category;
-import com.alkemy.ong.infrastructure.rest.mapper.CategoryPostMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.CategoryCreateMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.CategoryUpdateMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.GetCategoryMapper;
-import com.alkemy.ong.infrastructure.rest.request.CategoryPostRequest;
+import com.alkemy.ong.infrastructure.rest.request.CategoryCreateRequest;
 import com.alkemy.ong.infrastructure.rest.request.CategoryUpdateRequest;
-import com.alkemy.ong.infrastructure.rest.response.CategoryPostResponse;
+import com.alkemy.ong.infrastructure.rest.response.CategoryCreateResponse;
 import com.alkemy.ong.infrastructure.rest.response.CategoryUpdateResponse;
 import com.alkemy.ong.infrastructure.rest.response.GetCategoryResponse;
 import javax.validation.Valid;
@@ -36,7 +36,7 @@ public class CategoryResource {
   private final IDeleteCategoryUseCase deleteCategoryUseCase;
   private final IGetCategoryUseCase getCategoryUseCase;
   private final CategoryUpdateMapper categoryUpdateMapper;
-  private final CategoryPostMapper categoryPostMapper;
+  private final CategoryCreateMapper categoryCreateMapper;
   private final ICreateCategoryUseCase createCategoryUseCase;
   private final GetCategoryMapper getCategoryMapper;
 
@@ -61,11 +61,11 @@ public class CategoryResource {
   @PostMapping(
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CategoryPostResponse> post(
-      @Valid @RequestBody CategoryPostRequest postRequest) {
-    Category category = categoryPostMapper.toDomain(postRequest);
-    Category savedCategory = createCategoryUseCase.post(category);
-    CategoryPostResponse response = categoryPostMapper.toResponse(savedCategory);
+  public ResponseEntity<CategoryCreateResponse> create(
+      @Valid @RequestBody CategoryCreateRequest createRequest) {
+    Category category = categoryCreateMapper.toDomain(createRequest);
+    Category savedCategory = createCategoryUseCase.create(category);
+    CategoryCreateResponse response = categoryCreateMapper.toResponse(savedCategory);
     return new ResponseEntity<>(response, HttpStatus.CREATED);
 
   }
