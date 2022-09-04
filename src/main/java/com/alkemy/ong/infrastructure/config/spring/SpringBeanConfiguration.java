@@ -50,6 +50,7 @@ import com.alkemy.ong.application.util.IImageUploader;
 import com.alkemy.ong.infrastructure.database.repository.CategoryRepository;
 import com.alkemy.ong.infrastructure.database.repository.SlideRepository;
 import com.alkemy.ong.infrastructure.database.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -145,7 +146,7 @@ public class SpringBeanConfiguration {
 
   @Bean
   public ICreateSlideUseCase createSlideUseCase(ISlideRepository slideRepository,
-      IImageUploader imageUploader) {
+      @Qualifier("s3Utils") IImageUploader imageUploader) {
     return new CreateSlideUseCaseService(slideRepository, imageUploader);
   }
 
