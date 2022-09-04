@@ -2,6 +2,7 @@ package com.alkemy.ong.infrastructure.rest.mapper;
 
 import com.alkemy.ong.domain.Slide;
 import com.alkemy.ong.infrastructure.rest.response.SlideWithTextResponse;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,11 +15,11 @@ public class SlideWithTextMapper {
     if (slides == null) {
       return null;
     }
-    List<SlideWithTextResponse> slideWithTextResponseList = new java.util.ArrayList<>();
+    List<SlideWithTextResponse> slideWithTextResponses = new ArrayList<>(slides.size());
     for (Slide slide : slides) {
-      slideWithTextResponseList.add(toResponse(slide));
+      slideWithTextResponses.add(toResponse(slide));
     }
-    return slideWithTextResponseList;
+    return slideWithTextResponses;
   }
 
   public SlideWithTextResponse toResponse(Slide slide) {
