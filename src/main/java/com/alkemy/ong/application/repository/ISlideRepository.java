@@ -15,4 +15,6 @@ public interface ISlideRepository {
 
   Optional<Slide> getBy(Identifiable<Long> identifiable);
 
+  List<Slide> findAllSortedByPosition();
+
 }

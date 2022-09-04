@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GetOrganizationMapper {
 
+  private final SlideWithTextMapper slideWithTextMapper;
+
   public GetOrganizationResponse toResponse(Organization organization) {
     if (organization == null) {
       return null;
@@ -18,6 +20,7 @@ public class GetOrganizationMapper {
     getOrganizationResponse.setImage(organization.getImage());
     getOrganizationResponse.setPhone(organization.getPhone());
     getOrganizationResponse.setAddress(organization.getAddress());
+    getOrganizationResponse.setSlides(slideWithTextMapper.toResponse(organization.getSlides()));
     return getOrganizationResponse;
   }
 }
