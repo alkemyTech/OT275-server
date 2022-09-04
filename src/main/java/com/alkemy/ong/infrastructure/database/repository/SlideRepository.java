@@ -48,4 +48,15 @@ public class SlideRepository implements ISlideRepository {
     return slideEntityMapper.toDomain(slideSpringRepository.findAllByOrderByPosition());
   }
 
+  @Override
+  public Integer findMaxPosition() {
+    return slideSpringRepository.maxPosition();
+  }
+
+  @Override
+  public Slide add(Slide slide) {
+    SlideEntity entity = slideEntityMapper.toEntity(slide);
+    return slideEntityMapper.toDomain(slideSpringRepository.save(entity));
+  }
+
 }
