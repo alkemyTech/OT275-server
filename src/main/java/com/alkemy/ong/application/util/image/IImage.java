@@ -1,4 +1,4 @@
-package com.alkemy.ong.application.util;
+package com.alkemy.ong.application.util.image;
 
 import java.io.InputStream;
 

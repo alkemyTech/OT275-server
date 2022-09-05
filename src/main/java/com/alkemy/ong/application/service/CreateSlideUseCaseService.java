@@ -2,7 +2,7 @@ package com.alkemy.ong.application.service;
 
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.service.usecase.ICreateSlideUseCase;
-import com.alkemy.ong.application.util.IImageUploader;
+import com.alkemy.ong.application.util.image.IImageUploader;
 import com.alkemy.ong.domain.Slide;
 import lombok.AllArgsConstructor;
 

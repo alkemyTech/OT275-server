@@ -1,7 +1,7 @@
-package com.alkemy.ong.application.util.template;
+package com.alkemy.ong.application.util.mail.template;
 
-import com.alkemy.ong.application.util.IAddressContact;
-import com.alkemy.ong.application.util.IMail;
+import com.alkemy.ong.application.util.mail.IAddressContact;
+import com.alkemy.ong.application.util.mail.IMail;
 import com.alkemy.ong.domain.Organization;
 import com.alkemy.ong.domain.SocialMedia;
 import java.io.BufferedReader;
