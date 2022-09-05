@@ -5,9 +5,9 @@ import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
 import com.alkemy.ong.domain.Slide;
+import com.alkemy.ong.infrastructure.rest.mapper.CreateSlideMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.GetSlideMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.ListSlideMapper;
-import com.alkemy.ong.infrastructure.rest.mapper.PostSlideMapper;
 import com.alkemy.ong.infrastructure.rest.request.CreateSlideRequest;
 import com.alkemy.ong.infrastructure.rest.response.GetSlideResponse;
 import com.alkemy.ong.infrastructure.rest.response.ListSlideResponse;
@@ -42,7 +42,7 @@ public class SlideResource {
 
   private final GetSlideMapper getSlideMapper;
 
-  private final PostSlideMapper postSlideMapper;
+  private final CreateSlideMapper createSlideMapper;
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -67,9 +67,9 @@ public class SlideResource {
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<SlideWithTextResponse> add(
       @Valid @RequestBody CreateSlideRequest createSlideRequest) {
-    Slide slide = postSlideMapper.toDomain(createSlideRequest);
+    Slide slide = createSlideMapper.toDomain(createSlideRequest);
     Slide createdSlide = createSlideUseCase.add(slide);
-    return new ResponseEntity<>(postSlideMapper.toResponse(createdSlide), HttpStatus.CREATED);
+    return new ResponseEntity<>(createSlideMapper.toResponse(createdSlide), HttpStatus.CREATED);
   }
 
 }
