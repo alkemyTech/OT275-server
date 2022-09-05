@@ -24,4 +24,6 @@ public interface IUserSpringRepository extends JpaRepository<UserEntity, Long> {
 
   Optional<UserEntity> findByEmail(String email);
 
+  UserEntity findByUserIdAndSoftDeletedFalse(Long id);
+
 }

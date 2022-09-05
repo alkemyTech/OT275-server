@@ -28,6 +28,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+  private static final String AUTH_REGISTER_URL = "/auth/register";
+  private static final String AUTH_LOGIN_URL = "/auth/login";
+  private static final String ORGANIZATIONS_PUBLIC_URL = "/organizations/public";
+  private static final String COMMENTS_URL = "/comments";
+  private static final String COMMENTS_ID_URL = "/comments/{id:[\\d+]}";
+  private static final String SLIDES_URL = "/slides";
+  private static final String NEWS_ID_URL = "/news/{id:[\\d+]}";
+  private static final String SLIDES_ID_URL = "/slides/{id:[\\d+]}";
+  private static final String CATEGORIES_ID_URL = "/categories/{id:[\\d+]}";
+  private static final String CATEGORIES_URL = "/categories";
+  private static final String ACTIVITIES_ID_URL = "/activities/{id:[\\d+]}";
+  private static final String USERS_ID_URL = "/users/{id:[\\d+]}";
+  private static final String MEMBERS_ID_URL = "/members/{id:[\\d+]}";
+  private static final String TESTIMONIALS_ID_URL = "/testimonials/{id:[\\d+]}";
   @Autowired
   private UserDetailsService userDetailsService;
 
@@ -68,44 +82,52 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        .antMatchers(HttpMethod.POST, "/auth/register")
+        .antMatchers(HttpMethod.POST, AUTH_REGISTER_URL)
         .permitAll()
-        .antMatchers(HttpMethod.POST, "/auth/login")
+        .antMatchers(HttpMethod.POST, AUTH_LOGIN_URL)
         .permitAll()
-        .antMatchers(HttpMethod.GET, "/organizations/public")
+        .antMatchers(HttpMethod.GET, ORGANIZATIONS_PUBLIC_URL)
         .permitAll()
-        .antMatchers(HttpMethod.PATCH, "/organizations/public")
+        .antMatchers(HttpMethod.PATCH, ORGANIZATIONS_PUBLIC_URL)
         .hasRole(Role.ADMIN.name())
-        .antMatchers(HttpMethod.DELETE, "/users/{id:[\\d+]}")
+        .antMatchers(HttpMethod.DELETE, USERS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
-        .antMatchers(HttpMethod.DELETE, "/slides/{id:[\\d+]}")
+        .antMatchers(HttpMethod.DELETE, SLIDES_ID_URL)
         .hasRole(Role.ADMIN.name())
-        .antMatchers(HttpMethod.PUT, "/categories/{id:[\\d+]}")
+        .antMatchers(HttpMethod.PUT, CATEGORIES_ID_URL)
         .hasRole(Role.ADMIN.name())
-        .antMatchers(HttpMethod.DELETE, "/categories/{id:[\\d+]}")
+        .antMatchers(HttpMethod.DELETE, CATEGORIES_ID_URL)
         .hasRole(Role.ADMIN.name())
-        .antMatchers(HttpMethod.DELETE, "/members/{id:[\\d+]}")
+        .antMatchers(HttpMethod.DELETE, MEMBERS_ID_URL)
         .hasRole(Role.ADMIN.name())
-        .antMatchers(HttpMethod.DELETE, "/testimonials/{id:[\\d+]}")
+        .antMatchers(HttpMethod.DELETE, TESTIMONIALS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
-        .antMatchers(HttpMethod.DELETE, "/comments/{id:[\\d+]}")
-        .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
-        .antMatchers(HttpMethod.DELETE, "/news/{id:[\\d+]}")
-        .hasRole(Role.ADMIN.name())
-        .antMatchers(HttpMethod.GET, "/slides")
+        .antMatchers(HttpMethod.GET, COMMENTS_URL)
         .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
-        .antMatchers(HttpMethod.POST,"/categories")
+        .antMatchers(HttpMethod.DELETE, COMMENTS_ID_URL)
+        .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+        .antMatchers(HttpMethod.DELETE, NEWS_ID_URL)
         .hasRole(Role.ADMIN.name())
-        .antMatchers(HttpMethod.GET, "/categories/{id:[\\d+]}")
-        .hasRole(Role.ADMIN.name())
-        .antMatchers(HttpMethod.DELETE, "/slides/{id:[\\d+]}")
+        .antMatchers(HttpMethod.GET, SLIDES_URL)
         .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
-        .antMatchers(HttpMethod.POST, "/slides")
+        .antMatchers(HttpMethod.GET, CATEGORIES_URL)
+        .hasRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.POST, CATEGORIES_URL)
+        .hasRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.GET, CATEGORIES_ID_URL)
+        .hasRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.DELETE, SLIDES_ID_URL)
+        .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
+        .antMatchers(HttpMethod.POST, SLIDES_URL)
         .hasRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, "/users")
         .hasRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.PUT, "/activities/{id:[\\d+]}")
+        .hasRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.PUT, ACTIVITIES_ID_URL)
         .hasAnyRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.PUT, USERS_ID_URL)
+        .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .anyRequest()
         .authenticated()
         .and()

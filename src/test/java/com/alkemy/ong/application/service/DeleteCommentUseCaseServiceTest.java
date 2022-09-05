@@ -39,7 +39,8 @@ class DeleteCommentUseCaseServiceTest {
     given(operationAllowed.isAuthorized(identifiable)).willReturn(true);
     given(repository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFoundException.class, () -> deleteCommentUseCaseService.delete(identifiable));
+    assertThrows(ObjectNotFoundException.class,
+        () -> deleteCommentUseCaseService.delete(identifiable));
   }
 
   @Test

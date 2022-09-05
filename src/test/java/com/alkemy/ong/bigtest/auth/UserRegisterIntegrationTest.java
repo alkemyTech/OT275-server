@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.alkemy.ong.bigtest.BigTest;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
-import com.alkemy.ong.infrastructure.rest.request.UserRegisterRequest;
+import com.alkemy.ong.infrastructure.rest.request.RegisterUserRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.Optional;
 import org.junit.Test;
@@ -71,13 +71,13 @@ public class UserRegisterIntegrationTest extends BigTest {
     return objectMapper.writeValueAsString(buildUserRegisterRequest(email, password));
   }
 
-  private static UserRegisterRequest buildUserRegisterRequest(String email, String password) {
-    UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
-    userRegisterRequest.setFirstName(FIRST_NAME);
-    userRegisterRequest.setLastName(LAST_NAME);
-    userRegisterRequest.setEmail(email);
-    userRegisterRequest.setPassword(password);
-    return userRegisterRequest;
+  private static RegisterUserRequest buildUserRegisterRequest(String email, String password) {
+    RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+    registerUserRequest.setFirstName(FIRST_NAME);
+    registerUserRequest.setLastName(LAST_NAME);
+    registerUserRequest.setEmail(email);
+    registerUserRequest.setPassword(password);
+    return registerUserRequest;
   }
 
 }

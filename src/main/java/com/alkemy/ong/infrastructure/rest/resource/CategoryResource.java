@@ -3,16 +3,19 @@ package com.alkemy.ong.infrastructure.rest.resource;
 import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IGetCategoryUseCase;
+import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.domain.Category;
-import com.alkemy.ong.infrastructure.rest.mapper.CategoryUpdateMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.CreateCategoryMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.GetCategoryMapper;
-import com.alkemy.ong.infrastructure.rest.request.CategoryUpdateRequest;
+import com.alkemy.ong.infrastructure.rest.mapper.ListCategoryMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.UpdateCategoryMapper;
 import com.alkemy.ong.infrastructure.rest.request.CreateCategoryRequest;
-import com.alkemy.ong.infrastructure.rest.response.CategoryUpdateResponse;
+import com.alkemy.ong.infrastructure.rest.request.UpdateCategoryRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateCategoryResponse;
 import com.alkemy.ong.infrastructure.rest.response.GetCategoryResponse;
+import com.alkemy.ong.infrastructure.rest.response.ListCategoryResponse;
+import com.alkemy.ong.infrastructure.rest.response.UpdateCategoryResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,22 +37,24 @@ public class CategoryResource {
 
   private final IUpdateCategoryUseCase updateCategoryUseCase;
   private final IDeleteCategoryUseCase deleteCategoryUseCase;
+  private final IListCategoryUseCase listCategoryUseCase;
   private final IGetCategoryUseCase getCategoryUseCase;
-  private final CategoryUpdateMapper categoryUpdateMapper;
+  private final UpdateCategoryMapper updateCategoryMapper;
   private final CreateCategoryMapper createCategoryMapper;
   private final ICreateCategoryUseCase createCategoryUseCase;
   private final GetCategoryMapper getCategoryMapper;
+  private final ListCategoryMapper listCategoryMapper;
 
   @PutMapping(
       value = "/{id}",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CategoryUpdateResponse> update(
+  public ResponseEntity<UpdateCategoryResponse> update(
       @PathVariable Long id,
-      @Valid @RequestBody CategoryUpdateRequest categoryUpdateRequest) {
-    Category category = categoryUpdateMapper.toDomain(() -> id, categoryUpdateRequest);
+      @Valid @RequestBody UpdateCategoryRequest updateCategoryRequest) {
+    Category category = updateCategoryMapper.toDomain(() -> id, updateCategoryRequest);
     Category updatedCategory = updateCategoryUseCase.update(category);
-    return new ResponseEntity<>(categoryUpdateMapper.toResponse(updatedCategory), HttpStatus.OK);
+    return new ResponseEntity<>(updateCategoryMapper.toResponse(updatedCategory), HttpStatus.OK);
   }
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -72,6 +77,12 @@ public class CategoryResource {
   public ResponseEntity<GetCategoryResponse> get(@PathVariable Long id) {
     Category category = getCategoryUseCase.get(() -> id);
     return new ResponseEntity<>(getCategoryMapper.toResponse(category), HttpStatus.OK);
+  }
+
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ListCategoryResponse> list() {
+    return new ResponseEntity<>(listCategoryMapper.toResponse(listCategoryUseCase.findAll()),
+        HttpStatus.OK);
   }
 
 }

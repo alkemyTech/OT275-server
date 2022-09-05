@@ -23,12 +23,15 @@ import com.alkemy.ong.application.service.DeleteUserUseCaseService;
 import com.alkemy.ong.application.service.GetCategoryUseCase;
 import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.GetSlideUseCaseService;
+import com.alkemy.ong.application.service.ListCategoryUseCaseService;
+import com.alkemy.ong.application.service.ListCommentUseCaseService;
 import com.alkemy.ong.application.service.ListSlideUseCaseService;
 import com.alkemy.ong.application.service.ListUserUseCaseService;
 import com.alkemy.ong.application.service.LoginUserUseCaseService;
 import com.alkemy.ong.application.service.UpdateActivityUseCaseService;
 import com.alkemy.ong.application.service.UpdateCategoryUserCaseService;
 import com.alkemy.ong.application.service.UpdateOrganizationUseCaseService;
+import com.alkemy.ong.application.service.UpdateUserUseCaseService;
 import com.alkemy.ong.application.service.delegate.IAuthenticationManager;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
@@ -44,13 +47,16 @@ import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IGetCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
+import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
+import com.alkemy.ong.application.service.usecase.IListCommentUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IListUserUseCase;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateActivityUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateOrganizationUseCase;
-import com.alkemy.ong.application.util.IImageUploader;
+import com.alkemy.ong.application.service.usecase.IUpdateUserUseCase;
+import com.alkemy.ong.application.util.image.IImageUploader;
 import com.alkemy.ong.infrastructure.database.repository.CategoryRepository;
 import com.alkemy.ong.infrastructure.database.repository.SlideRepository;
 import com.alkemy.ong.infrastructure.database.repository.UserRepository;
@@ -98,6 +104,11 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
+  public IListCommentUseCase listCommentUseCase(ICommentRepository commentRepository) {
+    return new ListCommentUseCaseService(commentRepository);
+  }
+
+  @Bean
   public IDeleteCommentUseCase deleteCommentUseCase(ICommentRepository commentRepository,
       IOperationAllowed authorization) {
     return new DeleteCommentUseCaseService(commentRepository, authorization);
@@ -108,7 +119,6 @@ public class SpringBeanConfiguration {
       IRoleRepository roleRepository) {
     return new CreateUserUseCaseService(userRepository, roleRepository);
   }
-
 
   @Bean
   public IGetCategoryUseCase getCategoryUseCase(ICategoryRepository categoryRepository) {
@@ -148,6 +158,12 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
+
+  public IListCategoryUseCase listCategoryUseCaseService(ICategoryRepository categoryRepository) {
+    return new ListCategoryUseCaseService(categoryRepository);
+  }
+
+  @Bean
   public IUpdateActivityUseCase updateActivityUseCase(IActivityRepository activityRepository) {
     return new UpdateActivityUseCaseService(activityRepository);
   }
@@ -161,6 +177,12 @@ public class SpringBeanConfiguration {
   @Bean
   public IListUserUseCase listUserUseCase(IUserRepository userRepository) {
     return new ListUserUseCaseService(userRepository);
+  }
+
+    @Bean
+  public IUpdateUserUseCase updateUserUseCase(IUserRepository userRepository) {
+    return new UpdateUserUseCaseService(userRepository);
+
   }
 
 }

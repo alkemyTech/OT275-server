@@ -11,10 +11,14 @@ public interface IUserRepository {
 
   boolean exists(Identifiable<Long> identifiable);
 
+  User findBy(Identifiable<Long> identifiable);
+
   Optional<User> findBy(String email);
 
   User add(User user);
 
   List<User> findAll();
+
+  User update(User user);
 
 }

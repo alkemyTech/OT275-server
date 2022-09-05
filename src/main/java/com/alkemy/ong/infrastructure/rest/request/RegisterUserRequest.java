@@ -1,6 +1,6 @@
 package com.alkemy.ong.infrastructure.rest.request;
 
-import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhitespaces;
+import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -12,12 +12,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserRegisterRequest {
+public class RegisterUserRequest {
 
-  @CharactersWithWhitespaces(message = "First name must contain only spaces and letters.")
+  @CharactersWithWhiteSpaces(message = "First name must contain only spaces and letters.")
   private String firstName;
 
-  @CharactersWithWhitespaces(message = "Last name must contain only spaces and letters.")
+  @CharactersWithWhiteSpaces(message = "Last name must contain only spaces and letters.")
   private String lastName;
 
   @Email(message = "Email should be valid.")

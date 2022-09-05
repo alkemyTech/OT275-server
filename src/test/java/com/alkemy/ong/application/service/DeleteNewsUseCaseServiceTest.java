@@ -33,7 +33,8 @@ class DeleteNewsUseCaseServiceTest {
   void shouldThrowAnExceptionWhenNewsDoesNotExist() {
     given(newsRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFoundException.class, () -> deleteNewsUseCaseService.delete(identifiable));
+    assertThrows(ObjectNotFoundException.class,
+        () -> deleteNewsUseCaseService.delete(identifiable));
   }
 
   @Test

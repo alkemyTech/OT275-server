@@ -1,6 +1,6 @@
 package com.alkemy.ong.domain;
 
-import com.alkemy.ong.application.util.IImage;
+import com.alkemy.ong.application.util.image.IImage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Base64;

@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.repository.ISlideRepository;
-import com.alkemy.ong.application.util.IImageUploader;
+import com.alkemy.ong.application.util.image.IImageUploader;
 import com.alkemy.ong.common.SlideBuilder;
 import com.alkemy.ong.domain.Slide;
 import org.junit.jupiter.api.BeforeEach;
