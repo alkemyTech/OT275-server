@@ -13,8 +13,8 @@ import lombok.Setter;
 @Setter
 public class CreateCategoryRequest {
 
-  @NotEmpty(message = "Category name cannot be empty")
-  @CharactersWithWhitespaces(message = "Category name must contain only spaces and letters.")
+  @NotEmpty(message = "Name cannot be empty")
+  @CharactersWithWhitespaces(message = "Name must contain only spaces and letters.")
   private String name;
   private String description;
   private String image;
