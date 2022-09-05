@@ -26,10 +26,10 @@ public class CommentEntityMapper {
     if (commentEntities == null || commentEntities.isEmpty()) {
       return Collections.emptyList();
     }
-    List<Comment> commentList = new ArrayList<>(commentEntities.size());
+    List<Comment> comments = new ArrayList<>(commentEntities.size());
     for (CommentEntity commentEntity : commentEntities) {
-      commentList.add(toDomain(commentEntity));
+      comments.add(toDomain(commentEntity));
     }
-    return commentList;
+    return comments;
   }
 }

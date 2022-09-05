@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class ListCommentMapper {
 
-  CommentMapper commentMapper;
+  private final CommentMapper commentMapper;
 
   public ListCommentResponse toResponse(List<Comment> comments) {
     if (comments == null || comments.isEmpty()) {
