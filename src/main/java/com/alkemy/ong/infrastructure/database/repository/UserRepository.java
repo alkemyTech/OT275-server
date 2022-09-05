@@ -28,6 +28,12 @@ public class UserRepository implements IUserRepository {
   }
 
   @Override
+  public User findBy(Identifiable<Long> identifiable) {
+    return userEntityMapper.toDomain(
+        userSpringRepository.findByUserIdAndSoftDeletedFalse(identifiable.getId()));
+  }
+
+  @Override
   public Optional<User> findBy(String email) {
     Optional<UserEntity> userEntity = userSpringRepository.findByEmail(email);
     if (userEntity.isEmpty()) {
@@ -41,6 +47,13 @@ public class UserRepository implements IUserRepository {
     UserEntity userEntity = userEntityMapper.toEntity(user);
     userEntity.setSoftDeleted(false);
     return userEntityMapper.toDomain(userSpringRepository.save(userEntity));
+  }
+
+  @Override
+  public User update(User user) {
+    UserEntity updatedUserEntity = userEntityMapper.toEntity(user);
+    updatedUserEntity.setSoftDeleted(false);
+    return userEntityMapper.toDomain(userSpringRepository.save(updatedUserEntity));
   }
 
 }
