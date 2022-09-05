@@ -2,10 +2,10 @@ package com.alkemy.ong.common;
 
 import com.alkemy.ong.domain.Slide;
 
-public class SlideMother {
+public class SlideBuilder {
 
   public static Slide random() {
-    return new Slide(null, null, IntegerMother.random(), "", "");
+    return new Slide(null, null, 1, "", "");
   }
 
   public static Slide withNullOrder() {
