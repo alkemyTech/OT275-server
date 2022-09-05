@@ -36,6 +36,9 @@ public class CommentEntity {
   @JoinColumn(name = "USER_ID", updatable = false)
   private UserEntity user;
 
+  @Column(name = "BODY")
+  private String body;
+
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   @JoinColumn(name = "NEWS_ID", updatable = false)
   private NewsEntity news;
