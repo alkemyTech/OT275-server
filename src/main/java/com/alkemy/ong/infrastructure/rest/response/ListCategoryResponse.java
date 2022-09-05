@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ListCategoryResponse {
 
-  private List<CategoryShortResponse> categories;
+  private List<GetCategoryResponse> categories;
 }
