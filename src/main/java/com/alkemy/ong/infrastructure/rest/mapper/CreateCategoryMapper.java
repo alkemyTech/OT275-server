@@ -27,6 +27,7 @@ public class CreateCategoryMapper {
       return null;
     }
     CreateCategoryResponse createCategoryResponse = new CreateCategoryResponse();
+    createCategoryResponse.setId(category.getId());
     createCategoryResponse.setName(category.getName());
     createCategoryResponse.setDescription(category.getDescription());
     createCategoryResponse.setImage(category.getImageUrl());
