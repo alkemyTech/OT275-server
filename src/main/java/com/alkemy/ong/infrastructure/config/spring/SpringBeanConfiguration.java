@@ -11,6 +11,7 @@ import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.repository.ITestimonialRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.CreateCategoryUseCaseService;
+import com.alkemy.ong.application.service.CreateSlideUseCaseService;
 import com.alkemy.ong.application.service.CreateUserUseCaseService;
 import com.alkemy.ong.application.service.DeleteCategoryUseCaseService;
 import com.alkemy.ong.application.service.DeleteCommentUseCaseService;
@@ -30,6 +31,7 @@ import com.alkemy.ong.application.service.UpdateOrganizationUseCaseService;
 import com.alkemy.ong.application.service.delegate.IAuthenticationManager;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
+import com.alkemy.ong.application.service.usecase.ICreateSlideUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
@@ -46,6 +48,7 @@ import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateActivityUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateOrganizationUseCase;
+import com.alkemy.ong.application.util.IImageUploader;
 import com.alkemy.ong.infrastructure.database.repository.CategoryRepository;
 import com.alkemy.ong.infrastructure.database.repository.SlideRepository;
 import com.alkemy.ong.infrastructure.database.repository.UserRepository;
@@ -145,6 +148,12 @@ public class SpringBeanConfiguration {
   @Bean
   public IUpdateActivityUseCase updateActivityUseCase(IActivityRepository activityRepository) {
     return new UpdateActivityUseCaseService(activityRepository);
+  }
+
+  @Bean
+  public ICreateSlideUseCase createSlideUseCase(ISlideRepository slideRepository,
+      IImageUploader imageUploader) {
+    return new CreateSlideUseCaseService(slideRepository, imageUploader);
   }
 
 }
