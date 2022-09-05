@@ -33,7 +33,8 @@ class DeleteTestimonialUseCaseServiceTest {
   void shouldThrowExceptionWhenTestimonialDoesNotExist() {
     given(testimonialRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFoundException.class, () -> deleteTestimonialUseCaseService.delete(identifiable));
+    assertThrows(ObjectNotFoundException.class,
+        () -> deleteTestimonialUseCaseService.delete(identifiable));
   }
 
   @Test

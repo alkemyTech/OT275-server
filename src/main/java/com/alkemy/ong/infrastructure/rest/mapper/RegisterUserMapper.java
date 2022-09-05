@@ -1,19 +1,19 @@
 package com.alkemy.ong.infrastructure.rest.mapper;
 
 import com.alkemy.ong.domain.User;
-import com.alkemy.ong.infrastructure.rest.request.UserRegisterRequest;
-import com.alkemy.ong.infrastructure.rest.response.UserRegisterResponse;
+import com.alkemy.ong.infrastructure.rest.request.RegisterUserRequest;
+import com.alkemy.ong.infrastructure.rest.response.RegisterUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserRegisterMapper {
+public class RegisterUserMapper {
 
   private final PasswordEncoder passwordEncoder;
 
-  public User toDomain(UserRegisterRequest registerRequest) {
+  public User toDomain(RegisterUserRequest registerRequest) {
     if (registerRequest == null) {
       return null;
     }
@@ -25,11 +25,11 @@ public class UserRegisterMapper {
     return user;
   }
 
-  public UserRegisterResponse toResponse(User user) {
+  public RegisterUserResponse toResponse(User user) {
     if (user == null) {
       return null;
     }
-    UserRegisterResponse registerResponse = new UserRegisterResponse();
+    RegisterUserResponse registerResponse = new RegisterUserResponse();
     registerResponse.setEmail(user.getEmail());
     registerResponse.setFirstName(user.getFirstName());
     registerResponse.setLastName(user.getLastName());

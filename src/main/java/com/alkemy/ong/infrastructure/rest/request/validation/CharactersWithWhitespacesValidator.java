@@ -6,12 +6,12 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class CharactersWithWhitespacesValidator implements
-    ConstraintValidator<CharactersWithWhitespaces, String> {
+    ConstraintValidator<CharactersWithWhiteSpaces, String> {
 
   private static final String REGEXP_NAME = "^\\p{L}+[\\p{L}\\s]*$";
 
   @Override
-  public void initialize(CharactersWithWhitespaces constraintAnnotation) {
+  public void initialize(CharactersWithWhiteSpaces constraintAnnotation) {
     ConstraintValidator.super.initialize(constraintAnnotation);
   }
 

@@ -12,11 +12,8 @@ import lombok.Setter;
 public class GetSlideResponse {
 
   private Long id;
-
   private String imageUrl;
-
   private String text;
-
   private Integer position;
 
 }

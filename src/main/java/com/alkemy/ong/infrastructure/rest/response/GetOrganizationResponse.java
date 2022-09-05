@@ -1,5 +1,6 @@
 package com.alkemy.ong.infrastructure.rest.response;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,6 @@ public class GetOrganizationResponse {
   private String image;
   private String phone;
   private String address;
+  private List<SlideWithTextResponse> slides;
 
 }

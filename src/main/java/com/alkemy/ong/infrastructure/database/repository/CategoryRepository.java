@@ -29,7 +29,6 @@ public class CategoryRepository implements ICategoryRepository {
         categorySpringRepository.findAllBySoftDeletedFalse());
   }
 
-
   @Override
   public void delete(Identifiable<Long> identifiable) {
     categorySpringRepository.softDelete(identifiable.getId());
@@ -38,6 +37,13 @@ public class CategoryRepository implements ICategoryRepository {
   @Override
   public boolean exists(Identifiable<Long> identifiable) {
     return categorySpringRepository.exists(identifiable.getId()).isPresent();
+  }
+
+  @Override
+  public Category save(Category category) {
+    CategoryEntity categoryEntity = categoryEntityMapper.toEntity(category);
+    categoryEntity.setSoftDeleted(false);
+    return categoryEntityMapper.toDomain(categorySpringRepository.save(categoryEntity));
   }
 
   @Override

@@ -1,6 +1,5 @@
 package com.alkemy.ong.infrastructure.database.repository.abstraction;
 
-import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import java.util.List;
 import java.util.Optional;
@@ -25,3 +24,6 @@ public interface ICategorySpringRepository extends JpaRepository<CategoryEntity,
 
   List<CategoryEntity> findAllBySoftDeletedFalse();
 }
+
+
+

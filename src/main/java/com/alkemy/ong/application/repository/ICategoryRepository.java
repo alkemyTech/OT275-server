@@ -15,4 +15,7 @@ public interface ICategoryRepository {
   Category update(Category category);
 
   List<Category> findAll();
+
+  Category save(Category category);
+
 }

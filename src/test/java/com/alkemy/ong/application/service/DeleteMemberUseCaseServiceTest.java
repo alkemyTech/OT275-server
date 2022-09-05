@@ -33,7 +33,8 @@ class DeleteMemberUseCaseServiceTest {
   void shouldThrowExceptionWhenMemberDoesNotExist() {
     given(memberRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFoundException.class, () -> deleteMemberUseCaseService.delete(identifiable));
+    assertThrows(ObjectNotFoundException.class,
+        () -> deleteMemberUseCaseService.delete(identifiable));
   }
 
   @Test
