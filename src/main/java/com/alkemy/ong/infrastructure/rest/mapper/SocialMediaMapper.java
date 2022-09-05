@@ -27,7 +27,7 @@ public class SocialMediaMapper {
     SocialMediaResponse socialMediaResponse = new SocialMediaResponse();
     socialMediaResponse.setFacebookUrl(socialMedia.getFacebookUrl());
     socialMediaResponse.setInstagramUrl(socialMedia.getInstagramUrl());
-    socialMediaResponse.setInstagramUrl(socialMedia.getInstagramUrl());
+    socialMediaResponse.setLinkedInUrl(socialMedia.getLinkedInUrl());
 
     return socialMediaResponse;
   }

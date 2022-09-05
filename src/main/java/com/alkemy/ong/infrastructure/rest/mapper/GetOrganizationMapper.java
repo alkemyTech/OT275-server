@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class GetOrganizationMapper {
 
   private final SlideWithTextMapper slideWithTextMapper;
+  private final SocialMediaMapper socialMediaMapper;
 
   public GetOrganizationResponse toResponse(Organization organization) {
     if (organization == null) {
@@ -21,6 +22,8 @@ public class GetOrganizationMapper {
     getOrganizationResponse.setPhone(organization.getPhone());
     getOrganizationResponse.setAddress(organization.getAddress());
     getOrganizationResponse.setSlides(slideWithTextMapper.toResponse(organization.getSlides()));
+    getOrganizationResponse.setSocialMedia(
+        socialMediaMapper.toResponse(organization.getSocialMedia()));
     return getOrganizationResponse;
   }
 }
