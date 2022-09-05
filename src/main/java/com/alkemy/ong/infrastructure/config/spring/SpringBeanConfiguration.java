@@ -162,5 +162,4 @@ public class SpringBeanConfiguration {
   public IUpdateUserUseCase updateUserUseCase(IUserRepository userRepository) {
     return new UpdateUserUseCaseService(userRepository);
   }
-
 }
