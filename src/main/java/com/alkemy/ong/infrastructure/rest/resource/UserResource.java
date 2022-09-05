@@ -4,8 +4,8 @@ import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateUserUseCase;
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.mapper.UserUpdateMapper;
-import com.alkemy.ong.infrastructure.rest.request.UserUpdateRequest;
-import com.alkemy.ong.infrastructure.rest.response.UserUpdateResponse;
+import com.alkemy.ong.infrastructure.rest.request.UpdateUserRequest;
+import com.alkemy.ong.infrastructure.rest.response.UpdateUserResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,11 +36,11 @@ public class UserResource {
   @PutMapping(value = "/{id}",
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<UserUpdateResponse> update(@PathVariable Long id,
-      @Valid @RequestBody UserUpdateRequest userUpdateRequest) {
-    User user = userUpdateMapper.toDomain(() -> id, userUpdateRequest);
+  public ResponseEntity<UpdateUserResponse> update(@PathVariable Long id,
+      @Valid @RequestBody UpdateUserRequest updateUserRequest) {
+    User user = userUpdateMapper.toDomain(() -> id, updateUserRequest);
     User userUpdated = updateUserUseCase.update(user);
-    UserUpdateResponse response = userUpdateMapper.toResponse(userUpdated);
+    UpdateUserResponse response = userUpdateMapper.toResponse(userUpdated);
     return ResponseEntity.ok(response);
   }
 }
