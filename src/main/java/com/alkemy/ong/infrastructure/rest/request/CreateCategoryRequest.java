@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class CreateCategoryRequest {
 
-  @NotEmpty(message = "Name cannot be empty")
+  @NotEmpty(message = "Name cannot be empty.")
   @CharactersWithWhiteSpaces(message = "Name must contain only spaces and letters.")
   private String name;
   private String description;

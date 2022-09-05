@@ -11,10 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AuthenticationRequest {
 
-  @Email(message = "Email has invalid format")
+  @Email(message = "Email has invalid format.")
   private String email;
 
-  @Size(message = "Password must be between 8 and 16 characters long", min = 8, max = 16)
+  @Size(message = "Password must be between 8 and 16 characters long.", min = 8, max = 16)
   private String password;
 
 }

@@ -8,7 +8,7 @@ import lombok.Getter;
 public class UpdateCategoryRequest {
 
   @NotEmpty
-  @CharactersWithWhiteSpaces(message = "Category name must contain only spaces and letters.")
+  @CharactersWithWhiteSpaces(message = "Name must contain only spaces and letters.")
   private String name;
   private String description;
   private String imageUrl;
