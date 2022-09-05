@@ -2,9 +2,9 @@ package com.alkemy.ong.infrastructure.rest.resource;
 
 import com.alkemy.ong.application.service.usecase.IUpdateActivityUseCase;
 import com.alkemy.ong.domain.Activity;
-import com.alkemy.ong.infrastructure.rest.mapper.ActivityUpdateMapper;
-import com.alkemy.ong.infrastructure.rest.request.ActivityUpdateRequest;
-import com.alkemy.ong.infrastructure.rest.response.ActivityUpdateResponse;
+import com.alkemy.ong.infrastructure.rest.mapper.UpdateActivityMapper;
+import com.alkemy.ong.infrastructure.rest.request.UpdateActivityRequest;
+import com.alkemy.ong.infrastructure.rest.response.UpdateActivityResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -21,17 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class ActivityResource {
 
   private final IUpdateActivityUseCase updateActivityUseCase;
-  private final ActivityUpdateMapper activityUpdateMapper;
+  private final UpdateActivityMapper updateActivityMapper;
 
   @PutMapping(
       value = "/{id}",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ActivityUpdateResponse> update(@PathVariable Long id,
-      @Valid @RequestBody ActivityUpdateRequest activityUpdateRequest) {
-    Activity activity = activityUpdateMapper.toDomain(() -> id, activityUpdateRequest);
+  public ResponseEntity<UpdateActivityResponse> update(@PathVariable Long id,
+      @Valid @RequestBody UpdateActivityRequest updateActivityRequest) {
+    Activity activity = updateActivityMapper.toDomain(() -> id, updateActivityRequest);
     Activity updatedActivity = updateActivityUseCase.update(activity);
-    return ResponseEntity.ok(activityUpdateMapper.toResponse(updatedActivity));
+    return ResponseEntity.ok(updateActivityMapper.toResponse(updatedActivity));
   }
 
 }

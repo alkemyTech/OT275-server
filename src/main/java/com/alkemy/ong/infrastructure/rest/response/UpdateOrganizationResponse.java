@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class OrganizationUpdateResponse {
+public class UpdateOrganizationResponse {
 
   private String name;
   private String imageUrl;

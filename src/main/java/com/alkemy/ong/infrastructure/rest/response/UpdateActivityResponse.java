@@ -5,14 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ActivityUpdateResponse {
+public class UpdateActivityResponse {
 
   private Long id;
-
   private String content;
-
   private String imageUrl;
-
   private String name;
 
 }

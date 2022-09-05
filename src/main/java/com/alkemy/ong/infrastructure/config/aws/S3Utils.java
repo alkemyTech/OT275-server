@@ -1,8 +1,8 @@
 package com.alkemy.ong.infrastructure.config.aws;
 
-import com.alkemy.ong.application.util.IImage;
-import com.alkemy.ong.application.util.IImageUploader;
-import com.alkemy.ong.application.util.ImageService;
+import com.alkemy.ong.application.util.image.IImage;
+import com.alkemy.ong.application.util.image.IImageUploader;
+import com.alkemy.ong.application.util.image.ImageService;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
