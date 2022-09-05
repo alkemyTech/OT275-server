@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
 public class UpdateOrganizationRequest {
 
   @Nullable
-  @CharactersWithWhiteSpaces(message = "Name must contain only spaces and letters")
+  @CharactersWithWhiteSpaces(message = "Name must contain only spaces and letters.")
   private String name;
 
   private String imageUrl;
@@ -20,7 +20,7 @@ public class UpdateOrganizationRequest {
   private String phone;
 
   @Nullable
-  @Email(message = "Email has invalid format")
+  @Email(message = "Email has invalid format.")
   private String email;
 
   private SocialMediaRequest socialMedia;
@@ -28,7 +28,7 @@ public class UpdateOrganizationRequest {
   private String aboutUsText;
 
   @Nullable
-  @Length(max = 50, message = "welcome text length must be shorter than 50 characters")
+  @Length(max = 50, message = "Welcome text length must be shorter than 50 characters.")
   private String welcomeText;
 
 }
