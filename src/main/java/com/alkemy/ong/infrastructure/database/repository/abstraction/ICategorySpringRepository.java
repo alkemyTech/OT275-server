@@ -24,6 +24,3 @@ public interface ICategorySpringRepository extends JpaRepository<CategoryEntity,
 
   List<CategoryEntity> findAllBySoftDeletedFalse();
 }
-
-
-
