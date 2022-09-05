@@ -9,19 +9,19 @@ import org.springframework.lang.Nullable;
 @Getter
 public class UpdateUserRequest {
 
-  @NotEmpty(message = "This field cannot be empty")
+  @NotEmpty(message = "First name cannot be empty.")
   @CharactersWithWhiteSpaces(message = "First name must contain only spaces and letters.")
   private String firstName;
 
-  @NotEmpty(message = "This field cannot be empty")
+  @NotEmpty(message = "Last name cannot be empty.")
   @CharactersWithWhiteSpaces(message = "Last name must contain only spaces and letters.")
   private String lastName;
 
   @Nullable
   private String imageUrl;
 
-  @NotEmpty(message = "This field cannot be empty")
-  @Size(min = 8, max = 16, message = "The password must be between 8 and 16 characters long.")
+  @NotEmpty(message = "Password cannot be empty")
+  @Size(min = 8, max = 16, message = "Password must be between 8 and 16 characters long.")
   private String password;
 
 }
