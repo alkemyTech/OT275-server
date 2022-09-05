@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UpdateUserUseCaseService implements IUpdateUserUseCase {
 
-  private IUserRepository userRepository;
+  private final IUserRepository userRepository;
 
   @Override
   public User update(User user) {
