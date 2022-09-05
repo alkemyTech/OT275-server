@@ -16,7 +16,7 @@ public class CreateSlideMapper extends SlideWithTextMapper {
     slide.setOrder(createSlideRequest.getOrder());
     slide.setText(createSlideRequest.getText());
     slide.setBase64FileEncoded(createSlideRequest.getBase64FileEncoded());
-
+    slide.setContentType(createSlideRequest.getContentType());
     return slide;
   }
 

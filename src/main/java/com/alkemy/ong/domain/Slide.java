@@ -21,6 +21,7 @@ public class Slide implements IImage {
   private Integer order;
   private String text;
   private String base64FileEncoded;
+  private String contentType;
 
   @Override
   public InputStream getContent() {
@@ -29,7 +30,7 @@ public class Slide implements IImage {
 
   @Override
   public String getContentType() {
-    return "image/jpeg";
+    return this.contentType;
   }
 
   @Override
