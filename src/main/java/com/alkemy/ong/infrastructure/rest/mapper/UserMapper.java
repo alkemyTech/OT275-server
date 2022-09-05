@@ -1,6 +1,5 @@
 package com.alkemy.ong.infrastructure.rest.mapper;
 
-
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.response.ListUserResponse;
 import com.alkemy.ong.infrastructure.rest.response.UserResponse;
@@ -23,7 +22,6 @@ public class UserMapper {
     userResponse.setRole(user.getRole().getName());
     return userResponse;
   }
-
 
   public ListUserResponse toResponse(List<User> userList) {
     if (userList == null || userList.isEmpty()) {

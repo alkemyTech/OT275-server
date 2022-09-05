@@ -28,6 +28,17 @@ public class UserEntityMapper {
     return user;
   }
 
+  public List<User> toDomain(List<UserEntity> userEntityList) {
+    if (userEntityList == null || userEntityList.isEmpty()) {
+      return Collections.emptyList();
+    }
+    List<User> userList = new ArrayList<>(userEntityList.size());
+    for (UserEntity userEntity : userEntityList) {
+      userList.add(toDomain(userEntity));
+    }
+    return userList;
+  }
+
   public UserEntity toEntity(User user) {
     if (user == null) {
       return null;
@@ -43,14 +54,4 @@ public class UserEntityMapper {
     return userEntity;
   }
 
-  public List<User> toDomain(List<UserEntity> userEntityList) {
-    if (userEntityList == null || userEntityList.isEmpty()) {
-      return Collections.emptyList();
-    }
-    List<User> userList = new ArrayList<>(userEntityList.size());
-    for (UserEntity userEntity : userEntityList) {
-      userList.add(toDomain(userEntity));
-    }
-    return userList;
-  }
 }

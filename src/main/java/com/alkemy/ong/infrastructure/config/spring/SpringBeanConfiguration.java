@@ -179,7 +179,7 @@ public class SpringBeanConfiguration {
     return new ListUserUseCaseService(userRepository);
   }
 
-    @Bean
+  @Bean
   public IUpdateUserUseCase updateUserUseCase(IUserRepository userRepository) {
     return new UpdateUserUseCaseService(userRepository);
 

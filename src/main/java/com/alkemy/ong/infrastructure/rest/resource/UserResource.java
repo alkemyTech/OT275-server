@@ -2,12 +2,12 @@ package com.alkemy.ong.infrastructure.rest.resource;
 
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IListUserUseCase;
-import com.alkemy.ong.infrastructure.rest.mapper.UserMapper;
-import com.alkemy.ong.infrastructure.rest.response.ListUserResponse;
 import com.alkemy.ong.application.service.usecase.IUpdateUserUseCase;
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.mapper.UpdateUserMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.UserMapper;
 import com.alkemy.ong.infrastructure.rest.request.UpdateUserRequest;
+import com.alkemy.ong.infrastructure.rest.response.ListUserResponse;
 import com.alkemy.ong.infrastructure.rest.response.UpdateUserResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
