@@ -59,7 +59,7 @@ public class SlideResource {
   @PostMapping(
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<SlideWithTextResponse> add(
+  public ResponseEntity<GetSlideResponse> add(
       @Valid @RequestBody CreateSlideRequest createSlideRequest) {
     Slide slide = createSlideMapper.toDomain(createSlideRequest);
     Slide createdSlide = createSlideUseCase.add(slide);

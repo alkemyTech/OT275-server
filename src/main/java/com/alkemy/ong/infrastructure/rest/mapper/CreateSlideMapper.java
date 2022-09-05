@@ -5,7 +5,7 @@ import com.alkemy.ong.infrastructure.rest.request.CreateSlideRequest;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateSlideMapper extends SlideWithTextMapper {
+public class CreateSlideMapper extends GetSlideMapper {
 
   public Slide toDomain(CreateSlideRequest createSlideRequest) {
     if (createSlideRequest == null) {
