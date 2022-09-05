@@ -7,20 +7,20 @@ import lombok.Getter;
 import org.springframework.lang.Nullable;
 
 @Getter
-public class UserUpdateRequest {
+public class UpdateUserRequest {
 
-  @NotEmpty
+  @NotEmpty(message = "This field cannot be empty")
   @CharactersWithWhitespaces(message = "First name must contain only spaces and letters.")
   private String firstName;
 
-  @NotEmpty
+  @NotEmpty(message = "This field cannot be empty")
   @CharactersWithWhitespaces(message = "Last name must contain only spaces and letters.")
   private String lastName;
 
   @Nullable
   private String imageUrl;
 
-  @NotEmpty
+  @NotEmpty(message = "This field cannot be empty")
   @Size(min = 8, max = 16, message = "The password must be between 8 and 16 characters long.")
   private String password;
 
