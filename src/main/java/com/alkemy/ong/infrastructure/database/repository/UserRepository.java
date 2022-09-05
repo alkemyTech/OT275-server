@@ -43,4 +43,21 @@ public class UserRepository implements IUserRepository {
     return userEntityMapper.toDomain(userSpringRepository.save(userEntity));
   }
 
+  @Override
+  public Optional<User> findById(Identifiable<Long> identifiable) {
+    Optional<UserEntity> userEntityOptional =
+        userSpringRepository.findById(identifiable.getId());
+    if (userEntityOptional.isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.of(userEntityMapper.toDomain(userEntityOptional.get()));
+  }
+
+  @Override
+  public User update(User user) {
+    UserEntity updatedUserEntity = userEntityMapper.toEntity(user);
+    updatedUserEntity.setSoftDeleted(false);
+    return userEntityMapper.toDomain(userSpringRepository.save(updatedUserEntity));
+  }
+
 }
