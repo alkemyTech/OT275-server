@@ -44,8 +44,9 @@ public class UserRepository implements IUserRepository {
   }
 
   @Override
-  public Optional<User> findById(Identifiable<Long> identifiable) {
-    return userSpringRepository.findById(identifiable.getId()).map(userEntityMapper::toDomain);
+  public User findBy(Identifiable<Long> identifiable) {
+    return userEntityMapper.toDomain(
+        userSpringRepository.findByUserIdAndSoftDeletedFalse(identifiable.getId()));
   }
 
   @Override

@@ -14,7 +14,7 @@ public interface IUserRepository {
 
   User add(User user);
 
-  Optional<User> findById(Identifiable<Long> identifiable);
+  User findBy(Identifiable<Long> identifiable);
 
   User update(User user);
 
