@@ -13,4 +13,6 @@ public interface ICategoryRepository {
 
   Category update(Category category);
 
+  Category save(Category category);
+
 }
