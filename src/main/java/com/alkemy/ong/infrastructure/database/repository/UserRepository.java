@@ -45,12 +45,7 @@ public class UserRepository implements IUserRepository {
 
   @Override
   public Optional<User> findById(Identifiable<Long> identifiable) {
-    Optional<UserEntity> userEntityOptional =
-        userSpringRepository.findById(identifiable.getId());
-    if (userEntityOptional.isEmpty()) {
-      return Optional.empty();
-    }
-    return Optional.of(userEntityMapper.toDomain(userEntityOptional.get()));
+    return userSpringRepository.findById(identifiable.getId()).map(userEntityMapper::toDomain);
   }
 
   @Override
