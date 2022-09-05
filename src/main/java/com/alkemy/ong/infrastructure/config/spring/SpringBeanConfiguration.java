@@ -162,6 +162,7 @@ public class SpringBeanConfiguration {
     return new ListCategoryUseCaseService(categoryRepository);
   }
 
+  @Bean
   public IUpdateActivityUseCase updateActivityUseCase(IActivityRepository activityRepository) {
     return new UpdateActivityUseCaseService(activityRepository);
   }
