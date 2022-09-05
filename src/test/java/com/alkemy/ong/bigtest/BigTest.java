@@ -4,9 +4,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import com.alkemy.ong.OngApplication;
 import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
+import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
 import com.alkemy.ong.infrastructure.database.entity.RoleEntity;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
+import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizationSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
@@ -61,6 +63,9 @@ public abstract class BigTest {
   @Autowired
   protected IOrganizationSpringRepository organizationRepository;
 
+  @Autowired
+  protected ICategorySpringRepository categoryRepository;
+
   @Before
   public void setup() {
     createRoles();
@@ -75,6 +80,7 @@ public abstract class BigTest {
 
   private void deleteAllEntities() {
     organizationRepository.deleteAll();
+    categoryRepository.deleteAll();
   }
 
   protected void cleanUsersData(UserEntity... users) {
@@ -173,4 +179,28 @@ public abstract class BigTest {
     return userRepository.save(buildUser("Michael", "Myers", "michael@myers.com", Role.USER));
   }
 
+  protected Long getRandomCategoryId() {
+    CategoryEntity randomCategory = getRandomCategory();
+    return randomCategory.getCategoryId();
+  }
+
+  protected CategoryEntity getRandomCategory() {
+    return categoryRepository.save(buildCategory(
+        "Sports",
+        "Sports description",
+        "https://s3.com/sports-category.jpg"));
+  }
+
+  protected CategoryEntity buildCategory(String name, String description, String imageUrl) {
+    CategoryEntity categoryEntity = new CategoryEntity();
+    categoryEntity.setName(name);
+    categoryEntity.setDescription(description);
+    categoryEntity.setImageUrl(imageUrl);
+    categoryEntity.setSoftDeleted(false);
+    return categoryEntity;
+  }
+
+  protected void deleteCategory(Long categoryId) {
+    categoryRepository.deleteById(categoryId);
+  }
 }
