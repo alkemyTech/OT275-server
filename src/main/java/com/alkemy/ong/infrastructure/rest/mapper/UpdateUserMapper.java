@@ -27,12 +27,15 @@ public class UpdateUserMapper {
     return user;
   }
 
-  public UpdateUserResponse toResponse(User userUpdated) {
+  public UpdateUserResponse toResponse(User user) {
+    if (user == null) {
+      return null;
+    }
     UpdateUserResponse updateUserResponse = new UpdateUserResponse();
-    updateUserResponse.setId(userUpdated.getId());
-    updateUserResponse.setFirstName(userUpdated.getFirstName());
-    updateUserResponse.setLastName(userUpdated.getLastName());
-    updateUserResponse.setImageUrl(userUpdated.getImageUrl());
+    updateUserResponse.setId(user.getId());
+    updateUserResponse.setFirstName(user.getFirstName());
+    updateUserResponse.setLastName(user.getLastName());
+    updateUserResponse.setImageUrl(user.getImageUrl());
     return updateUserResponse;
   }
 }
