@@ -19,7 +19,7 @@ public class ListCategoryMapper {
     if (categoryList == null || categoryList.isEmpty()) {
       return new ListCategoryResponse(Collections.emptyList());
     }
-    List<CategoryShortResponse> categories = new ArrayList<>();
+    List<CategoryShortResponse> categories = new ArrayList<>(categoryList.size());
     for (Category category : categoryList) {
       categories.add(shortCategoryMapper.toResponse(category));
     }

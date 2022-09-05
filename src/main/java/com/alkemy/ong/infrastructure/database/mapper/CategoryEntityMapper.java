@@ -40,7 +40,7 @@ public class CategoryEntityMapper {
     if (categoryEntities == null || categoryEntities.isEmpty()) {
       return Collections.emptyList();
     }
-    List<Category> categories = new ArrayList<>();
+    List<Category> categories = new ArrayList<>(categoryEntities.size());
     for (CategoryEntity categoryEntity : categoryEntities) {
       categories.add(toDomain(categoryEntity));
     }
