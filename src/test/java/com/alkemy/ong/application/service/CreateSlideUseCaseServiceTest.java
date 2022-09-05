@@ -7,8 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.util.IImageUploader;
-import com.alkemy.ong.common.IntegerMother;
-import com.alkemy.ong.common.SlideMother;
+import com.alkemy.ong.common.SlideBuilder;
 import com.alkemy.ong.domain.Slide;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,24 +33,24 @@ class CreateSlideUseCaseServiceTest {
 
   @Test
   void shouldAddSlide() {
-    Slide expected = SlideMother.random();
+    Slide expected = SlideBuilder.random();
 
     createSlideUseCaseService.add(expected);
 
     verify(slideRepository, times(1)).add(expected);
+    verify(slideRepository, times(0)).findMaxPosition();
   }
 
   @Test
   void shouldSetNextPositionWhenOrderIsNull() {
-    Slide slideWithNullOrder = SlideMother.withNullOrder();
-    Integer random = IntegerMother.random();
-    Integer expected = random + 1;
+    Slide slideWithNullOrder = SlideBuilder.withNullOrder();
+    given(slideRepository.findMaxPosition()).willReturn(2);
+    given(slideRepository.add(slideWithNullOrder)).willReturn(slideWithNullOrder);
 
-    given(slideRepository.findMaxPosition()).willReturn(random);
+    Slide savedSlide = createSlideUseCaseService.add(slideWithNullOrder);
 
-    createSlideUseCaseService.add(slideWithNullOrder);
-
-    assertThat(slideWithNullOrder.getOrder()).isEqualTo(expected);
+    assertThat(savedSlide.getOrder()).isEqualTo(3);
+    verify(slideRepository, times(1)).add(slideWithNullOrder);
   }
 
 }
