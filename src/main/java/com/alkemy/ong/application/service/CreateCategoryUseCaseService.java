@@ -8,12 +8,12 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CreateCategoryUseCaseService implements ICreateCategoryUseCase {
 
-  ICategoryRepository categoryRepository;
+  private final ICategoryRepository categoryRepository;
 
   @Override
   public Category create(Category category) {
-
-    return categoryRepository.create(category);
+    return categoryRepository.save(category);
   }
+
 }
 

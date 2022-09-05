@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryCreateResponse {
+public class CreateCategoryResponse {
 
   private String name;
   private String description;

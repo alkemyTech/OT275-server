@@ -33,7 +33,7 @@ public class CategoryRepository implements ICategoryRepository {
   }
 
   @Override
-  public Category create(Category category) {
+  public Category save(Category category) {
     CategoryEntity categoryEntity = categoryEntityMapper.toEntity(category);
     categoryEntity.setSoftDeleted(false);
     return categoryEntityMapper.toDomain(categorySpringRepository.save(categoryEntity));

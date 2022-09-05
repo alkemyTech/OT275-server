@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CategoryCreateRequest {
+public class CreateCategoryRequest {
 
   @NotEmpty(message = "Category name cannot be empty")
   @CharactersWithWhitespaces(message = "Category name must contain only spaces and letters.")
