@@ -8,7 +8,7 @@ import com.alkemy.ong.domain.Slide;
 import com.alkemy.ong.infrastructure.rest.mapper.GetSlideMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.ListSlideMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.PostSlideMapper;
-import com.alkemy.ong.infrastructure.rest.request.SlideRequest;
+import com.alkemy.ong.infrastructure.rest.request.CreateSlideRequest;
 import com.alkemy.ong.infrastructure.rest.response.GetSlideResponse;
 import com.alkemy.ong.infrastructure.rest.response.ListSlideResponse;
 import com.alkemy.ong.infrastructure.rest.response.SlideWithTextResponse;
@@ -65,8 +65,9 @@ public class SlideResource {
   @PostMapping(
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<SlideWithTextResponse> add(@Valid @RequestBody SlideRequest slideRequest) {
-    Slide slide = postSlideMapper.toDomain(slideRequest);
+  public ResponseEntity<SlideWithTextResponse> add(
+      @Valid @RequestBody CreateSlideRequest createSlideRequest) {
+    Slide slide = postSlideMapper.toDomain(createSlideRequest);
     Slide createdSlide = createSlideUseCase.add(slide);
     return new ResponseEntity<>(postSlideMapper.toResponse(createdSlide), HttpStatus.CREATED);
   }

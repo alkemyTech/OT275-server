@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SlideRequest {
+public class CreateSlideRequest {
 
   private String text;
   private Integer order;
