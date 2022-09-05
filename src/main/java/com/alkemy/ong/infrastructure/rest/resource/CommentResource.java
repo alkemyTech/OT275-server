@@ -32,6 +32,6 @@ public class CommentResource {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ListCommentResponse> list() {
     return ResponseEntity.ok().body(listCommentMapper
-        .toResponse(listCommentUseCase.findAllOrdered()));
+        .toResponse(listCommentUseCase.findAllOrderedByTimestamp()));
   }
 }

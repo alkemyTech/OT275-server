@@ -23,7 +23,7 @@ public class CommentEntityMapper {
   }
 
   public List<Comment> toDomain(List<CommentEntity> commentEntities) {
-    if (commentEntities.isEmpty()) {
+    if (commentEntities == null || commentEntities.isEmpty()) {
       return Collections.emptyList();
     }
     List<Comment> commentList = new ArrayList<>(commentEntities.size());

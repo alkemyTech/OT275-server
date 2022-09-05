@@ -34,7 +34,7 @@ public class CommentRepository implements ICommentRepository {
   }
 
   @Override
-  public List<Comment> findAllOrdered() {
+  public List<Comment> findAllOrderedByTimestamp() {
     return commentMapper.toDomain(commentSpringRepository.findAllByOrderByCreateTimestampAsc());
   }
 }

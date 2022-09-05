@@ -7,12 +7,12 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class ListCommentUserCaseService implements IListCommentUseCase {
+public class ListCommentUseCaseService implements IListCommentUseCase {
 
-  ICommentRepository commentRepository;
+  private final ICommentRepository commentRepository;
 
   @Override
-  public List<Comment> findAllOrdered() {
-    return commentRepository.findAllOrdered();
+  public List<Comment> findAllOrderedByTimestamp() {
+    return commentRepository.findAllOrderedByTimestamp();
   }
 }

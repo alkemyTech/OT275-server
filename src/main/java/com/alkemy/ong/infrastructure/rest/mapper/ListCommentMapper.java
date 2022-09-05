@@ -14,7 +14,7 @@ public class ListCommentMapper {
   CommentMapper commentMapper;
 
   public ListCommentResponse toResponse(List<Comment> comments) {
-    if (comments.isEmpty()) {
+    if (comments == null || comments.isEmpty()) {
       return new ListCommentResponse(Collections.emptyList());
     }
     return new ListCommentResponse(commentMapper.toResponse(comments));
