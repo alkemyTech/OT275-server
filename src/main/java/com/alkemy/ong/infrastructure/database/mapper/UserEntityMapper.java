@@ -3,6 +3,9 @@ package com.alkemy.ong.infrastructure.database.mapper;
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.config.spring.security.common.JwtUtils;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -38,5 +41,16 @@ public class UserEntityMapper {
     userEntity.setImageUrl(user.getImageUrl());
     userEntity.setRole(roleEntityMapper.toEntity(user.getRole()));
     return userEntity;
+  }
+
+  public List<User> toDomain(List<UserEntity> userEntityList) {
+    if (userEntityList == null || userEntityList.isEmpty()) {
+      return Collections.emptyList();
+    }
+    List<User> userList = new ArrayList<>(userEntityList.size());
+    for (UserEntity userEntity : userEntityList) {
+      userList.add(toDomain(userEntity));
+    }
+    return userList;
   }
 }
