@@ -23,6 +23,7 @@ import com.alkemy.ong.application.service.DeleteUserUseCaseService;
 import com.alkemy.ong.application.service.GetCategoryUseCase;
 import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.GetSlideUseCaseService;
+import com.alkemy.ong.application.service.ListCategoryUseCaseService;
 import com.alkemy.ong.application.service.ListCommentUseCaseService;
 import com.alkemy.ong.application.service.ListSlideUseCaseService;
 import com.alkemy.ong.application.service.LoginUserUseCaseService;
@@ -45,6 +46,7 @@ import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IGetCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
+import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IListCommentUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
@@ -155,6 +157,12 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
+
+  public IListCategoryUseCase listCategoryUseCaseService(ICategoryRepository categoryRepository) {
+    return new ListCategoryUseCaseService(categoryRepository);
+  }
+
+  @Bean
   public IUpdateActivityUseCase updateActivityUseCase(IActivityRepository activityRepository) {
     return new UpdateActivityUseCaseService(activityRepository);
   }
@@ -169,4 +177,5 @@ public class SpringBeanConfiguration {
   public IUpdateUserUseCase updateUserUseCase(IUserRepository userRepository) {
     return new UpdateUserUseCaseService(userRepository);
   }
+
 }
