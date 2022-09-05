@@ -4,10 +4,10 @@ import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateOrganizationUseCase;
 import com.alkemy.ong.domain.Organization;
 import com.alkemy.ong.infrastructure.rest.mapper.GetOrganizationMapper;
-import com.alkemy.ong.infrastructure.rest.mapper.OrganizationUpdateMapper;
-import com.alkemy.ong.infrastructure.rest.request.OrganizationUpdateRequest;
+import com.alkemy.ong.infrastructure.rest.mapper.UpdateOrganizationMapper;
+import com.alkemy.ong.infrastructure.rest.request.UpdateOrganizationRequest;
 import com.alkemy.ong.infrastructure.rest.response.GetOrganizationResponse;
-import com.alkemy.ong.infrastructure.rest.response.OrganizationUpdateResponse;
+import com.alkemy.ong.infrastructure.rest.response.UpdateOrganizationResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class OrganizationResource {
   private final IGetOrganizationUseCase getOrganizationUseCaseService;
   private final IUpdateOrganizationUseCase updateOrganizationUseCase;
   private final GetOrganizationMapper getOrganizationMapper;
-  private final OrganizationUpdateMapper organizationUpdateMapper;
+  private final UpdateOrganizationMapper updateOrganizationMapper;
 
   @GetMapping(value = "/public", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<GetOrganizationResponse> get() {
@@ -39,11 +39,11 @@ public class OrganizationResource {
       value = "/public",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<OrganizationUpdateResponse> patch(
-      @Valid @RequestBody OrganizationUpdateRequest updateRequest) {
+  public ResponseEntity<UpdateOrganizationResponse> patch(
+      @Valid @RequestBody UpdateOrganizationRequest updateRequest) {
     Organization updatedOrganization = updateOrganizationUseCase.update(
-        organizationUpdateMapper.toDomain(updateRequest));
-    return new ResponseEntity<>(organizationUpdateMapper.toResponse(updatedOrganization),
+        updateOrganizationMapper.toDomain(updateRequest));
+    return new ResponseEntity<>(updateOrganizationMapper.toResponse(updatedOrganization),
         HttpStatus.OK);
   }
 }

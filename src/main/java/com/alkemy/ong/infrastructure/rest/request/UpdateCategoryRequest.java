@@ -5,7 +5,7 @@ import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 
 @Getter
-public class CategoryUpdateRequest {
+public class UpdateCategoryRequest {
 
   @NotEmpty
   @CharactersWithWhitespaces(message = "Category name must contain only spaces and letters.")

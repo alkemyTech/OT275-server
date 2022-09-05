@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ActivityUpdateRequest {
+public class UpdateActivityRequest {
 
   @NotEmpty(message = "Content cannot be empty.")
   @CharactersWithWhitespaces(message = "Content must contain only spaces and letters.")

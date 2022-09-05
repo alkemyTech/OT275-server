@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.Nullable;
 
 @Getter
-public class OrganizationUpdateRequest {
+public class UpdateOrganizationRequest {
 
   @Nullable
   @CharactersWithWhitespaces(message = "Name must contain only spaces and letters")

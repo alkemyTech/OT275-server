@@ -4,11 +4,11 @@ import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.mapper.AuthenticationMapper;
-import com.alkemy.ong.infrastructure.rest.mapper.UserRegisterMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.RegisterUserMapper;
 import com.alkemy.ong.infrastructure.rest.request.AuthenticationRequest;
-import com.alkemy.ong.infrastructure.rest.request.UserRegisterRequest;
+import com.alkemy.ong.infrastructure.rest.request.RegisterUserRequest;
 import com.alkemy.ong.infrastructure.rest.response.AuthenticationResponse;
-import com.alkemy.ong.infrastructure.rest.response.UserRegisterResponse;
+import com.alkemy.ong.infrastructure.rest.response.RegisterUserResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,17 +26,17 @@ public class AuthResource {
 
   private final ICreateUserUseCase createUserUseCase;
   private final ILoginUserUseCase loginUserUseCase;
-  private final UserRegisterMapper userRegisterMapper;
+  private final RegisterUserMapper registerUserMapper;
   private final AuthenticationMapper authenticationMapper;
 
   @PostMapping(
       value = "/register",
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<UserRegisterResponse> register(
-      @Valid @RequestBody UserRegisterRequest registerRequest) {
-    User user = createUserUseCase.add(userRegisterMapper.toDomain(registerRequest));
-    UserRegisterResponse response = userRegisterMapper.toResponse(user);
+  public ResponseEntity<RegisterUserResponse> register(
+      @Valid @RequestBody RegisterUserRequest registerRequest) {
+    User user = createUserUseCase.add(registerUserMapper.toDomain(registerRequest));
+    RegisterUserResponse response = registerUserMapper.toResponse(user);
     return new ResponseEntity<>(response, HttpStatus.CREATED);
   }
 

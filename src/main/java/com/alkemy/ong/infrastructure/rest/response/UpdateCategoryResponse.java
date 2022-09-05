@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryUpdateResponse {
+public class UpdateCategoryResponse {
 
   private Long id;
   private String name;

@@ -31,17 +31,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class SlideResource {
 
   private final IDeleteSlideUseCase deleteSlideUseCase;
-
   private final IListSlideUseCase listSlideUseCase;
-
   private final IGetSlideUseCase getSlideUseCase;
-
   private final ICreateSlideUseCase createSlideUseCase;
-
   private final ListSlideMapper listSlideMapper;
-
   private final GetSlideMapper getSlideMapper;
-
   private final CreateSlideMapper createSlideMapper;
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
