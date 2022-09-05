@@ -12,7 +12,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(validatedBy = CharactersWithWhitespacesValidator.class)
-public @interface CharactersWithWhitespaces {
+public @interface CharactersWithWhiteSpaces {
 
   String message() default "{com.alkemy.ong.infrastructure.rest.request.validation.Name.message}";
 
