@@ -2,8 +2,8 @@ package com.alkemy.ong.infrastructure.rest.mapper;
 
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.User;
-import com.alkemy.ong.infrastructure.rest.request.UserUpdateRequest;
-import com.alkemy.ong.infrastructure.rest.response.UserUpdateResponse;
+import com.alkemy.ong.infrastructure.rest.request.UpdateUserRequest;
+import com.alkemy.ong.infrastructure.rest.response.UpdateUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -14,24 +14,25 @@ public class UserUpdateMapper {
 
   private final PasswordEncoder passwordEncoder;
 
-  public User toDomain(Identifiable<Long> identifiable, UserUpdateRequest userUpdateRequest) {
-    if (userUpdateRequest == null) {
+  public User toDomain(Identifiable<Long> identifiable, UpdateUserRequest updateUserRequest) {
+    if (updateUserRequest == null) {
       return null;
     }
     User user = new User();
     user.setId(identifiable.getId());
-    user.setFirstName(userUpdateRequest.getFirstName());
-    user.setLastName(userUpdateRequest.getLastName());
-    user.setImageUrl(userUpdateRequest.getImageUrl());
-    user.setPassword(passwordEncoder.encode(userUpdateRequest.getPassword()));
+    user.setFirstName(updateUserRequest.getFirstName());
+    user.setLastName(updateUserRequest.getLastName());
+    user.setImageUrl(updateUserRequest.getImageUrl());
+    user.setPassword(passwordEncoder.encode(updateUserRequest.getPassword()));
     return user;
   }
 
-  public UserUpdateResponse toResponse(User userUpdated) {
-    UserUpdateResponse userUpdateResponse = new UserUpdateResponse();
-    userUpdateResponse.setFirstName(userUpdated.getFirstName());
-    userUpdateResponse.setLastName(userUpdated.getLastName());
-    userUpdateResponse.setImageUrl(userUpdated.getImageUrl());
-    return userUpdateResponse;
+  public UpdateUserResponse toResponse(User userUpdated) {
+    UpdateUserResponse updateUserResponse = new UpdateUserResponse();
+    updateUserResponse.setId(userUpdated.getId());
+    updateUserResponse.setFirstName(userUpdated.getFirstName());
+    updateUserResponse.setLastName(userUpdated.getLastName());
+    updateUserResponse.setImageUrl(userUpdated.getImageUrl());
+    return updateUserResponse;
   }
 }
