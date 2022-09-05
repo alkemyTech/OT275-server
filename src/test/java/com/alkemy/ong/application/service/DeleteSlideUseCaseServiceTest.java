@@ -32,7 +32,8 @@ class DeleteSlideUseCaseServiceTest {
   void shouldThrowExceptionWhenSlideDoesNotExist() {
     given(slideRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFoundException.class, () -> deleteSlideUseCaseService.delete(identifiable));
+    assertThrows(ObjectNotFoundException.class,
+        () -> deleteSlideUseCaseService.delete(identifiable));
   }
 
   @Test

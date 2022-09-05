@@ -15,5 +15,5 @@ public interface ISlideSpringRepository extends JpaRepository<SlideEntity, Long>
 
   @Query("SELECT COALESCE(MAX(s.position), 0) FROM SlideEntity s")
   Integer maxPosition();
-  
+
 }
