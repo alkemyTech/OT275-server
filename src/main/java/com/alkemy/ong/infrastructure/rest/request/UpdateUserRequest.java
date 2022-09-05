@@ -1,6 +1,6 @@
 package com.alkemy.ong.infrastructure.rest.request;
 
-import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhitespaces;
+import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -10,11 +10,11 @@ import org.springframework.lang.Nullable;
 public class UpdateUserRequest {
 
   @NotEmpty(message = "This field cannot be empty")
-  @CharactersWithWhitespaces(message = "First name must contain only spaces and letters.")
+  @CharactersWithWhiteSpaces(message = "First name must contain only spaces and letters.")
   private String firstName;
 
   @NotEmpty(message = "This field cannot be empty")
-  @CharactersWithWhitespaces(message = "Last name must contain only spaces and letters.")
+  @CharactersWithWhiteSpaces(message = "Last name must contain only spaces and letters.")
   private String lastName;
 
   @Nullable

@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class ListSlideResponse {
 
   private List<SlideResponse> slides;
+
 }

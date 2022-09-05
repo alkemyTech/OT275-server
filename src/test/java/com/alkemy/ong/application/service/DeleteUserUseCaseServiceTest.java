@@ -33,7 +33,8 @@ class DeleteUserUseCaseServiceTest {
   void shouldThrowExceptionWhenUserDoesNotExist() {
     given(userRepository.exists(identifiable)).willReturn(false);
 
-    assertThrows(ObjectNotFoundException.class, () -> deleteUserUseCaseService.delete(identifiable));
+    assertThrows(ObjectNotFoundException.class,
+        () -> deleteUserUseCaseService.delete(identifiable));
   }
 
   @Test

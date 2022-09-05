@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserRegisterResponse {
+public class RegisterUserResponse {
 
   private String firstName;
   private String lastName;
