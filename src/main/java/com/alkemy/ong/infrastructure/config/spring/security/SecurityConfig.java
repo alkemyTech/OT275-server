@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private static final String AUTH_REGISTER_URL = "/auth/register";
   private static final String AUTH_LOGIN_URL = "/auth/login";
-  private static final String ORGANIZATIONS_PUBLIC_URL = "/organizations/public";
+  private static final String ORGANIZATION_PUBLIC_URL = "/organization/public";
   private static final String COMMENTS_URL = "/comments";
   private static final String COMMENTS_ID_URL = "/comments/{id:[\\d+]}";
   private static final String SLIDES_URL = "/slides";
@@ -94,9 +94,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll()
         .antMatchers(HttpMethod.POST, AUTH_LOGIN_URL)
         .permitAll()
-        .antMatchers(HttpMethod.GET, ORGANIZATIONS_PUBLIC_URL)
+        .antMatchers(HttpMethod.GET, ORGANIZATION_PUBLIC_URL)
         .permitAll()
-        .antMatchers(HttpMethod.PATCH, ORGANIZATIONS_PUBLIC_URL)
+        .antMatchers(HttpMethod.PATCH, ORGANIZATION_PUBLIC_URL)
         .hasRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, USERS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())

@@ -14,10 +14,19 @@ public class UpdateUserUseCaseService implements IUpdateUserUseCase {
 
   @Override
   public User update(User user) {
-    if (userRepository.findBy(user::getId) == null) {
+    User savedUser = userRepository.findBy(user::getId);
+    if (savedUser == null) {
       throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("User"));
     }
-    return userRepository.update(user);
+    return update(user, savedUser);
+  }
+
+  private User update(User user, User savedUser) {
+    savedUser.setFirstName(user.getFirstName());
+    savedUser.setLastName(user.getLastName());
+    savedUser.setImageUrl(user.getImageUrl());
+    savedUser.setPassword(user.getPassword());
+    return userRepository.update(savedUser);
   }
 
 }
