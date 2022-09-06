@@ -31,7 +31,7 @@ public class NewsResource {
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
-  @GetMapping("/{id}")
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<GetNewsResponse> get(@PathVariable Long id) {
     return ResponseEntity.ok(getNewsMapper.toResponse(getNewsUseCase.get(() -> id)));
   }
