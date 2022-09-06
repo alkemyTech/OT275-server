@@ -1,9 +1,11 @@
 package com.alkemy.ong.application.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.common.NewsBuilder;
 import com.alkemy.ong.domain.Identifiable;
@@ -28,6 +30,14 @@ class GetNewsUseCaseServiceTest {
   @BeforeEach
   void setUp() {
     getNewsUseCaseService = new GetNewsUseCaseService(newsRepository);
+  }
+
+  @Test
+  void shouldThrowExceptionWhenNewsDoesNotExist() {
+    given(newsRepository.exists(identifiable)).willReturn(false);
+
+    assertThrows(ObjectNotFoundException.class, () -> getNewsUseCaseService.get(identifiable));
+    verify(newsRepository, times(0)).get(identifiable);
   }
 
   @Test
