@@ -52,7 +52,7 @@ public class UserRepository implements IUserRepository {
 
   @Override
   public List<User> findAll() {
-    return userEntityMapper.toDomain(userSpringRepository.findAll());
+    return userEntityMapper.toDomain(userSpringRepository.findAllBySoftDeletedFalse());
   }
 
   @Override
