@@ -6,6 +6,7 @@ import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.database.mapper.UserEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -47,6 +48,11 @@ public class UserRepository implements IUserRepository {
     UserEntity userEntity = userEntityMapper.toEntity(user);
     userEntity.setSoftDeleted(false);
     return userEntityMapper.toDomain(userSpringRepository.save(userEntity));
+  }
+
+  @Override
+  public List<User> findAll() {
+    return userEntityMapper.toDomain(userSpringRepository.findAllBySoftDeletedFalse());
   }
 
   @Override

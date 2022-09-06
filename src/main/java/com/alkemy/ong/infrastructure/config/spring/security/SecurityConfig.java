@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String TESTIMONIALS_ID_URL = "/testimonials/{id:[\\d+]}";
   private static final String DOCUMENTATION_PATH = "/api/**";
   private static final String DOCUMENTATION_URL = "/documentation.yaml";
+  private static final String USERS_URL = "/users";
+
   @Autowired
   private UserDetailsService userDetailsService;
 
@@ -125,6 +127,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.DELETE, SLIDES_ID_URL)
         .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
         .antMatchers(HttpMethod.POST, SLIDES_URL)
+        .hasRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.GET, USERS_URL)
         .hasRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.PUT, ACTIVITIES_ID_URL)
         .hasAnyRole(Role.ADMIN.name())
