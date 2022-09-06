@@ -15,10 +15,11 @@ public class GetNewsUseCaseService implements IGetNewsUseCase {
 
   @Override
   public News get(Identifiable<Long> identifiable) {
-    if (!newsRepository.exists(identifiable)) {
+    News news = newsRepository.get(identifiable);
+    if (news == null) {
       throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("News"));
     }
 
-    return newsRepository.get(identifiable);
+    return news;
   }
 }
