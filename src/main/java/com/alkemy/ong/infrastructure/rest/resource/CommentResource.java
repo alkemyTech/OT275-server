@@ -1,8 +1,10 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
+import com.alkemy.ong.application.service.usecase.ICreateCommentUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
 import com.alkemy.ong.application.service.usecase.IListCommentUseCase;
 import com.alkemy.ong.domain.Comment;
+import com.alkemy.ong.infrastructure.rest.mapper.CreateCommentMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.ListCommentMapper;
 import com.alkemy.ong.infrastructure.rest.request.CreateCommentRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateCommentResponse;
@@ -50,8 +52,8 @@ public class CommentResource {
       @Valid @RequestBody CreateCommentRequest createCommentRequest) {
     Comment savedComment = createCommentUseCase.create(
         createCommentMapper.toDomain(createCommentRequest),
-        () -> createCommentRequest.getUserId(),
-        () -> createCommentRequest.getNewsId());
-    return createCommentMapper.toResponse(savedComment);
+        createCommentRequest::getUserId,
+        createCommentRequest::getNewsId);
+    return ResponseEntity.ok(createCommentMapper.toResponse(savedComment));
   }
 }
