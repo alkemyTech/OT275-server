@@ -14,7 +14,7 @@ public class GetUserMapper {
       return null;
     }
     GetUserResponse getUserResponse = new GetUserResponse();
-    getUserResponse.setId(getUserResponse.getId());
+    getUserResponse.setId(user.getId());
     getUserResponse.setFirstName(user.getFirstName());
     getUserResponse.setLastName(user.getLastName());
     getUserResponse.setEmail(user.getEmail());
