@@ -1,19 +1,14 @@
 package com.alkemy.ong.infrastructure.rest.response;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Setter
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCategoryResponse {
+@Getter
+public class ListCategoryResponse {
 
-  private Long id;
-  private String name;
-  private String description;
-  private String imageUrl;
-
+  private List<GetCategoryResponse> categories;
 }

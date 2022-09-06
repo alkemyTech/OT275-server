@@ -17,5 +17,6 @@ public class GetOrganizationResponse {
   private String phone;
   private String address;
   private List<SlideWithTextResponse> slides;
+  private SocialMediaResponse socialMedia;
 
 }

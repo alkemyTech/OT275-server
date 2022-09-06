@@ -16,7 +16,6 @@ public class User {
   private String imageUrl;
   private Role role;
   private String token;
-  private String softDeleted;
 
 }
 
