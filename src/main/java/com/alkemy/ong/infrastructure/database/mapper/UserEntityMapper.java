@@ -15,28 +15,31 @@ public class UserEntityMapper {
 
   private final RoleEntityMapper roleEntityMapper;
 
-  public User toDomain(UserEntity entity) {
+  public User toDomain(UserEntity userEntity) {
+    if (userEntity == null) {
+      return null;
+    }
     User user = new User();
-    user.setId(entity.getUserId());
-    user.setEmail(entity.getEmail());
-    user.setFirstName(entity.getFirstName());
-    user.setLastName(entity.getLastName());
-    user.setImageUrl(entity.getImageUrl());
-    user.setPassword(entity.getPassword());
-    user.setRole(roleEntityMapper.toDomain(entity.getRole()));
-    user.setToken(JwtUtils.create(entity));
+    user.setId(userEntity.getUserId());
+    user.setEmail(userEntity.getEmail());
+    user.setFirstName(userEntity.getFirstName());
+    user.setLastName(userEntity.getLastName());
+    user.setImageUrl(userEntity.getImageUrl());
+    user.setPassword(userEntity.getPassword());
+    user.setRole(roleEntityMapper.toDomain(userEntity.getRole()));
+    user.setToken(JwtUtils.create(userEntity));
     return user;
   }
 
-  public List<User> toDomain(List<UserEntity> userEntityList) {
-    if (userEntityList == null || userEntityList.isEmpty()) {
+  public List<User> toDomain(List<UserEntity> userEntities) {
+    if (userEntities == null || userEntities.isEmpty()) {
       return Collections.emptyList();
     }
-    List<User> userList = new ArrayList<>(userEntityList.size());
-    for (UserEntity userEntity : userEntityList) {
-      userList.add(toDomain(userEntity));
+    List<User> users = new ArrayList<>(userEntities.size());
+    for (UserEntity userEntity : userEntities) {
+      users.add(toDomain(userEntity));
     }
-    return userList;
+    return users;
   }
 
   public UserEntity toEntity(User user) {

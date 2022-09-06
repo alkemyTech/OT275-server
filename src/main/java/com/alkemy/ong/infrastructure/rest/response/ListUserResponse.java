@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ListUserResponse {
 
-  private List<UserResponse> users;
+  private List<GetUserResponse> users;
 
 }
