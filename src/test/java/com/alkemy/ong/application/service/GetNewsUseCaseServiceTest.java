@@ -34,17 +34,16 @@ class GetNewsUseCaseServiceTest {
 
   @Test
   void shouldThrowExceptionWhenNewsDoesNotExist() {
-    given(newsRepository.exists(identifiable)).willReturn(false);
+    given(newsRepository.get(identifiable)).willReturn(null);
 
     assertThrows(ObjectNotFoundException.class, () -> getNewsUseCaseService.get(identifiable));
-    verify(newsRepository, times(0)).get(identifiable);
+    verify(newsRepository, times(1)).get(identifiable);
   }
 
   @Test
   void shouldGetNews() {
     News news = NewsBuilder.random();
     given(newsRepository.get(identifiable)).willReturn(news);
-    given(newsRepository.exists(identifiable)).willReturn(true);
 
     getNewsUseCaseService.get(identifiable);
 
