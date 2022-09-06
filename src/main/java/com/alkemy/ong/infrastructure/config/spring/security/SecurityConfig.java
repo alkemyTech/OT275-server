@@ -42,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String USERS_ID_URL = "/users/{id:[\\d+]}";
   private static final String MEMBERS_ID_URL = "/members/{id:[\\d+]}";
   private static final String TESTIMONIALS_ID_URL = "/testimonials/{id:[\\d+]}";
+  private static final String DOCUMENTATION_PATH = "/api/**";
+  private static final String DOCUMENTATION_URL = "/documentation.yaml";
   @Autowired
   private UserDetailsService userDetailsService;
 
@@ -82,6 +84,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
+        .antMatchers(DOCUMENTATION_PATH)
+        .permitAll()
+        .antMatchers(DOCUMENTATION_URL)
+        .permitAll()
         .antMatchers(HttpMethod.POST, AUTH_REGISTER_URL)
         .permitAll()
         .antMatchers(HttpMethod.POST, AUTH_LOGIN_URL)
