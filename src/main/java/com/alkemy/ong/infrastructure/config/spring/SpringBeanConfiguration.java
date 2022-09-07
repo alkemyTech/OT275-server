@@ -22,6 +22,7 @@ import com.alkemy.ong.application.service.DeleteTestimonialUseCaseService;
 import com.alkemy.ong.application.service.DeleteUserUseCaseService;
 import com.alkemy.ong.application.service.GetCategoryUseCase;
 import com.alkemy.ong.application.service.GetNewsUseCaseService;
+import com.alkemy.ong.application.service.GetNewsWithCommentsUseCaseService;
 import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.GetSlideUseCaseService;
 import com.alkemy.ong.application.service.ListCategoryUseCaseService;
@@ -47,6 +48,7 @@ import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IGetCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IGetNewsUseCase;
+import com.alkemy.ong.application.service.usecase.IGetNewsWithCommentsUseCase;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
@@ -190,6 +192,12 @@ public class SpringBeanConfiguration {
   @Bean
   public IGetNewsUseCase getNewsUseCase(INewsRepository newsRepository) {
     return new GetNewsUseCaseService(newsRepository);
+  }
+
+  @Bean
+  public IGetNewsWithCommentsUseCase getNewsWithCommentsUseCase(
+      INewsRepository newsRepository) {
+    return new GetNewsWithCommentsUseCaseService(newsRepository);
   }
 
 }
