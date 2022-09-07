@@ -88,13 +88,6 @@ public class CategoryResource {
     return new ResponseEntity<>(getCategoryMapper.toResponse(category), HttpStatus.OK);
   }
 
-  /*@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ListCategoryResponse> list() {
-    return new ResponseEntity<>(listCategoryMapper.toResponse(listCategoryUseCase.findAll()),
-        HttpStatus.OK);
-  }
-*/
-
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ListCategoryResponse> list(@PageableDefault(size = 10) Pageable pageable,
       UriComponentsBuilder uriBuilder, HttpServletResponse response) {
