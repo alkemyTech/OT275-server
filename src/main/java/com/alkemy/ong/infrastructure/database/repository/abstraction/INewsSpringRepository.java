@@ -20,4 +20,5 @@ public interface INewsSpringRepository extends JpaRepository<NewsEntity, Long> {
   Optional<NewsEntity> exists(@Param("id") Long id);
 
   NewsEntity findByNewsIdAndSoftDeletedFalse(Long id);
+
 }

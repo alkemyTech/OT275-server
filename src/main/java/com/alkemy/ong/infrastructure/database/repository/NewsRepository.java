@@ -3,7 +3,7 @@ package com.alkemy.ong.infrastructure.database.repository;
 import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.News;
-import com.alkemy.ong.domain.User;
+import com.alkemy.ong.infrastructure.database.entity.NewsEntity;
 import com.alkemy.ong.infrastructure.database.mapper.NewsEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +27,9 @@ public class NewsRepository implements INewsRepository {
   }
 
   @Override
-  public News findBy(Identifiable<Long> identifiable) {
-    return newsEntityMapper.toDomain(
-        newsSpringRepository.findByNewsIdAndSoftDeletedFalse(identifiable.getId()));
+  public News get(Identifiable<Long> identifiable) {
+    NewsEntity entity = newsSpringRepository.findByNewsIdAndSoftDeletedFalse(identifiable.getId());
+    return newsEntityMapper.toDomain(entity);
   }
+
 }
