@@ -186,8 +186,9 @@ public class SpringBeanConfiguration {
     return new UpdateUserUseCaseService(userRepository);
 
   }
-@Bean
-  public ICreateActivityUseCase createActivityUseCase(IActivityRepository activityRepository){
+
+  @Bean
+  public ICreateActivityUseCase createActivityUseCase(IActivityRepository activityRepository) {
     return new CreateActivityUseCaseService(activityRepository);
-}
+  }
 }

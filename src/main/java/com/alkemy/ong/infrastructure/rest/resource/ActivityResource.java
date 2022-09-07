@@ -48,8 +48,8 @@ public class ActivityResource {
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CreateActivityResponse> create(
       @Valid @RequestBody CreateActivityRequest createActivityRequest) {
-    Activity activity = createActivityUseCase.create
-        (createActivityMapper.toDomain(createActivityRequest));
+    Activity activity = createActivityUseCase.create(createActivityMapper
+        .toDomain(createActivityRequest));
     return new ResponseEntity<>(createActivityMapper.toResponse(activity), HttpStatus.CREATED);
   }
 
