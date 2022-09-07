@@ -14,22 +14,23 @@ public class GetContactMapper {
     if (contact == null) {
       return null;
     }
-    GetContactResponse contactResponse = new GetContactResponse();
-    contactResponse.setName(contact.getName());
-    contactResponse.setPhone(contact.getPhone());
-    contactResponse.setEmail(contact.getEmail());
-    return contactResponse;
+    GetContactResponse getContactResponse = new GetContactResponse();
+    getContactResponse.setId(contact.getId());
+    getContactResponse.setName(contact.getName());
+    getContactResponse.setPhone(contact.getPhone());
+    getContactResponse.setEmail(contact.getEmail());
+    return getContactResponse;
   }
 
   public List<GetContactResponse> toResponse(List<Contact> contacts) {
     if (contacts == null || contacts.isEmpty()) {
       return Collections.emptyList();
     }
-    List<GetContactResponse> contactResponses = new ArrayList<>(contacts.size());
+    List<GetContactResponse> getContactResponses = new ArrayList<>(contacts.size());
     for (Contact contact : contacts) {
-      contactResponses.add(toResponse(contact));
+      getContactResponses.add(toResponse(contact));
     }
-    return contactResponses;
+    return getContactResponses;
   }
 
 }

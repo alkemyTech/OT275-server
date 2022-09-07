@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ListContactMapper {
 
-  private final GetContactMapper contactMapper;
+  private final GetContactMapper getContactMapper;
 
   public ListContactResponse toResponse(List<Contact> contacts) {
     if (contacts == null || contacts.isEmpty()) {
       return new ListContactResponse(Collections.emptyList());
     }
-    return new ListContactResponse(contactMapper.toResponse(contacts));
+    return new ListContactResponse(getContactMapper.toResponse(contacts));
   }
 
 }

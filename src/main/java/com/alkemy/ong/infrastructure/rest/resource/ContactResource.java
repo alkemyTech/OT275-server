@@ -20,9 +20,7 @@ public class ContactResource {
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ListContactResponse> list() {
-    ListContactResponse contactResponse = listContactMapper.toResponse(
-        listContactUseCase.findAll());
-    return ResponseEntity.ok().body(contactResponse);
+    return ResponseEntity.ok().body(listContactMapper.toResponse(listContactUseCase.findAll()));
   }
 
 }

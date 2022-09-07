@@ -15,6 +15,7 @@ public class ContactEntityMapper {
       return null;
     }
     Contact contact = new Contact();
+    contact.setId(contactEntity.getContactId());
     contact.setName(contactEntity.getName());
     contact.setPhone(contactEntity.getPhone());
     contact.setEmail(contactEntity.getEmail());
