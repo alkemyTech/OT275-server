@@ -14,4 +14,6 @@ public interface ICommentRepository {
   Optional<Comment> find(Identifiable<Long> identifiable);
 
   List<Comment> findAllOrderedByTimestamp();
+
+  Comment create(Comment comment);
 }
