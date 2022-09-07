@@ -5,6 +5,7 @@ import com.alkemy.ong.infrastructure.database.entity.CommentEntity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.persistence.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -32,4 +33,15 @@ public class CommentEntityMapper {
     }
     return comments;
   }
+
+  public List<Comment> toDomainTuples(List<Tuple>tuples) {
+    List<Comment>comments = new ArrayList<>(tuples.size());
+    for(
+        Tuple tuple: tuples){
+      comments.add(this.toDomain(tuple.get(1, CommentEntity.class)));
+    }
+    return comments;
+  }
+
+
 }
