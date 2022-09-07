@@ -26,7 +26,7 @@ public class CategoryRepository implements ICategoryRepository {
 
   @Override
   public Page<Category> findAll(Pageable pageable) {
-    Page<CategoryEntity> categories = categorySpringRepository.findBySoftDeletedFalse(pageable);
+    Page<CategoryEntity> categories = categorySpringRepository.findAllBySoftDeletedFalse(pageable);
     return categoryEntityMapper.toPageDomain(
         categories.getContent(),
         categories.getNumber(),
