@@ -33,7 +33,8 @@ public class CreateCommentMapper {
     response.setId(comment.getId());
     response.setBody(comment.getBody());
     response.setBody(comment.getBody());
-    response.setCreatedBy(comment.getCreatedBy().getFirstName());
+    response.setCreatedBy(comment.getCreatedBy().getFirstName()
+        + " " + comment.getCreatedBy().getLastName());
     response.setAssociatedNews(comment.getAssociatedNews().getName());
     response.setCreateTimestamp(comment.getCreateTimestamp());
     return response;

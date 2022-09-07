@@ -21,10 +21,10 @@ public class CreateCommentUseCaseService implements ICreateCommentUseCase {
   @Override
   public Comment create(Comment comment) {
     User user = userRepository.findBy(() -> comment.getCreatedBy().getId());
-    News news = newsRepository.get(() -> comment.getAssociatedNews().getId());
     if (user == null) {
       throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("User"));
     }
+    News news = newsRepository.get(() -> comment.getAssociatedNews().getId());
     if (news == null) {
       throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("News"));
     }
