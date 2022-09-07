@@ -2,6 +2,9 @@ package com.alkemy.ong.infrastructure.database.repository;
 
 import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.domain.Identifiable;
+import com.alkemy.ong.domain.News;
+import com.alkemy.ong.domain.User;
+import com.alkemy.ong.infrastructure.database.mapper.NewsEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class NewsRepository implements INewsRepository {
 
   private final INewsSpringRepository newsSpringRepository;
+  private final NewsEntityMapper newsEntityMapper;
 
   @Override
   public void delete(Identifiable<Long> identifiable) {
@@ -22,4 +26,9 @@ public class NewsRepository implements INewsRepository {
     return newsSpringRepository.exists(identifiable.getId()).isPresent();
   }
 
+  @Override
+  public News findBy(Identifiable<Long> identifiable) {
+    return newsEntityMapper.toDomain(
+        newsSpringRepository.findByNewsIdAndSoftDeleteFalse(identifiable.getId()));
+  }
 }
