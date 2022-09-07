@@ -21,7 +21,8 @@ public class CreateActivityRequest {
   private String name;
 
   @NotEmpty(message = "Content cannot be empty.")
-  @Pattern(regexp = "^[0-9a-zA-ZáéíóúÁÉÍÓÚÜüñÑ\\s]*$", message = "Content has disallowed characters")
+  @Pattern(regexp = "^[0-9a-zA-ZáéíóúÁÉÍÓÚÜüñÑ\\s]*$",
+      message = "Content has disallowed characters")
   private String content;
 
   private String imageUrl;
