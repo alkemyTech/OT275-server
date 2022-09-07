@@ -29,6 +29,6 @@ public class NewsRepository implements INewsRepository {
   @Override
   public News findBy(Identifiable<Long> identifiable) {
     return newsEntityMapper.toDomain(
-        newsSpringRepository.findByNewsIdAndSoftDeleteFalse(identifiable.getId()));
+        newsSpringRepository.findByNewsIdAndSoftDeletedFalse(identifiable.getId()));
   }
 }
