@@ -1,9 +1,9 @@
-package com.alkemy.ong.application.repository;
+package com.alkemy.ong.application.service.usecase;
 
 import com.alkemy.ong.domain.Contact;
 import java.util.List;
 
-public interface IContactRepository {
+public interface IListContactUseCase {
 
   List<Contact> findAll();
 
