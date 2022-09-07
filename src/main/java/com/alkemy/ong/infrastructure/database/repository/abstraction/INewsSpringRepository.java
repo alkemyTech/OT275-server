@@ -19,4 +19,6 @@ public interface INewsSpringRepository extends JpaRepository<NewsEntity, Long> {
   @Query("SELECT n FROM NewsEntity n WHERE n.softDeleted = false AND n.newsId = :id")
   Optional<NewsEntity> exists(@Param("id") Long id);
 
+  NewsEntity findByNewsIdAndSoftDeletedFalse(Long id);
+
 }
