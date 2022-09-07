@@ -6,6 +6,7 @@ import com.alkemy.ong.application.service.usecase.IGetCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.domain.Category;
+import com.alkemy.ong.infrastructure.common.PaginatedResultsRetrieved;
 import com.alkemy.ong.infrastructure.rest.mapper.CreateCategoryMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.GetCategoryMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.ListCategoryMapper;
@@ -16,8 +17,12 @@ import com.alkemy.ong.infrastructure.rest.response.CreateCategoryResponse;
 import com.alkemy.ong.infrastructure.rest.response.GetCategoryResponse;
 import com.alkemy.ong.infrastructure.rest.response.ListCategoryResponse;
 import com.alkemy.ong.infrastructure.rest.response.UpdateCategoryResponse;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +34,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RequestMapping("/categories")
 @RestController
@@ -44,6 +50,9 @@ public class CategoryResource {
   private final ICreateCategoryUseCase createCategoryUseCase;
   private final GetCategoryMapper getCategoryMapper;
   private final ListCategoryMapper listCategoryMapper;
+
+
+  private final PaginatedResultsRetrieved resultsRetrieved;
 
   @PutMapping(
       value = "/{id}",
@@ -79,10 +88,27 @@ public class CategoryResource {
     return new ResponseEntity<>(getCategoryMapper.toResponse(category), HttpStatus.OK);
   }
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  /*@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ListCategoryResponse> list() {
     return new ResponseEntity<>(listCategoryMapper.toResponse(listCategoryUseCase.findAll()),
         HttpStatus.OK);
+  }
+*/
+
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ListCategoryResponse> list(@PageableDefault(size = 10) Pageable pageable,
+      UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    Page<Category> resultPage = listCategoryUseCase.findAll(pageable);
+    resultsRetrieved.addLinkHeaderOnPagedResourceRetrieval(
+        uriBuilder,
+        response,
+        "/categories",
+        resultPage.getNumber(),
+        resultPage.getTotalPages(),
+        resultPage.getSize()
+    );
+    ListCategoryResponse listCategoryResponse = listCategoryMapper.toResponse(resultPage);
+    return ResponseEntity.ok().body(listCategoryResponse);
   }
 
 }
