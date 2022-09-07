@@ -9,6 +9,6 @@ public interface IActivityRepository {
 
   Activity update(Activity activity);
 
-  Activity create(Activity activity);
+  Activity save(Activity activity);
 
 }

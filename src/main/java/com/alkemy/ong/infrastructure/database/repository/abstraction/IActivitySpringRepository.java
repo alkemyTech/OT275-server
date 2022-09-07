@@ -16,4 +16,6 @@ public interface IActivitySpringRepository extends JpaRepository<ActivityEntity,
       + "WHERE a.softDeleted = false AND a.activityId = :id")
   Optional<ActivityEntity> exists(@Param("id") Long id);
 
+  ActivityEntity findByActivityIdAndSoftDeletedFalse(Long id);
+
 }
