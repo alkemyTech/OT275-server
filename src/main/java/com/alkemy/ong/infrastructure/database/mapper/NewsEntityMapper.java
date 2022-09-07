@@ -26,4 +26,16 @@ public class NewsEntityMapper {
     return news;
   }
 
+  public NewsEntity toEntity(News news) {
+    if (news == null) {
+      return null;
+    }
+    NewsEntity newsEntity = new NewsEntity();
+    newsEntity.setName(news.getName());
+    newsEntity.setContent(news.getContent());
+    newsEntity.setImageUrl(news.getImageUrl());
+    newsEntity.setCategory(categoryEntityMapper.toEntity(news.getCategory()));
+    return newsEntity;
+  }
+
 }
