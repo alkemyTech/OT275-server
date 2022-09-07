@@ -13,9 +13,8 @@ public class CreateActivityUseCaseService implements ICreateActivityUseCase {
 
   @Override
   public Activity create(Activity activity) {
-   return activityRepository.save(activity);
+    return activityRepository.save(activity);
 
   }
-
 
 }

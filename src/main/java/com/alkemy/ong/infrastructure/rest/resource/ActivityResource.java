@@ -42,12 +42,13 @@ public class ActivityResource {
     Activity updatedActivity = updateActivityUseCase.update(activity);
     return ResponseEntity.ok(updateActivityMapper.toResponse(updatedActivity));
   }
+
   @PostMapping(
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CreateActivityResponse>create(
-      @Valid @RequestBody CreateActivityRequest createActivityRequest){
-    Activity activity= createActivityUseCase.create
+  public ResponseEntity<CreateActivityResponse> create(
+      @Valid @RequestBody CreateActivityRequest createActivityRequest) {
+    Activity activity = createActivityUseCase.create
         (createActivityMapper.toDomain(createActivityRequest));
     return new ResponseEntity<>(createActivityMapper.toResponse(activity), HttpStatus.CREATED);
   }
