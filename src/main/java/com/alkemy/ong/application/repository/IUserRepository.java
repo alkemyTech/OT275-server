@@ -2,6 +2,7 @@ package com.alkemy.ong.application.repository;
 
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.User;
+import java.util.List;
 import java.util.Optional;
 
 public interface IUserRepository {
@@ -15,6 +16,8 @@ public interface IUserRepository {
   Optional<User> findBy(String email);
 
   User add(User user);
+
+  List<User> findAll();
 
   User update(User user);
 
