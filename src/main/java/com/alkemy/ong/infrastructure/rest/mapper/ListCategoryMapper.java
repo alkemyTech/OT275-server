@@ -5,6 +5,7 @@ import com.alkemy.ong.infrastructure.rest.response.ListCategoryResponse;
 import java.util.Collections;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,4 +21,11 @@ public class ListCategoryMapper {
     return new ListCategoryResponse(getCategoryMapper.toResponse(categories));
   }
 
+  public ListCategoryResponse toResponse(Page<Category> categories) {
+    ListCategoryResponse listCategoryResponse = toResponse(categories.getContent());
+    listCategoryResponse.setPage(categories.getNumber());
+    listCategoryResponse.setSize(categories.getSize());
+    listCategoryResponse.setTotalPages(categories.getTotalPages());
+    return listCategoryResponse;
+  }
 }

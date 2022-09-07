@@ -1,9 +1,10 @@
 package com.alkemy.ong.application.service.usecase;
 
 import com.alkemy.ong.domain.Category;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IListCategoryUseCase {
 
-  List<Category> findAll();
+  Page<Category> findAll(Pageable pageable);
 }

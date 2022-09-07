@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -45,5 +48,12 @@ public class CategoryEntityMapper {
       categories.add(toDomain(categoryEntity));
     }
     return categories;
+  }
+
+  public Page<Category> toPageDomain(List<CategoryEntity> categoryEntities,
+      int page, int size, Long totalPages) {
+    return new PageImpl<>(
+        toDomain(categoryEntities),
+        PageRequest.of(page, size), totalPages);
   }
 }
