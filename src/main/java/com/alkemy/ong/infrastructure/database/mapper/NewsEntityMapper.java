@@ -34,12 +34,12 @@ public class NewsEntityMapper {
   }
 
   public News toDomain(List<Tuple> tuples) {
-    if (tuples == null ||tuples.isEmpty()) {
+    if (tuples == null || tuples.isEmpty()) {
       return null;
     }
 
     News news = new News();
-    news.setName(tuples.get(0).toString());
+    news.setName(tuples.get(0).get(0, String.class));
     news.setComments(commentEntityMapper.toDomainTuples(tuples));
 
     return news;

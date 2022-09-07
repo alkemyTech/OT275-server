@@ -34,11 +34,10 @@ public class CommentEntityMapper {
     return comments;
   }
 
-  public List<Comment> toDomainTuples(List<Tuple>tuples) {
-    List<Comment>comments = new ArrayList<>(tuples.size());
-    for(
-        Tuple tuple: tuples){
-      comments.add(this.toDomain(tuple.get(1, CommentEntity.class)));
+  public List<Comment> toDomainTuples(List<Tuple> tuples) {
+    List<Comment> comments = new ArrayList<>(tuples.size());
+    for (Tuple tuple : tuples) {
+      comments.add(toDomain(tuple.get(1, CommentEntity.class)));
     }
     return comments;
   }
