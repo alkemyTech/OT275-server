@@ -82,8 +82,8 @@ class UserSeeder implements CommandLineRunner {
           LAST_NAMES_USER.get(i),
           EMAILS_USER.get(i),
           roleUser);
-      log.info("Initial users created.");
     }
+    log.info("Initial users created.");
   }
 
   private RoleEntity buildRole(Role role) {
