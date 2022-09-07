@@ -6,10 +6,12 @@ import lombok.Getter;
 
 @Getter
 public class CreateCommentRequest {
-  @NotNull
+
+  @NotNull(message = "User Id must not be null")
   private Long userId;
-  @NotNull
+  @NotNull(message = "User Id must not be null")
   private Long newsId;
-  @NotBlankAlphanumeric
+  @NotNull(message = "Comment body mut not be null")
+  @NotBlankAlphanumeric(message = "Comment body must only contain letters and numbers, and not be empty")
   private String body;
 }
