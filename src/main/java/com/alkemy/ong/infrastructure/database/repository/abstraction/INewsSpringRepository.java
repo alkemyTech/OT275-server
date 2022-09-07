@@ -25,6 +25,7 @@ public interface INewsSpringRepository extends JpaRepository<NewsEntity, Long> {
 
   NewsEntity findByNewsIdAndSoftDeletedFalse(Long id);
 
-  @Query("SELECT n.name , c FROM NewsEntity n INNER JOIN CommentEntity c ON n.newsId = c.news.newsId WHERE n.newsId = :id")
-  List<Tuple> getNewsWithComments(@Param("id")Long id);
+  @Query("SELECT n.name , c FROM NewsEntity n INNER JOIN "
+      + "CommentEntity c ON n.newsId = c.news.newsId WHERE n.newsId = :id")
+  List<Tuple> getNewsWithComments(@Param("id") Long id);
 }
