@@ -36,7 +36,7 @@ public class NewsRepository implements INewsRepository {
 
   @Override
   public News getWithComments(Identifiable<Long> identifiable) {
-    List<Tuple> tuples= newsSpringRepository.getNewsWithComments(identifiable.getId());
+    List<Tuple> tuples = newsSpringRepository.getNewsWithComments(identifiable.getId());
     return newsEntityMapper.toDomain(tuples);
   }
 
