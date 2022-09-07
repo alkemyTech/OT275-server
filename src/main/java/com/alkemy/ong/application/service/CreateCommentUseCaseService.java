@@ -7,7 +7,8 @@ import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.usecase.ICreateCommentUseCase;
 import com.alkemy.ong.domain.Comment;
-import com.alkemy.ong.domain.Identifiable;
+import com.alkemy.ong.domain.News;
+import com.alkemy.ong.domain.User;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -18,15 +19,17 @@ public class CreateCommentUseCaseService implements ICreateCommentUseCase {
   private final INewsRepository newsRepository;
 
   @Override
-  public Comment create(Comment comment, Identifiable<Long> userId, Identifiable<Long> newsId) {
-    if (!userRepository.exists(userId)) {
+  public Comment create(Comment comment) {
+    User user = userRepository.findBy(() -> comment.getCreatedBy().getId());
+    News news = newsRepository.findBy(() -> comment.getAssociatedNews().getId());
+    if (user == null) {
       throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("User"));
     }
-    if (!newsRepository.exists(newsId)) {
+    if (news == null) {
       throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("News"));
     }
-    comment.setCreatedBy(userRepository.findBy(userId));
-    comment.setAssociatedNews(newsRepository.findBy(newsId));
+    comment.setCreatedBy(user);
+    comment.setAssociatedNews(news);
     return commentRepository.create(comment);
   }
 }

@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class NewsEntityMapper {
 
-  private final CategoryEntityMapper categoryEntityMapper;
-
   public News toDomain(NewsEntity entity) {
     if (entity == null) {
       return null;
@@ -21,7 +19,6 @@ public class NewsEntityMapper {
     news.setName(entity.getName());
     news.setContent(entity.getContent());
     news.setImageUrl(entity.getImageUrl());
-    news.setCategory(categoryEntityMapper.toDomain(entity.getCategory()));
     news.setCreateTimestamp(entity.getCreateTimestamp().getTime());
     return news;
   }
@@ -35,7 +32,6 @@ public class NewsEntityMapper {
     entity.setName(news.getName());
     entity.setContent(news.getContent());
     entity.setImageUrl(news.getImageUrl());
-    entity.setCategory(categoryEntityMapper.toEntity(news.getCategory()));
     entity.setCreateTimestamp(new Timestamp(news.getCreateTimestamp()));
     return entity;
   }

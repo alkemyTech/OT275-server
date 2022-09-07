@@ -11,6 +11,5 @@ public class News {
   private String name;
   private String content;
   private String imageUrl;
-  private Category category;
   private Long createTimestamp;
 }

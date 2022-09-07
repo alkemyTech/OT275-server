@@ -1,6 +1,8 @@
 package com.alkemy.ong.infrastructure.rest.mapper;
 
 import com.alkemy.ong.domain.Comment;
+import com.alkemy.ong.domain.News;
+import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.request.CreateCommentRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateCommentResponse;
 import org.springframework.stereotype.Component;
@@ -13,7 +15,13 @@ public class CreateCommentMapper {
       return null;
     }
     Comment comment = new Comment();
+    User user = new User();
+    user.setId(request.getUserId());
+    News news = new News();
+    news.setId(request.getNewsId());
     comment.setBody(request.getBody());
+    comment.setCreatedBy(user);
+    comment.setAssociatedNews(news);
     return comment;
   }
 

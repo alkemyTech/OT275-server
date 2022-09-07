@@ -51,10 +51,8 @@ public class CommentResource {
   public ResponseEntity<CreateCommentResponse> create(
       @Valid @RequestBody CreateCommentRequest createCommentRequest) {
     Comment savedComment = createCommentUseCase.create(
-        createCommentMapper.toDomain(createCommentRequest),
-        createCommentRequest::getUserId,
-        createCommentRequest::getNewsId);
+        createCommentMapper.toDomain(createCommentRequest));
     CreateCommentResponse response = createCommentMapper.toResponse(savedComment);
-    return ResponseEntity.ok(response);
+    return new ResponseEntity<>(response, HttpStatus.CREATED);
   }
 }

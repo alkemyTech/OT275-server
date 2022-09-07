@@ -5,5 +5,5 @@ import com.alkemy.ong.domain.Identifiable;
 
 public interface ICreateCommentUseCase {
 
-  Comment create(Comment toDomain, Identifiable<Long> userId, Identifiable<Long> newsId);
+  Comment create(Comment comment);
 }
