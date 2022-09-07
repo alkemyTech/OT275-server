@@ -25,7 +25,9 @@ public class CreateActivityMapper {
     if (activity == null) {
       return null;
     }
+
     CreateActivityResponse createActivityResponse = new CreateActivityResponse();
+    createActivityResponse.setId(activity.getId());
     createActivityResponse.setName(activity.getName());
     createActivityResponse.setContent(activity.getContent());
     createActivityResponse.setImageUrl(activity.getImageUrl());
