@@ -19,8 +19,10 @@ public class CommentEntityMapper {
   public Comment toDomain(CommentEntity entity) {
     Comment comment = new Comment();
     comment.setId(entity.getCommentId());
-    comment.setCreatedBy(userEntityMapper.toDomain(entity.getUser()));
     comment.setBody(entity.getBody());
+    comment.setCreatedBy(userEntityMapper.toDomain(entity.getUser()));
+    comment.setAssociatedNews(newsEntityMapper.toDomain(entity.getNews()));
+    comment.setCreateTimestamp(entity.getCreateTimestamp().getTime());
     return comment;
   }
 
@@ -43,7 +45,6 @@ public class CommentEntityMapper {
     entity.setUser(userEntityMapper.toEntity(comment.getCreatedBy()));
     entity.setBody(comment.getBody());
     entity.setNews(newsEntityMapper.toEntity(comment.getAssociatedNews()));
-    entity.setCreateTimestamp(new Timestamp(comment.getCreateTimestamp()));
     return entity;
   }
 }

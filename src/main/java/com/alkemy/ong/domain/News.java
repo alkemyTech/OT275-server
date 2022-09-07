@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class News {
-  private Long Id;
+
+  private Long id;
   private String name;
   private String content;
   private String imageUrl;

@@ -54,6 +54,7 @@ public class CommentResource {
         createCommentMapper.toDomain(createCommentRequest),
         createCommentRequest::getUserId,
         createCommentRequest::getNewsId);
-    return ResponseEntity.ok(createCommentMapper.toResponse(savedComment));
+    CreateCommentResponse response = createCommentMapper.toResponse(savedComment);
+    return ResponseEntity.ok(response);
   }
 }

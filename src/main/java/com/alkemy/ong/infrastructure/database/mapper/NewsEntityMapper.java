@@ -4,7 +4,9 @@ import com.alkemy.ong.domain.News;
 import com.alkemy.ong.infrastructure.database.entity.NewsEntity;
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @AllArgsConstructor
 public class NewsEntityMapper {
 

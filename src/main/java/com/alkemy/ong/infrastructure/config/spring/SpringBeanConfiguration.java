@@ -11,6 +11,7 @@ import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.repository.ITestimonialRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.CreateCategoryUseCaseService;
+import com.alkemy.ong.application.service.CreateCommentUseCaseService;
 import com.alkemy.ong.application.service.CreateSlideUseCaseService;
 import com.alkemy.ong.application.service.CreateUserUseCaseService;
 import com.alkemy.ong.application.service.DeleteCategoryUseCaseService;
@@ -35,6 +36,7 @@ import com.alkemy.ong.application.service.UpdateUserUseCaseService;
 import com.alkemy.ong.application.service.delegate.IAuthenticationManager;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
+import com.alkemy.ong.application.service.usecase.ICreateCommentUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateSlideUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
@@ -106,6 +108,13 @@ public class SpringBeanConfiguration {
   @Bean
   public IListCommentUseCase listCommentUseCase(ICommentRepository commentRepository) {
     return new ListCommentUseCaseService(commentRepository);
+  }
+
+  @Bean
+  public ICreateCommentUseCase createCommentUseCase(ICommentRepository commentRepository,
+      IUserRepository userRepository,
+      INewsRepository newsRepository) {
+    return new CreateCommentUseCaseService(commentRepository, userRepository, newsRepository);
   }
 
   @Bean
