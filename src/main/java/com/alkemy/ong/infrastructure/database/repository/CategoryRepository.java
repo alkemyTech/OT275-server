@@ -6,8 +6,9 @@ import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import com.alkemy.ong.infrastructure.database.mapper.CategoryEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -24,9 +25,13 @@ public class CategoryRepository implements ICategoryRepository {
   }
 
   @Override
-  public List<Category> findAll() {
-    return categoryEntityMapper.toDomain(
-        categorySpringRepository.findAllBySoftDeletedFalse());
+  public Page<Category> findAll(Pageable pageable) {
+    Page<CategoryEntity> categories = categorySpringRepository.findBySoftDeletedFalse(pageable);
+    return categoryEntityMapper.toPageDomain(
+        categories.getContent(),
+        categories.getNumber(),
+        categories.getSize(),
+        categories.getTotalElements());
   }
 
   @Override
