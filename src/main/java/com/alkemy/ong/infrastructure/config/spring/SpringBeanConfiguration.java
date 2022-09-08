@@ -68,6 +68,7 @@ import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateUserUseCase;
 import com.alkemy.ong.application.util.image.IImageUploader;
+import com.alkemy.ong.application.util.mail.IMailSender;
 import com.alkemy.ong.infrastructure.database.repository.CategoryRepository;
 import com.alkemy.ong.infrastructure.database.repository.SlideRepository;
 import com.alkemy.ong.infrastructure.database.repository.UserRepository;
@@ -134,8 +135,10 @@ public class SpringBeanConfiguration {
 
   @Bean
   public ICreateUserUseCase createUserService(UserRepository userRepository,
-      IRoleRepository roleRepository) {
-    return new CreateUserUseCaseService(userRepository, roleRepository);
+      IRoleRepository roleRepository, IOrganizationRepository organizationRepository,
+      IMailSender mailSender) {
+    return new CreateUserUseCaseService(userRepository, roleRepository, organizationRepository,
+        mailSender);
   }
 
   @Bean
