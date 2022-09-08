@@ -11,8 +11,6 @@ public class NewsEntityMapper {
 
   private final CategoryEntityMapper categoryEntityMapper;
 
-  private final CommentEntityMapper commentEntityMapper;
-
   public News toDomain(NewsEntity entity) {
     if (entity == null) {
       return null;
