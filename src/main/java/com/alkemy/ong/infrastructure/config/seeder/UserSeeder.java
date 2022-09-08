@@ -10,12 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Slf4j
 @Configuration
-@Profile("default")
 class UserSeeder implements CommandLineRunner {
 
   private static final List<String> ADMIN_NAMES = List.of("John Von", "Alan", "Linus", "Stephen",
@@ -32,6 +30,7 @@ class UserSeeder implements CommandLineRunner {
       "kent@beck.com", "edsger@dijkstra.com", "mary@shaw.com");
 
   private static final String PASSWORD = "abcd1234";
+  private static final String IMAGE_URL = "https://s3.com/image.jpg";
 
   @Autowired
   protected PasswordEncoder passwordEncoder;
@@ -99,7 +98,7 @@ class UserSeeder implements CommandLineRunner {
     userEntity.setLastName(lastName);
     userEntity.setEmail(email);
     userEntity.setPassword(passwordEncoder.encode(PASSWORD));
-    userEntity.setImageUrl("image.jpg");
+    userEntity.setImageUrl(IMAGE_URL);
     userEntity.setRole(roleRepository.findByName(role.getFullRoleName()));
     userRepository.save(userEntity);
   }
