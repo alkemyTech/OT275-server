@@ -1,6 +1,7 @@
 package com.alkemy.ong.application.repository;
 
 import com.alkemy.ong.domain.Identifiable;
+import com.alkemy.ong.domain.Testimonial;
 
 public interface ITestimonialRepository {
 
@@ -8,4 +9,5 @@ public interface ITestimonialRepository {
 
   boolean exists(Identifiable<Long> identifiable);
 
+  Testimonial save(Testimonial testimonial);
 }
