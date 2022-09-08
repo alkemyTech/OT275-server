@@ -27,5 +27,3 @@ sendgrid:
 app:
   email: foo@example.com
 
-    hibernate.ddl-auto: update
-
