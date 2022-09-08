@@ -2,7 +2,6 @@ package com.alkemy.ong.infrastructure.database.mapper;
 
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.infrastructure.database.entity.CommentEntity;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,4 +46,5 @@ public class CommentEntityMapper {
     entity.setNews(newsEntityMapper.toEntity(comment.getAssociatedNews()));
     return entity;
   }
+
 }
