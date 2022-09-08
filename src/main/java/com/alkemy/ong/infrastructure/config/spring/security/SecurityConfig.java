@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String USERS_ID_URL = "/users/{id:[\\d+]}";
   private static final String MEMBERS_ID_URL = "/members/{id:[\\d+]}";
   private static final String TESTIMONIALS_ID_URL = "/testimonials/{id:[\\d+]}";
+  private static final String ACTIVITIES_URL = "/activities";
   private static final String USERS_URL = "/users";
 
   private static final String NEWS_WITH_COMMENTS_URL = "/news/{id:[\\d+]}/comments";
@@ -109,6 +110,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, TESTIMONIALS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+        .antMatchers(HttpMethod.POST, COMMENTS_URL)
+        .hasRole(Role.USER.name())
         .antMatchers(HttpMethod.GET, COMMENTS_URL)
         .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
         .antMatchers(HttpMethod.DELETE, COMMENTS_ID_URL)
@@ -128,6 +131,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.DELETE, SLIDES_ID_URL)
         .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
         .antMatchers(HttpMethod.POST, SLIDES_URL)
+        .hasRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.POST, ACTIVITIES_URL)
         .hasRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, USERS_URL)
         .hasRole(Role.ADMIN.name())
