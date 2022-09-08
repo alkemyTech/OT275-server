@@ -19,6 +19,10 @@
 [ IMPORTANT ] Step 4 is a MUST if you want to open a pull request. Otherwise, your code will not
 pass the check status and your code changes will not be reviewed.
 
+[ OPTIONAL ] Sendgrid and AWS secrets MUST NOT be committed in the repository. In order to
+ensure that potential secrets or sensitive information do not leave the developer's workstation,
+you can use [Talisman](https://github.com/thoughtworks/talisman).
+
 ### CODE STANDARDS
 
 We follow the rules
@@ -123,7 +127,18 @@ mvn checkstyle:checkstyle
 
 ### USERS
 
-| First Name | Last Name | Email | Password | Role |
-|------------|-----------|-------|----------|------|
-|            |           |       |          |      |
-|            |           |       |          |      |
+| First Name    | Last Name     | Email                | Password   | Role  |
+|---------------|---------------|----------------------|------------|-------|
+| John Von      | Neumann       | johnvon@neumann.com  | abcd1234   | ADMIN |
+| Alan          | Turing        | alan@turing.com      | abcd1234   | ADMIN |
+| Linus         | Torvalds      | sudo@torvalds.com    | abcd1234   | ADMIN |
+| Stephen       | Hawking       | stephen@hawking.com  | abcd1234   | ADMIN |
+| Richard       | Stallman      | richard@stallman.com | abcd1234   | ADMIN |
+| ------------- | ------------- | -------------------- | ---------- | ----- |
+| Robert        | Martin        | uncle@bob.com        | abcd1234   | USER  |
+| Martin        | Fowler        | fowler@martin.com    | abcd1234   | USER  |
+| Kent          | Beck          | kent@beck.com        | abcd1234   | USER  |
+| Edsger        | Dijkstra      | edsger@dijkstra.com  | abcd1234   | USER  |
+| Mary          | Shaw          | mary@shaw.com        | abcd1234   | USER  |
+
+ -----------------------------------------------------------------------------

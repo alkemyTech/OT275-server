@@ -30,12 +30,12 @@ public class NewsEntityMapper {
     if (news == null) {
       return null;
     }
-    NewsEntity newsEntity = new NewsEntity();
-    newsEntity.setName(news.getName());
-    newsEntity.setContent(news.getContent());
-    newsEntity.setImageUrl(news.getImageUrl());
-    newsEntity.setCategory(categoryEntityMapper.toEntity(news.getCategory()));
-    return newsEntity;
+    NewsEntity entity = new NewsEntity();
+    entity.setNewsId(news.getId());
+    entity.setContent(news.getContent());
+    entity.setImageUrl(news.getImageUrl());
+    entity.setCategory(categoryEntityMapper.toEntity(news.getCategory()));
+    return entity;
   }
 
 }

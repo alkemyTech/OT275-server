@@ -26,3 +26,4 @@ sendgrid:
   api-key: foo
 app:
   email: foo@example.com
+
