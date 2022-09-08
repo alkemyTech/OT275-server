@@ -14,6 +14,7 @@ import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.CreateActivityUseCaseService;
 import com.alkemy.ong.application.service.CreateCategoryUseCaseService;
 import com.alkemy.ong.application.service.CreateCommentUseCaseService;
+import com.alkemy.ong.application.service.CreateContactUseCaseService;
 import com.alkemy.ong.application.service.CreateSlideUseCaseService;
 import com.alkemy.ong.application.service.CreateUserUseCaseService;
 import com.alkemy.ong.application.service.DeleteCategoryUseCaseService;
@@ -43,6 +44,7 @@ import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.application.service.usecase.ICreateActivityUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateCommentUseCase;
+import com.alkemy.ong.application.service.usecase.ICreateContactUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateSlideUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
@@ -216,6 +218,11 @@ public class SpringBeanConfiguration {
   public IGetNewsWithCommentsUseCase getNewsWithCommentsUseCase(
       INewsRepository newsRepository) {
     return new GetNewsWithCommentsUseCaseService(newsRepository);
+  }
+
+  @Bean
+  public ICreateContactUseCase createContactUseCase(IContactRepository contactRepository) {
+    return new CreateContactUseCaseService(contactRepository);
   }
 
   @Bean
