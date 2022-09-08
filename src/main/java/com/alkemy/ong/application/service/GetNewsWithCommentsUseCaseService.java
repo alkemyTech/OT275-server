@@ -1,5 +1,7 @@
 package com.alkemy.ong.application.service;
 
+import com.alkemy.ong.application.exception.ErrorMessage;
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.application.service.usecase.IGetNewsWithCommentsUseCase;
 import com.alkemy.ong.domain.Identifiable;
@@ -13,6 +15,10 @@ public class GetNewsWithCommentsUseCaseService implements IGetNewsWithCommentsUs
 
   @Override
   public News get(Identifiable<Long> identifiable) {
-    return newsRepository.getWithComments(identifiable);
+    News news = newsRepository.getWithComments(identifiable);
+    if (news == null) {
+      throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("News"));
+    }
+    return news;
   }
 }
