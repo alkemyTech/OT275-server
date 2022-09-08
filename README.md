@@ -122,8 +122,17 @@ mvn checkstyle:checkstyle
     - [Code with me](https://www.jetbrains.com/help/idea/code-with-me.html)
 
 ### USERS
-
-| First Name | Last Name | Email | Password | Role |
-|------------|-----------|-------|----------|------|
-|            |           |       |          |      |
-|            |           |       |          |      |
+| First Name    | Last Name     | Email                | Password   | Role  |
+|---------------|---------------|----------------------|------------|-------|
+| John Von      | Neumann       | johnvon@neumann.com  | abcd1234   | ADMIN |
+| Alan          | Turing        | alan@turing.com      | abcd1234   | ADMIN |
+| Linus         | Torvalds      | sudo@torvalds.com    | abcd1234   | ADMIN |
+| Stephen       | Hawking       | stephen@hawking.com  | abcd1234   | ADMIN |
+| Richard       | Stallman      | richard@stallman.com | abcd1234   | ADMIN |
+| ------------- | ------------- | -------------------- | ---------- | ----- |
+| Robert        | Martin        | uncle@bob.com        | abcd1234   | USER  |
+| Martin        | Fowler        | fowler@martin.com    | abcd1234   | USER  |
+| Kent          | Beck          | kent@beck.com        | abcd1234   | USER  |
+| Edsger        | Dijkstra      | edsger@dijkstra.com  | abcd1234   | USER  |
+| Mary          | Shaw          | mary@shaw.com        | abcd1234   | USER  |
+ -----------------------------------------------------------------------------

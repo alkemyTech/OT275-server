@@ -11,4 +11,5 @@ public interface INewsRepository {
 
   News get(Identifiable<Long> identifiable);
 
+  News getWithComments(Identifiable<Long> identifiable);
 }

@@ -11,7 +11,9 @@ import com.alkemy.ong.application.repository.IRoleRepository;
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.repository.ITestimonialRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
+import com.alkemy.ong.application.service.CreateActivityUseCaseService;
 import com.alkemy.ong.application.service.CreateCategoryUseCaseService;
+import com.alkemy.ong.application.service.CreateCommentUseCaseService;
 import com.alkemy.ong.application.service.CreateSlideUseCaseService;
 import com.alkemy.ong.application.service.CreateUserUseCaseService;
 import com.alkemy.ong.application.service.DeleteCategoryUseCaseService;
@@ -23,6 +25,7 @@ import com.alkemy.ong.application.service.DeleteTestimonialUseCaseService;
 import com.alkemy.ong.application.service.DeleteUserUseCaseService;
 import com.alkemy.ong.application.service.GetCategoryUseCase;
 import com.alkemy.ong.application.service.GetNewsUseCaseService;
+import com.alkemy.ong.application.service.GetNewsWithCommentsUseCaseService;
 import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.GetSlideUseCaseService;
 import com.alkemy.ong.application.service.ListCategoryUseCaseService;
@@ -37,7 +40,9 @@ import com.alkemy.ong.application.service.UpdateOrganizationUseCaseService;
 import com.alkemy.ong.application.service.UpdateUserUseCaseService;
 import com.alkemy.ong.application.service.delegate.IAuthenticationManager;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
+import com.alkemy.ong.application.service.usecase.ICreateActivityUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
+import com.alkemy.ong.application.service.usecase.ICreateCommentUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateSlideUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
@@ -49,6 +54,7 @@ import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteUserUseCase;
 import com.alkemy.ong.application.service.usecase.IGetCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IGetNewsUseCase;
+import com.alkemy.ong.application.service.usecase.IGetNewsWithCommentsUseCase;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
@@ -114,6 +120,13 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
+  public ICreateCommentUseCase createCommentUseCase(ICommentRepository commentRepository,
+      IUserRepository userRepository,
+      INewsRepository newsRepository) {
+    return new CreateCommentUseCaseService(commentRepository, userRepository, newsRepository);
+  }
+
+  @Bean
   public IDeleteCommentUseCase deleteCommentUseCase(ICommentRepository commentRepository,
       IOperationAllowed authorization) {
     return new DeleteCommentUseCaseService(commentRepository, authorization);
@@ -163,7 +176,6 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-
   public IListCategoryUseCase listCategoryUseCaseService(ICategoryRepository categoryRepository) {
     return new ListCategoryUseCaseService(categoryRepository);
   }
@@ -191,13 +203,25 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
+  public ICreateActivityUseCase createActivityUseCase(IActivityRepository activityRepository) {
+    return new CreateActivityUseCaseService(activityRepository);
+  }
+
+  @Bean
   public IGetNewsUseCase getNewsUseCase(INewsRepository newsRepository) {
     return new GetNewsUseCaseService(newsRepository);
   }
 
   @Bean
+  public IGetNewsWithCommentsUseCase getNewsWithCommentsUseCase(
+      INewsRepository newsRepository) {
+    return new GetNewsWithCommentsUseCaseService(newsRepository);
+  }
+
+  @Bean
   public IListContactUseCase listContactUseCase(IContactRepository contactRepository) {
     return new ListContactUseCaseService(contactRepository);
+
   }
 
 }

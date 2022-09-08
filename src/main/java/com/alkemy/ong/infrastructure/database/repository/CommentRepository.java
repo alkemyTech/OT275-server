@@ -3,6 +3,7 @@ package com.alkemy.ong.infrastructure.database.repository;
 import com.alkemy.ong.application.repository.ICommentRepository;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.Identifiable;
+import com.alkemy.ong.infrastructure.database.entity.CommentEntity;
 import com.alkemy.ong.infrastructure.database.mapper.CommentEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICommentSpringRepository;
 import java.util.List;
@@ -36,5 +37,11 @@ public class CommentRepository implements ICommentRepository {
   @Override
   public List<Comment> findAllOrderedByTimestamp() {
     return commentMapper.toDomain(commentSpringRepository.findAllByOrderByCreateTimestampAsc());
+  }
+
+  @Override
+  public Comment create(Comment comment) {
+    CommentEntity commentEntity = commentMapper.toEntity(comment);
+    return commentMapper.toDomain(commentSpringRepository.save(commentEntity));
   }
 }

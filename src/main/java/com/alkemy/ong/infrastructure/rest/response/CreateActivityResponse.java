@@ -1,6 +1,5 @@
-package com.alkemy.ong.domain;
+package com.alkemy.ong.infrastructure.rest.response;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,13 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class News {
+public class CreateActivityResponse {
 
   private Long id;
   private String name;
   private String content;
   private String imageUrl;
-  private Category category;
-  private List<Comment> comments;
 
 }
