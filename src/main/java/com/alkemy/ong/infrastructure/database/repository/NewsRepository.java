@@ -21,7 +21,6 @@ public class NewsRepository implements INewsRepository {
 
   private final INewsSpringRepository newsSpringRepository;
   private final NewsEntityMapper newsEntityMapper;
-
   private final CommentEntityMapper commentEntityMapper;
 
   @Override
@@ -42,23 +41,21 @@ public class NewsRepository implements INewsRepository {
 
   @Override
   public News getWithComments(Identifiable<Long> identifiable) {
-    List<Tuple> tuples = newsSpringRepository.getNewsWithComments(identifiable.getId());
-    return this.toDomain(tuples);
+    return getWithCommentsToDomain(newsSpringRepository.getNewsWithComments(identifiable.getId()));
   }
 
-  private News toDomain(List<Tuple> tuples) {
+  private News getWithCommentsToDomain(List<Tuple> tuples) {
     if (tuples == null || tuples.isEmpty()) {
       return null;
     }
 
     News news = new News();
     news.setName(tuples.get(0).get(0, String.class));
-    news.setComments(this.toDomainTuples(tuples));
-
+    news.setComments(commentsFromGetWithCommentsToDomain(tuples));
     return news;
   }
 
-  private List<Comment> toDomainTuples(List<Tuple> tuples) {
+  private List<Comment> commentsFromGetWithCommentsToDomain(List<Tuple> tuples) {
     List<Comment> comments = new ArrayList<>(tuples.size());
     for (Tuple tuple : tuples) {
       comments.add(commentEntityMapper.toDomain(tuple.get(1, CommentEntity.class)));

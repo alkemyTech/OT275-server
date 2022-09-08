@@ -44,9 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String TESTIMONIALS_ID_URL = "/testimonials/{id:[\\d+]}";
   private static final String ACTIVITIES_URL = "/activities";
   private static final String USERS_URL = "/users";
-
   private static final String NEWS_WITH_COMMENTS_URL = "/news/{id:[\\d+]}/comments";
-
   private static final String CONTACTS_URL = "/contacts";
 
 

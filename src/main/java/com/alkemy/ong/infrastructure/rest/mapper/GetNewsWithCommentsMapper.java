@@ -19,7 +19,6 @@ public class GetNewsWithCommentsMapper {
     GetNewsWithCommentsResponse getNewsWithCommentsResponse = new GetNewsWithCommentsResponse();
     getNewsWithCommentsResponse.setName(news.getName());
     getNewsWithCommentsResponse.setComments(commentMapper.toResponse(news.getComments()));
-
     return getNewsWithCommentsResponse;
   }
 
