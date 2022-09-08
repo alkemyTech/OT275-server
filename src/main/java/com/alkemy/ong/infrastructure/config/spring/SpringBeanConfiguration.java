@@ -3,6 +3,7 @@ package com.alkemy.ong.infrastructure.config.spring;
 import com.alkemy.ong.application.repository.IActivityRepository;
 import com.alkemy.ong.application.repository.ICategoryRepository;
 import com.alkemy.ong.application.repository.ICommentRepository;
+import com.alkemy.ong.application.repository.IContactRepository;
 import com.alkemy.ong.application.repository.IMemberRepository;
 import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.application.repository.IOrganizationRepository;
@@ -27,6 +28,7 @@ import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.GetSlideUseCaseService;
 import com.alkemy.ong.application.service.ListCategoryUseCaseService;
 import com.alkemy.ong.application.service.ListCommentUseCaseService;
+import com.alkemy.ong.application.service.ListContactUseCaseService;
 import com.alkemy.ong.application.service.ListSlideUseCaseService;
 import com.alkemy.ong.application.service.ListUserUseCaseService;
 import com.alkemy.ong.application.service.LoginUserUseCaseService;
@@ -53,6 +55,7 @@ import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IListCommentUseCase;
+import com.alkemy.ong.application.service.usecase.IListContactUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IListUserUseCase;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
@@ -198,6 +201,12 @@ public class SpringBeanConfiguration {
   public IGetNewsWithCommentsUseCase getNewsWithCommentsUseCase(
       INewsRepository newsRepository) {
     return new GetNewsWithCommentsUseCaseService(newsRepository);
+  }
+
+  @Bean
+  public IListContactUseCase listContactUseCase(IContactRepository contactRepository) {
+    return new ListContactUseCaseService(contactRepository);
+
   }
 
 }
