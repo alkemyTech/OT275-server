@@ -37,6 +37,7 @@ import com.alkemy.ong.application.service.LoginUserUseCaseService;
 import com.alkemy.ong.application.service.UpdateActivityUseCaseService;
 import com.alkemy.ong.application.service.UpdateCategoryUserCaseService;
 import com.alkemy.ong.application.service.UpdateOrganizationUseCaseService;
+import com.alkemy.ong.application.service.UpdateSlideUseCaseService;
 import com.alkemy.ong.application.service.UpdateUserUseCaseService;
 import com.alkemy.ong.application.service.delegate.IAuthenticationManager;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
@@ -66,6 +67,7 @@ import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateActivityUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateOrganizationUseCase;
+import com.alkemy.ong.application.service.usecase.IUpdateSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateUserUseCase;
 import com.alkemy.ong.application.util.image.IImageUploader;
 import com.alkemy.ong.infrastructure.database.repository.CategoryRepository;
@@ -222,6 +224,11 @@ public class SpringBeanConfiguration {
   public IListContactUseCase listContactUseCase(IContactRepository contactRepository) {
     return new ListContactUseCaseService(contactRepository);
 
+  }
+
+  @Bean
+  public IUpdateSlideUseCase updateSlideUseCase(ISlideRepository slideRepository) {
+    return new UpdateSlideUseCaseService(slideRepository);
   }
 
 }
