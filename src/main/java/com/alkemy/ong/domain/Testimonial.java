@@ -13,5 +13,5 @@ public class Testimonial {
 
   private String name;
   private String content;
-  private String image;
+  private String imageUrl;
 }
