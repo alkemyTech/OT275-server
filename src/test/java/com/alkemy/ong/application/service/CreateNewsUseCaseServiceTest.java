@@ -2,6 +2,7 @@ package com.alkemy.ong.application.service;
 
 import static org.mockito.Mockito.verify;
 
+import com.alkemy.ong.application.repository.ICategoryRepository;
 import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.common.NewsBuilder;
 import com.alkemy.ong.domain.News;
@@ -20,11 +21,14 @@ class CreateNewsUseCaseServiceTest {
   private INewsRepository newsRepository;
 
   @Mock
+  private ICategoryRepository categoryRepository;
+
+  @Mock
   private News news;
 
   @BeforeEach
   void setUp() {
-    createNewsUseCaseService = new CreateNewsUseCaseService(newsRepository);
+    createNewsUseCaseService = new CreateNewsUseCaseService(newsRepository, categoryRepository);
   }
 
   @Test
