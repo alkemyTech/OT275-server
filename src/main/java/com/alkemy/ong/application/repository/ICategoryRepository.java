@@ -18,4 +18,7 @@ public interface ICategoryRepository {
   Page<Category> findAll(Pageable pageable);
 
   Category save(Category category);
+
+  Category findByNameIgnoreCase(String name);
+
 }
