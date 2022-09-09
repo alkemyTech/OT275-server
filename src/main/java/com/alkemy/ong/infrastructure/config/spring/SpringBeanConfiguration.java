@@ -226,8 +226,9 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public ICreateNewsUseCase createNewsUseCase(INewsRepository newsRepository) {
-    return new CreateNewsUseCaseService(newsRepository);
+  public ICreateNewsUseCase createNewsUseCase(INewsRepository newsRepository,
+      ICategoryRepository categoryRepository) {
+    return new CreateNewsUseCaseService(newsRepository, categoryRepository);
   }
 
 }
