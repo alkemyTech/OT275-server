@@ -4,14 +4,17 @@ import com.alkemy.ong.application.service.usecase.ICreateSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
+import com.alkemy.ong.application.service.usecase.IUpdateSlideUseCase;
 import com.alkemy.ong.domain.Slide;
 import com.alkemy.ong.infrastructure.rest.mapper.CreateSlideMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.GetSlideMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.ListSlideMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.UpdateSlideMapper;
 import com.alkemy.ong.infrastructure.rest.request.CreateSlideRequest;
+import com.alkemy.ong.infrastructure.rest.request.UpdateSlideRequest;
 import com.alkemy.ong.infrastructure.rest.response.GetSlideResponse;
 import com.alkemy.ong.infrastructure.rest.response.ListSlideResponse;
-import com.alkemy.ong.infrastructure.rest.response.SlideWithTextResponse;
+import com.alkemy.ong.infrastructure.rest.response.UpdateSlideResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,9 +38,11 @@ public class SlideResource {
   private final IListSlideUseCase listSlideUseCase;
   private final IGetSlideUseCase getSlideUseCase;
   private final ICreateSlideUseCase createSlideUseCase;
+  private final IUpdateSlideUseCase updateSlideUseCase;
   private final ListSlideMapper listSlideMapper;
   private final GetSlideMapper getSlideMapper;
   private final CreateSlideMapper createSlideMapper;
+  private final UpdateSlideMapper updateSlideMapper;
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -64,6 +70,17 @@ public class SlideResource {
     Slide slide = createSlideMapper.toDomain(createSlideRequest);
     Slide createdSlide = createSlideUseCase.add(slide);
     return new ResponseEntity<>(createSlideMapper.toResponse(createdSlide), HttpStatus.CREATED);
+  }
+
+  @PutMapping(
+      value = "/{id}",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<UpdateSlideResponse> update(@PathVariable Long id,
+      @Valid @RequestBody UpdateSlideRequest updateSlideRequest) {
+    Slide slide = updateSlideMapper.toDomain(() -> id, updateSlideRequest);
+    Slide updatedSlide = updateSlideUseCase.update(slide);
+    return ResponseEntity.ok(updateSlideMapper.toResponse(updatedSlide));
   }
 
 }

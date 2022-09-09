@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class CommentResponse {
+@AllArgsConstructor
+@NoArgsConstructor
+public class CreateContactResponse extends GetContactResponse {
 
-  private String body;
+  private String message;
+
 }

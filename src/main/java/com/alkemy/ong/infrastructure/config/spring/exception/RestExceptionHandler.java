@@ -25,6 +25,16 @@ public class RestExceptionHandler {
   private static final String OPERATION_NOT_PERMITTED = "Operation not permitted.";
   private static final String INVALID_CREDENTIALS = "Invalid credentials.";
 
+  private static ErrorResponse buildErrorResponse(HttpStatus httpStatus, String message,
+      Exception e) {
+    return new ErrorResponse(httpStatus.value(), message, e.getMessage());
+  }
+
+  private static ErrorResponse buildErrorResponse(HttpStatus httpStatus, String message,
+      List<String> moreInfo) {
+    return new ErrorResponse(httpStatus.value(), message, moreInfo);
+  }
+
   @ExceptionHandler(value = Exception.class)
   protected ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
     ErrorResponse errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR,
@@ -88,15 +98,5 @@ public class RestExceptionHandler {
         INVALID_ARGUMENT,
         Collections.singletonList(e.getMessage()));
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-  }
-
-  private static ErrorResponse buildErrorResponse(HttpStatus httpStatus, String message,
-      Exception e) {
-    return new ErrorResponse(httpStatus.value(), message, e.getMessage());
-  }
-
-  private static ErrorResponse buildErrorResponse(HttpStatus httpStatus, String message,
-      List<String> moreInfo) {
-    return new ErrorResponse(httpStatus.value(), message, moreInfo);
   }
 }

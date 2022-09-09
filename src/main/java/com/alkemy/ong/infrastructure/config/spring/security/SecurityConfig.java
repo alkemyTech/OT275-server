@@ -43,6 +43,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String USERS_ID_URL = "/users/{id:[\\d+]}";
   private static final String MEMBERS_ID_URL = "/members/{id:[\\d+]}";
   private static final String TESTIMONIALS_ID_URL = "/testimonials/{id:[\\d+]}";
+  private static final String[] DOCUMENTATION_PATHS = {"/api/docs",
+      "/api/swagger-ui/**",
+      "/api/docs/oas/swagger-config",
+      "/api/docs/oas/",
+      "/api/docs/oas.yaml",
+      "/documentation.yaml"};
   private static final String ACTIVITIES_URL = "/activities";
   private static final String USERS_URL = "/users";
   private static final String NEWS_WITH_COMMENTS_URL = "/news/{id:[\\d+]}/comments";
@@ -88,6 +94,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
+        .antMatchers(DOCUMENTATION_PATHS)
+        .permitAll()
         .antMatchers(HttpMethod.POST, AUTH_REGISTER_URL)
         .permitAll()
         .antMatchers(HttpMethod.POST, AUTH_LOGIN_URL)
@@ -142,8 +150,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, NEWS_WITH_COMMENTS_URL)
         .hasRole(Role.USER.name())
+        .antMatchers(HttpMethod.POST,CONTACTS_URL)
+        .hasAnyRole(Role.USER.name(),Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, CONTACTS_URL)
         .hasAnyRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.PUT, SLIDES_ID_URL)
+        .hasRole(Role.ADMIN.name())
         .anyRequest()
         .authenticated()
         .and()
