@@ -25,6 +25,7 @@ public class UpdateSlideMapper {
       return null;
     }
     UpdateSlideResponse updateSlideResponse = new UpdateSlideResponse();
+    updateSlideResponse.setId(slide.getId());
     updateSlideResponse.setText(slide.getText());
     updateSlideResponse.setOrder(slide.getOrder());
     updateSlideResponse.setImageUrl(slide.getImageUrl());

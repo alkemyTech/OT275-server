@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 public class UpdateSlideResponse {
 
+  private Long id;
   private String text;
   private Integer order;
   private String imageUrl;
