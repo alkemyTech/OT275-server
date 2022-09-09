@@ -1,7 +1,9 @@
 package com.alkemy.ong.infrastructure.database.repository.abstraction;
 
 import com.alkemy.ong.infrastructure.database.entity.NewsEntity;
+import java.util.List;
 import java.util.Optional;
+import javax.persistence.Tuple;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +21,10 @@ public interface INewsSpringRepository extends JpaRepository<NewsEntity, Long> {
   @Query("SELECT n FROM NewsEntity n WHERE n.softDeleted = false AND n.newsId = :id")
   Optional<NewsEntity> exists(@Param("id") Long id);
 
+  NewsEntity findByNewsIdAndSoftDeletedFalse(Long id);
+
+  @Query("SELECT n.name , c FROM NewsEntity n INNER JOIN "
+      + "CommentEntity c ON n.newsId = c.news.newsId "
+      + "WHERE n.newsId = :id AND n.softDeleted = false")
+  List<Tuple> getNewsWithComments(@Param("id") Long id);
 }

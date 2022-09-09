@@ -1,8 +1,9 @@
 package com.alkemy.ong.infrastructure.database.repository.abstraction;
 
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
-import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,5 +23,5 @@ public interface ICategorySpringRepository extends JpaRepository<CategoryEntity,
 
   CategoryEntity findByCategoryIdAndSoftDeletedFalse(Long id);
 
-  List<CategoryEntity> findAllBySoftDeletedFalse();
+  Page<CategoryEntity> findAllBySoftDeletedFalse(Pageable pageable);
 }

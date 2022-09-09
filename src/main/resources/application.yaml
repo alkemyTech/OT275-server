@@ -26,3 +26,11 @@ sendgrid:
   api-key: foo
 app:
   email: foo@example.com
+
+# Swagger
+springdoc:
+  api-docs:
+    path: /api/docs/oas
+  swagger-ui:
+    path: /api/docs
+    url: /documentation.yaml

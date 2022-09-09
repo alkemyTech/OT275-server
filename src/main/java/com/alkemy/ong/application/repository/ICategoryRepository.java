@@ -2,7 +2,8 @@ package com.alkemy.ong.application.repository;
 
 import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.domain.Identifiable;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ICategoryRepository {
 
@@ -14,8 +15,7 @@ public interface ICategoryRepository {
 
   Category update(Category category);
 
-  List<Category> findAll();
+  Page<Category> findAll(Pageable pageable);
 
   Category save(Category category);
-
 }

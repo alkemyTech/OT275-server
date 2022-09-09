@@ -10,5 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentResponse {
+
   private String body;
 }

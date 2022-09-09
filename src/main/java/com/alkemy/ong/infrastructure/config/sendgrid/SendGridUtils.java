@@ -26,6 +26,13 @@ public class SendGridUtils implements IMailSender {
   @Value("${sendgrid.api-key}")
   private String sendGridApiKey;
 
+  private static void ensureStatusCodeIsDifferentTo202(Response response) {
+    if (response.getStatusCode() != 202) {
+      log.warn(String.valueOf(response.getStatusCode()));
+      log.warn(response.getBody());
+      throw new ServiceException(ErrorMessage.SERVICE_MAIL_FAILURE.getMessage());
+    }
+  }
 
   @Override
   public void send(IMail mail) {
@@ -43,14 +50,6 @@ public class SendGridUtils implements IMailSender {
       ensureStatusCodeIsDifferentTo202(response);
     } catch (Exception ex) {
       log.error(ex.getMessage());
-      throw new ServiceException(ErrorMessage.SERVICE_MAIL_FAILURE.getMessage());
-    }
-  }
-
-  private static void ensureStatusCodeIsDifferentTo202(Response response) {
-    if (response.getStatusCode() != 202) {
-      log.warn(String.valueOf(response.getStatusCode()));
-      log.warn(response.getBody());
       throw new ServiceException(ErrorMessage.SERVICE_MAIL_FAILURE.getMessage());
     }
   }

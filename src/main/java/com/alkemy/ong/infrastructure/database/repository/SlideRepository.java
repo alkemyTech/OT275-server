@@ -59,4 +59,9 @@ public class SlideRepository implements ISlideRepository {
     return slideEntityMapper.toDomain(slideSpringRepository.save(entity));
   }
 
+  @Override
+  public Slide update(Slide slide) {
+    SlideEntity slideEntity = slideEntityMapper.toEntity(slide);
+    return slideEntityMapper.toDomain(slideSpringRepository.save(slideEntity));
+  }
 }
