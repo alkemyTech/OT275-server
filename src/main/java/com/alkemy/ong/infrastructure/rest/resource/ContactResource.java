@@ -3,7 +3,7 @@ package com.alkemy.ong.infrastructure.rest.resource;
 import com.alkemy.ong.application.service.usecase.ICreateContactUseCase;
 import com.alkemy.ong.application.service.usecase.IListContactUseCase;
 import com.alkemy.ong.domain.Contact;
-import com.alkemy.ong.infrastructure.rest.mapper.ContactMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.CreateContactMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.ListContactMapper;
 import com.alkemy.ong.infrastructure.rest.request.ContactRequest;
 import com.alkemy.ong.infrastructure.rest.response.ContactResponse;
@@ -26,13 +26,16 @@ public class ContactResource {
 
   private final IListContactUseCase listContactUseCase;
   private final ICreateContactUseCase createContactUseCase;
-  private final ContactMapper contactMapper;
+  private final CreateContactMapper createContactMapper;
   private final ListContactMapper listContactMapper;
 
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ContactResponse> create(@Valid @RequestBody ContactRequest contactRequest) {
-    Contact savedContact = createContactUseCase.create(contactMapper.toDomain(contactRequest));
-    return new ResponseEntity<>(contactMapper.toResponse(savedContact), HttpStatus.CREATED);
+    Contact savedContact = createContactUseCase.create(
+        createContactMapper.toDomain(contactRequest));
+    return new ResponseEntity<>(createContactMapper.toResponse(savedContact), HttpStatus.CREATED);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

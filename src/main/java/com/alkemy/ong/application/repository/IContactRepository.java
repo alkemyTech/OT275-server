@@ -8,8 +8,6 @@ public interface IContactRepository {
 
   List<Contact> findAll();
 
-  Optional<Object> findBy(String name);
-
   Contact create(Contact contact);
 
 }

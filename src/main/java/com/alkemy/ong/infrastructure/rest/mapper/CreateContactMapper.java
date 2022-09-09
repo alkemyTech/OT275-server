@@ -6,7 +6,7 @@ import com.alkemy.ong.infrastructure.rest.response.ContactResponse;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ContactMapper {
+public class CreateContactMapper {
 
   public Contact toDomain(ContactRequest request) {
     if (request == null) {

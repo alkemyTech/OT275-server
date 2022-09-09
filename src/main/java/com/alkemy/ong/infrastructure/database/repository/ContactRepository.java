@@ -23,15 +23,6 @@ public class ContactRepository implements IContactRepository {
   }
 
   @Override
-  public Optional<Object> findBy(String name) {
-    Optional<ContactEntity> contactEntity = contactSpringRepository.findByName(name);
-    if (contactEntity.isEmpty()) {
-      return Optional.empty();
-    }
-    return Optional.of(contactEntityMapper.toDomain(contactEntity.get()));
-  }
-
-  @Override
   public Contact create(Contact contact) {
     ContactEntity entityToSave = contactEntityMapper.toEntity(contact);
     return contactEntityMapper.toDomain(contactSpringRepository.save(entityToSave));

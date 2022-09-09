@@ -10,6 +10,4 @@ import org.springframework.stereotype.Repository;
 public interface IContactSpringRepository extends JpaRepository<ContactEntity, Long> {
 
   List<ContactEntity> findAllByDeletedAtNull();
-
-  Optional<ContactEntity> findByName(String name);
 }

@@ -2,6 +2,7 @@ package com.alkemy.ong.infrastructure.rest.request;
 
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 
@@ -13,6 +14,6 @@ public class ContactRequest {
   private String phone;
   @Email(message = "Email should be valid.")
   private String email;
-  @Length(max = 150, message = "Message length must be shorter than 150 characters")
+  @Size(max = 150, message = "Message length must be shorter than 150 characters")
   private String message;
 }

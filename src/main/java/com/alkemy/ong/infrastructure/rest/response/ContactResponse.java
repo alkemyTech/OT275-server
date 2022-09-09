@@ -10,11 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContactResponse {
+public class ContactResponse extends GetContactResponse {
 
-  private Long id;
-  private String name;
-  private String phone;
-  private String email;
   private String message;
 }
