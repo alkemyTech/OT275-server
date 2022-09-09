@@ -9,4 +9,5 @@ public class UpdateSlideResponse {
 
   private String text;
   private Integer order;
+  private String imageUrl;
 }
