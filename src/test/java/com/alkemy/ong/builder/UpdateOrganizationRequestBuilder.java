@@ -19,14 +19,9 @@ public class UpdateOrganizationRequestBuilder {
 
   public static UpdateOrganizationRequest buildRequest(String name, String email,
       String welcomeText) {
-    UpdateOrganizationRequest updateOrganizationRequest = new UpdateOrganizationRequest();
+    UpdateOrganizationRequest updateOrganizationRequest = defaultRequest();
     updateOrganizationRequest.setName(name);
-    updateOrganizationRequest.setImageUrl("https://s3.com/updatedlogo.jpg/");
-    updateOrganizationRequest.setAddress("Elm Street 30");
-    updateOrganizationRequest.setPhone("+540303111");
     updateOrganizationRequest.setEmail(email);
-    updateOrganizationRequest.setSocialMedia(SocialMediaRequestBuilder.defaultSocialMediaRequest());
-    updateOrganizationRequest.setAboutUsText("About ...");
     updateOrganizationRequest.setWelcomeText(welcomeText);
     return updateOrganizationRequest;
   }
