@@ -13,6 +13,7 @@ import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizati
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
 import com.alkemy.ong.infrastructure.rest.request.AuthenticationRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import java.nio.charset.StandardCharsets;
@@ -203,4 +204,9 @@ public abstract class BigTest {
   protected void deleteCategory(Long categoryId) {
     categoryRepository.deleteById(categoryId);
   }
+
+  protected String convert(Object requestObject) throws JsonProcessingException {
+    return objectMapper.writeValueAsString(requestObject);
+  }
+
 }

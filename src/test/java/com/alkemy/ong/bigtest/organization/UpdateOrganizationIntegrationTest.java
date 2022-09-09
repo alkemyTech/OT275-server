@@ -124,14 +124,12 @@ public class UpdateOrganizationIntegrationTest extends BigTest {
   }
 
   private String buildDefaultRequest() throws JsonProcessingException {
-    return objectMapper.writeValueAsString(
-        UpdateOrganizationRequestBuilder.defaultRequest());
+    return convert(UpdateOrganizationRequestBuilder.defaultRequest());
   }
 
   private String buildRequest(String name, String email, String welcomeText)
       throws JsonProcessingException {
-    return objectMapper.writeValueAsString(
-        UpdateOrganizationRequestBuilder.buildRequest(name, email, welcomeText));
+    return convert(UpdateOrganizationRequestBuilder.buildRequest(name, email, welcomeText));
   }
 
 }
