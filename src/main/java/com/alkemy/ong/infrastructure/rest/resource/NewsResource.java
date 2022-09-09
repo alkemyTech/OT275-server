@@ -11,7 +11,6 @@ import com.alkemy.ong.infrastructure.rest.mapper.GetNewsWithCommentsMapper;
 import com.alkemy.ong.infrastructure.rest.request.CreateNewsRequest;
 import com.alkemy.ong.infrastructure.rest.response.GetNewsResponse;
 import com.alkemy.ong.infrastructure.rest.response.GetNewsWithCommentsResponse;
-import com.alkemy.ong.infrastructure.rest.response.NewsResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -58,7 +57,7 @@ public class NewsResource {
   @PostMapping(
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<NewsResponse> add(@Valid @RequestBody CreateNewsRequest newsRequest) {
+  public ResponseEntity<GetNewsResponse> add(@Valid @RequestBody CreateNewsRequest newsRequest) {
     News news = createNewsMapper.toDomain(newsRequest);
     News createdNews = createNewsUseCase.add(news);
     return new ResponseEntity<>(createNewsMapper.toResponse(createdNews), HttpStatus.CREATED);
