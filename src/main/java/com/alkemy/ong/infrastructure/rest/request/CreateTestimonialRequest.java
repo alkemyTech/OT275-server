@@ -14,11 +14,12 @@ import lombok.Setter;
 public class CreateTestimonialRequest {
 
 
-  @NotEmpty
-  @NotNull
-  @CharactersWithWhiteSpaces
+  @NotEmpty(message = "name must not be empty.")
+  @NotNull(message = "name must not be null.")
+  @CharactersWithWhiteSpaces(message = "Name must contain only spaces and letters.")
   @Size(message = "Name must shorter than 50 characters.", max = 50)
   private String name;
+
 
   @Size(message = "Content must shorter than 150 characters.", max = 150)
   private String content;

@@ -37,12 +37,11 @@ public class TestimonialResource {
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CreateTestimonialResponse> create(@Valid @RequestBody
-  CreateTestimonialRequest testimonialRequest) {
+  public ResponseEntity<CreateTestimonialResponse> create(
+      @Valid @RequestBody CreateTestimonialRequest testimonialRequest) {
     Testimonial testimonialDomain = createTestimonialUseCase.create(
         createTestimonialMapper.toDomain(testimonialRequest));
     return new ResponseEntity<>(createTestimonialMapper.toResponse(testimonialDomain),
         HttpStatus.CREATED);
   }
-
 }
