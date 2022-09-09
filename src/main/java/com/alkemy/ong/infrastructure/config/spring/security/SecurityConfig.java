@@ -42,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String USERS_ID_URL = "/users/{id:[\\d+]}";
   private static final String MEMBERS_ID_URL = "/members/{id:[\\d+]}";
   private static final String TESTIMONIALS_ID_URL = "/testimonials/{id:[\\d+]}";
+
+  private static final String TESTIMONIALS_URL = "/testimonials";
   private static final String ACTIVITIES_URL = "/activities";
   private static final String USERS_URL = "/users";
   private static final String NEWS_WITH_COMMENTS_URL = "/news/{id:[\\d+]}/comments";
@@ -142,6 +144,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasRole(Role.USER.name())
         .antMatchers(HttpMethod.GET, CONTACTS_URL)
         .hasAnyRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.POST,TESTIMONIALS_URL)
+        .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .anyRequest()
         .authenticated()
         .and()
