@@ -32,9 +32,11 @@ public class NewsEntityMapper {
     }
     NewsEntity entity = new NewsEntity();
     entity.setNewsId(news.getId());
+    entity.setName(news.getName());
     entity.setContent(news.getContent());
     entity.setImageUrl(news.getImageUrl());
     entity.setCategory(categoryEntityMapper.toEntity(news.getCategory()));
     return entity;
   }
+
 }
