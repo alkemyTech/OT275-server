@@ -3,14 +3,11 @@ package com.alkemy.ong.bigtest.organization;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.alkemy.ong.bigtest.BigTest;
-import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
 import org.junit.Test;
 
 public class GetOrganizationIntegrationTest extends BigTest {
@@ -34,20 +31,6 @@ public class GetOrganizationIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.socialMedia.instagramUrl",
             equalTo("https://www.instagram.com/SomosMas/")))
         .andExpect(status().isOk());
-
-    assertOrganizationIsPresentInDatabase();
-  }
-
-  private void assertOrganizationIsPresentInDatabase() {
-    OrganizationEntity organizationEntity = organizationRepository.findAll().get(0);
-    assertNotNull(organizationEntity);
-    assertEquals("Somos Mas", organizationEntity.getName());
-    assertEquals("https://s3.com/logo.jpg/", organizationEntity.getImageUrl());
-    assertEquals("+540303456", organizationEntity.getPhone());
-    assertEquals("Elm Street 3", organizationEntity.getAddress());
-    assertEquals("https://www.facebook.com/Somos_Mas/", organizationEntity.getFacebookUrl());
-    assertEquals("https://www.linkedin.com/in/Somos-Mas/", organizationEntity.getLinkedInUrl());
-    assertEquals("https://www.instagram.com/SomosMas/", organizationEntity.getInstagramUrl());
   }
 
 }
