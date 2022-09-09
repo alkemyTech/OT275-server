@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateCommentResponse {
+
   private Long id;
   private String body;
   private String createdBy;

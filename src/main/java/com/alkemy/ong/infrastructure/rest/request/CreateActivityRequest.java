@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.request;
 
+import com.alkemy.ong.infrastructure.rest.request.validation.AlphanumericWithWhiteSpaces;
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
-import com.alkemy.ong.infrastructure.rest.request.validation.NotBlankAlphanumeric;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class CreateActivityRequest {
   private String name;
 
   @NotEmpty(message = "Content cannot be empty.")
-  @NotBlankAlphanumeric(message = "Content must be alphanumeric.")
+  @AlphanumericWithWhiteSpaces(message = "Content must be alphanumeric.")
   private String content;
 
   private String imageUrl;

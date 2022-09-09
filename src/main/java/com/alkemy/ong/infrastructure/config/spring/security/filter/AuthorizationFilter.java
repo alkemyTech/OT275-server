@@ -22,6 +22,15 @@ public class AuthorizationFilter extends OncePerRequestFilter {
   private static final String BEARER_PART = "Bearer ";
   private static final Object CREDENTIALS = "";
 
+  private static void setAuthentication(String authorizationHeader) {
+    Jwt jwt = JwtUtils.extract(authorizationHeader);
+    Authentication authentication = new UsernamePasswordAuthenticationToken(
+        jwt.getUsername(),
+        CREDENTIALS,
+        jwt.getGrantedAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+  }
+
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
       FilterChain filterChain) throws ServletException, IOException {
@@ -39,15 +48,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     } catch (JwtException e) {
       throw new IllegalStateException("Invalid JWT signature.");
     }
-  }
-
-  private static void setAuthentication(String authorizationHeader) {
-    Jwt jwt = JwtUtils.extract(authorizationHeader);
-    Authentication authentication = new UsernamePasswordAuthenticationToken(
-        jwt.getUsername(),
-        CREDENTIALS,
-        jwt.getGrantedAuthorities());
-    SecurityContextHolder.getContext().setAuthentication(authentication);
   }
 
   private boolean isValid(String authorizationHeader) {
