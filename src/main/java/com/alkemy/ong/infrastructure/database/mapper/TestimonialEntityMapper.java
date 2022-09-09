@@ -15,6 +15,7 @@ public class TestimonialEntityMapper {
     testimonialEntity.setName(testimonial.getName());
     testimonialEntity.setContent(testimonial.getContent());
     testimonialEntity.setImageUrl(testimonial.getImageUrl());
+    testimonialEntity.setTestimonialId(testimonial.getId());
     return testimonialEntity;
   }
 
@@ -26,6 +27,7 @@ public class TestimonialEntityMapper {
     testimonial.setName(testimonialEntity.getName());
     testimonial.setContent(testimonialEntity.getContent());
     testimonial.setImageUrl(testimonialEntity.getImageUrl());
+    testimonial.setId(testimonialEntity.getTestimonialId());
     return testimonial;
   }
 
