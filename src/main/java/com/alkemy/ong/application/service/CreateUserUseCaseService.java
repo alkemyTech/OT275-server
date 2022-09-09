@@ -33,11 +33,9 @@ public class CreateUserUseCaseService implements ICreateUserUseCase {
 
   private void sendWelcomeMail(User user) {
     try {
-      WelcomeEmailTemplate emailTemplate = new WelcomeEmailTemplate(user::getEmail,
-          organizationRepository.getOrganization());
-      mailSender.send(emailTemplate);
-    } catch (Exception ex) {
-      log.error("Something went wrong when sending email. Reason: " + ex.getMessage());
+      mailSender.send(new WelcomeEmailTemplate(user, organizationRepository.getOrganization()));
+    } catch (Exception e) {
+      log.error("Something went wrong when sending email. Reason: " + e.getMessage());
     }
   }
 
