@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateTestimonialResponse {
 
-  private Long id ;
+  private Long id;
 
   private String name;
 
