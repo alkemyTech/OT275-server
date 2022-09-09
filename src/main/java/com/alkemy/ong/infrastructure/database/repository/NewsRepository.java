@@ -63,4 +63,11 @@ public class NewsRepository implements INewsRepository {
     return comments;
   }
 
+  @Override
+  public News add(News news) {
+    NewsEntity newsEntity = newsEntityMapper.toEntity(news);
+    newsEntity.setSoftDeleted(false);
+    return newsEntityMapper.toDomain(newsSpringRepository.save(newsEntity));
+  }
+
 }

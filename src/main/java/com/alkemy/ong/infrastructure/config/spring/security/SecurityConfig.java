@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String COMMENTS_ID_URL = "/comments/{id:[\\d+]}";
   private static final String SLIDES_URL = "/slides";
   private static final String NEWS_ID_URL = "/news/{id:[\\d+]}";
+  private static final String NEWS_URL = "/news";
   private static final String SLIDES_ID_URL = "/slides/{id:[\\d+]}";
   private static final String CATEGORIES_ID_URL = "/categories/{id:[\\d+]}";
   private static final String CATEGORIES_URL = "/categories";
@@ -52,7 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String USERS_URL = "/users";
   private static final String NEWS_WITH_COMMENTS_URL = "/news/{id:[\\d+]}/comments";
   private static final String CONTACTS_URL = "/contacts";
-
 
   @Autowired
   private UserDetailsService userDetailsService;
@@ -126,6 +126,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, NEWS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+        .antMatchers(HttpMethod.POST, NEWS_URL)
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, SLIDES_URL)
         .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
         .antMatchers(HttpMethod.GET, CATEGORIES_URL)
