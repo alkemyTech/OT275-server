@@ -62,4 +62,5 @@ public class UserRepository implements IUserRepository {
     return userEntityMapper.toDomain(userSpringRepository.save(updatedUserEntity));
   }
 
+
 }
