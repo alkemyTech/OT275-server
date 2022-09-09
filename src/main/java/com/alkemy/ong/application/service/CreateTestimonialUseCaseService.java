@@ -11,7 +11,7 @@ public class CreateTestimonialUseCaseService implements ICreateTestimonialUseCas
   private final ITestimonialRepository testimonialRepository;
 
   @Override
-  public Testimonial add(Testimonial testimonial) {
+  public Testimonial create(Testimonial testimonial) {
     return testimonialRepository.save(testimonial);
   }
 }

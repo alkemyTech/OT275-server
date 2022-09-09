@@ -4,5 +4,5 @@ import com.alkemy.ong.domain.Testimonial;
 
 public interface ICreateTestimonialUseCase {
 
-  Testimonial add(Testimonial testimonial);
+  Testimonial create(Testimonial testimonial);
 }
