@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.alkemy.ong.bigtest.BigTest;
-import com.alkemy.ong.common.UpdateOrganizationRequestBuilder;
+import com.alkemy.ong.builder.UpdateOrganizationRequestBuilder;
 import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Test;
