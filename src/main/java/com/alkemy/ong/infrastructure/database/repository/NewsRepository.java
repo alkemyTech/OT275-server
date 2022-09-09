@@ -4,12 +4,10 @@ import com.alkemy.ong.application.repository.INewsRepository;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.News;
-import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import com.alkemy.ong.infrastructure.database.entity.CommentEntity;
 import com.alkemy.ong.infrastructure.database.entity.NewsEntity;
 import com.alkemy.ong.infrastructure.database.mapper.CommentEntityMapper;
 import com.alkemy.ong.infrastructure.database.mapper.NewsEntityMapper;
-import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +22,6 @@ public class NewsRepository implements INewsRepository {
   private final INewsSpringRepository newsSpringRepository;
   private final NewsEntityMapper newsEntityMapper;
   private final CommentEntityMapper commentEntityMapper;
-  private final ICategorySpringRepository categorySpringRepository;
 
   @Override
   public void delete(Identifiable<Long> identifiable) {
@@ -69,13 +66,8 @@ public class NewsRepository implements INewsRepository {
   @Override
   public News add(News news) {
     NewsEntity newsEntity = newsEntityMapper.toEntity(news);
-    newsEntity.setCategory(getNewsCategory());
     newsEntity.setSoftDeleted(false);
     return newsEntityMapper.toDomain(newsSpringRepository.save(newsEntity));
-  }
-
-  private CategoryEntity getNewsCategory() {
-    return categorySpringRepository.findByNameIgnoreCase("News");
   }
 
 }
