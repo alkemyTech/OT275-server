@@ -33,8 +33,10 @@ class CreateUserUseCaseServiceTest {
   @Mock
   private IRoleRepository roleRepository;
 
+  @Mock
   private OrganizationRepository organizationRepository;
 
+  @Mock
   private IMailSender mailSender;
 
   @BeforeEach
