@@ -11,11 +11,11 @@ import javax.validation.Payload;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = NotBlankAlphanumericWithNoWhiteSpacesValidator.class)
-public @interface NotBlankAlphanumericWithNoWhiteSpaces {
+@Constraint(validatedBy = AlphanumericWithoutWhiteSpacesValidator.class)
+public @interface AlphanumericWithoutWhiteSpaces {
 
   String message() default "{com.alkemy.ong.infrastructure.rest.request.validation."
-      + "NotBlankAlphanumericWithNoWhiteSpaces.message}";
+      + "AlphanumericWithoutWhiteSpaces.message}";
 
   Class<?>[] groups() default {};
 

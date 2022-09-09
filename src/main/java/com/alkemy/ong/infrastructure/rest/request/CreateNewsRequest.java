@@ -1,8 +1,8 @@
 package com.alkemy.ong.infrastructure.rest.request;
 
+import com.alkemy.ong.infrastructure.rest.request.validation.AlphanumericWithWhiteSpaces;
+import com.alkemy.ong.infrastructure.rest.request.validation.AlphanumericWithoutWhiteSpaces;
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
-import com.alkemy.ong.infrastructure.rest.request.validation.NotBlankAlphanumeric;
-import com.alkemy.ong.infrastructure.rest.request.validation.NotBlankAlphanumericWithNoWhiteSpaces;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -18,12 +18,12 @@ public class CreateNewsRequest {
   private String name;
 
   @NotEmpty(message = "Text cannot be empty.")
-  @NotBlankAlphanumeric(message = "Text must be alphanumeric.")
+  @AlphanumericWithWhiteSpaces(message = "Text must be alphanumeric.")
   private String text;
 
   @NotEmpty(message = "Image cannot be empty.")
-  @NotBlankAlphanumericWithNoWhiteSpaces(
-      message = "Image must be alphanumeric with no white spaces.")
+  @AlphanumericWithoutWhiteSpaces(
+      message = "Image must be alphanumeric without white spaces.")
   private String image;
 
 }
