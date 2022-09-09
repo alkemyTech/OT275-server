@@ -2,7 +2,6 @@ package com.alkemy.ong.application.service;
 
 import com.alkemy.ong.application.repository.IMemberRepository;
 import com.alkemy.ong.application.service.usecase.IListMemberUseCase;
-import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
