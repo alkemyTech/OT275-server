@@ -92,7 +92,7 @@ public class UpdateOrganizationIntegrationTest extends BigTest {
   }
 
   @Test
-  public void shouldReturnBadRequestWhenWelcomeTextHasMoreThan50CharactersLength()
+  public void shouldReturnBadRequestWhenWelcomeTextHasMoreThanAllowedCharacters()
       throws Exception {
     mockMvc.perform(patch(URL)
             .content(buildRequest(
