@@ -8,8 +8,10 @@ import com.alkemy.ong.application.exception.UserAlreadyExistsException;
 import com.alkemy.ong.application.repository.IRoleRepository;
 import com.alkemy.ong.application.repository.IUserRepository;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
+import com.alkemy.ong.application.util.mail.IMailSender;
 import com.alkemy.ong.domain.Role;
 import com.alkemy.ong.domain.User;
+import com.alkemy.ong.infrastructure.database.repository.OrganizationRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,9 +33,16 @@ class CreateUserUseCaseServiceTest {
   @Mock
   private IRoleRepository roleRepository;
 
+  @Mock
+  private OrganizationRepository organizationRepository;
+
+  @Mock
+  private IMailSender mailSender;
+
   @BeforeEach
   void setup() {
-    createUserUseCase = new CreateUserUseCaseService(userRepository, roleRepository);
+    createUserUseCase = new CreateUserUseCaseService(userRepository, roleRepository,
+        organizationRepository, mailSender);
   }
 
   @Test
