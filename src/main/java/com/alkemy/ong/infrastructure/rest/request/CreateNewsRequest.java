@@ -1,6 +1,8 @@
 package com.alkemy.ong.infrastructure.rest.request;
 
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
+import com.alkemy.ong.infrastructure.rest.request.validation.NotBlankAlphanumeric;
+import com.alkemy.ong.infrastructure.rest.request.validation.NotBlankAlphanumericWithNoWhiteSpaces;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -12,14 +14,16 @@ public class CreateNewsRequest {
 
   @NotEmpty(message = "Name cannot be empty.")
   @CharactersWithWhiteSpaces(message = "Name must contain only spaces and letters.")
-  @Size(message = "Name must be 50 characters or less.")
+  @Size(max = 50, message = "Name must be 50 characters or less.")
   private String name;
 
   @NotEmpty(message = "Text cannot be empty.")
-  @CharactersWithWhiteSpaces(message = "Text must contain only spaces and letters.")
+  @NotBlankAlphanumeric(message = "Text must be alphanumeric.")
   private String text;
 
-  @NotEmpty(message = "Image must be an URL.")
-  private String imageUrl;
+  @NotEmpty(message = "Image cannot be empty.")
+  @NotBlankAlphanumericWithNoWhiteSpaces(
+      message = "Image must be alphanumeric with no white spaces.")
+  private String image;
 
 }
