@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class TestimonialRequest {
+public class CreateTestimonialRequest {
 
 
   @NotEmpty
