@@ -24,4 +24,7 @@ public interface ICategorySpringRepository extends JpaRepository<CategoryEntity,
   CategoryEntity findByCategoryIdAndSoftDeletedFalse(Long id);
 
   Page<CategoryEntity> findAllBySoftDeletedFalse(Pageable pageable);
+
+  CategoryEntity findByNameIgnoreCase(String name);
+
 }
