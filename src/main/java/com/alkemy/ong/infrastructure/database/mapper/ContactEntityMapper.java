@@ -10,15 +10,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class ContactEntityMapper {
 
-  public Contact toDomain(ContactEntity contactEntity) {
-    if (contactEntity == null) {
+  public Contact toDomain(ContactEntity entity) {
+    if (entity == null) {
       return null;
     }
     Contact contact = new Contact();
-    contact.setId(contactEntity.getContactId());
-    contact.setName(contactEntity.getName());
-    contact.setPhone(contactEntity.getPhone());
-    contact.setEmail(contactEntity.getEmail());
+    contact.setId(entity.getContactId());
+    contact.setName(entity.getName());
+    contact.setPhone(entity.getPhone());
+    contact.setEmail(entity.getEmail());
+    contact.setMessage(entity.getMessage());
     return contact;
   }
 
@@ -33,4 +34,16 @@ public class ContactEntityMapper {
     return contacts;
   }
 
+  public ContactEntity toEntity(Contact contact) {
+    if (contact == null) {
+      return null;
+    }
+    ContactEntity entity = new ContactEntity();
+    entity.setContactId(contact.getId());
+    entity.setName(contact.getName());
+    entity.setPhone(contact.getPhone());
+    entity.setEmail(contact.getEmail());
+    entity.setMessage(contact.getMessage());
+    return entity;
+  }
 }
