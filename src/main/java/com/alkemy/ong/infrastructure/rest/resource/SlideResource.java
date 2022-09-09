@@ -11,7 +11,6 @@ import com.alkemy.ong.infrastructure.rest.mapper.ListSlideMapper;
 import com.alkemy.ong.infrastructure.rest.request.CreateSlideRequest;
 import com.alkemy.ong.infrastructure.rest.response.GetSlideResponse;
 import com.alkemy.ong.infrastructure.rest.response.ListSlideResponse;
-import com.alkemy.ong.infrastructure.rest.response.SlideWithTextResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

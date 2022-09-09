@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ICommentSpringRepository extends JpaRepository<CommentEntity, Long> {
+
   List<CommentEntity> findAllByOrderByCreateTimestampAsc();
 }

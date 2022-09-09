@@ -15,7 +15,7 @@ import javax.validation.Payload;
 public @interface NotBlankAlphanumeric {
 
   String message()
-     default "{com.alkemy.ong.infrastructure.rest.request.validation.NotBlankAlphanumeric.message}";
+      default "{com.alkemy.ong.infrastructure.rest.request.validation.NotBlankAlphanumeric.message}";
 
   Class<?>[] groups() default {};
 
