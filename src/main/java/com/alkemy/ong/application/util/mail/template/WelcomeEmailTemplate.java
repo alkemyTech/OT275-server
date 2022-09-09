@@ -18,6 +18,10 @@ public class WelcomeEmailTemplate implements IMail {
   private final IAddressContact addressContact;
   private final Organization organization;
 
+  private static InputStream getFileFromResource() {
+    return WelcomeEmailTemplate.class.getClassLoader().getResourceAsStream(TEMPLATE_HTML);
+  }
+
   @Override
   public String getSubject() {
     return organization.getWelcomeText();
@@ -42,10 +46,6 @@ public class WelcomeEmailTemplate implements IMail {
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(getFileFromResource()))) {
       return replacePlaceHolders(reader.readLine());
     }
-  }
-
-  private static InputStream getFileFromResource() {
-    return WelcomeEmailTemplate.class.getClassLoader().getResourceAsStream(TEMPLATE_HTML);
   }
 
   public String replacePlaceHolders(String htmlContent) {

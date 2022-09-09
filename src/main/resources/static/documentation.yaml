@@ -176,7 +176,7 @@ paths:
                 $ref: '#/components/schemas/CreateCategoryResponse'
   /auth/register:
     post:
-      security: []
+      security: [ ]
       tags:
         - auth-resource
       operationId: register
@@ -195,7 +195,7 @@ paths:
                 $ref: '#/components/schemas/RegisterUserResponse'
   /auth/login:
     post:
-      security: []
+      security: [ ]
       tags:
         - auth-resource
       operationId: login
@@ -651,4 +651,4 @@ components:
       scheme: bearer
       bearerFormat: JWT
 security:
-  - BearerAuth: []
+  - BearerAuth: [ ]

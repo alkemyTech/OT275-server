@@ -5,19 +5,19 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.springframework.util.StringUtils;
 
-public class NotBlankAlphanumericValidator implements
-    ConstraintValidator<NotBlankAlphanumeric, String> {
+public class AlphanumericWithWhiteSpacesValidator implements
+    ConstraintValidator<AlphanumericWithWhiteSpaces, String> {
 
-  private static final String REGEXP_NOT_BLANK_ALPHANUMERIC = "^[\\w\\s]+$";
+  private static final String REGEXP = "^[\\w\\s]+$";
 
   @Override
-  public void initialize(NotBlankAlphanumeric constraintAnnotation) {
+  public void initialize(AlphanumericWithWhiteSpaces constraintAnnotation) {
     ConstraintValidator.super.initialize(constraintAnnotation);
   }
 
   @Override
   public boolean isValid(String body, ConstraintValidatorContext constraintValidatorContext) {
-    Pattern pattern = Pattern.compile(REGEXP_NOT_BLANK_ALPHANUMERIC);
+    Pattern pattern = Pattern.compile(REGEXP);
     return StringUtils.hasText(body) && pattern.matcher(body).matches();
   }
 }

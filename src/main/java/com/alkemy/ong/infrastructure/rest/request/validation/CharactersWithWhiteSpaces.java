@@ -14,7 +14,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = CharactersWithWhitespacesValidator.class)
 public @interface CharactersWithWhiteSpaces {
 
-  String message() default "{com.alkemy.ong.infrastructure.rest.request.validation.Name.message}";
+  String message() default "{request.validation.CharactersWithWhiteSpaces.message}";
 
   Class<?>[] groups() default {};
 
