@@ -15,6 +15,7 @@ import com.alkemy.ong.application.service.CreateActivityUseCaseService;
 import com.alkemy.ong.application.service.CreateCategoryUseCaseService;
 import com.alkemy.ong.application.service.CreateCommentUseCaseService;
 import com.alkemy.ong.application.service.CreateSlideUseCaseService;
+import com.alkemy.ong.application.service.CreateTestimonialUseCaseService;
 import com.alkemy.ong.application.service.CreateUserUseCaseService;
 import com.alkemy.ong.application.service.DeleteCategoryUseCaseService;
 import com.alkemy.ong.application.service.DeleteCommentUseCaseService;
@@ -44,6 +45,7 @@ import com.alkemy.ong.application.service.usecase.ICreateActivityUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateCommentUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateSlideUseCase;
+import com.alkemy.ong.application.service.usecase.ICreateTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
@@ -224,4 +226,9 @@ public class SpringBeanConfiguration {
 
   }
 
+  @Bean
+  public ICreateTestimonialUseCase createTestimonialUseCase(
+      ITestimonialRepository testimonialRepository) {
+    return new CreateTestimonialUseCaseService(testimonialRepository);
+  }
 }
