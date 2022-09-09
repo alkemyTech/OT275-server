@@ -5,8 +5,8 @@ import com.alkemy.ong.application.service.usecase.IListContactUseCase;
 import com.alkemy.ong.domain.Contact;
 import com.alkemy.ong.infrastructure.rest.mapper.CreateContactMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.ListContactMapper;
-import com.alkemy.ong.infrastructure.rest.request.ContactRequest;
-import com.alkemy.ong.infrastructure.rest.response.ContactResponse;
+import com.alkemy.ong.infrastructure.rest.request.CreateContactRequest;
+import com.alkemy.ong.infrastructure.rest.response.CreateContactResponse;
 import com.alkemy.ong.infrastructure.rest.response.ListContactResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +32,11 @@ public class ContactResource {
   @PostMapping(
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ContactResponse> create(@Valid @RequestBody ContactRequest contactRequest) {
-    Contact savedContact = createContactUseCase.create(
-        createContactMapper.toDomain(contactRequest));
-    return new ResponseEntity<>(createContactMapper.toResponse(savedContact), HttpStatus.CREATED);
+  public ResponseEntity<CreateContactResponse> create(
+      @Valid @RequestBody CreateContactRequest createContactRequest) {
+    Contact contact = createContactUseCase.create(
+        createContactMapper.toDomain(createContactRequest));
+    return new ResponseEntity<>(createContactMapper.toResponse(contact), HttpStatus.CREATED);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

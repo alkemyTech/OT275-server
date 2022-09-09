@@ -1,35 +1,35 @@
 package com.alkemy.ong.infrastructure.rest.mapper;
 
 import com.alkemy.ong.domain.Contact;
-import com.alkemy.ong.infrastructure.rest.request.ContactRequest;
-import com.alkemy.ong.infrastructure.rest.response.ContactResponse;
+import com.alkemy.ong.infrastructure.rest.request.CreateContactRequest;
+import com.alkemy.ong.infrastructure.rest.response.CreateContactResponse;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CreateContactMapper {
 
-  public Contact toDomain(ContactRequest request) {
-    if (request == null) {
+  public Contact toDomain(CreateContactRequest createContactRequest) {
+    if (createContactRequest == null) {
       return null;
     }
     Contact contact = new Contact();
-    contact.setName(request.getName());
-    contact.setPhone(request.getPhone());
-    contact.setEmail(request.getEmail());
-    contact.setMessage(request.getMessage());
+    contact.setName(createContactRequest.getName());
+    contact.setPhone(createContactRequest.getPhone());
+    contact.setEmail(createContactRequest.getEmail());
+    contact.setMessage(createContactRequest.getMessage());
     return contact;
   }
 
-  public ContactResponse toResponse(Contact contact) {
+  public CreateContactResponse toResponse(Contact contact) {
     if (contact == null) {
       return null;
     }
-    ContactResponse response = new ContactResponse();
-    response.setId(contact.getId());
-    response.setName(contact.getName());
-    response.setPhone(contact.getPhone());
-    response.setEmail(contact.getEmail());
-    response.setMessage(contact.getMessage());
-    return response;
+    CreateContactResponse createContactResponse = new CreateContactResponse();
+    createContactResponse.setId(contact.getId());
+    createContactResponse.setName(contact.getName());
+    createContactResponse.setPhone(contact.getPhone());
+    createContactResponse.setEmail(contact.getEmail());
+    createContactResponse.setMessage(contact.getMessage());
+    return createContactResponse;
   }
 }

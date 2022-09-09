@@ -4,10 +4,9 @@ import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhite
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import lombok.Getter;
-import org.hibernate.validator.constraints.Length;
 
 @Getter
-public class ContactRequest {
+public class CreateContactRequest {
 
   @CharactersWithWhiteSpaces(message = "Name must contain only spaces and letters.")
   private String name;
