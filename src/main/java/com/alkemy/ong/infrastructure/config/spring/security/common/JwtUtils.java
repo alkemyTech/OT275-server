@@ -68,6 +68,13 @@ public class JwtUtils {
       return new Jwt(token);
     }
 
+    private static Claims extractAllClaims(String token) {
+      return Jwts.parser()
+          .setSigningKey(SECRET_KEY)
+          .parseClaimsJws(token)
+          .getBody();
+    }
+
     public String getUsername() {
       return username;
     }
@@ -79,13 +86,6 @@ public class JwtUtils {
     private List<GrantedAuthority> buildGrantedAuthorities(Claims claims) {
       return AuthorityUtils.commaSeparatedStringToAuthorityList(
           Objects.toString(claims.get(ROLES_CLAIM)));
-    }
-
-    private static Claims extractAllClaims(String token) {
-      return Jwts.parser()
-          .setSigningKey(SECRET_KEY)
-          .parseClaimsJws(token)
-          .getBody();
     }
 
   }

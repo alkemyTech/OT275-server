@@ -21,4 +21,6 @@ public interface ISlideRepository {
 
   Slide add(Slide slide);
 
+  Slide update(Slide slide);
+
 }

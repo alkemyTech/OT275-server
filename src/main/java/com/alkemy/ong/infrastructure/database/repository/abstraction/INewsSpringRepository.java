@@ -1,7 +1,5 @@
 package com.alkemy.ong.infrastructure.database.repository.abstraction;
 
-import com.alkemy.ong.domain.Identifiable;
-import com.alkemy.ong.domain.News;
 import com.alkemy.ong.infrastructure.database.entity.NewsEntity;
 import java.util.List;
 import java.util.Optional;

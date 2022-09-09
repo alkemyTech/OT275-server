@@ -7,6 +7,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class PaginatedResultsRetrieved {
 
+  public static String createLinkHeader(final String uri, final String rel) {
+    return "<" + uri + ">; rel=\"" + rel + "\"";
+  }
+
   public void addLinkHeaderOnPagedResourceRetrieval(
       final UriComponentsBuilder uriBuilder, final HttpServletResponse response,
       String path, final int page, final int totalPages, final int pageSize) {
@@ -79,9 +83,5 @@ public class PaginatedResultsRetrieved {
     if (linkHeader.length() > 0) {
       linkHeader.append(", ");
     }
-  }
-
-  public static String createLinkHeader(final String uri, final String rel) {
-    return "<" + uri + ">; rel=\"" + rel + "\"";
   }
 }

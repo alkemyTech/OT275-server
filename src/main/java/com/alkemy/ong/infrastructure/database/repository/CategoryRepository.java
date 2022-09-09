@@ -56,4 +56,10 @@ public class CategoryRepository implements ICategoryRepository {
     return categoryEntityMapper.toDomain(
         categorySpringRepository.findByCategoryIdAndSoftDeletedFalse(identifiable.getId()));
   }
+
+  @Override
+  public Category findByNameIgnoreCase(String name) {
+    return categoryEntityMapper.toDomain(categorySpringRepository.findByNameIgnoreCase(name));
+  }
+
 }

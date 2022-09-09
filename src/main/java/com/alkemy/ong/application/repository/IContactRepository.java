@@ -7,4 +7,6 @@ public interface IContactRepository {
 
   List<Contact> findAll();
 
+  Contact create(Contact contact);
+
 }
