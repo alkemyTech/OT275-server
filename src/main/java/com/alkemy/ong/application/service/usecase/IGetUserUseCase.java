@@ -4,6 +4,6 @@ import com.alkemy.ong.domain.User;
 
 public interface IGetUserUseCase {
 
-  User get(String Name);
+  User get(String name);
 
 }
