@@ -3,8 +3,9 @@ package com.alkemy.ong.application.service;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.ISlideRepository;
@@ -38,7 +39,7 @@ class UpdateSlideUseCaseServiceTest {
 
     updateSlideUseCaseService.update(slide);
 
-    verify(slideRepository, times(1)).update(slide);
+    verify(slideRepository, atLeastOnce()).update(slide);
   }
 
   @Test
@@ -47,6 +48,6 @@ class UpdateSlideUseCaseServiceTest {
 
     assertThrows(ObjectNotFoundException.class, () -> updateSlideUseCaseService.update(slide));
 
-    verify(slideRepository, times(0)).update(slide);
+    verifyNoMoreInteractions(slideRepository);
   }
 }
