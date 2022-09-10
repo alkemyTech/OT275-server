@@ -41,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String CATEGORIES_URL = "/categories";
   private static final String ACTIVITIES_ID_URL = "/activities/{id:[\\d+]}";
   private static final String USERS_ID_URL = "/users/{id:[\\d+]}";
+  private static final String MEMBERS_URL = "/members";
+  private static final String MEMBERS_PAGING_URL = "/members?page={page:[\\d+]}&size={size:[\\d+]}";
   private static final String MEMBERS_ID_URL = "/members/{id:[\\d+]}";
   private static final String TESTIMONIALS_ID_URL = "/testimonials/{id:[\\d+]}";
   private static final String[] DOCUMENTATION_PATHS = {"/api/docs",
@@ -112,6 +114,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, CATEGORIES_ID_URL)
         .hasRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.GET, MEMBERS_URL)
+        .hasRole(Role.USER.name())
+        .antMatchers(HttpMethod.GET,MEMBERS_PAGING_URL)
+        .hasRole(Role.USER.name())
         .antMatchers(HttpMethod.DELETE, MEMBERS_ID_URL)
         .hasRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, TESTIMONIALS_ID_URL)
