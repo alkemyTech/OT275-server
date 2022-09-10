@@ -119,7 +119,7 @@ public class UpdateCategoryIntegrationTest extends BigTest {
     updateCategoryRequest.setName(name);
     updateCategoryRequest.setDescription(description);
     updateCategoryRequest.setImageUrl(imageUrl);
-    return objectMapper.writeValueAsString(updateCategoryRequest);
+    return convert(updateCategoryRequest);
   }
 
   private void assertCategoryHasBeenUpdated(Long categoryId) {

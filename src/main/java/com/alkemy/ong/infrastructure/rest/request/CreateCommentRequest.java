@@ -1,6 +1,6 @@
 package com.alkemy.ong.infrastructure.rest.request;
 
-import com.alkemy.ong.infrastructure.rest.request.validation.NotBlankAlphanumeric;
+import com.alkemy.ong.infrastructure.rest.request.validation.AlphanumericWithWhiteSpaces;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 
@@ -12,6 +12,6 @@ public class CreateCommentRequest {
   @NotNull(message = "News Id must not be null.")
   private Long newsId;
   @NotNull(message = "Comment body mut not be null.")
-  @NotBlankAlphanumeric(message = "Comment body content must be alphanumeric.")
+  @AlphanumericWithWhiteSpaces(message = "Comment body content must be alphanumeric.")
   private String body;
 }

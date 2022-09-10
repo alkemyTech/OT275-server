@@ -25,6 +25,15 @@ public class UserRegisterIntegrationTest extends BigTest {
   private static final String PASSWORD = "abcd1234";
   private static final String EMAIL = "charles.lee@ray.com";
 
+  private static RegisterUserRequest buildUserRegisterRequest(String email, String password) {
+    RegisterUserRequest registerUserRequest = new RegisterUserRequest();
+    registerUserRequest.setFirstName(FIRST_NAME);
+    registerUserRequest.setLastName(LAST_NAME);
+    registerUserRequest.setEmail(email);
+    registerUserRequest.setPassword(password);
+    return registerUserRequest;
+  }
+
   @Test
   public void shouldCreateUserWhenRequestIsValid() throws Exception {
     mockMvc.perform(post(URL)
@@ -68,16 +77,7 @@ public class UserRegisterIntegrationTest extends BigTest {
   }
 
   private String buildRequest(String email, String password) throws JsonProcessingException {
-    return objectMapper.writeValueAsString(buildUserRegisterRequest(email, password));
-  }
-
-  private static RegisterUserRequest buildUserRegisterRequest(String email, String password) {
-    RegisterUserRequest registerUserRequest = new RegisterUserRequest();
-    registerUserRequest.setFirstName(FIRST_NAME);
-    registerUserRequest.setLastName(LAST_NAME);
-    registerUserRequest.setEmail(email);
-    registerUserRequest.setPassword(password);
-    return registerUserRequest;
+    return convert(buildUserRegisterRequest(email, password));
   }
 
 }
