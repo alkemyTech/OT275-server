@@ -21,7 +21,3 @@ public class GetUserDetailsMapper {
     return getUserDetailsResponse;
   }
 }
-
-
-
-
