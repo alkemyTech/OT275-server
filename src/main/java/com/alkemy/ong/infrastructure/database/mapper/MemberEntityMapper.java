@@ -25,7 +25,7 @@ public class MemberEntityMapper {
   }
 
   private List<Member> toDomain(List<MemberEntity> entities) {
-    if (entities == null) {
+    if (entities == null || entities.isEmpty()) {
       return Collections.emptyList();
     }
     List<Member> members = new ArrayList<>(entities.size());

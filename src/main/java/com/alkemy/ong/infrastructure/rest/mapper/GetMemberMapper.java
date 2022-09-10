@@ -3,6 +3,7 @@ package com.alkemy.ong.infrastructure.rest.mapper;
 import com.alkemy.ong.domain.Member;
 import com.alkemy.ong.infrastructure.rest.response.GetMemberResponse;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,9 @@ public class GetMemberMapper {
   private final SocialMediaMapper socialMediaMapper;
 
   public List<GetMemberResponse> toResponse(List<Member> members) {
+    if (members == null || members.isEmpty()) {
+      return Collections.emptyList();
+    }
     List<GetMemberResponse> memberResponses = new ArrayList<>(members.size());
     for (Member member : members) {
       memberResponses.add(toResponse(member));

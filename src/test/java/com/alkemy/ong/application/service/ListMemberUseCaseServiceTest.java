@@ -20,7 +20,7 @@ class ListMemberUseCaseServiceTest {
 
   private ListMemberUseCaseService listMemberUseCaseService;
   @Mock
-  IMemberRepository memberRepository;
+  private IMemberRepository memberRepository;
 
   @BeforeEach
   void setUp() {
