@@ -30,6 +30,7 @@ import com.alkemy.ong.application.service.GetNewsUseCaseService;
 import com.alkemy.ong.application.service.GetNewsWithCommentsUseCaseService;
 import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.GetSlideUseCaseService;
+import com.alkemy.ong.application.service.GetUserUseCaseService;
 import com.alkemy.ong.application.service.ListCategoryUseCaseService;
 import com.alkemy.ong.application.service.ListCommentUseCaseService;
 import com.alkemy.ong.application.service.ListContactUseCaseService;
@@ -63,6 +64,7 @@ import com.alkemy.ong.application.service.usecase.IGetNewsUseCase;
 import com.alkemy.ong.application.service.usecase.IGetNewsWithCommentsUseCase;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
+import com.alkemy.ong.application.service.usecase.IGetUserUseCase;
 import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IListCommentUseCase;
 import com.alkemy.ong.application.service.usecase.IListContactUseCase;
@@ -253,6 +255,11 @@ public class SpringBeanConfiguration {
   @Bean
   public IUpdateSlideUseCase updateSlideUseCase(ISlideRepository slideRepository) {
     return new UpdateSlideUseCaseService(slideRepository);
+  }
+
+  @Bean
+  public IGetUserUseCase getUserUseCase(IUserRepository userRepository) {
+    return new GetUserUseCaseService((userRepository));
   }
 
 }
