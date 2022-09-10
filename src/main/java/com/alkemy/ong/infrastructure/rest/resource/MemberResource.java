@@ -2,15 +2,12 @@ package com.alkemy.ong.infrastructure.rest.resource;
 
 import com.alkemy.ong.application.service.usecase.IDeleteMemberUseCase;
 import com.alkemy.ong.application.service.usecase.IListMemberUseCase;
-import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.domain.Member;
 import com.alkemy.ong.infrastructure.common.PaginatedResultsRetrieved;
 import com.alkemy.ong.infrastructure.rest.mapper.ListMemberMapper;
-import com.alkemy.ong.infrastructure.rest.response.ListCategoryResponse;
 import com.alkemy.ong.infrastructure.rest.response.ListMemberResponse;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -29,9 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/members")
 public class MemberResource {
 
-  @Autowired
   private final IDeleteMemberUseCase deleteMemberUseCase;
-
   private final IListMemberUseCase listMemberUseCase;
   private final ListMemberMapper listMemberMapper;
   private final PaginatedResultsRetrieved resultsRetrieved;
@@ -48,8 +43,7 @@ public class MemberResource {
         resultPage.getTotalPages(),
         resultPage.getSize()
     );
-    ListMemberResponse listMemberResponse = listMemberMapper.toResponse(resultPage);
-    return ResponseEntity.ok().body(listMemberResponse);
+    return ResponseEntity.ok().body(listMemberMapper.toResponse(resultPage));
   }
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

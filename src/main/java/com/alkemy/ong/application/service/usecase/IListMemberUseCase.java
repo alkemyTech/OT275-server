@@ -7,4 +7,5 @@ import org.springframework.data.domain.Pageable;
 public interface IListMemberUseCase {
 
   Page<Member> findAll(Pageable pageable);
+
 }

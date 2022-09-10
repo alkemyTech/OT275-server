@@ -16,4 +16,5 @@ public class GetMemberResponse {
   private SocialMediaResponse socialMedia;
   private String imageUrl;
   private String description;
+
 }

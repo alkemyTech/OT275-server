@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 @RequiredArgsConstructor
 public class ListMemberUseCaseService implements IListMemberUseCase {
+
   private final IMemberRepository memberRepository;
 
   @Override

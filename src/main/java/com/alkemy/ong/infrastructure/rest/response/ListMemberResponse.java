@@ -13,4 +13,5 @@ import lombok.Setter;
 public class ListMemberResponse extends PaginationResponse {
 
   private List<GetMemberResponse> members;
+
 }

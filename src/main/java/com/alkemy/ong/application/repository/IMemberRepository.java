@@ -1,6 +1,5 @@
 package com.alkemy.ong.application.repository;
 
-import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.Member;
 import org.springframework.data.domain.Page;
