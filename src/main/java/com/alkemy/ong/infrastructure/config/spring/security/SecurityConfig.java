@@ -106,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.POST, AUTH_LOGIN_URL)
         .permitAll()
         .antMatchers(HttpMethod.GET, AUTH_ME_URL)
-        .permitAll()
+        .hasAnyRole(Role.USER.name())
         .antMatchers(HttpMethod.GET, ORGANIZATION_PUBLIC_URL)
         .permitAll()
         .antMatchers(HttpMethod.PATCH, ORGANIZATION_PUBLIC_URL)

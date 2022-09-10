@@ -61,8 +61,8 @@ public class AuthResource {
       value = "/me",
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<GetUserDetailsResponse> getDetails(Authentication authentication) {
-    return ResponseEntity
-        .ok(getUserDetailsMapper.toResponse(getUserMeUseCase.get(authentication.getName())));
+    User user = getUserMeUseCase.get(authentication.getName());
+    return ResponseEntity.ok(getUserDetailsMapper.toResponse(user));
   }
 
 }
