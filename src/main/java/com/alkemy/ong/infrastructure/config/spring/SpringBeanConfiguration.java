@@ -264,7 +264,8 @@ public class SpringBeanConfiguration {
       ITestimonialRepository testimonialRepository) {
     return new CreateTestimonialUseCaseService(testimonialRepository);
   }
-@Bean
+
+  @Bean
   public IGetUserUseCase getUserUseCase(IUserRepository userRepository) {
     return new GetUserUseCaseService((userRepository));
   }
