@@ -39,9 +39,9 @@ public class TestimonialResource {
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CreateTestimonialResponse> create(
       @Valid @RequestBody CreateTestimonialRequest testimonialRequest) {
-    Testimonial testimonialDomain = createTestimonialUseCase.create(
+    Testimonial testimonial = createTestimonialUseCase.create(
         createTestimonialMapper.toDomain(testimonialRequest));
-    return new ResponseEntity<>(createTestimonialMapper.toResponse(testimonialDomain),
+    return new ResponseEntity<>(createTestimonialMapper.toResponse(testimonial),
         HttpStatus.CREATED);
   }
 }
