@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateTestimonialMapper {
 
-  public Testimonial toDomain(@Valid CreateTestimonialRequest testimonialRequest) {
+  public Testimonial toDomain(CreateTestimonialRequest testimonialRequest) {
     if (testimonialRequest == null) {
       return null;
     }
