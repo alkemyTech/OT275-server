@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.repository.ISlideRepository;
 import com.alkemy.ong.application.util.image.IImageUploader;
-import com.alkemy.ong.common.SlideBuilder;
+import com.alkemy.ong.builder.SlideBuilder;
 import com.alkemy.ong.domain.Slide;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

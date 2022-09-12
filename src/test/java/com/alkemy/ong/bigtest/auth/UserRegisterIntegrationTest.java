@@ -77,7 +77,7 @@ public class UserRegisterIntegrationTest extends BigTest {
   }
 
   private String buildRequest(String email, String password) throws JsonProcessingException {
-    return objectMapper.writeValueAsString(buildUserRegisterRequest(email, password));
+    return convert(buildUserRegisterRequest(email, password));
   }
 
 }

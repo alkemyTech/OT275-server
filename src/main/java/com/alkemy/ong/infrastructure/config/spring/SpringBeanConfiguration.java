@@ -30,9 +30,11 @@ import com.alkemy.ong.application.service.GetNewsUseCaseService;
 import com.alkemy.ong.application.service.GetNewsWithCommentsUseCaseService;
 import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.GetSlideUseCaseService;
+import com.alkemy.ong.application.service.GetUserUseCaseService;
 import com.alkemy.ong.application.service.ListCategoryUseCaseService;
 import com.alkemy.ong.application.service.ListCommentUseCaseService;
 import com.alkemy.ong.application.service.ListContactUseCaseService;
+import com.alkemy.ong.application.service.ListMemberUseCaseService;
 import com.alkemy.ong.application.service.ListSlideUseCaseService;
 import com.alkemy.ong.application.service.ListUserUseCaseService;
 import com.alkemy.ong.application.service.LoginUserUseCaseService;
@@ -62,9 +64,11 @@ import com.alkemy.ong.application.service.usecase.IGetNewsUseCase;
 import com.alkemy.ong.application.service.usecase.IGetNewsWithCommentsUseCase;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
+import com.alkemy.ong.application.service.usecase.IGetUserUseCase;
 import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IListCommentUseCase;
 import com.alkemy.ong.application.service.usecase.IListContactUseCase;
+import com.alkemy.ong.application.service.usecase.IListMemberUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IListUserUseCase;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
@@ -83,6 +87,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SpringBeanConfiguration {
+
+  @Bean
+  public IListMemberUseCase listMemberUseCase(IMemberRepository memberRepository) {
+    return new ListMemberUseCaseService(memberRepository);
+  }
 
   @Bean
   public IDeleteMemberUseCase deleteMemberUseCase(IMemberRepository memberRepository) {
@@ -247,6 +256,11 @@ public class SpringBeanConfiguration {
   @Bean
   public IUpdateSlideUseCase updateSlideUseCase(ISlideRepository slideRepository) {
     return new UpdateSlideUseCaseService(slideRepository);
+  }
+
+  @Bean
+  public IGetUserUseCase getUserUseCase(IUserRepository userRepository) {
+    return new GetUserUseCaseService((userRepository));
   }
 
 }
