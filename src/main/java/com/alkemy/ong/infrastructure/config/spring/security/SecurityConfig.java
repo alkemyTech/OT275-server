@@ -48,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String CATEGORIES_PAGING_URL = "/categories?" + PAGE_QUERY_PARAM;
   private static final String MEMBERS_ID_URL = "/members/{id:[\\d+]}";
   private static final String TESTIMONIALS_ID_URL = "/testimonials/{id:[\\d+]}";
+
+  private static final String TESTIMONIALS_URL = "/testimonials";
   private static final String[] DOCUMENTATION_PATHS = {"/api/docs",
       "/api/swagger-ui/**",
       "/api/docs/oas/swagger-config",
@@ -167,6 +169,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, CONTACTS_URL)
         .hasAnyRole(Role.ADMIN.name())
+        .antMatchers(HttpMethod.POST,TESTIMONIALS_URL)
+        .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.PUT, SLIDES_ID_URL)
         .hasRole(Role.ADMIN.name())
         .anyRequest()
