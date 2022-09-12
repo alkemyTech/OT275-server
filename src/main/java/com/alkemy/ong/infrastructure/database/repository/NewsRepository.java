@@ -58,7 +58,10 @@ public class NewsRepository implements INewsRepository {
   private List<Comment> commentsFromGetWithCommentsToDomain(List<Tuple> tuples) {
     List<Comment> comments = new ArrayList<>(tuples.size());
     for (Tuple tuple : tuples) {
-      comments.add(commentEntityMapper.toDomain(tuple.get(1, CommentEntity.class)));
+      Comment comment = commentEntityMapper.toDomain(tuple.get(1, CommentEntity.class));
+      if (comment != null) {
+        comments.add(comment);
+      }
     }
     return comments;
   }
