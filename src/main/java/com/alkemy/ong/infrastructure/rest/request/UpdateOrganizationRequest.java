@@ -3,10 +3,12 @@ package com.alkemy.ong.infrastructure.rest.request;
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
 import javax.validation.constraints.Email;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.Nullable;
 
 @Getter
+@Setter
 public class UpdateOrganizationRequest {
 
   @Nullable

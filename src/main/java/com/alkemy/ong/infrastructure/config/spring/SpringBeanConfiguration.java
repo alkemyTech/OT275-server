@@ -17,6 +17,7 @@ import com.alkemy.ong.application.service.CreateCommentUseCaseService;
 import com.alkemy.ong.application.service.CreateContactUseCaseService;
 import com.alkemy.ong.application.service.CreateNewsUseCaseService;
 import com.alkemy.ong.application.service.CreateSlideUseCaseService;
+import com.alkemy.ong.application.service.CreateTestimonialUseCaseService;
 import com.alkemy.ong.application.service.CreateUserUseCaseService;
 import com.alkemy.ong.application.service.DeleteCategoryUseCaseService;
 import com.alkemy.ong.application.service.DeleteCommentUseCaseService;
@@ -30,9 +31,11 @@ import com.alkemy.ong.application.service.GetNewsUseCaseService;
 import com.alkemy.ong.application.service.GetNewsWithCommentsUseCaseService;
 import com.alkemy.ong.application.service.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.GetSlideUseCaseService;
+import com.alkemy.ong.application.service.GetUserUseCaseService;
 import com.alkemy.ong.application.service.ListCategoryUseCaseService;
 import com.alkemy.ong.application.service.ListCommentUseCaseService;
 import com.alkemy.ong.application.service.ListContactUseCaseService;
+import com.alkemy.ong.application.service.ListMemberUseCaseService;
 import com.alkemy.ong.application.service.ListSlideUseCaseService;
 import com.alkemy.ong.application.service.ListUserUseCaseService;
 import com.alkemy.ong.application.service.LoginUserUseCaseService;
@@ -50,6 +53,7 @@ import com.alkemy.ong.application.service.usecase.ICreateCommentUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateContactUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateNewsUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateSlideUseCase;
+import com.alkemy.ong.application.service.usecase.ICreateTestimonialUseCase;
 import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
@@ -63,9 +67,11 @@ import com.alkemy.ong.application.service.usecase.IGetNewsUseCase;
 import com.alkemy.ong.application.service.usecase.IGetNewsWithCommentsUseCase;
 import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
+import com.alkemy.ong.application.service.usecase.IGetUserUseCase;
 import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
 import com.alkemy.ong.application.service.usecase.IListCommentUseCase;
 import com.alkemy.ong.application.service.usecase.IListContactUseCase;
+import com.alkemy.ong.application.service.usecase.IListMemberUseCase;
 import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
 import com.alkemy.ong.application.service.usecase.IListUserUseCase;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
@@ -85,6 +91,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SpringBeanConfiguration {
+
+  @Bean
+  public IListMemberUseCase listMemberUseCase(IMemberRepository memberRepository) {
+    return new ListMemberUseCaseService(memberRepository);
+  }
 
   @Bean
   public IDeleteMemberUseCase deleteMemberUseCase(IMemberRepository memberRepository) {
@@ -230,8 +241,9 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public ICreateContactUseCase createContactUseCase(IContactRepository contactRepository) {
-    return new CreateContactUseCaseService(contactRepository);
+  public ICreateContactUseCase createContactUseCase(IContactRepository contactRepository,
+      IOrganizationRepository organizationRepository, IMailSender mailSender) {
+    return new CreateContactUseCaseService(contactRepository, organizationRepository, mailSender);
   }
 
   @Bean
@@ -255,6 +267,17 @@ public class SpringBeanConfiguration {
       INewsRepository newsRepository,
       ICategoryRepository categoryRepository) {
     return new UpdateNewsUseCaseService(newsRepository, categoryRepository);
+  }
+  
+  @Bean
+  public ICreateTestimonialUseCase createTestimonialUseCase(
+      ITestimonialRepository testimonialRepository) {
+    return new CreateTestimonialUseCaseService(testimonialRepository);
+  }
+
+  @Bean
+  public IGetUserUseCase getUserUseCase(IUserRepository userRepository) {
+    return new GetUserUseCaseService((userRepository));
   }
 
 }

@@ -1,4 +1,4 @@
-package com.alkemy.ong.common;
+package com.alkemy.ong.builder;
 
 import com.alkemy.ong.domain.Slide;
 
