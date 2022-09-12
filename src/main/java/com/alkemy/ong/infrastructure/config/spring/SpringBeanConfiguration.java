@@ -249,11 +249,12 @@ public class SpringBeanConfiguration {
   public IUpdateSlideUseCase updateSlideUseCase(ISlideRepository slideRepository) {
     return new UpdateSlideUseCaseService(slideRepository);
   }
+
   @Bean
-  public IUpdateNewsUseCase updateNewsUseCase(INewsRepository newsRepository,ICategoryRepository categoryRepository){
+  public IUpdateNewsUseCase updateNewsUseCase(
+      INewsRepository newsRepository,
+      ICategoryRepository categoryRepository) {
     return new UpdateNewsUseCaseService(newsRepository, categoryRepository);
-
-
   }
 
 }
