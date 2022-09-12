@@ -19,7 +19,7 @@ public class CreateTestimonialRequest {
   @Size(message = "Name must shorter than 50 characters.", max = 50)
   private String name;
 
-  @AlphanumericWithWhiteSpaces
+  @AlphanumericWithWhiteSpaces(message = "Content must be alphanumeric")
   @Size(message = "Content must shorter than 150 characters.", max = 150)
   private String content;
 

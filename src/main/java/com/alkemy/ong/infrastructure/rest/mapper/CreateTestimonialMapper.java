@@ -16,7 +16,7 @@ public class CreateTestimonialMapper {
     Testimonial testimonial = new Testimonial();
     testimonial.setName(testimonialRequest.getName());
     testimonial.setContent(testimonialRequest.getContent());
-    testimonial.setImageUrl(testimonialRequest.getContent());
+    testimonial.setImageUrl(testimonialRequest.getImage());
     return testimonial;
   }
 
