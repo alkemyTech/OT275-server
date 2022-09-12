@@ -5,6 +5,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.repository.IContactRepository;
+import com.alkemy.ong.application.repository.IOrganizationRepository;
+import com.alkemy.ong.application.util.mail.IMailSender;
 import com.alkemy.ong.domain.Contact;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,9 +21,17 @@ class CreateContactUseCaseServiceTest {
   @Mock
   private IContactRepository contactRepository;
 
+  @Mock
+  private IMailSender mailSender;
+
+  @Mock
+  private IOrganizationRepository organizationRepository;
+
   @BeforeEach
   void setUp() {
-    createContactUseCaseService = new CreateContactUseCaseService(contactRepository);
+    createContactUseCaseService = new CreateContactUseCaseService(contactRepository,
+        organizationRepository,
+        mailSender);
   }
 
   @Test
