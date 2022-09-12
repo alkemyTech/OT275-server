@@ -228,8 +228,9 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public ICreateContactUseCase createContactUseCase(IContactRepository contactRepository) {
-    return new CreateContactUseCaseService(contactRepository);
+  public ICreateContactUseCase createContactUseCase(IContactRepository contactRepository,
+      IOrganizationRepository organizationRepository, IMailSender mailSender) {
+    return new CreateContactUseCaseService(contactRepository, organizationRepository, mailSender);
   }
 
   @Bean
