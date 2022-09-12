@@ -15,4 +15,6 @@ public interface INewsRepository {
 
   News add(News news);
 
+  News update(News news);
+
 }
