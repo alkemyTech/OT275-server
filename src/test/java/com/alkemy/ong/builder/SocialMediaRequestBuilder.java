@@ -1,6 +1,6 @@
 package com.alkemy.ong.builder;
 
-import com.alkemy.ong.infrastructure.rest.request.SocialMediaRequest;
+import com.alkemy.ong.infrastructure.rest.request.common.SocialMediaRequest;
 
 public class SocialMediaRequestBuilder {
 
