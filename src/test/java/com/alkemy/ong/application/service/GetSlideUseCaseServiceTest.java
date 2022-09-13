@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.ISlideRepository;
+import com.alkemy.ong.application.service.slide.GetSlideUseCaseService;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.Slide;
 import java.util.Optional;

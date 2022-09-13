@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.repository.ISlideRepository;
+import com.alkemy.ong.application.service.slide.CreateSlideUseCaseService;
 import com.alkemy.ong.application.util.image.IImageUploader;
 import com.alkemy.ong.builder.SlideBuilder;
 import com.alkemy.ong.domain.Slide;

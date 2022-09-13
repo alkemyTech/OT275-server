@@ -4,6 +4,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.repository.IOrganizationRepository;
+import com.alkemy.ong.application.service.organization.UpdateOrganizationUseCaseService;
 import com.alkemy.ong.domain.Organization;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.ISlideRepository;
+import com.alkemy.ong.application.service.slide.UpdateSlideUseCaseService;
 import com.alkemy.ong.domain.Slide;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;

@@ -15,13 +15,16 @@ public class CommentEntityMapper {
   private final UserEntityMapper userEntityMapper;
   private final NewsEntityMapper newsEntityMapper;
 
-  public Comment toDomain(CommentEntity entity) {
+  public Comment toDomain(CommentEntity commentEntity) {
+    if (commentEntity == null) {
+      return null;
+    }
     Comment comment = new Comment();
-    comment.setId(entity.getCommentId());
-    comment.setBody(entity.getBody());
-    comment.setCreatedBy(userEntityMapper.toDomain(entity.getUser()));
-    comment.setAssociatedNews(newsEntityMapper.toDomain(entity.getNews()));
-    comment.setCreateTimestamp(entity.getCreateTimestamp().getTime());
+    comment.setId(commentEntity.getCommentId());
+    comment.setBody(commentEntity.getBody());
+    comment.setCreatedBy(userEntityMapper.toDomain(commentEntity.getUser()));
+    comment.setAssociatedNews(newsEntityMapper.toDomain(commentEntity.getNews()));
+    comment.setCreateTimestamp(commentEntity.getCreateTimestamp().getTime());
     return comment;
   }
 

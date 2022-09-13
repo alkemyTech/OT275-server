@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.alkemy.ong.bigtest.BigTest;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
-import com.alkemy.ong.infrastructure.rest.request.RegisterUserRequest;
+import com.alkemy.ong.infrastructure.rest.request.user.RegisterUserRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.Optional;
 import org.junit.Test;

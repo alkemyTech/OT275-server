@@ -1,6 +1,6 @@
 package com.alkemy.ong.builder;
 
-import com.alkemy.ong.infrastructure.rest.request.UpdateOrganizationRequest;
+import com.alkemy.ong.infrastructure.rest.request.organization.UpdateOrganizationRequest;
 
 public class UpdateOrganizationRequestBuilder {
 

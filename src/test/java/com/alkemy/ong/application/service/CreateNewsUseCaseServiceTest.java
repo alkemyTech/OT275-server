@@ -4,6 +4,7 @@ import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.repository.ICategoryRepository;
 import com.alkemy.ong.application.repository.INewsRepository;
+import com.alkemy.ong.application.service.news.CreateNewsUseCaseService;
 import com.alkemy.ong.builder.NewsBuilder;
 import com.alkemy.ong.domain.News;
 import org.junit.jupiter.api.BeforeEach;
