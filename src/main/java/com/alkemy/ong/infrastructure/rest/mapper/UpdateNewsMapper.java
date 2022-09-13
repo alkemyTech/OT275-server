@@ -20,8 +20,8 @@ public class UpdateNewsMapper {
     News news = new News();
     news.setId(identifiable.getId());
     news.setName(updateNewsRequest.getName());
-    news.setContent(updateNewsRequest.getText());
-    news.setImageUrl(updateNewsRequest.getImage());
+    news.setContent(updateNewsRequest.getContent());
+    news.setImageUrl(updateNewsRequest.getImageUrl());
     return news;
   }
 
@@ -32,8 +32,8 @@ public class UpdateNewsMapper {
     UpdateNewsResponse updateNewsResponse = new UpdateNewsResponse();
     updateNewsResponse.setId(news.getId());
     updateNewsResponse.setName(news.getName());
-    updateNewsResponse.setText(news.getContent());
-    updateNewsResponse.setImage(news.getImageUrl());
+    updateNewsResponse.setContent(news.getContent());
+    updateNewsResponse.setImageUrl(news.getImageUrl());
     updateNewsResponse.setCategory(getCategoryMapper.toResponse(news.getCategory()));
     return updateNewsResponse;
 
