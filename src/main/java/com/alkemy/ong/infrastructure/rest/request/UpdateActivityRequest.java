@@ -2,11 +2,11 @@ package com.alkemy.ong.infrastructure.rest.request;
 
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
 import javax.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
+@Setter
 public class UpdateActivityRequest {
 
   @NotEmpty(message = "Content cannot be empty.")
