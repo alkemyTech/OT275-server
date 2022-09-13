@@ -263,12 +263,10 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public IUpdateNewsUseCase updateNewsUseCase(
-      INewsRepository newsRepository,
-      ICategoryRepository categoryRepository) {
-    return new UpdateNewsUseCaseService(newsRepository, categoryRepository);
+  public IUpdateNewsUseCase updateNewsUseCase(INewsRepository newsRepository) {
+    return new UpdateNewsUseCaseService(newsRepository);
   }
-  
+
   @Bean
   public ICreateTestimonialUseCase createTestimonialUseCase(
       ITestimonialRepository testimonialRepository) {
