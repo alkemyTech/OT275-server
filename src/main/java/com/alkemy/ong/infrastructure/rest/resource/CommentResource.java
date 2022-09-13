@@ -6,7 +6,7 @@ import com.alkemy.ong.application.service.comment.usecase.IListCommentUseCase;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.infrastructure.rest.mapper.comment.CreateCommentMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.comment.ListCommentMapper;
-import com.alkemy.ong.infrastructure.rest.request.CreateCommentRequest;
+import com.alkemy.ong.infrastructure.rest.request.comment.CreateCommentRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateCommentResponse;
 import com.alkemy.ong.infrastructure.rest.response.ListCommentResponse;
 import javax.validation.Valid;

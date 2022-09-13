@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.slide;
 
 import com.alkemy.ong.domain.Slide;
-import com.alkemy.ong.infrastructure.rest.request.CreateSlideRequest;
+import com.alkemy.ong.infrastructure.rest.request.slide.CreateSlideRequest;
 import org.springframework.stereotype.Component;
 
 @Component

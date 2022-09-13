@@ -2,7 +2,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.user;
 
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.User;
-import com.alkemy.ong.infrastructure.rest.request.UpdateUserRequest;
+import com.alkemy.ong.infrastructure.rest.request.user.UpdateUserRequest;
 import com.alkemy.ong.infrastructure.rest.response.UpdateUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

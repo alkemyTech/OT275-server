@@ -2,7 +2,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.activity;
 
 import com.alkemy.ong.domain.Activity;
 import com.alkemy.ong.domain.Identifiable;
-import com.alkemy.ong.infrastructure.rest.request.UpdateActivityRequest;
+import com.alkemy.ong.infrastructure.rest.request.activity.UpdateActivityRequest;
 import com.alkemy.ong.infrastructure.rest.response.UpdateActivityResponse;
 import org.springframework.stereotype.Component;
 

@@ -3,7 +3,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.comment;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.News;
 import com.alkemy.ong.domain.User;
-import com.alkemy.ong.infrastructure.rest.request.CreateCommentRequest;
+import com.alkemy.ong.infrastructure.rest.request.comment.CreateCommentRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateCommentResponse;
 import org.springframework.stereotype.Component;
 

@@ -3,7 +3,6 @@ package com.alkemy.ong.bigtest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import com.alkemy.ong.OngApplication;
-import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import com.alkemy.ong.infrastructure.database.entity.CommentEntity;
@@ -17,7 +16,7 @@ import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpring
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizationSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
-import com.alkemy.ong.infrastructure.rest.request.AuthenticationRequest;
+import com.alkemy.ong.infrastructure.rest.request.user.AuthenticationRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;

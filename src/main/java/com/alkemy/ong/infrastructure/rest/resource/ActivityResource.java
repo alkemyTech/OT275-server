@@ -5,8 +5,8 @@ import com.alkemy.ong.application.service.activity.usecase.IUpdateActivityUseCas
 import com.alkemy.ong.domain.Activity;
 import com.alkemy.ong.infrastructure.rest.mapper.activity.CreateActivityMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.activity.UpdateActivityMapper;
-import com.alkemy.ong.infrastructure.rest.request.CreateActivityRequest;
-import com.alkemy.ong.infrastructure.rest.request.UpdateActivityRequest;
+import com.alkemy.ong.infrastructure.rest.request.activity.CreateActivityRequest;
+import com.alkemy.ong.infrastructure.rest.request.activity.UpdateActivityRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateActivityResponse;
 import com.alkemy.ong.infrastructure.rest.response.UpdateActivityResponse;
 import javax.validation.Valid;

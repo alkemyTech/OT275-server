@@ -4,7 +4,7 @@ import com.alkemy.ong.application.service.testimonial.usecase.ICreateTestimonial
 import com.alkemy.ong.application.service.testimonial.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.domain.Testimonial;
 import com.alkemy.ong.infrastructure.rest.mapper.testimonial.CreateTestimonialMapper;
-import com.alkemy.ong.infrastructure.rest.request.CreateTestimonialRequest;
+import com.alkemy.ong.infrastructure.rest.request.testimonial.CreateTestimonialRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateTestimonialResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

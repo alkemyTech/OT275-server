@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.common;
 
 import com.alkemy.ong.domain.SocialMedia;
-import com.alkemy.ong.infrastructure.rest.request.SocialMediaRequest;
+import com.alkemy.ong.infrastructure.rest.request.common.SocialMediaRequest;
 import com.alkemy.ong.infrastructure.rest.response.SocialMediaResponse;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.testimonial;
 
 import com.alkemy.ong.domain.Testimonial;
-import com.alkemy.ong.infrastructure.rest.request.CreateTestimonialRequest;
+import com.alkemy.ong.infrastructure.rest.request.testimonial.CreateTestimonialRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateTestimonialResponse;
 import org.springframework.stereotype.Component;
 

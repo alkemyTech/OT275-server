@@ -1,4 +1,4 @@
-package com.alkemy.ong.infrastructure.rest.request;
+package com.alkemy.ong.infrastructure.rest.request.news;
 
 import com.alkemy.ong.infrastructure.rest.request.validation.AlphanumericWithWhiteSpaces;
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;

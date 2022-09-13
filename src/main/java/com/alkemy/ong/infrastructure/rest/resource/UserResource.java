@@ -6,7 +6,7 @@ import com.alkemy.ong.application.service.user.usecase.IUpdateUserUseCase;
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.mapper.user.ListUserMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.user.UpdateUserMapper;
-import com.alkemy.ong.infrastructure.rest.request.UpdateUserRequest;
+import com.alkemy.ong.infrastructure.rest.request.user.UpdateUserRequest;
 import com.alkemy.ong.infrastructure.rest.response.ListUserResponse;
 import com.alkemy.ong.infrastructure.rest.response.UpdateUserResponse;
 import javax.validation.Valid;

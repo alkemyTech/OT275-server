@@ -5,7 +5,7 @@ import com.alkemy.ong.application.service.organization.usecase.IUpdateOrganizati
 import com.alkemy.ong.domain.Organization;
 import com.alkemy.ong.infrastructure.rest.mapper.organization.GetOrganizationMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.organization.UpdateOrganizationMapper;
-import com.alkemy.ong.infrastructure.rest.request.UpdateOrganizationRequest;
+import com.alkemy.ong.infrastructure.rest.request.organization.UpdateOrganizationRequest;
 import com.alkemy.ong.infrastructure.rest.response.GetOrganizationResponse;
 import com.alkemy.ong.infrastructure.rest.response.UpdateOrganizationResponse;
 import javax.validation.Valid;

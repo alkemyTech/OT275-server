@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.contact;
 
 import com.alkemy.ong.domain.Contact;
-import com.alkemy.ong.infrastructure.rest.request.CreateContactRequest;
+import com.alkemy.ong.infrastructure.rest.request.contact.CreateContactRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateContactResponse;
 import org.springframework.stereotype.Component;
 

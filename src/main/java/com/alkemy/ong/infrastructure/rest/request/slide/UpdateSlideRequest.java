@@ -1,4 +1,4 @@
-package com.alkemy.ong.infrastructure.rest.request;
+package com.alkemy.ong.infrastructure.rest.request.slide;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

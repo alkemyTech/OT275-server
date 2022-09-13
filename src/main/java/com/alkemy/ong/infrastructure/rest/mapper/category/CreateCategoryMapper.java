@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.category;
 
 import com.alkemy.ong.domain.Category;
-import com.alkemy.ong.infrastructure.rest.request.CreateCategoryRequest;
+import com.alkemy.ong.infrastructure.rest.request.category.CreateCategoryRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateCategoryResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

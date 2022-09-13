@@ -1,5 +1,6 @@
-package com.alkemy.ong.infrastructure.rest.request;
+package com.alkemy.ong.infrastructure.rest.request.organization;
 
+import com.alkemy.ong.infrastructure.rest.request.common.SocialMediaRequest;
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
 import javax.validation.constraints.Email;
 import lombok.Getter;

@@ -2,7 +2,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.slide;
 
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.Slide;
-import com.alkemy.ong.infrastructure.rest.request.UpdateSlideRequest;
+import com.alkemy.ong.infrastructure.rest.request.slide.UpdateSlideRequest;
 import com.alkemy.ong.infrastructure.rest.response.UpdateSlideResponse;
 import org.springframework.stereotype.Component;
 

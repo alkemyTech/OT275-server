@@ -1,26 +1,28 @@
-package com.alkemy.ong.infrastructure.rest.request;
+package com.alkemy.ong.infrastructure.rest.request.user;
 
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.lang.Nullable;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
-public class UpdateUserRequest {
+@Setter
+public class RegisterUserRequest {
 
-  @NotEmpty(message = "First name cannot be empty.")
   @CharactersWithWhiteSpaces(message = "First name must contain only spaces and letters.")
   private String firstName;
 
-  @NotEmpty(message = "Last name cannot be empty.")
   @CharactersWithWhiteSpaces(message = "Last name must contain only spaces and letters.")
   private String lastName;
 
-  @Nullable
-  private String imageUrl;
+  @Email(message = "Email should be valid.")
+  private String email;
 
-  @NotEmpty(message = "Password cannot be empty")
   @Size(min = 8, max = 16, message = "Password must be between 8 and 16 characters long.")
   private String password;
 

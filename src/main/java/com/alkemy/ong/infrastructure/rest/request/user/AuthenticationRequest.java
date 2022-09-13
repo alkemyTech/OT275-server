@@ -1,4 +1,4 @@
-package com.alkemy.ong.infrastructure.rest.request;
+package com.alkemy.ong.infrastructure.rest.request.user;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;

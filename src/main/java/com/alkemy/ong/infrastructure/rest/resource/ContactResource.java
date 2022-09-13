@@ -5,7 +5,7 @@ import com.alkemy.ong.application.service.contact.usecase.IListContactUseCase;
 import com.alkemy.ong.domain.Contact;
 import com.alkemy.ong.infrastructure.rest.mapper.contact.CreateContactMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.contact.ListContactMapper;
-import com.alkemy.ong.infrastructure.rest.request.CreateContactRequest;
+import com.alkemy.ong.infrastructure.rest.request.contact.CreateContactRequest;
 import com.alkemy.ong.infrastructure.rest.response.CreateContactResponse;
 import com.alkemy.ong.infrastructure.rest.response.ListContactResponse;
 import javax.validation.Valid;
