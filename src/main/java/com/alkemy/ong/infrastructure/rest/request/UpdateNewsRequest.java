@@ -15,8 +15,7 @@ public class UpdateNewsRequest {
   private String name;
 
   @AlphanumericWithWhiteSpaces(message = "Content must be alphanumeric.")
-  private String text;
-  private String image;
-  private Long categoryId;
+  private String content;
+  private String imageUrl;
 
 }

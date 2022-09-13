@@ -13,8 +13,8 @@ public class UpdateNewsResponse {
 
   private Long id;
   private String name;
-  private String text;
-  private String image;
+  private String content;
+  private String imageUrl;
   private GetCategoryResponse category;
 
 }
