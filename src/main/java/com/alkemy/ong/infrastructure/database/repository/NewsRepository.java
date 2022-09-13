@@ -11,6 +11,7 @@ import com.alkemy.ong.infrastructure.database.mapper.NewsEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -58,7 +59,10 @@ public class NewsRepository implements INewsRepository {
   private List<Comment> commentsFromGetWithCommentsToDomain(List<Tuple> tuples) {
     List<Comment> comments = new ArrayList<>(tuples.size());
     for (Tuple tuple : tuples) {
-      comments.add(commentEntityMapper.toDomain(tuple.get(1, CommentEntity.class)));
+      Comment comment = commentEntityMapper.toDomain(tuple.get(1, CommentEntity.class));
+      if (comment != null) {
+        comments.add(comment);
+      }
     }
     return comments;
   }
@@ -68,6 +72,13 @@ public class NewsRepository implements INewsRepository {
     NewsEntity newsEntity = newsEntityMapper.toEntity(news);
     newsEntity.setSoftDeleted(false);
     return newsEntityMapper.toDomain(newsSpringRepository.save(newsEntity));
+  }
+
+  @Override
+  public News update(News news) {
+    NewsEntity newsEntity = newsEntityMapper.toEntity(news);
+    return newsEntityMapper.toDomain(newsSpringRepository.save(newsEntity));
+
   }
 
 }

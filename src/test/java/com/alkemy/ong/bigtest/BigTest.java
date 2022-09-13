@@ -6,11 +6,15 @@ import com.alkemy.ong.OngApplication;
 import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
 import com.alkemy.ong.infrastructure.database.entity.ActivityEntity;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
+import com.alkemy.ong.infrastructure.database.entity.CommentEntity;
+import com.alkemy.ong.infrastructure.database.entity.NewsEntity;
 import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
 import com.alkemy.ong.infrastructure.database.entity.RoleEntity;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IActivitySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
+import com.alkemy.ong.infrastructure.database.repository.abstraction.ICommentSpringRepository;
+import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizationSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
@@ -50,6 +54,7 @@ public abstract class BigTest {
   private static final String PASSWORD_ENCODED = "$2a$10$6KLdPa9azXYgkMOo1zw16.JSngJvSGRvPqokwzi9vzO4OJLKS2bX2";
   private static final String PASSWORD = "abcd1234";
   private static final String BEARER_PART = "Bearer ";
+  private static final String NONE_IMAGE_URL = "";
 
   @Autowired
   protected MockMvc mockMvc;
@@ -70,6 +75,12 @@ public abstract class BigTest {
   protected ICategorySpringRepository categoryRepository;
 
   @Autowired
+  protected INewsSpringRepository newsRepository;
+
+  @Autowired
+  protected ICommentSpringRepository commentRepository;
+
+  @Autowired
   protected IActivitySpringRepository activityRepository;
 
   @Before
@@ -77,6 +88,7 @@ public abstract class BigTest {
     createRoles();
     createUserData();
     createOrganization();
+    createNewsCategory();
   }
 
   @After
@@ -86,11 +98,19 @@ public abstract class BigTest {
 
   private void deleteAllEntities() {
     organizationRepository.deleteAll();
+    commentRepository.deleteAll();
+    newsRepository.deleteAll();
     categoryRepository.deleteAll();
   }
 
   protected void cleanUsersData(UserEntity... users) {
     userRepository.deleteAllInBatch(Arrays.asList(users));
+  }
+
+  private void createNewsCategory() {
+    if (categoryRepository.findByNameIgnoreCase("news") == null) {
+      categoryRepository.save(buildCategory("News", "News description", NONE_IMAGE_URL));
+    }
   }
 
   private void createUserData() {
@@ -144,6 +164,24 @@ public abstract class BigTest {
     return roleEntity;
   }
 
+  private NewsEntity buildNews(String name) {
+    NewsEntity newsEntity = new NewsEntity();
+    newsEntity.setImageUrl(NONE_IMAGE_URL);
+    newsEntity.setContent("Content for " + name);
+    newsEntity.setName(name);
+    newsEntity.setCategory(categoryRepository.findByNameIgnoreCase("news"));
+    newsEntity.setSoftDeleted(false);
+    return newsEntity;
+  }
+
+  private CommentEntity buildComment(Long newsId) {
+    CommentEntity commentEntity = new CommentEntity();
+    commentEntity.setBody("Awesome post!");
+    commentEntity.setUser(userRepository.findByEmail(USER_EMAIL).get());
+    commentEntity.setNews(newsRepository.findById(newsId).get());
+    return commentEntity;
+  }
+
   private void createOrganization() {
     organizationRepository.save(buildOrganization());
   }
@@ -183,6 +221,20 @@ public abstract class BigTest {
 
   protected UserEntity getRandomUser() {
     return userRepository.save(buildUser("Michael", "Myers", "michael@myers.com", Role.USER));
+  }
+
+  protected NewsEntity createNewsWithRandomComment(String name) {
+    NewsEntity newsEntity = createNews(name);
+    saveCommentFor(newsEntity.getNewsId());
+    return newsEntity;
+  }
+
+  protected NewsEntity createNews(String name) {
+    return newsRepository.save(buildNews(name));
+  }
+
+  private void saveCommentFor(Long newsId) {
+    commentRepository.save(buildComment(newsId));
   }
 
   protected Long getRandomCategoryId() {
