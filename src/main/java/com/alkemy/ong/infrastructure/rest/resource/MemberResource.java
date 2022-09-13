@@ -1,10 +1,10 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.IDeleteMemberUseCase;
-import com.alkemy.ong.application.service.usecase.IListMemberUseCase;
+import com.alkemy.ong.application.service.member.usecase.IDeleteMemberUseCase;
+import com.alkemy.ong.application.service.member.usecase.IListMemberUseCase;
 import com.alkemy.ong.domain.Member;
 import com.alkemy.ong.infrastructure.common.PaginatedResultsRetrieved;
-import com.alkemy.ong.infrastructure.rest.mapper.ListMemberMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.member.ListMemberMapper;
 import com.alkemy.ong.infrastructure.rest.response.ListMemberResponse;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

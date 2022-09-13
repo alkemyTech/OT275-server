@@ -10,6 +10,6 @@ public class GetNewsWithCommentsResponse {
 
   private String name;
 
-  private List<CommentResponse> comments;
+  private List<GetCommentResponse> comments;
 
 }

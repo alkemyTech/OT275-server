@@ -1,10 +1,10 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.IGetOrganizationUseCase;
-import com.alkemy.ong.application.service.usecase.IUpdateOrganizationUseCase;
+import com.alkemy.ong.application.service.organization.usecase.IGetOrganizationUseCase;
+import com.alkemy.ong.application.service.organization.usecase.IUpdateOrganizationUseCase;
 import com.alkemy.ong.domain.Organization;
-import com.alkemy.ong.infrastructure.rest.mapper.GetOrganizationMapper;
-import com.alkemy.ong.infrastructure.rest.mapper.UpdateOrganizationMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.organization.GetOrganizationMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.organization.UpdateOrganizationMapper;
 import com.alkemy.ong.infrastructure.rest.request.UpdateOrganizationRequest;
 import com.alkemy.ong.infrastructure.rest.response.GetOrganizationResponse;
 import com.alkemy.ong.infrastructure.rest.response.UpdateOrganizationResponse;

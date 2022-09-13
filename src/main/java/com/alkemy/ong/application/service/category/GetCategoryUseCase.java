@@ -1,0 +1,24 @@
+package com.alkemy.ong.application.service.category;
+
+import com.alkemy.ong.application.exception.ErrorMessage;
+import com.alkemy.ong.application.exception.ObjectNotFoundException;
+import com.alkemy.ong.application.repository.ICategoryRepository;
+import com.alkemy.ong.application.service.category.usecase.IGetCategoryUseCase;
+import com.alkemy.ong.domain.Category;
+import com.alkemy.ong.domain.Identifiable;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class GetCategoryUseCase implements IGetCategoryUseCase {
+
+  private final ICategoryRepository categoryRepository;
+
+  @Override
+  public Category get(Identifiable<Long> identifiable) {
+    Category category = categoryRepository.get(identifiable);
+    if (category == null) {
+      throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Category"));
+    }
+    return category;
+  }
+}

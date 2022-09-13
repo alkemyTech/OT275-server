@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.INewsRepository;
+import com.alkemy.ong.application.service.news.GetNewsUseCaseService;
 import com.alkemy.ong.builder.NewsBuilder;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.News;

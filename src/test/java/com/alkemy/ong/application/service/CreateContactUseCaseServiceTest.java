@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.repository.IContactRepository;
 import com.alkemy.ong.application.repository.IOrganizationRepository;
+import com.alkemy.ong.application.service.contact.CreateContactUseCaseService;
 import com.alkemy.ong.application.util.mail.IMailSender;
 import com.alkemy.ong.domain.Contact;
 import org.junit.jupiter.api.BeforeEach;

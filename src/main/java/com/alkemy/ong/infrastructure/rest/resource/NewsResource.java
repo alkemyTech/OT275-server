@@ -1,15 +1,15 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.ICreateNewsUseCase;
-import com.alkemy.ong.application.service.usecase.IDeleteNewsUseCase;
-import com.alkemy.ong.application.service.usecase.IGetNewsUseCase;
-import com.alkemy.ong.application.service.usecase.IGetNewsWithCommentsUseCase;
-import com.alkemy.ong.application.service.usecase.IUpdateNewsUseCase;
+import com.alkemy.ong.application.service.news.usecase.ICreateNewsUseCase;
+import com.alkemy.ong.application.service.news.usecase.IDeleteNewsUseCase;
+import com.alkemy.ong.application.service.news.usecase.IGetNewsUseCase;
+import com.alkemy.ong.application.service.news.usecase.IGetNewsWithCommentsUseCase;
+import com.alkemy.ong.application.service.news.usecase.IUpdateNewsUseCase;
 import com.alkemy.ong.domain.News;
-import com.alkemy.ong.infrastructure.rest.mapper.CreateNewsMapper;
-import com.alkemy.ong.infrastructure.rest.mapper.GetNewsMapper;
-import com.alkemy.ong.infrastructure.rest.mapper.GetNewsWithCommentsMapper;
-import com.alkemy.ong.infrastructure.rest.mapper.UpdateNewsMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.news.CreateNewsMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.news.GetNewsMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.news.GetNewsWithCommentsMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.news.UpdateNewsMapper;
 import com.alkemy.ong.infrastructure.rest.request.CreateNewsRequest;
 import com.alkemy.ong.infrastructure.rest.request.UpdateNewsRequest;
 import com.alkemy.ong.infrastructure.rest.response.GetNewsResponse;
