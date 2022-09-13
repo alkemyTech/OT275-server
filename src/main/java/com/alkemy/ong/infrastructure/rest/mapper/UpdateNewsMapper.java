@@ -21,7 +21,6 @@ public class UpdateNewsMapper {
     news.setId(identifiable.getId());
     news.setName(updateNewsRequest.getName());
     news.setContent(updateNewsRequest.getContent());
-    news.setImageUrl(updateNewsRequest.getImageUrl());
     return news;
   }
 
