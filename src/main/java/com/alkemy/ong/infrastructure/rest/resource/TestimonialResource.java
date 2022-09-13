@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.ICreateTestimonialUseCase;
-import com.alkemy.ong.application.service.usecase.IDeleteTestimonialUseCase;
+import com.alkemy.ong.application.service.testimonial.usecase.ICreateTestimonialUseCase;
+import com.alkemy.ong.application.service.testimonial.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.domain.Testimonial;
 import com.alkemy.ong.infrastructure.rest.mapper.CreateTestimonialMapper;
 import com.alkemy.ong.infrastructure.rest.request.CreateTestimonialRequest;

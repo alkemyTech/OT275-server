@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.IDeleteMemberUseCase;
-import com.alkemy.ong.application.service.usecase.IListMemberUseCase;
+import com.alkemy.ong.application.service.member.usecase.IDeleteMemberUseCase;
+import com.alkemy.ong.application.service.member.usecase.IListMemberUseCase;
 import com.alkemy.ong.domain.Member;
 import com.alkemy.ong.infrastructure.common.PaginatedResultsRetrieved;
 import com.alkemy.ong.infrastructure.rest.mapper.ListMemberMapper;

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.repository.IMemberRepository;
+import com.alkemy.ong.application.service.member.DeleteMemberUseCaseService;
 import com.alkemy.ong.domain.Identifiable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

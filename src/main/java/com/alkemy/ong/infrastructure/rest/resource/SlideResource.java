@@ -1,10 +1,10 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.ICreateSlideUseCase;
-import com.alkemy.ong.application.service.usecase.IDeleteSlideUseCase;
-import com.alkemy.ong.application.service.usecase.IGetSlideUseCase;
-import com.alkemy.ong.application.service.usecase.IListSlideUseCase;
-import com.alkemy.ong.application.service.usecase.IUpdateSlideUseCase;
+import com.alkemy.ong.application.service.slide.usecase.ICreateSlideUseCase;
+import com.alkemy.ong.application.service.slide.usecase.IDeleteSlideUseCase;
+import com.alkemy.ong.application.service.slide.usecase.IGetSlideUseCase;
+import com.alkemy.ong.application.service.slide.usecase.IListSlideUseCase;
+import com.alkemy.ong.application.service.slide.usecase.IUpdateSlideUseCase;
 import com.alkemy.ong.domain.Slide;
 import com.alkemy.ong.infrastructure.rest.mapper.CreateSlideMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.GetSlideMapper;

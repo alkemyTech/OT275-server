@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.ICreateActivityUseCase;
-import com.alkemy.ong.application.service.usecase.IUpdateActivityUseCase;
+import com.alkemy.ong.application.service.activity.usecase.ICreateActivityUseCase;
+import com.alkemy.ong.application.service.activity.usecase.IUpdateActivityUseCase;
 import com.alkemy.ong.domain.Activity;
 import com.alkemy.ong.infrastructure.rest.mapper.CreateActivityMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.UpdateActivityMapper;

@@ -1,10 +1,10 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.ICreateCategoryUseCase;
-import com.alkemy.ong.application.service.usecase.IDeleteCategoryUseCase;
-import com.alkemy.ong.application.service.usecase.IGetCategoryUseCase;
-import com.alkemy.ong.application.service.usecase.IListCategoryUseCase;
-import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
+import com.alkemy.ong.application.service.category.usecase.ICreateCategoryUseCase;
+import com.alkemy.ong.application.service.category.usecase.IDeleteCategoryUseCase;
+import com.alkemy.ong.application.service.category.usecase.IGetCategoryUseCase;
+import com.alkemy.ong.application.service.category.usecase.IListCategoryUseCase;
+import com.alkemy.ong.application.service.category.usecase.IUpdateCategoryUseCase;
 import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.infrastructure.common.PaginatedResultsRetrieved;
 import com.alkemy.ong.infrastructure.rest.mapper.CreateCategoryMapper;

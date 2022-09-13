@@ -1,8 +1,8 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.ICreateUserUseCase;
-import com.alkemy.ong.application.service.usecase.IGetUserUseCase;
-import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
+import com.alkemy.ong.application.service.user.usecase.ICreateUserUseCase;
+import com.alkemy.ong.application.service.user.usecase.IGetUserUseCase;
+import com.alkemy.ong.application.service.user.usecase.ILoginUserUseCase;
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.mapper.AuthenticationMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.GetUserDetailsMapper;

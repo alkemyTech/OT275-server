@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.ICreateContactUseCase;
-import com.alkemy.ong.application.service.usecase.IListContactUseCase;
+import com.alkemy.ong.application.service.contact.usecase.ICreateContactUseCase;
+import com.alkemy.ong.application.service.contact.usecase.IListContactUseCase;
 import com.alkemy.ong.domain.Contact;
 import com.alkemy.ong.infrastructure.rest.mapper.CreateContactMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.ListContactMapper;
