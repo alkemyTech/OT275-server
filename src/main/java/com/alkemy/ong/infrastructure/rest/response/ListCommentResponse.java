@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ListCommentResponse {
 
-  List<CommentResponse> comments;
+  private List<GetCommentResponse> comments;
+
 }

@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.comment;
 
 import com.alkemy.ong.domain.Comment;
-import com.alkemy.ong.infrastructure.rest.response.CommentResponse;
+import com.alkemy.ong.infrastructure.rest.response.GetCommentResponse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,24 +10,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class GetCommentMapper {
 
-  public CommentResponse toResponse(Comment comment) {
+  public GetCommentResponse toResponse(Comment comment) {
     if (comment == null) {
       return null;
     }
-    CommentResponse commentResponse = new CommentResponse();
-    commentResponse.setBody(comment.getBody());
-    return commentResponse;
+    GetCommentResponse getCommentResponse = new GetCommentResponse();
+    getCommentResponse.setBody(comment.getBody());
+    return getCommentResponse;
   }
 
-  public List<CommentResponse> toResponse(List<Comment> comments) {
+  public List<GetCommentResponse> toResponse(List<Comment> comments) {
     if (comments.isEmpty()) {
       return Collections.emptyList();
     }
-    List<CommentResponse> commentResponses = new ArrayList<>(comments.size());
+    List<GetCommentResponse> getCommentRespons = new ArrayList<>(comments.size());
     for (Comment comment : comments) {
-      commentResponses.add(toResponse(comment));
+      getCommentRespons.add(toResponse(comment));
     }
-    return commentResponses;
+    return getCommentRespons;
   }
 
 }

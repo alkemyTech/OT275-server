@@ -9,7 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CommentResponse {
+public class GetCommentResponse {
 
   private String body;
+
 }
