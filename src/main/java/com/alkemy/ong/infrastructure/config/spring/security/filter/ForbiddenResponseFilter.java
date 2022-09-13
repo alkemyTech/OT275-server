@@ -1,6 +1,6 @@
 package com.alkemy.ong.infrastructure.config.spring.security.filter;
 
-import com.alkemy.ong.infrastructure.rest.response.ErrorResponse;
+import com.alkemy.ong.infrastructure.rest.response.common.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;

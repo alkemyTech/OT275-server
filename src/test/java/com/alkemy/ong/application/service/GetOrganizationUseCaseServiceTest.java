@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.repository.IOrganizationRepository;
 import com.alkemy.ong.application.repository.ISlideRepository;
+import com.alkemy.ong.application.service.organization.GetOrganizationUseCaseService;
 import com.alkemy.ong.domain.Organization;
 import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;

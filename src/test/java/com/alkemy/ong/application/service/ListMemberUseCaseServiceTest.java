@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.alkemy.ong.application.repository.IMemberRepository;
+import com.alkemy.ong.application.service.member.ListMemberUseCaseService;
 import com.alkemy.ong.domain.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

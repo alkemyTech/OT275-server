@@ -1,14 +1,14 @@
 package com.alkemy.ong.infrastructure.rest.resource;
 
-import com.alkemy.ong.application.service.usecase.ICreateCommentUseCase;
-import com.alkemy.ong.application.service.usecase.IDeleteCommentUseCase;
-import com.alkemy.ong.application.service.usecase.IListCommentUseCase;
+import com.alkemy.ong.application.service.comment.usecase.ICreateCommentUseCase;
+import com.alkemy.ong.application.service.comment.usecase.IDeleteCommentUseCase;
+import com.alkemy.ong.application.service.comment.usecase.IListCommentUseCase;
 import com.alkemy.ong.domain.Comment;
-import com.alkemy.ong.infrastructure.rest.mapper.CreateCommentMapper;
-import com.alkemy.ong.infrastructure.rest.mapper.ListCommentMapper;
-import com.alkemy.ong.infrastructure.rest.request.CreateCommentRequest;
-import com.alkemy.ong.infrastructure.rest.response.CreateCommentResponse;
-import com.alkemy.ong.infrastructure.rest.response.ListCommentResponse;
+import com.alkemy.ong.infrastructure.rest.mapper.comment.CreateCommentMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.comment.ListCommentMapper;
+import com.alkemy.ong.infrastructure.rest.request.comment.CreateCommentRequest;
+import com.alkemy.ong.infrastructure.rest.response.comment.CreateCommentResponse;
+import com.alkemy.ong.infrastructure.rest.response.common.ListCommentResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

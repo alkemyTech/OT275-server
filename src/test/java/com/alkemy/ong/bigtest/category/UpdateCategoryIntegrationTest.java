@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.alkemy.ong.bigtest.BigTest;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
-import com.alkemy.ong.infrastructure.rest.request.UpdateCategoryRequest;
+import com.alkemy.ong.infrastructure.rest.request.category.UpdateCategoryRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.Optional;
 import org.junit.Test;
