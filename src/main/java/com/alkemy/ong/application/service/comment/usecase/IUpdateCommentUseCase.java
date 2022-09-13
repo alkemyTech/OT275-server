@@ -1,4 +1,4 @@
-package com.alkemy.ong.application.service.usecase;
+package com.alkemy.ong.application.service.comment.usecase;
 
 import com.alkemy.ong.domain.Comment;
 

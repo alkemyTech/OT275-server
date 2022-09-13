@@ -1,8 +1,8 @@
-package com.alkemy.ong.infrastructure.rest.mapper;
+package com.alkemy.ong.infrastructure.rest.mapper.comment;
 
 import com.alkemy.ong.domain.Comment;
-import com.alkemy.ong.infrastructure.rest.request.UpdateCommentRequest;
-import com.alkemy.ong.infrastructure.rest.response.CommentResponse;
+import com.alkemy.ong.infrastructure.rest.request.comment.UpdateCommentRequest;
+import com.alkemy.ong.infrastructure.rest.response.comment.CommentResponse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
