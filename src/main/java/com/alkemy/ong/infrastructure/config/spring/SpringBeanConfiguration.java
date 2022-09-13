@@ -41,6 +41,7 @@ import com.alkemy.ong.application.service.ListUserUseCaseService;
 import com.alkemy.ong.application.service.LoginUserUseCaseService;
 import com.alkemy.ong.application.service.UpdateActivityUseCaseService;
 import com.alkemy.ong.application.service.UpdateCategoryUserCaseService;
+import com.alkemy.ong.application.service.UpdateCommentUseCase;
 import com.alkemy.ong.application.service.UpdateNewsUseCaseService;
 import com.alkemy.ong.application.service.UpdateOrganizationUseCaseService;
 import com.alkemy.ong.application.service.UpdateSlideUseCaseService;
@@ -77,6 +78,7 @@ import com.alkemy.ong.application.service.usecase.IListUserUseCase;
 import com.alkemy.ong.application.service.usecase.ILoginUserUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateActivityUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateCategoryUseCase;
+import com.alkemy.ong.application.service.usecase.IUpdateCommentUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateNewsUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateOrganizationUseCase;
 import com.alkemy.ong.application.service.usecase.IUpdateSlideUseCase;
@@ -144,6 +146,12 @@ public class SpringBeanConfiguration {
       IUserRepository userRepository,
       INewsRepository newsRepository) {
     return new CreateCommentUseCaseService(commentRepository, userRepository, newsRepository);
+  }
+
+  @Bean
+  public IUpdateCommentUseCase updateCommentUseCase(ICommentRepository commentRepository,
+      IOperationAllowed operationAllowed) {
+    return new UpdateCommentUseCase(commentRepository,operationAllowed);
   }
 
   @Bean
