@@ -4,10 +4,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import com.alkemy.ong.OngApplication;
 import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
+import com.alkemy.ong.infrastructure.database.entity.ActivityEntity;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
 import com.alkemy.ong.infrastructure.database.entity.RoleEntity;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
+import com.alkemy.ong.infrastructure.database.repository.abstraction.IActivitySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizationSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
@@ -66,6 +68,9 @@ public abstract class BigTest {
 
   @Autowired
   protected ICategorySpringRepository categoryRepository;
+
+  @Autowired
+  protected IActivitySpringRepository activityRepository;
 
   @Before
   public void setup() {
@@ -203,6 +208,31 @@ public abstract class BigTest {
 
   protected void deleteCategory(Long categoryId) {
     categoryRepository.deleteById(categoryId);
+  }
+
+  protected Long getRandomActivityId() {
+    ActivityEntity randomActivity = getRandomActivity();
+    return randomActivity.getActivityId();
+  }
+
+  protected ActivityEntity getRandomActivity() {
+    return activityRepository.save(buildActivity(
+        "My Activity",
+        "Activity content",
+        "https://s3.com/my-activity.jpg"));
+  }
+
+  protected ActivityEntity buildActivity(String name, String content, String image) {
+    ActivityEntity activityEntity = new ActivityEntity();
+    activityEntity.setName(name);
+    activityEntity.setContent(content);
+    activityEntity.setImageUrl(image);
+    activityEntity.setSoftDeleted(false);
+    return activityEntity;
+  }
+
+  protected void deleteActivity(Long activityId) {
+    activityRepository.deleteById(activityId);
   }
 
   protected String convert(Object requestObject) throws JsonProcessingException {
