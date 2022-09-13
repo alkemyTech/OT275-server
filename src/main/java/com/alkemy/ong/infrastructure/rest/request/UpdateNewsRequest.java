@@ -1,6 +1,5 @@
 package com.alkemy.ong.infrastructure.rest.request;
 
-import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.infrastructure.rest.request.validation.AlphanumericWithWhiteSpaces;
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
 import javax.validation.constraints.Size;
@@ -18,6 +17,6 @@ public class UpdateNewsRequest {
   @AlphanumericWithWhiteSpaces(message = "Content must be alphanumeric.")
   private String text;
   private String image;
-  private Long category;
+  private Long categoryId;
 
 }

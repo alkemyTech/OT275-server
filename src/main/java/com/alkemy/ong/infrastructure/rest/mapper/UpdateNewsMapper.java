@@ -1,6 +1,5 @@
 package com.alkemy.ong.infrastructure.rest.mapper;
 
-import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.News;
 import com.alkemy.ong.infrastructure.rest.request.UpdateNewsRequest;
@@ -23,13 +22,6 @@ public class UpdateNewsMapper {
     news.setName(updateNewsRequest.getName());
     news.setContent(updateNewsRequest.getText());
     news.setImageUrl(updateNewsRequest.getImage());
-    if (updateNewsRequest.getCategory() != null) {
-      Category category = new Category();
-      category.setId(updateNewsRequest.getCategory());
-      news.setCategory(category);
-
-    }
-
     return news;
   }
 
