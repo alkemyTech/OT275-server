@@ -1,6 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper;
 
 import com.alkemy.ong.domain.Comment;
+import com.alkemy.ong.infrastructure.rest.request.UpdateCommentRequest;
 import com.alkemy.ong.infrastructure.rest.response.CommentResponse;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +10,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CommentMapper {
+
+  public Comment toDomain(Long id, UpdateCommentRequest request) {
+    if (request == null) {
+      return null;
+    }
+    Comment comment = new Comment();
+    comment.setId(id);
+    comment.setBody(request.getBody());
+    return comment;
+  }
 
   public CommentResponse toResponse(Comment comment) {
     if (comment == null) {
