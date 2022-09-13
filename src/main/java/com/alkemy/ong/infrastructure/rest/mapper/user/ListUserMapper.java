@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.user;
 
 import com.alkemy.ong.domain.User;
-import com.alkemy.ong.infrastructure.rest.response.ListUserResponse;
+import com.alkemy.ong.infrastructure.rest.response.user.ListUserResponse;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

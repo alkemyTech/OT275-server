@@ -1,8 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.contact;
 
 import com.alkemy.ong.domain.Contact;
-import com.alkemy.ong.infrastructure.rest.mapper.contact.GetContactMapper;
-import com.alkemy.ong.infrastructure.rest.response.ListContactResponse;
+import com.alkemy.ong.infrastructure.rest.response.contact.ListContactResponse;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

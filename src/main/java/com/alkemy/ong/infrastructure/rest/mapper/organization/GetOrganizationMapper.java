@@ -3,7 +3,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.organization;
 import com.alkemy.ong.domain.Organization;
 import com.alkemy.ong.infrastructure.rest.mapper.common.SocialMediaMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.slide.SlideWithTextMapper;
-import com.alkemy.ong.infrastructure.rest.response.GetOrganizationResponse;
+import com.alkemy.ong.infrastructure.rest.response.organization.GetOrganizationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

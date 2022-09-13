@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.user;
 
 import com.alkemy.ong.domain.User;
-import com.alkemy.ong.infrastructure.rest.response.GetUserDetailsResponse;
+import com.alkemy.ong.infrastructure.rest.response.user.GetUserDetailsResponse;
 import org.springframework.stereotype.Component;
 
 @Component

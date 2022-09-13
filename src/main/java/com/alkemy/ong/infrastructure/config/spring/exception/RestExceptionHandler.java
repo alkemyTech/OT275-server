@@ -4,7 +4,7 @@ import com.alkemy.ong.application.exception.InvalidCredentialsException;
 import com.alkemy.ong.application.exception.ObjectNotFoundException;
 import com.alkemy.ong.application.exception.OperationNotPermittedException;
 import com.alkemy.ong.application.exception.UserAlreadyExistsException;
-import com.alkemy.ong.infrastructure.rest.response.ErrorResponse;
+import com.alkemy.ong.infrastructure.rest.response.common.ErrorResponse;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;

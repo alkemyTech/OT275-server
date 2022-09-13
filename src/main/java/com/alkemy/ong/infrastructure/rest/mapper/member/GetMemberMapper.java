@@ -2,7 +2,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.member;
 
 import com.alkemy.ong.domain.Member;
 import com.alkemy.ong.infrastructure.rest.mapper.common.SocialMediaMapper;
-import com.alkemy.ong.infrastructure.rest.response.GetMemberResponse;
+import com.alkemy.ong.infrastructure.rest.response.member.GetMemberResponse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

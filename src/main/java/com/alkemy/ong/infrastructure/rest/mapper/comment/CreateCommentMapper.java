@@ -4,7 +4,7 @@ import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.News;
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.request.comment.CreateCommentRequest;
-import com.alkemy.ong.infrastructure.rest.response.CreateCommentResponse;
+import com.alkemy.ong.infrastructure.rest.response.comment.CreateCommentResponse;
 import org.springframework.stereotype.Component;
 
 @Component

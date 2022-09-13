@@ -3,7 +3,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.organization;
 import com.alkemy.ong.domain.Organization;
 import com.alkemy.ong.infrastructure.rest.mapper.common.SocialMediaMapper;
 import com.alkemy.ong.infrastructure.rest.request.organization.UpdateOrganizationRequest;
-import com.alkemy.ong.infrastructure.rest.response.UpdateOrganizationResponse;
+import com.alkemy.ong.infrastructure.rest.response.organization.UpdateOrganizationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

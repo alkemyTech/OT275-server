@@ -2,7 +2,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.activity;
 
 import com.alkemy.ong.domain.Activity;
 import com.alkemy.ong.infrastructure.rest.request.activity.CreateActivityRequest;
-import com.alkemy.ong.infrastructure.rest.response.CreateActivityResponse;
+import com.alkemy.ong.infrastructure.rest.response.activity.CreateActivityResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

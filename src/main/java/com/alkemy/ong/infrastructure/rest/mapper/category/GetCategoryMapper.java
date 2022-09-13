@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.category;
 
 import com.alkemy.ong.domain.Category;
-import com.alkemy.ong.infrastructure.rest.response.GetCategoryResponse;
+import com.alkemy.ong.infrastructure.rest.response.category.GetCategoryResponse;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;

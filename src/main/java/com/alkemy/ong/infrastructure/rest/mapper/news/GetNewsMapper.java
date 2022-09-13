@@ -2,7 +2,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.news;
 
 import com.alkemy.ong.domain.News;
 import com.alkemy.ong.infrastructure.rest.mapper.category.GetCategoryMapper;
-import com.alkemy.ong.infrastructure.rest.response.GetNewsResponse;
+import com.alkemy.ong.infrastructure.rest.response.news.GetNewsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

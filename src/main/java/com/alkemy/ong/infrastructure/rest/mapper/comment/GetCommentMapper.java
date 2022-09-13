@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.comment;
 
 import com.alkemy.ong.domain.Comment;
-import com.alkemy.ong.infrastructure.rest.response.GetCommentResponse;
+import com.alkemy.ong.infrastructure.rest.response.comment.GetCommentResponse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

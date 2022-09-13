@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.slide;
 
 import com.alkemy.ong.domain.Slide;
-import com.alkemy.ong.infrastructure.rest.response.ListSlideResponse;
+import com.alkemy.ong.infrastructure.rest.response.slide.ListSlideResponse;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

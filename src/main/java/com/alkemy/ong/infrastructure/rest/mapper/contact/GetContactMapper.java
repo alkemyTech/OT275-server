@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.contact;
 
 import com.alkemy.ong.domain.Contact;
-import com.alkemy.ong.infrastructure.rest.response.GetContactResponse;
+import com.alkemy.ong.infrastructure.rest.response.contact.GetContactResponse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

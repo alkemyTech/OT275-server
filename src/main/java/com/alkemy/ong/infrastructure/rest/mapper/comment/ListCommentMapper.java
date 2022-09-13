@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.comment;
 
 import com.alkemy.ong.domain.Comment;
-import com.alkemy.ong.infrastructure.rest.response.ListCommentResponse;
+import com.alkemy.ong.infrastructure.rest.response.common.ListCommentResponse;
 import java.util.Collections;
 import java.util.List;
 import lombok.AllArgsConstructor;

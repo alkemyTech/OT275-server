@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.member;
 
 import com.alkemy.ong.domain.Member;
-import com.alkemy.ong.infrastructure.rest.response.ListMemberResponse;
+import com.alkemy.ong.infrastructure.rest.response.news.ListMemberResponse;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

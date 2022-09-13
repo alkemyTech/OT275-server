@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.slide;
 
 import com.alkemy.ong.domain.Slide;
-import com.alkemy.ong.infrastructure.rest.response.SlideWithTextResponse;
+import com.alkemy.ong.infrastructure.rest.response.slide.SlideWithTextResponse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

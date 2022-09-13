@@ -1,7 +1,7 @@
 package com.alkemy.ong.infrastructure.rest.mapper.category;
 
 import com.alkemy.ong.domain.Category;
-import com.alkemy.ong.infrastructure.rest.response.ListCategoryResponse;
+import com.alkemy.ong.infrastructure.rest.response.category.ListCategoryResponse;
 import java.util.Collections;
 import java.util.List;
 import lombok.AllArgsConstructor;

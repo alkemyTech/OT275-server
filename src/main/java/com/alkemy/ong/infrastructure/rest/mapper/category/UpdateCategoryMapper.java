@@ -3,7 +3,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.category;
 import com.alkemy.ong.domain.Category;
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.infrastructure.rest.request.category.UpdateCategoryRequest;
-import com.alkemy.ong.infrastructure.rest.response.UpdateCategoryResponse;
+import com.alkemy.ong.infrastructure.rest.response.category.UpdateCategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

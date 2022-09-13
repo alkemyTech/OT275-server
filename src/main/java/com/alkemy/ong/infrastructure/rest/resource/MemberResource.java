@@ -5,7 +5,7 @@ import com.alkemy.ong.application.service.member.usecase.IListMemberUseCase;
 import com.alkemy.ong.domain.Member;
 import com.alkemy.ong.infrastructure.common.PaginatedResultsRetrieved;
 import com.alkemy.ong.infrastructure.rest.mapper.member.ListMemberMapper;
-import com.alkemy.ong.infrastructure.rest.response.ListMemberResponse;
+import com.alkemy.ong.infrastructure.rest.response.news.ListMemberResponse;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

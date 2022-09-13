@@ -2,7 +2,7 @@ package com.alkemy.ong.infrastructure.rest.mapper.user;
 
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.request.user.AuthenticationRequest;
-import com.alkemy.ong.infrastructure.rest.response.AuthenticationResponse;
+import com.alkemy.ong.infrastructure.rest.response.user.AuthenticationResponse;
 import org.springframework.stereotype.Component;
 
 @Component
