@@ -14,7 +14,6 @@ import com.alkemy.ong.infrastructure.rest.request.CreateNewsRequest;
 import com.alkemy.ong.infrastructure.rest.request.UpdateNewsRequest;
 import com.alkemy.ong.infrastructure.rest.response.GetNewsResponse;
 import com.alkemy.ong.infrastructure.rest.response.GetNewsWithCommentsResponse;
-import com.alkemy.ong.infrastructure.rest.response.UpdateNewsResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -74,11 +73,10 @@ public class NewsResource {
       value = "/{id}",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<UpdateNewsResponse> update(@PathVariable Long id,
+  public ResponseEntity<GetNewsResponse> update(@PathVariable Long id,
       @Valid @RequestBody UpdateNewsRequest updateNewsRequest) {
     News news = updateNewsMapper.toDomain(() -> id, updateNewsRequest);
-    News updatedNews = updateNewsUseCase.update(news);
-    return ResponseEntity.ok(updateNewsMapper.toResponse(updatedNews));
+    return ResponseEntity.ok(updateNewsMapper.toResponse(updateNewsUseCase.update(news)));
   }
 }
 
