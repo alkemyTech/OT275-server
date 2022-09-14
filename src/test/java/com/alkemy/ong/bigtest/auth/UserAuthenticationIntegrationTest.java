@@ -20,10 +20,13 @@ public class UserAuthenticationIntegrationTest extends BigTest {
 
   private static final String URL = "/auth/login";
 
+  private static AuthenticationRequest buildUserAuthenticationRequest(String email, String password) {
+    return new AuthenticationRequest(email, password);
+  }
   @Test
   public void shouldReturnTokenWhenCredentialsAreValid() throws Exception {
     mockMvc.perform(post(URL)
-            .content(createRequest("jason@voorhees.com", "abcd1234"))
+            .content(buildRequest("jason@voorhees.com", "abcd1234"))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.token", notNullValue()))
         .andExpect(jsonPath("$.firstName", equalTo("Jason")))
@@ -34,7 +37,7 @@ public class UserAuthenticationIntegrationTest extends BigTest {
   @Test
   public void shouldReturnIsForbiddenStatusCodeWhenCredentialsAreInvalid() throws Exception {
     mockMvc.perform(post(URL)
-            .content(createRequest("robert@martin.com", "wrongPassword"))
+            .content(buildRequest("robert@martin.com", "wrongPassword"))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.statusCode", equalTo(403)))
         .andExpect(jsonPath("$.message", equalTo("Invalid credentials.")))
@@ -46,7 +49,7 @@ public class UserAuthenticationIntegrationTest extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenCredentialsHaveInvalidFormat() throws Exception {
     mockMvc.perform(post(URL)
-            .content(createRequest("wrongEmailFormat", "wrongPasswordFormat"))
+            .content(buildRequest("wrongEmailFormat", "wrongPasswordFormat"))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo("Invalid input data.")))
@@ -57,8 +60,7 @@ public class UserAuthenticationIntegrationTest extends BigTest {
         .andExpect(status().isBadRequest());
   }
 
-  private String createRequest(String email, String password) throws JsonProcessingException {
-    AuthenticationRequest authenticationRequest = new AuthenticationRequest(email, password);
-    return objectMapper.writeValueAsString(authenticationRequest);
+  private String buildRequest(String email, String password) throws JsonProcessingException {
+    return convert(buildUserAuthenticationRequest(email, password));
   }
 }
