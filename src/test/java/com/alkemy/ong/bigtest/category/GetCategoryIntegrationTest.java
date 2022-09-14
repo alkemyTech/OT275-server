@@ -9,7 +9,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.alkemy.ong.bigtest.BigTest;
-import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 
@@ -36,8 +35,8 @@ public class GetCategoryIntegrationTest extends BigTest {
 
     mockMvc.perform(get(URL, nonExistingCategoryId)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
-        .andExpect(jsonPath("$.statusCode", IsEqual.equalTo(404)))
-        .andExpect(jsonPath("$.message", IsEqual.equalTo(OBJECT_NOT_FOUND_MESSAGE)))
+        .andExpect(jsonPath("$.statusCode", equalTo(404)))
+        .andExpect(jsonPath("$.message", equalTo(OBJECT_NOT_FOUND_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
         .andExpect(jsonPath("$.moreInfo", hasItem("Category not found.")))
         .andExpect(status().isNotFound());
@@ -49,8 +48,8 @@ public class GetCategoryIntegrationTest extends BigTest {
 
     mockMvc.perform(get(URL, String.valueOf(randomCategoryId))
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
-        .andExpect(jsonPath("$.statusCode", IsEqual.equalTo(403)))
-        .andExpect(jsonPath("$.message", IsEqual.equalTo(ACCESS_DENIED_MESSAGE)))
+        .andExpect(jsonPath("$.statusCode", equalTo(403)))
+        .andExpect(jsonPath("$.message", equalTo(ACCESS_DENIED_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
         .andExpect(jsonPath("$.moreInfo", hasItem(ACCESS_DENIED_MORE_INFO)))
         .andExpect(status().isForbidden());
