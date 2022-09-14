@@ -3,6 +3,7 @@ package com.alkemy.ong.bigtest.category;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -12,16 +13,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.alkemy.ong.bigtest.BigTest;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import com.alkemy.ong.infrastructure.rest.request.category.CreateCategoryRequest;
-import com.alkemy.ong.infrastructure.rest.response.category.CreateCategoryResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import java.io.UnsupportedEncodingException;
+import com.jayway.jsonpath.JsonPath;
 import java.util.Optional;
 import org.hamcrest.Matchers;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MvcResult;
 
 public class CreateCategoryIntegrationTest extends BigTest {
 
@@ -30,26 +29,18 @@ public class CreateCategoryIntegrationTest extends BigTest {
   private static final String CATEGORY_DESCRIPTION = "Category description";
   private static final String CATEGORY_IMAGE = "https://s3.com/image.jpg";
 
-  private static CreateCategoryRequest buildCreateCategoryRequest(String categoryName) {
-    CreateCategoryRequest request = new CreateCategoryRequest();
-    request.setName(categoryName);
-    request.setDescription(CATEGORY_DESCRIPTION);
-    request.setImage(CATEGORY_IMAGE);
-    return request;
-  }
-
   @Test
   public void shouldCreateCategoryWhenUserHasAdminRole() throws Exception {
-    MvcResult result = mockMvc.perform(post(URL)
+    String result = mockMvc.perform(post(URL)
             .content(buildRequest(buildCreateCategoryRequest(CATEGORY_NAME)))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.name", equalTo(CATEGORY_NAME)))
         .andExpect(jsonPath("$.description", equalTo(CATEGORY_DESCRIPTION)))
         .andExpect(jsonPath("$.image", equalTo(CATEGORY_IMAGE)))
-        .andExpect(status().isCreated()).andReturn();
-    CreateCategoryResponse response = buildResponse(result);
-    assertCategoryHasBeenCreated(response.getId());
+        .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
+    Integer categoryId = JsonPath.read(result,"$.id");
+    assertCategoryHasBeenCreated(categoryId.longValue());
   }
 
   @Test
@@ -92,22 +83,26 @@ public class CreateCategoryIntegrationTest extends BigTest {
         .andExpect(status().isForbidden());
   }
 
+  private CreateCategoryRequest buildCreateCategoryRequest(String categoryName) {
+    CreateCategoryRequest request = new CreateCategoryRequest();
+    request.setName(categoryName);
+    request.setDescription(CATEGORY_DESCRIPTION);
+    request.setImage(CATEGORY_IMAGE);
+    return request;
+  }
+
   private String buildRequest(CreateCategoryRequest categoryRequest)
       throws JsonProcessingException {
     return convert(categoryRequest);
   }
 
-  private CreateCategoryResponse buildResponse(MvcResult result)
-      throws UnsupportedEncodingException, JsonProcessingException {
-    String jsonString = result.getResponse().getContentAsString();
-    return (CreateCategoryResponse) convert(jsonString, CreateCategoryResponse.class);
-  }
-
   private void assertCategoryHasBeenCreated(Long createdCategoryId) {
-    Optional<CategoryEntity> category = categoryRepository.exists(createdCategoryId);
+    Optional<CategoryEntity> category = categoryRepository.findById(createdCategoryId);
     assertTrue(category.isPresent());
+    assertEquals(CATEGORY_NAME,category.get().getName());
+    assertEquals(CATEGORY_DESCRIPTION,category.get().getDescription());
+    assertEquals(CATEGORY_IMAGE,category.get().getImageUrl());
     assertThat(category.get().isSoftDeleted()).isFalse();
-    categoryRepository.delete(category.get());
   }
 
 }

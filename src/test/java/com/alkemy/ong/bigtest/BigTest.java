@@ -262,8 +262,4 @@ public abstract class BigTest {
     return objectMapper.writeValueAsString(requestObject);
   }
 
-  protected Object convert(String jsonString,Class<?> type) throws JsonProcessingException {
-    return objectMapper.readValue(jsonString,type);
-  }
-
 }
