@@ -16,4 +16,6 @@ public interface ICommentRepository {
   List<Comment> findAllOrderedByTimestamp();
 
   Comment create(Comment comment);
+
+  Comment update(Comment comment);
 }

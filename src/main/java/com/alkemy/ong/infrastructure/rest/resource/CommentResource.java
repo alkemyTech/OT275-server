@@ -3,11 +3,15 @@ package com.alkemy.ong.infrastructure.rest.resource;
 import com.alkemy.ong.application.service.comment.usecase.ICreateCommentUseCase;
 import com.alkemy.ong.application.service.comment.usecase.IDeleteCommentUseCase;
 import com.alkemy.ong.application.service.comment.usecase.IListCommentUseCase;
+import com.alkemy.ong.application.service.comment.usecase.IUpdateCommentUseCase;
 import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.infrastructure.rest.mapper.comment.CreateCommentMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.comment.ListCommentMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.comment.UpdateCommentMapper;
 import com.alkemy.ong.infrastructure.rest.request.comment.CreateCommentRequest;
+import com.alkemy.ong.infrastructure.rest.request.comment.UpdateCommentRequest;
 import com.alkemy.ong.infrastructure.rest.response.comment.CreateCommentResponse;
+import com.alkemy.ong.infrastructure.rest.response.comment.GetCommentResponse;
 import com.alkemy.ong.infrastructure.rest.response.common.ListCommentResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,8 +35,11 @@ public class CommentResource {
   private final IDeleteCommentUseCase deleteCommentUseCase;
   private final IListCommentUseCase listCommentUseCase;
   private final ICreateCommentUseCase createCommentUseCase;
+  private final IUpdateCommentUseCase updateCommentUseCase;
+  private final UpdateCommentMapper updateCommentMapper;
   private final ListCommentMapper listCommentMapper;
   private final CreateCommentMapper createCommentMapper;
+
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -54,5 +62,16 @@ public class CommentResource {
         createCommentMapper.toDomain(createCommentRequest));
     CreateCommentResponse response = createCommentMapper.toResponse(savedComment);
     return new ResponseEntity<>(response, HttpStatus.CREATED);
+  }
+
+  @PutMapping(
+      value = "/{id}",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<GetCommentResponse> update(
+      @PathVariable Long id,
+      @RequestBody UpdateCommentRequest request) {
+    Comment comment = updateCommentUseCase.update(updateCommentMapper.toDomain(id, request));
+    return ResponseEntity.ok().body(updateCommentMapper.toResponse(comment));
   }
 }

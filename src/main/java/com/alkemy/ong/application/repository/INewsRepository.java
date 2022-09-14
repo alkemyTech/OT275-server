@@ -2,6 +2,8 @@ package com.alkemy.ong.application.repository;
 
 import com.alkemy.ong.domain.Identifiable;
 import com.alkemy.ong.domain.News;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface INewsRepository {
 
@@ -16,5 +18,7 @@ public interface INewsRepository {
   News add(News news);
 
   News update(News news);
+
+  Page<News> findAll(Pageable pageable);
 
 }
