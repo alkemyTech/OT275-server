@@ -44,6 +44,7 @@ public class CommentEntityMapper {
       return null;
     }
     CommentEntity entity = new CommentEntity();
+    entity.setCommentId(comment.getId());
     entity.setUser(userEntityMapper.toEntity(comment.getCreatedBy()));
     entity.setBody(comment.getBody());
     entity.setNews(newsEntityMapper.toEntity(comment.getAssociatedNews()));
