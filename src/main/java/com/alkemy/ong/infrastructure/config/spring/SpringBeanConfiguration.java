@@ -45,11 +45,13 @@ import com.alkemy.ong.application.service.news.CreateNewsUseCaseService;
 import com.alkemy.ong.application.service.news.DeleteNewsUseCaseService;
 import com.alkemy.ong.application.service.news.GetNewsUseCaseService;
 import com.alkemy.ong.application.service.news.GetNewsWithCommentsUseCaseService;
+import com.alkemy.ong.application.service.news.ListNewsUseCaseService;
 import com.alkemy.ong.application.service.news.UpdateNewsUseCaseService;
 import com.alkemy.ong.application.service.news.usecase.ICreateNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IDeleteNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IGetNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IGetNewsWithCommentsUseCase;
+import com.alkemy.ong.application.service.news.usecase.IListNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IUpdateNewsUseCase;
 import com.alkemy.ong.application.service.organization.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.organization.UpdateOrganizationUseCaseService;
@@ -232,6 +234,11 @@ public class SpringBeanConfiguration {
   @Bean
   public IGetNewsUseCase getNewsUseCase(INewsRepository newsRepository) {
     return new GetNewsUseCaseService(newsRepository);
+  }
+
+  @Bean
+  public IListNewsUseCase listNewsUseCase(INewsRepository newsRepository) {
+    return new ListNewsUseCaseService(newsRepository);
   }
 
   @Bean
