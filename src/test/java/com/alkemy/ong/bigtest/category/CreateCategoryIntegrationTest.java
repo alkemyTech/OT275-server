@@ -16,7 +16,6 @@ import com.alkemy.ong.infrastructure.rest.request.category.CreateCategoryRequest
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jayway.jsonpath.JsonPath;
 import java.util.Optional;
-import org.hamcrest.Matchers;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
