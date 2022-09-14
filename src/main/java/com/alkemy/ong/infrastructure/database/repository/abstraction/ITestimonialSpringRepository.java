@@ -2,6 +2,8 @@ package com.alkemy.ong.infrastructure.database.repository.abstraction;
 
 import com.alkemy.ong.infrastructure.database.entity.TestimonialEntity;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +20,7 @@ public interface ITestimonialSpringRepository extends JpaRepository<TestimonialE
   @Query(value = "SELECT t FROM TestimonialEntity t "
       + "WHERE t.softDeleted = false AND t.testimonialId = :id")
   Optional<TestimonialEntity> exists(@Param("id") Long id);
+
+  Page<TestimonialEntity> findAllBySoftDeletedFalse(Pageable pageable);
 
 }
