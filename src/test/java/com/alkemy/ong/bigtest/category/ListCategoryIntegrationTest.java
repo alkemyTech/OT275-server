@@ -1,5 +1,6 @@
 package com.alkemy.ong.bigtest.category;
 
+import static org.hamcrest.Matchers.empty;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.hamcrest.Matchers.hasSize;
@@ -16,32 +17,36 @@ public class ListCategoryIntegrationTest extends BigTest {
   private static final String URL = "/categories";
 
   @Test
-  public void shouldListWithNewsCategoryWhenUserHasAdminRole() throws Exception {
+  public void shouldListCategoriesWithNewsDetailsWhenUserHasAdminRole() throws Exception {
+
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+        .andExpect(jsonPath("$.page", equalTo(0)))
+        .andExpect(jsonPath("$.size", equalTo(10)))
+        .andExpect(jsonPath("$.totalPages", equalTo(1)))
         .andExpect(jsonPath("$.categories", hasSize(1)))
         .andExpect(jsonPath("$.categories[0].name", equalTo("News")))
         .andExpect(status().isOk());
+
   }
 
   @Test
-  public void shouldListCategoriesWhenUserHasAdminRole() throws Exception {
-    String categoryName = getRandomCategory().getName();
+  public void shouldReturnEmptyListWhenThereAreNoCategories() throws Exception {
+    categoryRepository.deleteAll();
 
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
-        .andExpect(jsonPath("$.categories", hasSize(2)))
-        .andExpect(jsonPath("$.categories[0].name", equalTo("News")))
-        .andExpect(jsonPath("$.categories[1].name", equalTo(categoryName)))
+        .andExpect(jsonPath("$.page", equalTo(0)))
+        .andExpect(jsonPath("$.size", equalTo(10)))
+        .andExpect(jsonPath("$.totalPages", equalTo(0)))
+        .andExpect(jsonPath("$.categories").value(empty()))
         .andExpect(status().isOk());
-
   }
 
   @Test
   public void shouldReturnForbiddenWhenUserHasStandardRole() throws Exception {
-    Long randomCategoryId = getRandomCategoryId();
 
-    mockMvc.perform(get(URL, String.valueOf(randomCategoryId))
+    mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(403)))
         .andExpect(jsonPath("$.message", equalTo(ACCESS_DENIED_MESSAGE)))
