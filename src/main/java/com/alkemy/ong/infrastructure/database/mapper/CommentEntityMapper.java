@@ -24,9 +24,7 @@ public class CommentEntityMapper {
     comment.setBody(commentEntity.getBody());
     comment.setCreatedBy(userEntityMapper.toDomain(commentEntity.getUser()));
     comment.setAssociatedNews(newsEntityMapper.toDomain(commentEntity.getNews()));
-    if (commentEntity.getCreateTimestamp() != null) {
-      comment.setCreateTimestamp(commentEntity.getCreateTimestamp().getTime());
-    }
+    comment.setCreateTimestamp(commentEntity.getCreateTimestamp());
     return comment;
   }
 
@@ -46,16 +44,9 @@ public class CommentEntityMapper {
       return null;
     }
     CommentEntity entity = new CommentEntity();
-    if (comment.getId() != null) {
-      entity.setCommentId(comment.getId());
-    }
-    if (comment.getCreatedBy() != null) {
-      entity.setUser(userEntityMapper.toEntity(comment.getCreatedBy()));
-    }
+    entity.setUser(userEntityMapper.toEntity(comment.getCreatedBy()));
     entity.setBody(comment.getBody());
-    if (comment.getCreatedBy() != null) {
-      entity.setNews(newsEntityMapper.toEntity(comment.getAssociatedNews()));
-    }
+    entity.setNews(newsEntityMapper.toEntity(comment.getAssociatedNews()));
     return entity;
   }
 
