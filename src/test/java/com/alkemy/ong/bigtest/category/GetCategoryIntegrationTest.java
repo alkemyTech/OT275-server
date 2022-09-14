@@ -44,9 +44,7 @@ public class GetCategoryIntegrationTest extends BigTest {
 
   @Test
   public void shouldReturnForbiddenWhenUserHasStandardRole() throws Exception {
-    Long randomCategoryId = getRandomCategoryId();
-
-    mockMvc.perform(get(URL, String.valueOf(randomCategoryId))
+    mockMvc.perform(get(URL, "1")
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(403)))
         .andExpect(jsonPath("$.message", equalTo(ACCESS_DENIED_MESSAGE)))
