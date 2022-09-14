@@ -5,7 +5,7 @@ import com.alkemy.ong.application.service.comment.usecase.IDeleteCommentUseCase;
 import com.alkemy.ong.application.service.comment.usecase.IListCommentUseCase;
 import com.alkemy.ong.application.service.comment.usecase.IUpdateCommentUseCase;
 import com.alkemy.ong.domain.Comment;
-import com.alkemy.ong.infrastructure.rest.mapper.comment.CommentMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.comment.UpdateCommentMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.comment.CreateCommentMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.comment.ListCommentMapper;
 import com.alkemy.ong.infrastructure.rest.request.comment.CreateCommentRequest;
@@ -36,7 +36,7 @@ public class CommentResource {
   private final IListCommentUseCase listCommentUseCase;
   private final ICreateCommentUseCase createCommentUseCase;
   private final IUpdateCommentUseCase updateCommentUseCase;
-  private final CommentMapper commentMapper;
+  private final UpdateCommentMapper updateCommentMapper;
   private final ListCommentMapper listCommentMapper;
   private final CreateCommentMapper createCommentMapper;
 
@@ -71,7 +71,7 @@ public class CommentResource {
   public ResponseEntity<CommentResponse> update(
       @PathVariable Long id,
       @RequestBody UpdateCommentRequest request) {
-    Comment updatedComment = updateCommentUseCase.update(commentMapper.toDomain(id, request));
-    return ResponseEntity.ok().body(commentMapper.toResponse(updatedComment));
+    Comment updatedComment = updateCommentUseCase.update(updateCommentMapper.toDomain(id, request));
+    return ResponseEntity.ok().body(updateCommentMapper.toResponse(updatedComment));
   }
 }
