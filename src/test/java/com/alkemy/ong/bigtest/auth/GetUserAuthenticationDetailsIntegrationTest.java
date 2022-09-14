@@ -15,6 +15,16 @@ public class GetUserAuthenticationDetailsIntegrationTest extends BigTest {
   private static final String URL = "/auth/me";
 
   @Test
+  public void shouldReturn403WhenAuthenticationTokenIsNotValid() throws Exception {
+    mockMvc.perform(get(URL)
+            .header(HttpHeaders.AUTHORIZATION, "INVALID_TOKEN"))
+        .andExpect(jsonPath("$.statusCode", equalTo(403)))
+        .andExpect(jsonPath("$.message", equalTo(
+            "Access denied.")))
+        .andExpect(status().isForbidden());
+  }
+
+  @Test
   public void shouldReturnUserInformationWhenRequestHasValidToken() throws Exception {
     mockMvc.perform(get(URL)
             .contentType(MediaType.APPLICATION_JSON)
