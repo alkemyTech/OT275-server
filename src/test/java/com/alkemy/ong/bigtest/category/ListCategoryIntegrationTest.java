@@ -1,7 +1,9 @@
 package com.alkemy.ong.bigtest.category;
 
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.emptyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -26,6 +28,7 @@ public class ListCategoryIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.totalPages", equalTo(1)))
         .andExpect(jsonPath("$.categories", hasSize(1)))
         .andExpect(jsonPath("$.categories[0].name", equalTo("News")))
+        .andExpect(header().string("Link",emptyString()))
         .andExpect(status().isOk());
 
   }
@@ -40,6 +43,7 @@ public class ListCategoryIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.size", equalTo(10)))
         .andExpect(jsonPath("$.totalPages", equalTo(0)))
         .andExpect(jsonPath("$.categories").value(empty()))
+        .andExpect(header().string("Link",emptyString()))
         .andExpect(status().isOk());
   }
 
