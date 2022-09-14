@@ -1,13 +1,13 @@
 package com.alkemy.ong.bigtest.category;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.alkemy.ong.bigtest.BigTest;
@@ -39,8 +39,9 @@ public class CreateCategoryIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.description", equalTo(CATEGORY_DESCRIPTION)))
         .andExpect(jsonPath("$.image", equalTo(CATEGORY_IMAGE)))
         .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
-    Integer categoryId = JsonPath.read(result,"$.id");
-    assertCategoryHasBeenCreated(categoryId.longValue());
+
+    Integer categoryId = JsonPath.read(result, "$.id");
+    assertCategoryHasBeenCreated(Long.valueOf(categoryId));
   }
 
   @Test
@@ -52,8 +53,9 @@ public class CreateCategoryIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(2)))
-        .andExpect(jsonPath("$.moreInfo", Matchers.hasItem("Name cannot be empty.")))
-        .andExpect(jsonPath("$.moreInfo", Matchers.hasItem("Name must contain only spaces and letters.")))
+        .andExpect(jsonPath("$.moreInfo", hasItem("Name cannot be empty.")))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Name must contain only spaces and letters.")))
         .andExpect(status().isBadRequest());
   }
 
@@ -66,7 +68,8 @@ public class CreateCategoryIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
-        .andExpect(jsonPath("$.moreInfo", Matchers.hasItem("Name must contain only spaces and letters.")))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Name must contain only spaces and letters.")))
         .andExpect(status().isBadRequest());
   }
 
@@ -96,13 +99,13 @@ public class CreateCategoryIntegrationTest extends BigTest {
     return convert(categoryRequest);
   }
 
-  private void assertCategoryHasBeenCreated(Long createdCategoryId) {
-    Optional<CategoryEntity> category = categoryRepository.findById(createdCategoryId);
-    assertTrue(category.isPresent());
-    assertEquals(CATEGORY_NAME,category.get().getName());
-    assertEquals(CATEGORY_DESCRIPTION,category.get().getDescription());
-    assertEquals(CATEGORY_IMAGE,category.get().getImageUrl());
-    assertThat(category.get().isSoftDeleted()).isFalse();
+  private void assertCategoryHasBeenCreated(Long categoryId) {
+    Optional<CategoryEntity> categoryEntity = categoryRepository.findById(categoryId);
+    assertTrue(categoryEntity.isPresent());
+    assertEquals(CATEGORY_NAME, categoryEntity.get().getName());
+    assertEquals(CATEGORY_DESCRIPTION, categoryEntity.get().getDescription());
+    assertEquals(CATEGORY_IMAGE, categoryEntity.get().getImageUrl());
+    assertThat(categoryEntity.get().isSoftDeleted()).isFalse();
   }
 
 }
