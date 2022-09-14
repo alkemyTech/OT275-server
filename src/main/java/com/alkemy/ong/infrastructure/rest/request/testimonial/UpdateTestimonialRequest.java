@@ -1,4 +1,4 @@
-package com.alkemy.ong.infrastructure.rest.request.activity;
+package com.alkemy.ong.infrastructure.rest.request.testimonial;
 
 import com.alkemy.ong.infrastructure.rest.request.validation.AlphanumericWithWhiteSpaces;
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
@@ -9,17 +9,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateActivityRequest {
+public class UpdateTestimonialRequest {
 
-  @Size(message = "Name must be between 3 and 20 characters.", min = 3, max = 20)
   @NotEmpty(message = "Name cannot be empty.")
+  @Size(max = 50, message = "Name must be 50 characters or less.")
   @CharactersWithWhiteSpaces(message = "Name must contain only spaces and letters.")
   private String name;
 
-  @NotEmpty(message = "Content cannot be empty.")
-  @AlphanumericWithWhiteSpaces(message = "Content must be alphanumeric.")
+  @Size(max = 150, message = "Content must be 150 characters or less.")
+  @AlphanumericWithWhiteSpaces(message = "Content must be alphanumeric with white spaces.")
   private String content;
 
-  private String imageUrl;
+  private String image;
 
 }

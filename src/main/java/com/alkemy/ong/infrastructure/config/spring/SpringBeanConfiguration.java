@@ -28,9 +28,11 @@ import com.alkemy.ong.application.service.category.usecase.IUpdateCategoryUseCas
 import com.alkemy.ong.application.service.comment.CreateCommentUseCaseService;
 import com.alkemy.ong.application.service.comment.DeleteCommentUseCaseService;
 import com.alkemy.ong.application.service.comment.ListCommentUseCaseService;
+import com.alkemy.ong.application.service.comment.UpdateCommentUseCase;
 import com.alkemy.ong.application.service.comment.usecase.ICreateCommentUseCase;
 import com.alkemy.ong.application.service.comment.usecase.IDeleteCommentUseCase;
 import com.alkemy.ong.application.service.comment.usecase.IListCommentUseCase;
+import com.alkemy.ong.application.service.comment.usecase.IUpdateCommentUseCase;
 import com.alkemy.ong.application.service.contact.CreateContactUseCaseService;
 import com.alkemy.ong.application.service.contact.ListContactUseCaseService;
 import com.alkemy.ong.application.service.contact.usecase.ICreateContactUseCase;
@@ -45,11 +47,13 @@ import com.alkemy.ong.application.service.news.CreateNewsUseCaseService;
 import com.alkemy.ong.application.service.news.DeleteNewsUseCaseService;
 import com.alkemy.ong.application.service.news.GetNewsUseCaseService;
 import com.alkemy.ong.application.service.news.GetNewsWithCommentsUseCaseService;
+import com.alkemy.ong.application.service.news.ListNewsUseCaseService;
 import com.alkemy.ong.application.service.news.UpdateNewsUseCaseService;
 import com.alkemy.ong.application.service.news.usecase.ICreateNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IDeleteNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IGetNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IGetNewsWithCommentsUseCase;
+import com.alkemy.ong.application.service.news.usecase.IListNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IUpdateNewsUseCase;
 import com.alkemy.ong.application.service.organization.GetOrganizationUseCaseService;
 import com.alkemy.ong.application.service.organization.UpdateOrganizationUseCaseService;
@@ -67,8 +71,10 @@ import com.alkemy.ong.application.service.slide.usecase.IListSlideUseCase;
 import com.alkemy.ong.application.service.slide.usecase.IUpdateSlideUseCase;
 import com.alkemy.ong.application.service.testimonial.CreateTestimonialUseCaseService;
 import com.alkemy.ong.application.service.testimonial.DeleteTestimonialUseCaseService;
+import com.alkemy.ong.application.service.testimonial.UpdateTestimonialUseCaseService;
 import com.alkemy.ong.application.service.testimonial.usecase.ICreateTestimonialUseCase;
 import com.alkemy.ong.application.service.testimonial.usecase.IDeleteTestimonialUseCase;
+import com.alkemy.ong.application.service.testimonial.usecase.IUpdateTestimonialUseCase;
 import com.alkemy.ong.application.service.user.CreateUserUseCaseService;
 import com.alkemy.ong.application.service.user.DeleteUserUseCaseService;
 import com.alkemy.ong.application.service.user.GetUserUseCaseService;
@@ -144,6 +150,12 @@ public class SpringBeanConfiguration {
       IUserRepository userRepository,
       INewsRepository newsRepository) {
     return new CreateCommentUseCaseService(commentRepository, userRepository, newsRepository);
+  }
+
+  @Bean
+  public IUpdateCommentUseCase updateCommentUseCase(ICommentRepository commentRepository,
+      IOperationAllowed operationAllowed) {
+    return new UpdateCommentUseCase(commentRepository, operationAllowed);
   }
 
   @Bean
@@ -235,6 +247,11 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
+  public IListNewsUseCase listNewsUseCase(INewsRepository newsRepository) {
+    return new ListNewsUseCaseService(newsRepository);
+  }
+
+  @Bean
   public IGetNewsWithCommentsUseCase getNewsWithCommentsUseCase(
       INewsRepository newsRepository) {
     return new GetNewsWithCommentsUseCaseService(newsRepository);
@@ -276,6 +293,12 @@ public class SpringBeanConfiguration {
   @Bean
   public IGetUserUseCase getUserUseCase(IUserRepository userRepository) {
     return new GetUserUseCaseService((userRepository));
+  }
+
+  @Bean
+  public IUpdateTestimonialUseCase updateTestimonialUseCase(
+      ITestimonialRepository testimonialRepository) {
+    return new UpdateTestimonialUseCaseService(testimonialRepository);
   }
 
 }

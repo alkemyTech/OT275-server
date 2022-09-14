@@ -41,6 +41,7 @@ public class SlideEntityMapper {
     }
 
     SlideEntity entity = new SlideEntity();
+    entity.setSlideId(slide.getId());
     entity.setPosition(slide.getOrder());
     entity.setText(slide.getText());
     entity.setImageUrl(slide.getImageUrl());

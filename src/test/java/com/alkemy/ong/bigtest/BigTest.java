@@ -4,12 +4,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import com.alkemy.ong.OngApplication;
 import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
+import com.alkemy.ong.infrastructure.database.entity.ActivityEntity;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import com.alkemy.ong.infrastructure.database.entity.CommentEntity;
 import com.alkemy.ong.infrastructure.database.entity.NewsEntity;
 import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
 import com.alkemy.ong.infrastructure.database.entity.RoleEntity;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
+import com.alkemy.ong.infrastructure.database.repository.abstraction.IActivitySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICommentSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
@@ -48,6 +50,7 @@ public abstract class BigTest {
   protected static final String ACCESS_DENIED_MORE_INFO = "Access Denied. Contact your administrator.";
   protected static final String OBJECT_NOT_FOUND_MESSAGE = "Object not found in database.";
   protected static final String INVALID_INPUT_DATA_MESSAGE = "Invalid input data.";
+  protected static final String LINK_HEADER = "Link";
 
   private static final String PASSWORD_ENCODED = "$2a$10$6KLdPa9azXYgkMOo1zw16.JSngJvSGRvPqokwzi9vzO4OJLKS2bX2";
   private static final String PASSWORD = "abcd1234";
@@ -78,6 +81,9 @@ public abstract class BigTest {
   @Autowired
   protected ICommentSpringRepository commentRepository;
 
+  @Autowired
+  protected IActivitySpringRepository activityRepository;
+
   @Before
   public void setup() {
     createRoles();
@@ -96,6 +102,7 @@ public abstract class BigTest {
     commentRepository.deleteAll();
     newsRepository.deleteAll();
     categoryRepository.deleteAll();
+    activityRepository.deleteAll();
   }
 
   protected void cleanUsersData(UserEntity... users) {
@@ -228,8 +235,13 @@ public abstract class BigTest {
     return newsRepository.save(buildNews(name));
   }
 
-  private void saveCommentFor(Long newsId) {
-    commentRepository.save(buildComment(newsId));
+  private CommentEntity saveCommentFor(Long newsId) {
+    return commentRepository.save(buildComment(newsId));
+  }
+
+  protected Long getRandomCommentId() {
+    NewsEntity newsEntity = createNews("News for comment");
+    return saveCommentFor(newsEntity.getNewsId()).getCommentId();
   }
 
   protected Long getRandomCategoryId() {
@@ -255,6 +267,27 @@ public abstract class BigTest {
 
   protected void deleteCategory(Long categoryId) {
     categoryRepository.deleteById(categoryId);
+  }
+
+  protected Long getRandomActivityId() {
+    ActivityEntity randomActivity = getRandomActivity();
+    return randomActivity.getActivityId();
+  }
+
+  protected ActivityEntity getRandomActivity() {
+    return activityRepository.save(buildActivity(
+        "My Activity",
+        "Activity content",
+        "https://s3.com/my-activity.jpg"));
+  }
+
+  protected ActivityEntity buildActivity(String name, String content, String image) {
+    ActivityEntity activityEntity = new ActivityEntity();
+    activityEntity.setName(name);
+    activityEntity.setContent(content);
+    activityEntity.setImageUrl(image);
+    activityEntity.setSoftDeleted(false);
+    return activityEntity;
   }
 
   protected String convert(Object requestObject) throws JsonProcessingException {

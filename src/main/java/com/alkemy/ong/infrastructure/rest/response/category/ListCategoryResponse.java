@@ -1,6 +1,5 @@
 package com.alkemy.ong.infrastructure.rest.response.category;
 
-import com.alkemy.ong.infrastructure.rest.response.category.GetCategoryResponse;
 import com.alkemy.ong.infrastructure.rest.response.common.PaginationResponse;
 import java.util.List;
 import lombok.AllArgsConstructor;

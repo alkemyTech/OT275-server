@@ -1,6 +1,5 @@
 package com.alkemy.ong.infrastructure.rest.response.contact;
 
-import com.alkemy.ong.infrastructure.rest.response.contact.GetContactResponse;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
