@@ -35,8 +35,8 @@ public class GetNewsMapper {
       return Collections.emptyList();
     }
     List<GetNewsResponse> getNewsResponses = new ArrayList<>(news.size());
-    for (News n : news) {
-      getNewsResponses.add(toResponse(n));
+    for (News itemNews : news) {
+      getNewsResponses.add(toResponse(itemNews));
     }
     return getNewsResponses;
   }
