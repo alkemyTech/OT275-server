@@ -34,5 +34,10 @@ public class TestimonialRepository implements ITestimonialRepository {
     return testimonialEntityMapper.toDomain(testimonialSpringRepository.save(testimonialEntity));
   }
 
+  @Override
+  public Testimonial update(Testimonial testimonial) {
+    TestimonialEntity testimonialEntity = testimonialEntityMapper.toEntity(testimonial);
+    return testimonialEntityMapper.toDomain(testimonialSpringRepository.save(testimonialEntity));
+  }
 
 }

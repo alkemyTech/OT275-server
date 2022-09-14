@@ -10,4 +10,7 @@ public interface ITestimonialRepository {
   boolean exists(Identifiable<Long> identifiable);
 
   Testimonial save(Testimonial testimonial);
+
+  Testimonial update(Testimonial testimonial);
+
 }
