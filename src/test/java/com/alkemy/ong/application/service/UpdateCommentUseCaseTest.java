@@ -11,9 +11,6 @@ import com.alkemy.ong.application.repository.ICommentRepository;
 import com.alkemy.ong.application.service.comment.UpdateCommentUseCase;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.domain.Comment;
-
-
-import com.alkemy.ong.domain.Identifiable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
