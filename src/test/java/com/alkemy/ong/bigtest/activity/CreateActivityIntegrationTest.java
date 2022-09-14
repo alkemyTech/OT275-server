@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -13,6 +14,8 @@ import com.alkemy.ong.bigtest.BigTest;
 import com.alkemy.ong.builder.CreateActivityRequestBuilder;
 import com.alkemy.ong.infrastructure.database.entity.ActivityEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jayway.jsonpath.JsonPath;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
@@ -27,15 +30,19 @@ public class CreateActivityIntegrationTest extends BigTest {
 
   @Test
   public void shouldCreateActivityWhenUserHasAdminRole() throws Exception {
-    mockMvc.perform(post(URL)
+    String activityResponse = mockMvc.perform(post(URL)
             .content(buildRequest(NAME, CONTENT, IMAGE))
             .contentType(MediaType.APPLICATION_JSON)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.name", equalTo(NAME)))
         .andExpect(jsonPath("$.content", equalTo(CONTENT)))
         .andExpect(jsonPath("$.imageUrl", equalTo(IMAGE)))
-        .andExpect(status().isCreated());
-    assertActivityHasBeenCreated(NAME);
+        .andExpect(status().isCreated())
+        .andReturn()
+        .getResponse()
+        .getContentAsString(StandardCharsets.UTF_8);
+    Integer activityId = JsonPath.read(activityResponse, "$.id");
+    assertActivityHasBeenCreated(Long.valueOf(activityId));
   }
 
   @Test
@@ -94,7 +101,7 @@ public class CreateActivityIntegrationTest extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenNameContainsNumbers() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(NAME + "1234", CONTENT, IMAGE))
+            .content(buildRequest("My 4ct1vit1", CONTENT, IMAGE))
             .contentType(MediaType.APPLICATION_JSON)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
@@ -118,11 +125,13 @@ public class CreateActivityIntegrationTest extends BigTest {
         .andExpect(status().isBadRequest());
   }
 
-  private void assertActivityHasBeenCreated(String name) {
-    Optional<ActivityEntity> activityEntity = activityRepository.findByName(name);
+  private void assertActivityHasBeenCreated(Long idActivity) {
+    Optional<ActivityEntity> activityEntity = activityRepository.findById(idActivity);
     assertTrue(activityEntity.isPresent());
     assertThat(activityEntity.get().isSoftDeleted()).isFalse();
-    activityRepository.delete(activityEntity.get());
+    assertEquals("My Activity", activityEntity.get().getName());
+    assertEquals("My Activity content", activityEntity.get().getContent());
+    assertEquals("https://s3.com/default-image.jpg", activityEntity.get().getImageUrl());
   }
 
   private String buildRequest(String name, String content, String imageUrl)
