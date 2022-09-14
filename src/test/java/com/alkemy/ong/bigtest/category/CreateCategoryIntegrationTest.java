@@ -16,7 +16,6 @@ import com.alkemy.ong.infrastructure.rest.request.category.CreateCategoryRequest
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jayway.jsonpath.JsonPath;
 import java.util.Optional;
-import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -78,8 +77,8 @@ public class CreateCategoryIntegrationTest extends BigTest {
             .content(buildRequest(buildCreateCategoryRequest(CATEGORY_NAME)))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
-        .andExpect(jsonPath("$.statusCode", IsEqual.equalTo(403)))
-        .andExpect(jsonPath("$.message", IsEqual.equalTo(ACCESS_DENIED_MESSAGE)))
+        .andExpect(jsonPath("$.statusCode", equalTo(403)))
+        .andExpect(jsonPath("$.message", equalTo(ACCESS_DENIED_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
         .andExpect(jsonPath("$.moreInfo", hasItem(ACCESS_DENIED_MORE_INFO)))
         .andExpect(status().isForbidden());

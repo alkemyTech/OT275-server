@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.alkemy.ong.bigtest.BigTest;
-import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,8 +20,8 @@ public class GetUserAuthenticationDetailsIntegrationTest extends BigTest {
   public void shouldReturnForbiddenWhenAuthenticationTokenIsNotValid() throws Exception {
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, "INVALID_TOKEN"))
-        .andExpect(jsonPath("$.statusCode", IsEqual.equalTo(403)))
-        .andExpect(jsonPath("$.message", IsEqual.equalTo(ACCESS_DENIED_MESSAGE)))
+        .andExpect(jsonPath("$.statusCode", equalTo(403)))
+        .andExpect(jsonPath("$.message", equalTo(ACCESS_DENIED_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
         .andExpect(jsonPath("$.moreInfo", hasItem(ACCESS_DENIED_MORE_INFO)))
         .andExpect(status().isForbidden());
