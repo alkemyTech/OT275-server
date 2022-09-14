@@ -5,7 +5,7 @@ import com.alkemy.ong.application.service.testimonial.usecase.IDeleteTestimonial
 import com.alkemy.ong.domain.Testimonial;
 import com.alkemy.ong.infrastructure.rest.mapper.testimonial.CreateTestimonialMapper;
 import com.alkemy.ong.infrastructure.rest.request.testimonial.CreateTestimonialRequest;
-import com.alkemy.ong.infrastructure.rest.response.testimonial.CreateTestimonialResponse;
+import com.alkemy.ong.infrastructure.rest.response.testimonial.GetTestimonialResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ public class TestimonialResource {
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CreateTestimonialResponse> create(
+  public ResponseEntity<GetTestimonialResponse> create(
       @Valid @RequestBody CreateTestimonialRequest testimonialRequest) {
     Testimonial testimonial = createTestimonialUseCase.create(
         createTestimonialMapper.toDomain(testimonialRequest));
