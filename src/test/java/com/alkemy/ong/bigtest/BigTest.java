@@ -101,6 +101,7 @@ public abstract class BigTest {
     commentRepository.deleteAll();
     newsRepository.deleteAll();
     categoryRepository.deleteAll();
+    activityRepository.deleteAll();
   }
 
   protected void cleanUsersData(UserEntity... users) {
@@ -281,10 +282,6 @@ public abstract class BigTest {
     activityEntity.setImageUrl(image);
     activityEntity.setSoftDeleted(false);
     return activityEntity;
-  }
-
-  protected void deleteActivity(Long activityId) {
-    activityRepository.deleteById(activityId);
   }
 
   protected String convert(Object requestObject) throws JsonProcessingException {
