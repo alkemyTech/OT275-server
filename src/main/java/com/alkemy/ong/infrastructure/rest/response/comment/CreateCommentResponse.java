@@ -1,5 +1,6 @@
 package com.alkemy.ong.infrastructure.rest.response.comment;
 
+import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,5 +14,5 @@ public class CreateCommentResponse {
   private String body;
   private String createdBy;
   private String associatedNews;
-  private Long createTimestamp;
+  private Timestamp createTimestamp;
 }

@@ -33,15 +33,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String AUTH_ME_URL = "/auth/me";
   private static final String ORGANIZATION_PUBLIC_URL = "/organization/public";
   private static final String COMMENTS_URL = "/comments";
-  private static final String COMMENTS_ID_URL = "/comments/{id:[\\d+]}";
+  private static final String ID_PATH = "{id:[\\d+]}";
+  private static final String COMMENTS_ID_URL = "/comments/" + ID_PATH;
   private static final String SLIDES_URL = "/slides";
-  private static final String NEWS_ID_URL = "/news/{id:[\\d+]}";
+  private static final String NEWS_ID_URL = "/news/" + ID_PATH;
   private static final String NEWS_URL = "/news";
-  private static final String SLIDES_ID_URL = "/slides/{id:[\\d+]}";
-  private static final String CATEGORIES_ID_URL = "/categories/{id:[\\d+]}";
+  private static final String SLIDES_ID_URL = "/slides/" + ID_PATH;
+  private static final String CATEGORIES_ID_URL = "/categories/" + ID_PATH;
   private static final String CATEGORIES_URL = "/categories";
-  private static final String ACTIVITIES_ID_URL = "/activities/{id:[\\d+]}";
-  private static final String USERS_ID_URL = "/users/{id:[\\d+]}";
+  private static final String ACTIVITIES_ID_URL = "/activities/" + ID_PATH;
+  private static final String USERS_ID_URL = "/users/" + ID_PATH;
   private static final String MEMBERS_URL = "/members";
   private static final String PAGE_QUERY_PARAM = "page={page:[\\d+]}&size={size:[\\d+]}";
   private static final String MEMBERS_PAGING_URL = "/members?" + PAGE_QUERY_PARAM;
@@ -49,7 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String NEWS_PAGING_URL = "/news?" + PAGE_QUERY_PARAM;
   private static final String MEMBERS_ID_URL = "/members/{id:[\\d+]}";
   private static final String TESTIMONIALS_ID_URL = "/testimonials/{id:[\\d+]}";
-
+  private static final String ACTIVITIES_URL = "/activities";
+  private static final String USERS_URL = "/users";
+  private static final String NEWS_WITH_COMMENTS_URL = "/news/" + ID_PATH + "/comments";
+  private static final String CONTACTS_URL = "/contacts";
   private static final String TESTIMONIALS_URL = "/testimonials";
   private static final String[] DOCUMENTATION_PATHS = {"/api/docs",
       "/api/swagger-ui/**",
@@ -57,10 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       "/api/docs/oas/",
       "/api/docs/oas.yaml",
       "/documentation.yaml"};
-  private static final String ACTIVITIES_URL = "/activities";
-  private static final String USERS_URL = "/users";
-  private static final String NEWS_WITH_COMMENTS_URL = "/news/{id:[\\d+]}/comments";
-  private static final String CONTACTS_URL = "/contacts";
 
   @Autowired
   private UserDetailsService userDetailsService;
@@ -113,33 +113,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.GET, ORGANIZATION_PUBLIC_URL)
         .permitAll()
         .antMatchers(HttpMethod.PUT, NEWS_ID_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.PATCH, ORGANIZATION_PUBLIC_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, USERS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, SLIDES_ID_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.PUT, CATEGORIES_ID_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, CATEGORIES_ID_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, MEMBERS_URL)
-        .hasRole(Role.USER.name())
+        .hasAnyRole(Role.USER.name())
         .antMatchers(HttpMethod.GET, MEMBERS_PAGING_URL)
-        .hasRole(Role.USER.name())
+        .hasAnyRole(Role.USER.name())
         .antMatchers(HttpMethod.DELETE, MEMBERS_ID_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, TESTIMONIALS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.POST, COMMENTS_URL)
-        .hasRole(Role.USER.name())
+        .hasAnyRole(Role.USER.name())
         .antMatchers(HttpMethod.GET, COMMENTS_URL)
         .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
+        .antMatchers(HttpMethod.PUT,COMMENTS_ID_URL)
+        .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, COMMENTS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, NEWS_ID_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, NEWS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.POST, NEWS_URL)
@@ -149,27 +151,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.GET, SLIDES_URL)
         .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
         .antMatchers(HttpMethod.GET, CATEGORIES_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, CATEGORIES_PAGING_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.POST, CATEGORIES_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, CATEGORIES_ID_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.DELETE, SLIDES_ID_URL)
         .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
         .antMatchers(HttpMethod.POST, SLIDES_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.POST, ACTIVITIES_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, USERS_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.PUT, ACTIVITIES_ID_URL)
         .hasAnyRole(Role.ADMIN.name())
         .antMatchers(HttpMethod.PUT, USERS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, NEWS_WITH_COMMENTS_URL)
-        .hasRole(Role.USER.name())
+        .hasAnyRole(Role.USER.name())
         .antMatchers(HttpMethod.POST, CONTACTS_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.GET, CONTACTS_URL)
@@ -179,7 +181,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.PUT, TESTIMONIALS_ID_URL)
         .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
         .antMatchers(HttpMethod.PUT, SLIDES_ID_URL)
-        .hasRole(Role.ADMIN.name())
+        .hasAnyRole(Role.ADMIN.name())
         .anyRequest()
         .authenticated()
         .and()

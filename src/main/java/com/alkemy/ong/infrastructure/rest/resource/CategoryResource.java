@@ -50,8 +50,6 @@ public class CategoryResource {
   private final ICreateCategoryUseCase createCategoryUseCase;
   private final GetCategoryMapper getCategoryMapper;
   private final ListCategoryMapper listCategoryMapper;
-
-
   private final PaginatedResultsRetrieved resultsRetrieved;
 
   @PutMapping(

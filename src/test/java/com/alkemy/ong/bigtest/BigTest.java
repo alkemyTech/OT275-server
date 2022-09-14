@@ -234,8 +234,13 @@ public abstract class BigTest {
     return newsRepository.save(buildNews(name));
   }
 
-  private void saveCommentFor(Long newsId) {
-    commentRepository.save(buildComment(newsId));
+  private CommentEntity saveCommentFor(Long newsId) {
+    return commentRepository.save(buildComment(newsId));
+  }
+
+  protected Long getRandomCommentId() {
+    NewsEntity newsEntity = createNews("News for comment");
+    return saveCommentFor(newsEntity.getNewsId()).getCommentId();
   }
 
   protected Long getRandomCategoryId() {

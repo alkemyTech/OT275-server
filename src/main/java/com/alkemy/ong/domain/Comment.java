@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain;
 
+import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,6 @@ public class Comment {
   private String body;
   private User createdBy;
   private News associatedNews;
-  private Long createTimestamp;
+  private Timestamp createTimestamp;
 
 }
