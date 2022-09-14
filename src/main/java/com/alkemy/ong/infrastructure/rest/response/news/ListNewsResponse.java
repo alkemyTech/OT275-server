@@ -11,6 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ListNewsResponse extends PaginationResponse {
 
-  List<GetNewsResponse> news;
+  private List<GetNewsResponse> news;
 
 }
