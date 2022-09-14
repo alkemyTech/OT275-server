@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class UpdateTestimonialRequest {
 
-  @NotEmpty(message = "Name cannot be empty")
+  @NotEmpty(message = "Name cannot be empty.")
   @Size(max = 50, message = "Name must be 50 characters or less.")
   @CharactersWithWhiteSpaces(message = "Name must contain only spaces and letters.")
   private String name;
