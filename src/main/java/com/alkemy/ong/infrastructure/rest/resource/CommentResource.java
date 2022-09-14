@@ -10,8 +10,8 @@ import com.alkemy.ong.infrastructure.rest.mapper.comment.CreateCommentMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.comment.ListCommentMapper;
 import com.alkemy.ong.infrastructure.rest.request.comment.CreateCommentRequest;
 import com.alkemy.ong.infrastructure.rest.request.comment.UpdateCommentRequest;
-import com.alkemy.ong.infrastructure.rest.response.comment.CommentResponse;
 import com.alkemy.ong.infrastructure.rest.response.comment.CreateCommentResponse;
+import com.alkemy.ong.infrastructure.rest.response.comment.GetCommentResponse;
 import com.alkemy.ong.infrastructure.rest.response.common.ListCommentResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -68,10 +68,10 @@ public class CommentResource {
       value = "/{id}",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CommentResponse> update(
+  public ResponseEntity<GetCommentResponse> update(
       @PathVariable Long id,
       @RequestBody UpdateCommentRequest request) {
-    Comment updatedComment = updateCommentUseCase.update(updateCommentMapper.toDomain(id, request));
-    return ResponseEntity.ok().body(updateCommentMapper.toResponse(updatedComment));
+    Comment comment = updateCommentUseCase.update(updateCommentMapper.toDomain(id, request));
+    return ResponseEntity.ok().body(updateCommentMapper.toResponse(comment));
   }
 }
