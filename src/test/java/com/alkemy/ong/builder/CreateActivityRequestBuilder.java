@@ -1,6 +1,6 @@
 package com.alkemy.ong.builder;
 
-import com.alkemy.ong.infrastructure.rest.request.CreateActivityRequest;
+import com.alkemy.ong.infrastructure.rest.request.activity.CreateActivityRequest;
 
 public class CreateActivityRequestBuilder {
 
