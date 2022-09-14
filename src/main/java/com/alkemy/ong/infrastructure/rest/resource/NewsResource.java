@@ -4,18 +4,26 @@ import com.alkemy.ong.application.service.news.usecase.ICreateNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IDeleteNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IGetNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IGetNewsWithCommentsUseCase;
+import com.alkemy.ong.application.service.news.usecase.IListNewsUseCase;
 import com.alkemy.ong.application.service.news.usecase.IUpdateNewsUseCase;
 import com.alkemy.ong.domain.News;
+import com.alkemy.ong.infrastructure.common.PaginatedResultsRetrieved;
 import com.alkemy.ong.infrastructure.rest.mapper.news.CreateNewsMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.news.GetNewsMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.news.GetNewsWithCommentsMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.news.ListNewsMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.news.UpdateNewsMapper;
 import com.alkemy.ong.infrastructure.rest.request.news.CreateNewsRequest;
 import com.alkemy.ong.infrastructure.rest.request.news.UpdateNewsRequest;
 import com.alkemy.ong.infrastructure.rest.response.news.GetNewsResponse;
 import com.alkemy.ong.infrastructure.rest.response.news.GetNewsWithCommentsResponse;
+import com.alkemy.ong.infrastructure.rest.response.news.ListNewsResponse;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +35,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RequiredArgsConstructor
 @RestController
@@ -42,6 +51,12 @@ public class NewsResource {
   private final GetNewsWithCommentsMapper getNewsWithCommentsMapper;
   private final UpdateNewsMapper updateNewsMapper;
   private final IUpdateNewsUseCase updateNewsUseCase;
+
+  private final IListNewsUseCase listNewsUseCase;
+
+  private final ListNewsMapper listNewsMapper;
+
+  private final PaginatedResultsRetrieved resultsRetrieved;
 
   @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -77,6 +92,20 @@ public class NewsResource {
       @Valid @RequestBody UpdateNewsRequest updateNewsRequest) {
     News news = updateNewsMapper.toDomain(() -> id, updateNewsRequest);
     return ResponseEntity.ok(updateNewsMapper.toResponse(updateNewsUseCase.update(news)));
+  }
+
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ListNewsResponse> list(@PageableDefault Pageable pageable,
+      UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    Page<News> resultPage = listNewsUseCase.findAll(pageable);
+    resultsRetrieved.addLinkHeaderOnPagedResourceRetrieval(
+        uriBuilder,
+        response,
+        "/news",
+        pageable.getPageNumber(),
+        resultPage.getTotalPages(),
+        resultPage.getSize());
+    return ResponseEntity.ok(listNewsMapper.toResponse(resultPage));
   }
 }
 

@@ -20,9 +20,6 @@ public class UserAuthenticationIntegrationTest extends BigTest {
 
   private static final String URL = "/auth/login";
 
-  private static AuthenticationRequest buildUserAuthenticationRequest(String email, String password) {
-    return new AuthenticationRequest(email, password);
-  }
   @Test
   public void shouldReturnTokenWhenCredentialsAreValid() throws Exception {
     mockMvc.perform(post(URL)
@@ -61,6 +58,7 @@ public class UserAuthenticationIntegrationTest extends BigTest {
   }
 
   private String buildRequest(String email, String password) throws JsonProcessingException {
-    return convert(buildUserAuthenticationRequest(email, password));
+    return convert(new AuthenticationRequest(email, password));
   }
+
 }
