@@ -28,9 +28,11 @@ import com.alkemy.ong.application.service.category.usecase.IUpdateCategoryUseCas
 import com.alkemy.ong.application.service.comment.CreateCommentUseCaseService;
 import com.alkemy.ong.application.service.comment.DeleteCommentUseCaseService;
 import com.alkemy.ong.application.service.comment.ListCommentUseCaseService;
+import com.alkemy.ong.application.service.comment.UpdateCommentUseCase;
 import com.alkemy.ong.application.service.comment.usecase.ICreateCommentUseCase;
 import com.alkemy.ong.application.service.comment.usecase.IDeleteCommentUseCase;
 import com.alkemy.ong.application.service.comment.usecase.IListCommentUseCase;
+import com.alkemy.ong.application.service.comment.usecase.IUpdateCommentUseCase;
 import com.alkemy.ong.application.service.contact.CreateContactUseCaseService;
 import com.alkemy.ong.application.service.contact.ListContactUseCaseService;
 import com.alkemy.ong.application.service.contact.usecase.ICreateContactUseCase;
@@ -148,6 +150,12 @@ public class SpringBeanConfiguration {
       IUserRepository userRepository,
       INewsRepository newsRepository) {
     return new CreateCommentUseCaseService(commentRepository, userRepository, newsRepository);
+  }
+
+  @Bean
+  public IUpdateCommentUseCase updateCommentUseCase(ICommentRepository commentRepository,
+      IOperationAllowed operationAllowed) {
+    return new UpdateCommentUseCase(commentRepository, operationAllowed);
   }
 
   @Bean
