@@ -19,7 +19,6 @@ import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizati
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
 import com.alkemy.ong.infrastructure.rest.request.user.AuthenticationRequest;
-import com.alkemy.ong.infrastructure.rest.response.category.CreateCategoryResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
