@@ -7,6 +7,8 @@ import com.alkemy.ong.infrastructure.database.entity.TestimonialEntity;
 import com.alkemy.ong.infrastructure.database.mapper.TestimonialEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ITestimonialSpringRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -34,5 +36,15 @@ public class TestimonialRepository implements ITestimonialRepository {
     return testimonialEntityMapper.toDomain(testimonialSpringRepository.save(testimonialEntity));
   }
 
+  @Override
+  public Page<Testimonial> findAll(Pageable pageable) {
+    Page<TestimonialEntity> testimonials = testimonialSpringRepository
+        .findAllBySoftDeletedFalse(pageable);
+    return testimonialEntityMapper.toPageDomain(
+        testimonials.getContent(),
+        testimonials.getNumber(),
+        testimonials.getSize(),
+        testimonials.getTotalElements());
+  }
 
 }

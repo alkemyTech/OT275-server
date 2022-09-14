@@ -14,4 +14,5 @@ public interface ITestimonialRepository {
   Testimonial save(Testimonial testimonial);
 
   Page<Testimonial> findAll(Pageable pageable);
+
 }
