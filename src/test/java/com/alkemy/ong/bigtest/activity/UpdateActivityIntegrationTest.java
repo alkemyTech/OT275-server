@@ -1,5 +1,6 @@
 package com.alkemy.ong.bigtest.activity;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -29,8 +30,8 @@ public class UpdateActivityIntegrationTest extends BigTest {
             .content(buildDefaultRequest())
             .contentType(MediaType.APPLICATION_JSON)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
-        .andExpect(jsonPath("$.name", equalTo("My Activity")))
-        .andExpect(jsonPath("$.content", equalTo("My Activity content")))
+        .andExpect(jsonPath("$.name", equalTo("Updated Activity")))
+        .andExpect(jsonPath("$.content", equalTo("Updated Activity content")))
         .andExpect(jsonPath("$.imageUrl", equalTo("https://s3.com/default-image.jpg")))
         .andExpect(status().isOk());
     assertActivityHasBeenUpdated(randomActivityId);
@@ -78,7 +79,6 @@ public class UpdateActivityIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.moreInfo", hasItem("Name cannot be empty.")))
         .andExpect(jsonPath("$.moreInfo", hasItem("Name must contain only spaces and letters.")))
         .andExpect(status().isBadRequest());
-    deleteActivity(randomActivityId);
   }
 
   @Test
@@ -95,7 +95,6 @@ public class UpdateActivityIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
         .andExpect(jsonPath("$.moreInfo", hasItem("Name must contain only spaces and letters.")))
         .andExpect(status().isBadRequest());
-    deleteActivity(randomActivityId);
   }
 
   @Test
@@ -113,7 +112,6 @@ public class UpdateActivityIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.moreInfo", hasItem("Content cannot be empty.")))
         .andExpect(jsonPath("$.moreInfo", hasItem("Content must contain only spaces and letters.")))
         .andExpect(status().isBadRequest());
-    deleteActivity(randomActivityId);
   }
 
   @Test
@@ -130,7 +128,6 @@ public class UpdateActivityIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
         .andExpect(jsonPath("$.moreInfo", hasItem("Content must contain only spaces and letters.")))
         .andExpect(status().isBadRequest());
-    deleteActivity(randomActivityId);
   }
 
   @Test
@@ -147,16 +144,14 @@ public class UpdateActivityIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
         .andExpect(jsonPath("$.moreInfo", hasItem("Image must be an URL.")))
         .andExpect(status().isBadRequest());
-    deleteActivity(randomActivityId);
   }
 
   private void assertActivityHasBeenUpdated(Long activityId) {
     Optional<ActivityEntity> activityEntity = activityRepository.findById(activityId);
     assertTrue(activityEntity.isPresent());
-    assertEquals("My Activity", activityEntity.get().getName());
-    assertEquals("My Activity content", activityEntity.get().getContent());
+    assertEquals("Updated Activity", activityEntity.get().getName());
+    assertEquals("Updated Activity content", activityEntity.get().getContent());
     assertEquals("https://s3.com/default-image.jpg", activityEntity.get().getImageUrl());
-    deleteActivity(activityId);
   }
 
   private String buildDefaultRequest() throws JsonProcessingException {
