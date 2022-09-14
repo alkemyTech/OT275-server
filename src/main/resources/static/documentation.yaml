@@ -174,6 +174,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateCategoryResponse'
+    get:
+      tags:
+        - Categories
+      summary: Returns a page of categories
+      operationId: getCategories
+      parameters:
+        - in: query
+          name: page
+          allowEmptyValue: true
+          description: Page index
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: size
+          allowEmptyValue: true
+          description: Page size
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          example:
+          content:
+            application/json:
+              example:
+                page: 0
+                size: 5
+                totalPages: 1
+                categories:
+                  - id: 1
+                    description: books
+                    imageUrl: book.jpg
+                    name: Literature
+                  - id: 2
+                    description: football
+                    imageUrl: football.jpg
+                    name: Sports
+                  - id: 3
+                    description: Entertainment
+                    imageUrl: game.jpg
+                    name: Games
+                  - id: 4
+                    description: Java Frameworks
+                    imageUrl: frameworks.jpg
+                    name: Frameworks
+                  - id: 5
+                    description: Clean Architecture
+                    imageUrl: hexagonal.jpg
+                    name: Software Architecture
+        "403":
+          description: Authentication has failed or not yet been provided
+          content:
+            application/problem+json:
+              example:
+                  statusCode: 403
+                  message: "Access denied"
+                  moreInfo: "Access Denied. Contact your administrator."
   /auth/register:
     post:
       security: [ ]

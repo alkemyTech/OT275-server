@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class WelcomeEmailTemplate implements IMail {
 
   private static final String TEXT_HTML = "text/html";
-  private static final String TEMPLATE_HTML = "template/welcome-email-template.html";
+  private static final String TEMPLATE_HTML = "template/welcome-email.html";
   private final IAddressContact addressContact;
   private final Organization organization;
 
