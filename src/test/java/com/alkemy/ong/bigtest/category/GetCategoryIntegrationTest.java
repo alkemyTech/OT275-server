@@ -12,7 +12,6 @@ import com.alkemy.ong.bigtest.BigTest;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 
 public class GetCategoryIntegrationTest extends BigTest {
 
@@ -23,7 +22,6 @@ public class GetCategoryIntegrationTest extends BigTest {
     Long randomCategoryId = getRandomCategoryId();
 
     mockMvc.perform(get(URL, String.valueOf(randomCategoryId))
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.id", notNullValue()))
         .andExpect(jsonPath("$.description", equalTo("Sports description")))
@@ -37,7 +35,6 @@ public class GetCategoryIntegrationTest extends BigTest {
     String nonExistingCategoryId = "271827";
 
     mockMvc.perform(get(URL, nonExistingCategoryId)
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", IsEqual.equalTo(404)))
         .andExpect(jsonPath("$.message", IsEqual.equalTo(OBJECT_NOT_FOUND_MESSAGE)))
@@ -51,7 +48,6 @@ public class GetCategoryIntegrationTest extends BigTest {
     Long randomCategoryId = getRandomCategoryId();
 
     mockMvc.perform(get(URL, String.valueOf(randomCategoryId))
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.statusCode", IsEqual.equalTo(403)))
         .andExpect(jsonPath("$.message", IsEqual.equalTo(ACCESS_DENIED_MESSAGE)))
