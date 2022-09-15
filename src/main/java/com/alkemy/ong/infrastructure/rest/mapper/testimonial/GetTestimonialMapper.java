@@ -2,6 +2,8 @@ package com.alkemy.ong.infrastructure.rest.mapper.testimonial;
 
 import com.alkemy.ong.domain.Testimonial;
 import com.alkemy.ong.infrastructure.rest.response.testimonial.GetTestimonialResponse;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,6 +19,14 @@ public class GetTestimonialMapper {
     getTestimonialResponse.setImageUrl(testimonial.getImageUrl());
     getTestimonialResponse.setName(testimonial.getName());
     return getTestimonialResponse;
+  }
+  public List<GetTestimonialResponse> toResponse(List<Testimonial> testimonials){
+    List<GetTestimonialResponse> testimonialResponses=new ArrayList<>(testimonials.size());
+    for(Testimonial testimonial: testimonials){
+      testimonialResponses.add(toResponse(testimonial));
+    }
+    return testimonialResponses;
+
   }
 
 }
