@@ -50,6 +50,7 @@ public abstract class BigTest {
   protected static final String ACCESS_DENIED_MORE_INFO = "Access Denied. Contact your administrator.";
   protected static final String OBJECT_NOT_FOUND_MESSAGE = "Object not found in database.";
   protected static final String INVALID_INPUT_DATA_MESSAGE = "Invalid input data.";
+  protected static final String LINK_HEADER = "Link";
 
   private static final String PASSWORD_ENCODED = "$2a$10$6KLdPa9azXYgkMOo1zw16.JSngJvSGRvPqokwzi9vzO4OJLKS2bX2";
   private static final String PASSWORD = "abcd1234";
@@ -234,8 +235,13 @@ public abstract class BigTest {
     return newsRepository.save(buildNews(name));
   }
 
-  private void saveCommentFor(Long newsId) {
-    commentRepository.save(buildComment(newsId));
+  private CommentEntity saveCommentFor(Long newsId) {
+    return commentRepository.save(buildComment(newsId));
+  }
+
+  protected Long getRandomCommentId() {
+    NewsEntity newsEntity = createNews("News for comment");
+    return saveCommentFor(newsEntity.getNewsId()).getCommentId();
   }
 
   protected Long getRandomCategoryId() {

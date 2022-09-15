@@ -47,4 +47,10 @@ public class TestimonialRepository implements ITestimonialRepository {
         testimonials.getTotalElements());
   }
 
+  @Override
+  public Testimonial update(Testimonial testimonial) {
+    TestimonialEntity testimonialEntity = testimonialEntityMapper.toEntity(testimonial);
+    return testimonialEntityMapper.toDomain(testimonialSpringRepository.save(testimonialEntity));
+  }
+
 }

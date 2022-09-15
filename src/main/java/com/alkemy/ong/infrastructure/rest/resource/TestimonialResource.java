@@ -3,11 +3,14 @@ package com.alkemy.ong.infrastructure.rest.resource;
 import com.alkemy.ong.application.service.testimonial.usecase.ICreateTestimonialUseCase;
 import com.alkemy.ong.application.service.testimonial.usecase.IDeleteTestimonialUseCase;
 import com.alkemy.ong.application.service.testimonial.usecase.IListTestimonialUseCase;
+import com.alkemy.ong.application.service.testimonial.usecase.IUpdateTestimonialUseCase;
 import com.alkemy.ong.domain.Testimonial;
 import com.alkemy.ong.infrastructure.common.PaginatedResultsRetrieved;
 import com.alkemy.ong.infrastructure.rest.mapper.testimonial.CreateTestimonialMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.testimonial.ListTestimonialMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.testimonial.UpdateTestimonialMapper;
 import com.alkemy.ong.infrastructure.rest.request.testimonial.CreateTestimonialRequest;
+import com.alkemy.ong.infrastructure.rest.request.testimonial.UpdateTestimonialRequest;
 import com.alkemy.ong.infrastructure.rest.response.testimonial.GetTestimonialResponse;
 import com.alkemy.ong.infrastructure.rest.response.testimonial.ListTestimonialResponse;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,6 +48,10 @@ public class TestimonialResource {
   private final ListTestimonialMapper listTestimonialMapper;
 
   private final PaginatedResultsRetrieved resultsRetrieved;
+
+  private final UpdateTestimonialMapper updateTestimonialMapper;
+
+  private final IUpdateTestimonialUseCase updateTestimonialUseCase;
 
   @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -75,4 +83,16 @@ public class TestimonialResource {
         resultPage.getSize());
     return ResponseEntity.ok().body(listTestimonialMapper.toResponse(resultPage));
   }
+
+  @PutMapping(
+      value = "/{id}",
+      produces = MediaType.APPLICATION_JSON_VALUE,
+      consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<GetTestimonialResponse> update(@PathVariable Long id,
+      @Valid @RequestBody UpdateTestimonialRequest testimonialRequest) {
+    Testimonial testimonial = updateTestimonialMapper.toDomain(() -> id, testimonialRequest);
+    Testimonial updatedTestimonial = updateTestimonialUseCase.update(testimonial);
+    return ResponseEntity.ok(createTestimonialMapper.toResponse(updatedTestimonial));
+  }
+
 }

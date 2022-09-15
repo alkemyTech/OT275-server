@@ -11,9 +11,10 @@ import com.alkemy.ong.infrastructure.database.mapper.NewsEntityMapper;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import javax.persistence.Tuple;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -79,6 +80,16 @@ public class NewsRepository implements INewsRepository {
     NewsEntity newsEntity = newsEntityMapper.toEntity(news);
     return newsEntityMapper.toDomain(newsSpringRepository.save(newsEntity));
 
+  }
+
+  @Override
+  public Page<News> findAll(Pageable pageable) {
+    Page<NewsEntity> news = newsSpringRepository.findAllBySoftDeletedFalse(pageable);
+    return newsEntityMapper.toPageDomain(
+        news.getContent(),
+        news.getNumber(),
+        news.getSize(),
+        news.getTotalElements());
   }
 
 }
