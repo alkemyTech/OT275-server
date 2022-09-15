@@ -252,8 +252,10 @@ public class SpringBeanConfiguration {
   public IListContactUseCase listContactUseCase(IContactRepository contactRepository) {
     return new ListContactUseCaseService(contactRepository);
   }
+
   @Bean
-  IListTestimonialUseCase listTestimonialUseCase(ITestimonialRepository testimonialRepository){
+  public IListTestimonialUseCase listTestimonialUseCase(
+      ITestimonialRepository testimonialRepository) {
     return new ListTestimonialUseCaseService(testimonialRepository);
   }
 
