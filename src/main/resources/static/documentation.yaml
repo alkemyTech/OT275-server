@@ -182,28 +182,18 @@ paths:
           description: Bad Request
           content:
             application/json:
-              example:
-                statusCode: 400
-                message: Invalid input data.
-                moreInfo:
-                  - Name cannot be empty.
-                  - Name must contain only spaces and letters.
+              schema:
+                $ref: '#/components/schemas/BadRequestCategories'
         "403":
           description: Forbidden
           content:
             application/json:
-              example:
-                statusCode: 403
-                message: Access denied.
-                moreInfo:
-                  - Access Denied. Contact your administrator.
+              $ref: '#/components/schemas/Forbidden'
         "500":
           description: The server encountered an unexpected problem
           content:
             application/json:
-              example:
-                code: INTERNAL_SERVER_ERROR
-                detail: There was an error on the server and the request could not be completed.
+              $ref: '#/components/schemas/InternalServerError'
     get:
       tags:
         - Categories
@@ -260,9 +250,9 @@ paths:
           content:
             application/problem+json:
               example:
-                  statusCode: 403
-                  message: "Access denied"
-                  moreInfo: "Access Denied. Contact your administrator."
+                statusCode: 403
+                message: "Access denied"
+                moreInfo: "Access Denied. Contact your administrator."
   /auth/register:
     post:
       security: [ ]
@@ -733,6 +723,63 @@ components:
         imageUrl:
           type: string
         name:
+          type: string
+    BadRequestCategories:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int64
+        message:
+          type: string
+        moreInfo:
+          type: array
+          items:
+            - $ref: '#/components/schemas/OnlySpaceAndLetters'
+            - $ref: '#/components/schemas/NameCannotBeEmpty'
+    Forbidden:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int64
+        message:
+          type: string
+        moreInfo:
+          type: array
+          items:
+            - $ref: '#/components/schemas/AccessDenied'
+    InternalServerError:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int64
+        message:
+          type: string
+        moreInfo:
+          type: array
+          items:
+            - $ref: '#/components/schemas/ContentType'
+    ContentType:
+      type: object
+      properties:
+        body:
+          type: string
+    AccessDenied:
+      type: object
+      properties:
+        body:
+          type: string
+    NameCannotBeEmpty:
+      type: object
+      properties:
+        body:
+          type: string
+    OnlySpaceAndLetters:
+      type: object
+      properties:
+        body:
           type: string
   securitySchemes:
     BearerAuth:
