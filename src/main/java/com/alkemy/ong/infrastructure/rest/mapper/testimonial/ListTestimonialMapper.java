@@ -4,17 +4,17 @@ import com.alkemy.ong.domain.Testimonial;
 import com.alkemy.ong.infrastructure.rest.response.testimonial.ListTestimonialResponse;
 import java.util.Collections;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ListTestimonialMapper {
 
   private final GetTestimonialMapper getTestimonialMapper;
 
-  public  ListTestimonialResponse toResponse(List<Testimonial> testimonials) {
+  public ListTestimonialResponse toResponse(List<Testimonial> testimonials) {
     if (testimonials == null || testimonials.isEmpty()) {
       return new ListTestimonialResponse(Collections.emptyList());
 
@@ -27,6 +27,6 @@ public class ListTestimonialMapper {
     listTestimonialResponse.setPage(testimonials.getNumber());
     listTestimonialResponse.setSize(testimonials.getSize());
     listTestimonialResponse.setTotalPages(testimonials.getTotalPages());
-        return  listTestimonialResponse;
+    return listTestimonialResponse;
   }
 }

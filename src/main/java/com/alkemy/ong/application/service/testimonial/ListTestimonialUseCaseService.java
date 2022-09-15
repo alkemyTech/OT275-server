@@ -8,10 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @AllArgsConstructor
-public class
-ListTestimonialUseCaseService implements IListTestimonialUseCase {
+public class ListTestimonialUseCaseService implements IListTestimonialUseCase {
 
-  ITestimonialRepository testimonialRepository;
+  private final ITestimonialRepository testimonialRepository;
 
   @Override
   public Page<Testimonial> findAll(Pageable pageable) {
