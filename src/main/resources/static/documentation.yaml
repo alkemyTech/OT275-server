@@ -230,14 +230,14 @@ paths:
           content:
             application/problem+json:
               example:
-                  statusCode: 403
-                  message: "Access denied"
-                  moreInfo: "Access Denied. Contact your administrator."
+                statusCode: 403
+                message: "Access denied"
+                moreInfo: "Access Denied. Contact your administrator."
   /auth/register:
     post:
-      security: [ ]
       tags:
-        - auth-resource
+        - Authentication
+      summary: Register a new User.
       operationId: register
       requestBody:
         content:
@@ -246,17 +246,32 @@ paths:
               $ref: '#/components/schemas/RegisterUserRequest'
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Registered User.
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/RegisterUserResponse'
+              example:
+                firstName: Gueorgui
+                lastName: Adelson-Velski
+                email: gueorgui@adelsonvelski.com
+                token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYXNkYXNAb3V0bG9vay5jb20iLCJyb2xlcyI6IlJPTEVfVVNFUiIsImlhdCI6MTY2MzI2NzM4MCwiZXhwIjoxNjYzMjcyNzgwfQ.fskEFbR0mqsUuD9ATX0i_X6pIFbkoPLmbCH66BRxAu8
+        "400":
+          description: Bad Request.
+          content:
+            application/json:
+              example:
+                statusCode: 400
+                message: Invalid input data.
+                moreInfo:
+                  - First name must contain only spaces and letters.
+                  - Last name must contain only spaces and letters.
+                  - Password must be between 8 and 16 characters long.
+                  - Email should be valid.
   /auth/login:
     post:
-      security: [ ]
       tags:
-        - auth-resource
+        - Authentication
+      summary: Login an existing User.
       operationId: login
       requestBody:
         content:
@@ -266,11 +281,63 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: Logged in User.
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/AuthenticationResponse'
+              example:
+                firstName: John
+                lastName: Von Neumann
+                email: johnvon@neumann.com
+                imageUrl: https://s3.com/image.jpg
+                token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2hudm9uQG5ldW1hbm4uY29tIiwicm9sZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNjYzMjY0MDc5LCJleHAiOjE2NjMyNjk0Nzl9.oz15M17Ivy3uA7QRQluv9wzD1E5bjVqKu0Cvj4YQHkU
+        "400":
+          description: Bad Request.
+          content:
+            application/json:
+              example:
+                statusCode: 400
+                message: Invalid input data.
+                moreInfo:
+                  - Email has invalid format.
+                  - Password must be between 8 and 16 characters long.
+        "403":
+          description: Forbidden.
+          content:
+            application/json:
+              example:
+                statusCode: 403
+                message: Invalid credentials.
+                moreInfo:
+                  - Invalid username or password.
+  /auth/me:
+    security:
+      - BearerAuth: [ user ]
+    get:
+      tags:
+        - Authentication
+      summary: Retrieves data of a logged in user.
+      operationId: me
+      responses:
+        "200":
+          description: User data retrieved.
+          content:
+            application/json:
+              example:
+                id: 10
+                firstName: Mary
+                lastName: Shaw
+                email: mary@shaw.com
+                imageUrl: https://s3.com/image.jpg
+                role: ROLE_USER
+        "403":
+          description: Forbidden.
+          content:
+            application/json:
+              example:
+                statusCode: 403
+                message: Access denied.
+                moreInfo:
+                  - Access Denied. Contact your administrator.
   /organization/public:
     get:
       tags:
@@ -543,14 +610,18 @@ components:
       properties:
         firstName:
           type: string
+          example: Edgar Frank
         lastName:
           type: string
+          example: Codd
         email:
           type: string
+          example: edgarfrank@codd.com
         password:
           maxLength: 16
           minLength: 8
           type: string
+          example: abcd1234
     RegisterUserResponse:
       type: object
       properties:
@@ -567,10 +638,12 @@ components:
       properties:
         email:
           type: string
+          example: edsger@dijkstra.com
         password:
           maxLength: 16
           minLength: 8
           type: string
+          example: abcd1234
     AuthenticationResponse:
       type: object
       properties:
