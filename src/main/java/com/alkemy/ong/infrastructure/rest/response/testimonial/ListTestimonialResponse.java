@@ -1,5 +1,6 @@
 package com.alkemy.ong.infrastructure.rest.response.testimonial;
 
+import com.alkemy.ong.infrastructure.rest.response.common.PaginationResponse;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class ListTestimonialResponse {
+public class ListTestimonialResponse extends PaginationResponse {
 
-  List<CreateTestimonialResponse> testimonials;
+  List<GetTestimonialResponse> testimonials;
 
 }

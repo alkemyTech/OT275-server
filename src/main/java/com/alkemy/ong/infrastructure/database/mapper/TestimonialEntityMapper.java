@@ -2,9 +2,17 @@ package com.alkemy.ong.infrastructure.database.mapper;
 
 import com.alkemy.ong.domain.Testimonial;
 import com.alkemy.ong.infrastructure.database.entity.TestimonialEntity;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class TestimonialEntityMapper {
 
   public TestimonialEntity toEntity(Testimonial testimonial) {
@@ -31,4 +39,25 @@ public class TestimonialEntityMapper {
     return testimonial;
   }
 
+  public List<Testimonial> toDomain(List<TestimonialEntity> testimonialEntities) {
+    if (testimonialEntities == null || testimonialEntities.isEmpty()) {
+      return Collections.emptyList();
+
+    }
+    List<Testimonial> testimonials = new ArrayList<>(testimonialEntities.size());
+    for (TestimonialEntity testimonialEntity : testimonialEntities) {
+      testimonials.add(toDomain(testimonialEntity));
+    }
+    return testimonials;
+
+  }
+
+  public Page<Testimonial> toPageDomain(List<TestimonialEntity> testimonialEntities,
+
+      int page, int size, Long
+      totalPages) {
+    return new PageImpl<>(
+        toDomain(testimonialEntities),
+        PageRequest.of(page, size), totalPages);
+  }
 }
