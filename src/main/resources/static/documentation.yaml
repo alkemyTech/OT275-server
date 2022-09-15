@@ -271,7 +271,7 @@ paths:
     post:
       tags:
         - Authentication
-      summary: Login an existing User.
+      summary: Log in as an existing User.
       operationId: login
       requestBody:
         content:
@@ -315,7 +315,7 @@ paths:
     get:
       tags:
         - Authentication
-      summary: Retrieves data of a logged in user.
+      summary: Retrieves the data of an authenticated User.
       operationId: me
       responses:
         "200":
