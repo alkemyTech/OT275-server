@@ -5,14 +5,14 @@ import com.alkemy.ong.infrastructure.database.entity.TestimonialEntity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TestimonialEntityMapper {
 
   public TestimonialEntity toEntity(Testimonial testimonial) {
@@ -52,12 +52,11 @@ public class TestimonialEntityMapper {
 
   }
 
-  public Page<Testimonial> toPageDomain(List<TestimonialEntity> testimonialEntities,
+  public Page<Testimonial> toPageDomain(List<TestimonialEntity> content,
 
-      int page, int size, Long
-      totalPages) {
+      int number, int size, Long totalElements) {
     return new PageImpl<>(
-        toDomain(testimonialEntities),
-        PageRequest.of(page, size), totalPages);
+        toDomain(content),
+        PageRequest.of(number, size), totalElements);
   }
 }
