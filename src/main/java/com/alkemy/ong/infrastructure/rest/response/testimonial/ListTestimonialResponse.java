@@ -13,6 +13,6 @@ import lombok.Setter;
 @Getter
 public class ListTestimonialResponse extends PaginationResponse {
 
-  List<GetTestimonialResponse> testimonials;
+  private List<GetTestimonialResponse> testimonials;
 
 }

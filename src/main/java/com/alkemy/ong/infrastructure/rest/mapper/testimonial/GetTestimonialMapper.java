@@ -28,13 +28,10 @@ public class GetTestimonialMapper {
     if (testimonials == null || testimonials.isEmpty()) {
       return Collections.emptyList();
     }
-
     List<GetTestimonialResponse> testimonialResponses = new ArrayList<>(testimonials.size());
     for (Testimonial testimonial : testimonials) {
       testimonialResponses.add(toResponse(testimonial));
     }
     return testimonialResponses;
-
   }
-
 }

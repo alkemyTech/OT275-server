@@ -44,21 +44,18 @@ public class TestimonialEntityMapper {
   public List<Testimonial> toDomain(List<TestimonialEntity> testimonialEntities) {
     if (testimonialEntities == null || testimonialEntities.isEmpty()) {
       return Collections.emptyList();
-
     }
     List<Testimonial> testimonials = new ArrayList<>(testimonialEntities.size());
     for (TestimonialEntity testimonialEntity : testimonialEntities) {
       testimonials.add(toDomain(testimonialEntity));
     }
     return testimonials;
-
   }
 
-  public Page<Testimonial> toPageDomain(List<TestimonialEntity> content,
-
+  public Page<Testimonial> toPageDomain(List<TestimonialEntity> testimonialEntities,
       int number, int size, Long totalElements) {
     return new PageImpl<>(
-        toDomain(content),
+        toDomain(testimonialEntities),
         PageRequest.of(number, size), totalElements);
   }
 }
