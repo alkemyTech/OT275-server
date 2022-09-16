@@ -14,6 +14,7 @@ import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IActivitySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICommentSpringRepository;
+import com.alkemy.ong.infrastructure.database.repository.abstraction.IContactSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizationSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
@@ -83,6 +84,9 @@ public abstract class BigTest {
 
   @Autowired
   protected IActivitySpringRepository activityRepository;
+
+  @Autowired
+  protected IContactSpringRepository contactRepository;
 
   @Before
   public void setup() {
