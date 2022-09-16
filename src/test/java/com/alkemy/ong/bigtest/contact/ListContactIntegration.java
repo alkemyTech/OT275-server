@@ -1,9 +1,12 @@
 package com.alkemy.ong.bigtest.contact;
 
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,6 +27,16 @@ public class ListContactIntegration extends BigTest {
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
         .andExpect(jsonPath("$.moreInfo", hasItem(ACCESS_DENIED_MORE_INFO)))
         .andExpect(status().isForbidden());
+  }
+
+  @Test
+  public void shouldReturnEmptyListWhenThereAreNoContact() throws Exception {
+    contactRepository.deleteAll();
+
+    mockMvc.perform(get(URL)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+        .andExpect(jsonPath("$.contacts").value(empty()))
+        .andExpect(status().isOk());
   }
 
 }
