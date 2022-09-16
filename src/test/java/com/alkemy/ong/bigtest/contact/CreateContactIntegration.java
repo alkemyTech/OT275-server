@@ -46,6 +46,25 @@ public class CreateContactIntegration extends BigTest {
     assertActivityHasBeenCreated(contactId.longValue());
   }
 
+  @Test
+  public void shouldCreateContactWhenUserHasStandardRole() throws Exception {
+    String contactResponse = mockMvc.perform(post(URL)
+            .content(buildRequest(NAME, PHONE, EMAIL, MESSAGE))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.name", equalTo(NAME)))
+        .andExpect(jsonPath("$.phone", equalTo(PHONE)))
+        .andExpect(jsonPath("$.email", equalTo(EMAIL)))
+        .andExpect(jsonPath("$.message", equalTo(MESSAGE)))
+        .andExpect(status().isCreated())
+        .andReturn()
+        .getResponse()
+        .getContentAsString(StandardCharsets.UTF_8);
+
+    Integer contactId = JsonPath.read(contactResponse, "$.id");
+    assertActivityHasBeenCreated(contactId.longValue());
+  }
+
 
 
   private void assertActivityHasBeenCreated(Long id) {
