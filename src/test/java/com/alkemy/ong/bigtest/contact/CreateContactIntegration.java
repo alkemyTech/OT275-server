@@ -1,6 +1,8 @@
 package com.alkemy.ong.bigtest.contact;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,6 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jayway.jsonpath.JsonPath;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -65,6 +68,19 @@ public class CreateContactIntegration extends BigTest {
     assertActivityHasBeenCreated(contactId.longValue());
   }
 
+  @Test
+  public void shouldReturnBadRequestWhenNameHasNumbers() throws Exception {
+    mockMvc.perform(post(URL)
+        .content(buildRequest("1", PHONE, EMAIL, MESSAGE))
+        .contentType(MediaType.APPLICATION_JSON)
+        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
+        .andExpect(jsonPath("$.message", CoreMatchers.equalTo(INVALID_INPUT_DATA_MESSAGE)))
+        .andExpect(jsonPath("$.moreInfo", hasSize(1)))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Name must contain only spaces and letters.")))
+        .andExpect(status().isBadRequest());
+  }
 
 
   private void assertActivityHasBeenCreated(Long id) {
