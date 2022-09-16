@@ -71,14 +71,43 @@ public class CreateContactIntegration extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenNameHasNumbers() throws Exception {
     mockMvc.perform(post(URL)
-        .content(buildRequest("1", PHONE, EMAIL, MESSAGE))
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+            .content(buildRequest("1", PHONE, EMAIL, MESSAGE))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
         .andExpect(jsonPath("$.message", CoreMatchers.equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
         .andExpect(
             jsonPath("$.moreInfo", hasItem("Name must contain only spaces and letters.")))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  public void shouldReturnBadRequestWhenEmailIsIncorrect() throws Exception {
+    mockMvc.perform(post(URL)
+            .content(buildRequest(NAME, PHONE, "123", MESSAGE))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
+        .andExpect(jsonPath("$.message", CoreMatchers.equalTo(INVALID_INPUT_DATA_MESSAGE)))
+        .andExpect(jsonPath("$.moreInfo", hasSize(1)))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Email should be valid.")))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  public void shouldReturnBadRequestWhenMessageHasMoreThanAllowedCharacters() throws Exception {
+    mockMvc.perform(post(URL)
+            .content(buildRequest(NAME, PHONE, EMAIL, "x".repeat(151)))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
+        .andExpect(jsonPath("$.message", CoreMatchers.equalTo(INVALID_INPUT_DATA_MESSAGE)))
+        .andExpect(jsonPath("$.moreInfo", hasSize(1)))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Message length must be"
+                + " shorter than 150 characters")))
         .andExpect(status().isBadRequest());
   }
 
