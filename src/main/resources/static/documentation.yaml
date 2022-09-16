@@ -447,7 +447,7 @@ paths:
       summary: Creates a "New" and persists it to the databse.
       tags:
         - News
-      operationId: add_1
+      operationId: create-news
       requestBody:
         content:
           application/json:
@@ -455,7 +455,7 @@ paths:
               $ref: '#/components/schemas/CreateNewsRequest'
         required: true
       responses:
-        "200":
+        "201":
           description: Creation was succesfull, the created "News" is returned.
           content:
             application/json:
@@ -478,7 +478,7 @@ paths:
       summary: Returns the first page of "News", listing up to ten elements, "Link" header may include links to subsequent pages if more than ten elements exist
       tags:
         - News
-      operationId: list_3
+      operationId: paginate-news
       responses:
         "200":
           description: The first page of results is returned, if there are no "News" in the databse it returns an emptly list with zero pages and no links
@@ -505,7 +505,7 @@ paths:
       summary: Returns the "News" resource identified by the "id" parameter provided in the URI path.
       tags:
         - News
-      operationId: get_1
+      operationId: get-news
       parameters:
         - name: id
           in: path
@@ -537,7 +537,7 @@ paths:
       summary: Updates the "News" resource identified by the "id" parameter provided in the URI path.
       tags:
         - News
-      operationId: update_3
+      operationId: update-news
       parameters:
         - name: id
           in: path
@@ -581,7 +581,7 @@ paths:
       summary: Deletes the "News" resource identified by the "id" parameter provided in the URI path, by setting the "isSoftDeleted" attribute to "true"
       tags:
         - News
-      operationId: delete_3
+      operationId: delete-news
       parameters:
         - name: id
           in: path
