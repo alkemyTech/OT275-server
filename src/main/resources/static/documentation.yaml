@@ -10,9 +10,9 @@ paths:
   /auth/register:
 
     post:
-      security: [ ]
       tags:
         - Auth
+      summary: Register a new "User" and persists it on the database.
       operationId: register
       requestBody:
         content:
@@ -21,19 +21,25 @@ paths:
               $ref: '#/components/schemas/RegisterUserRequest'
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Registration was successful, the new "User" is returned.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegisterUserResponse'
+        "400":
+          description: The provided body does not have a correct format or one of the validations is missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestRegisterUser'
 
   /auth/login:
 
     post:
-      security: [ ]
       tags:
         - Auth
+      summary: Log in as an existing "User" and provide an access token.
       operationId: login
       requestBody:
         content:
@@ -43,11 +49,46 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: The "User" has successfully logged in and returns an access token.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthenticationResponse'
+        "400":
+          description: The provided body does not have a correct format or one of the validations is missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestLoginUser'
+        "403":
+          description: Invalid credentials have been provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenLogin'
+
+  /auth/me:
+
+    security:
+      - BearerAuth: [ user ]
+    get:
+      tags:
+        - Auth
+      summary: Retrieves the data of an authenticated "User" through an access token.
+      operationId: me
+      responses:
+        "200":
+          description: Successfully retrieved the "User" data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataResponse'
+        "403":
+          description: No authentication has been provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
 
   /activities:
 
@@ -998,47 +1039,62 @@ components:
       properties:
         firstName:
           type: string
+          example: Edgar Frank
         lastName:
           type: string
+          example: Codd
         email:
           type: string
+          example: edgarfrank@codd.com
         password:
           maxLength: 16
           minLength: 8
           type: string
+          example: abcd1234
     RegisterUserResponse:
       type: object
       properties:
         firstName:
           type: string
+          example: Gueorgui
         lastName:
           type: string
+          example: Adelson-Velski
         email:
           type: string
+          example: gueorgui@adelsonvelski.com
         token:
           type: string
+          example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYXNkYXNAb3V0bG9vay5jb20iLCJyb2xlcyI6IlJPTEVfVVNFUiIsImlhdCI6MTY2MzI2NzM4MCwiZXhwIjoxNjYzMjcyNzgwfQ.fskEFbR0mqsUuD9ATX0i_X6pIFbkoPLmbCH66BRxAu8
     AuthenticationRequest:
       type: object
       properties:
         email:
           type: string
+          example: edsger@dijkstra.com
         password:
           maxLength: 16
           minLength: 8
           type: string
+          example: abcd1234
     AuthenticationResponse:
       type: object
       properties:
         firstName:
           type: string
+          example: John
         lastName:
           type: string
+          example: Von Neumann
         email:
           type: string
+          example: johnvon@neumann.com
         imageUrl:
           type: string
+          example: https://s3.com/image.jpg
         token:
           type: string
+          example: eyJzdWIiOiJqb2hudm9uQG5ldW1hbm4uY29tIiwicm9sZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNjYzMjY0MDc5LCJleHAiOjE2NjMyNjk0Nzl9.oz15M17Ivy3uA7QRQluv9wzD1E5bjVqKu0Cvj4YQHkU
     SocialMediaRequest:
       type: object
       properties:
@@ -1048,6 +1104,28 @@ components:
           type: string
         instagramUrl:
           type: string
+    UserDataResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        firstName:
+          type: string
+          example: Mary
+        lastName:
+          type: string
+          example: Shaw
+        email:
+          type: string
+          example: mary@shaw.com
+        imageUrl:
+          type: string
+          example: https://s3.com/image.jpg
+        role:
+          type: string
+          example: ROLE_USER
     UpdateOrganizationRequest:
       type: object
       properties:
@@ -1163,6 +1241,42 @@ components:
         name:
           type: string
           example: Category name
+    BadRequestRegisterUser:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int64
+          example: 400
+        message:
+          type: string
+          example: Bad Request.
+        moreInfo:
+          type: array
+          items:
+            type: string
+          example:
+            - First name must contain only spaces and letters.
+            - Last name must contain only spaces and letters.
+            - Password must be between 8 and 16 characters long.
+            - Email should be valid.
+    BadRequestLoginUser:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int64
+          example: 400
+        message:
+          type: string
+          example: Bad Request.
+        moreInfo:
+          type: array
+          items:
+            type: string
+          example:
+            - Email has invalid format.
+            - Password must be between 8 and 16 characters long.
     BadRequestCategories:
       type: object
       properties:
@@ -1233,6 +1347,22 @@ components:
           items:
             type: string
           example: News not found.
+    ForbiddenLogin:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int64
+          example: 403
+        message:
+          type: string
+          example: Invalid credentials.
+        moreInfo:
+          type: array
+          items:
+            Type: string
+          example:
+            - Invalid username or password.
     Forbidden:
       type: object
       properties:
@@ -1393,6 +1523,7 @@ security:
   - BearerAuth: [ ]
 tags:
   - name: Auth
+    description: Authentication operations for the "Auth" resource.
   - name: Activities
   - name: Categories
   - name: Comments
