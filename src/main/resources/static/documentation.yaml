@@ -403,7 +403,7 @@ paths:
   /news:
 
     post:
-      summary: Creates a "New" and persists it to the database.
+      summary: Creates a "New" and persists it to the databse.
       tags:
         - News
       operationId: add_1
@@ -415,7 +415,7 @@ paths:
         required: true
       responses:
         "200":
-          description: Creation was successful, the created "News" is returned.
+          description: Creation was succesfull, the created "News" is returned.
           content:
             application/json:
               schema:
@@ -425,7 +425,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestNews'
+                $ref: '#/components/schemas/BadRequestCreateNews'
         "403":
           description: Invalid Credentials were provided. Admin credentials needed
           content:
@@ -440,7 +440,7 @@ paths:
       operationId: list_3
       responses:
         "200":
-          description: The first page of results is returned, if there are no "News" in the database it returns an empty list with zero pages and no links
+          description: The first page of results is returned, if there are no "News" in the databse it returns an emptly list with zero pages and no links
           headers:
             Link:
               description: Links  leading to the first,last,next and/or previous page of  the results if available
@@ -461,7 +461,7 @@ paths:
   /news/{id}:
 
     get:
-      summary: Returns the "News" resource identified by the "id" parameter provided in the URI
+      summary: Returns the "News" resource identified by the "id" parameter provided in the URI path.
       tags:
         - News
       operationId: get_1
@@ -493,6 +493,7 @@ paths:
                 $ref: '#/components/schemas/Forbidden'
 
     put:
+      summary: Updates the "News" resource identified by the "id" parameter provided in the URI path.
       tags:
         - News
       operationId: update_3
@@ -511,13 +512,32 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: Creation was succesfull, the created "News" is returned.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetNewsResponse'
+        "400":
+          description: The provided body does not have a correct misses one of more of the validations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestUpdateNews'
+        "403":
+          description: Invalid Credentials were provided. Admin credentials needed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+        "404":
+          description: The given "id" does not corresponds to an entry in the database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsNotFound'
 
     delete:
+      summary: Deletes the "News" resource identified by the "id" parameter provided in the URI path, by setting the "isSoftDeleted" attribute to "true"
       tags:
         - News
       operationId: delete_3
@@ -530,11 +550,24 @@ paths:
             format: int64
       responses:
         "200":
-          description: OK
+          description: The resource has been succesfully deleted
+        "403":
+          description: Invalid Credentials were provided. Admin credentials needed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+        "404":
+          description: The given "id" does not corresponds to an entry in the database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsNotFound'
 
   /news/{id}/comments:
 
     get:
+      summary: Returns a list of comments related to the "News" resource identified by the "id" paramether in the URI path.
       tags:
         - News
       operationId: getWithComments
@@ -552,6 +585,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetNewsWithCommentsResponse'
+        "403":
+          description: Invalid Credentials were provided. Admin credentials needed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+        "404":
+          description: The given "id" does not corresponds to an entry in the database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsNotFound'
+
 
   /organization/public:
 
@@ -1130,7 +1176,7 @@ components:
           items:
             - $ref: '#/components/schemas/OnlySpaceAndLetters'
             - $ref: '#/components/schemas/NameCannotBeEmpty'
-    BadRequestNews:
+    BadRequestCreateNews:
       type: object
       properties:
         statusCode:
@@ -1152,6 +1198,26 @@ components:
             - Text must be alphanumeric.
             - Image cannot be empty.
             - Image must be alphanumeric without white spaces.
+    BadRequestUpdateNews:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int64
+          example: 400
+        message:
+          type: string
+          example: Bad Request.
+        moreInfo:
+          type: array
+          items:
+            type: string
+          example:
+            - Name cannot be empty.
+            - Name must contain only spaces and letters.
+            - Name must be 50 characters or less.
+            - Text cannot be empty.
+            - Text must be alphanumeric.
     NewsNotFound:
       type: object
       properties:
@@ -1288,6 +1354,36 @@ components:
         image:
           type: string
           example: News image URL
+    UpdateNewsRequest:
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 0
+          type: string
+          example: New news name
+        content:
+          type: string
+          example: New news content
+        image:
+          type: string
+          example: New news image URL
+    GetNewsWithCommentsResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: News Name
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetCommentResponse'
+    GetCommentResponse:
+      type: object
+      properties:
+        body:
+          type: string
+          example: Comment content
   securitySchemes:
     BearerAuth:
       type: http
