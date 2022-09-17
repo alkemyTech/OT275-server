@@ -1,14 +1,17 @@
 package com.alkemy.ong.infrastructure.rest.mapper.member;
 
 import com.alkemy.ong.domain.Member;
-import com.alkemy.ong.domain.SocialMedia;
+import com.alkemy.ong.infrastructure.rest.mapper.common.SocialMediaMapper;
 import com.alkemy.ong.infrastructure.rest.request.member.CreateMemberRequest;
-import com.alkemy.ong.infrastructure.rest.response.common.SocialMediaResponse;
 import com.alkemy.ong.infrastructure.rest.response.member.GetMemberResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class CreateMemberMapper {
+
+  private final SocialMediaMapper socialMediaMapper;
 
   public Member toDomain(CreateMemberRequest createMemberRequest) {
     if (createMemberRequest == null) {
@@ -18,19 +21,8 @@ public class CreateMemberMapper {
     member.setName(createMemberRequest.getName());
     member.setImageUrl(createMemberRequest.getImage());
     member.setDescription(createMemberRequest.getDescription());
-    member.setSocialMedia(socialMediaBuilder(createMemberRequest));
+    member.setSocialMedia(socialMediaMapper.toDomain(createMemberRequest.getSocialMedia()));
     return member;
-  }
-
-  private SocialMedia socialMediaBuilder(CreateMemberRequest createMemberRequest) {
-    if (createMemberRequest == null) {
-      return null;
-    }
-    SocialMedia socialMedia = new SocialMedia();
-    socialMedia.setFacebookUrl(createMemberRequest.getFacebookUrl());
-    socialMedia.setInstagramUrl(createMemberRequest.getInstagramUrl());
-    socialMedia.setLinkedInUrl(createMemberRequest.getLinkedInUrl());
-    return socialMedia;
   }
 
   public GetMemberResponse toResponse(Member member) {
@@ -42,19 +34,8 @@ public class CreateMemberMapper {
     memberResponse.setName(member.getName());
     memberResponse.setImageUrl(member.getImageUrl());
     memberResponse.setDescription(member.getDescription());
-    memberResponse.setSocialMedia(buildSocialMedia(member));
+    memberResponse.setSocialMedia(socialMediaMapper.toResponse(member.getSocialMedia()));
     return memberResponse;
-  }
-
-  private SocialMediaResponse buildSocialMedia(Member member) {
-    if (member == null) {
-      return null;
-    }
-    SocialMediaResponse socialMediaResponse = new SocialMediaResponse();
-    socialMediaResponse.setFacebookUrl(member.getSocialMedia().getFacebookUrl());
-    socialMediaResponse.setInstagramUrl(member.getSocialMedia().getInstagramUrl());
-    socialMediaResponse.setLinkedInUrl(member.getSocialMedia().getLinkedInUrl());
-    return socialMediaResponse;
   }
 
 }
