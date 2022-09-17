@@ -1,5 +1,6 @@
 package com.alkemy.ong.infrastructure.rest.request.member;
 
+import com.alkemy.ong.infrastructure.rest.request.common.SocialMediaRequest;
 import com.alkemy.ong.infrastructure.rest.request.validation.AlphanumericWithoutWhiteSpaces;
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
 import javax.validation.constraints.NotEmpty;
@@ -20,10 +21,6 @@ public class CreateMemberRequest {
 
   private String description;
 
-  private String facebookUrl;
-
-  private String instagramUrl;
-
-  private String linkedInUrl;
+  private SocialMediaRequest socialMedia;
 
 }
