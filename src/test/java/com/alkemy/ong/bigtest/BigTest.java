@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -84,6 +85,7 @@ public abstract class BigTest {
   @Autowired
   protected IActivitySpringRepository activityRepository;
 
+
   @Before
   public void setup() {
     createRoles();
@@ -103,6 +105,7 @@ public abstract class BigTest {
     newsRepository.deleteAll();
     categoryRepository.deleteAll();
     activityRepository.deleteAll();
+    userRepository.deleteAll();
   }
 
   protected void cleanUsersData(UserEntity... users) {
@@ -159,6 +162,22 @@ public abstract class BigTest {
     return userEntity;
   }
 
+  private UserEntity buildUserUpdate(String firstName, String lastName, String imageURL,
+      String password) {
+    UserEntity userEntity = new UserEntity();
+    userEntity.setFirstName(firstName);
+    userEntity.setLastName(lastName);
+    userEntity.setImageUrl(imageURL);
+    userEntity.setPassword(PASSWORD_ENCODED);
+    userEntity.setSoftDeleted(false);
+    return userEntity;
+  }
+
+  protected Long getRandomUserId() {
+    UserEntity userEntity = getRandomUser();
+    return userEntity.getUserId();
+  }
+
   private RoleEntity buildRole(Role role) {
     RoleEntity roleEntity = new RoleEntity();
     roleEntity.setDescription(role.name());
@@ -213,8 +232,8 @@ public abstract class BigTest {
 
   private String getAuthorizationTokenForUser(String email) throws Exception {
     String content = mockMvc.perform(post("/auth/login")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(new AuthenticationRequest(email, PASSWORD))))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(new AuthenticationRequest(email, PASSWORD))))
         .andReturn()
         .getResponse().getContentAsString(StandardCharsets.UTF_8);
 
@@ -281,6 +300,7 @@ public abstract class BigTest {
         "https://s3.com/my-activity.jpg"));
   }
 
+
   protected ActivityEntity buildActivity(String name, String content, String image) {
     ActivityEntity activityEntity = new ActivityEntity();
     activityEntity.setName(name);
@@ -289,6 +309,7 @@ public abstract class BigTest {
     activityEntity.setSoftDeleted(false);
     return activityEntity;
   }
+
 
   protected String convert(Object requestObject) throws JsonProcessingException {
     return objectMapper.writeValueAsString(requestObject);
