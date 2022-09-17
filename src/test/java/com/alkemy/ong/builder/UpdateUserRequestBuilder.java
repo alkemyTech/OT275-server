@@ -4,9 +4,9 @@ import com.alkemy.ong.infrastructure.rest.request.user.UpdateUserRequest;
 
 public class UpdateUserRequestBuilder {
 
-  public static UpdateUserRequest defaultRequest() {
+  public static UpdateUserRequest defaultRequest(){
 
-    UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+    UpdateUserRequest updateUserRequest= new UpdateUserRequest();
     updateUserRequest.setFirstName("Mariano");
     updateUserRequest.setLastName("Toranzo");
     updateUserRequest.setImageUrl("https://s3.com/default-image.jpg");
@@ -15,14 +15,14 @@ public class UpdateUserRequestBuilder {
   }
 
 
-  public static UpdateUserRequest buildRequest(String firstName, String lastName,
-      String imageUrl, String password) {
+    public static UpdateUserRequest buildRequest(String firstName, String lastName,
+        String imageUrl,String password){
 
-    UpdateUserRequest updateUserRequest = defaultRequest();
-    updateUserRequest.setFirstName(firstName);
-    updateUserRequest.setLastName(lastName);
-    updateUserRequest.setImageUrl(imageUrl);
-    updateUserRequest.setPassword(password);
-    return updateUserRequest;
-  }
+      UpdateUserRequest updateUserRequest = defaultRequest();
+      updateUserRequest.setFirstName(firstName);
+      updateUserRequest.setLastName(lastName);
+      updateUserRequest.setImageUrl(imageUrl);
+      updateUserRequest.setPassword(password);
+      return updateUserRequest;
+    }
 }
