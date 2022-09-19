@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.alkemy.ong.bigtest.BigTest;
+import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -23,14 +24,15 @@ public class ListUserIntegrationTest extends BigTest {
     mockMvc.perform(get(URL)
         .contentType(MediaType.APPLICATION_JSON)
         .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
-        .andExpect(jsonPath("$.users", hasSize(12)))
+        .andExpect(jsonPath("$.users", hasSize(2)))
         .andExpect(jsonPath("$.users[0]",hasKey("id")))
         .andExpect(jsonPath("$.users[0]",hasKey("firstName")))
         .andExpect(jsonPath("$.users[0]",hasKey("lastName")))
         .andExpect(jsonPath("$.users[0]",hasKey("email")))
         .andExpect(jsonPath("$.users[0]",hasKey("role")))
         .andExpect(status().isOk());
-  }
+    }
+
 
   @Test
   public void shouldReturnForbiddenWhenUserHasStandardRole() throws Exception {

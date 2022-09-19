@@ -298,7 +298,6 @@ public abstract class BigTest {
     return activityEntity;
   }
 
-
   protected String convert(Object requestObject) throws JsonProcessingException {
     return objectMapper.writeValueAsString(requestObject);
   }
