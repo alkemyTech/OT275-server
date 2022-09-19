@@ -16,6 +16,7 @@ import com.alkemy.ong.infrastructure.database.repository.abstraction.IActivitySp
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICommentSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IContactSpringRepository;
+import com.alkemy.ong.infrastructure.database.repository.abstraction.IMemberSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizationSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
@@ -89,6 +90,9 @@ public abstract class BigTest {
   @Autowired
   protected IContactSpringRepository contactRepository;
 
+  @Autowired
+  protected IMemberSpringRepository memberSpringRepository;
+
   @Before
   public void setup() {
     createRoles();
@@ -109,6 +113,7 @@ public abstract class BigTest {
     categoryRepository.deleteAll();
     activityRepository.deleteAll();
     contactRepository.deleteAll();
+    memberSpringRepository.deleteAll();
   }
 
   protected void cleanUsersData(UserEntity... users) {
