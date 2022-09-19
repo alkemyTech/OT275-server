@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
-public class CreateContactIntegration extends BigTest {
+public class CreateContactIntegrationTest extends BigTest {
 
   private static final String URL = "/contacts";
   private static final String NAME = "My Contact";
@@ -32,7 +32,7 @@ public class CreateContactIntegration extends BigTest {
   @Test
   public void shouldCreateContactWhenUserHasAdminRole() throws Exception {
     String contactResponse = mockMvc.perform(post(URL)
-            .content(buildRequest(NAME, PHONE, EMAIL, MESSAGE))
+            .content(buildRequest(NAME, EMAIL, MESSAGE))
             .contentType(MediaType.APPLICATION_JSON)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.name", equalTo(NAME)))
@@ -51,7 +51,7 @@ public class CreateContactIntegration extends BigTest {
   @Test
   public void shouldCreateContactWhenUserHasStandardRole() throws Exception {
     String contactResponse = mockMvc.perform(post(URL)
-            .content(buildRequest(NAME, PHONE, EMAIL, MESSAGE))
+            .content(buildRequest(NAME, EMAIL, MESSAGE))
             .contentType(MediaType.APPLICATION_JSON)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.name", equalTo(NAME)))
@@ -70,7 +70,7 @@ public class CreateContactIntegration extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenNameHasNumbers() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest("1", PHONE, EMAIL, MESSAGE))
+            .content(buildRequest("1", EMAIL, MESSAGE))
             .contentType(MediaType.APPLICATION_JSON)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
@@ -84,7 +84,7 @@ public class CreateContactIntegration extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenEmailIsIncorrect() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(NAME, PHONE, "123", MESSAGE))
+            .content(buildRequest(NAME, "123", MESSAGE))
             .contentType(MediaType.APPLICATION_JSON)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
@@ -98,7 +98,7 @@ public class CreateContactIntegration extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenMessageHasMoreThanAllowedCharacters() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(NAME, PHONE, EMAIL, "x".repeat(151)))
+            .content(buildRequest(NAME, EMAIL, "x".repeat(151)))
             .contentType(MediaType.APPLICATION_JSON)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
@@ -121,10 +121,8 @@ public class CreateContactIntegration extends BigTest {
     assertEquals(MESSAGE, contactEntity.get().getMessage());
   }
 
-  private String buildRequest(String name, String phone, String email, String message)
+  private String buildRequest(String name, String email, String message)
       throws JsonProcessingException {
-    CreateContactRequest createContactRequest = new CreateContactRequest(name, phone, email,
-        message);
-    return convert(createContactRequest);
+    return convert(new CreateContactRequest(name, PHONE, email, message));
   }
 }

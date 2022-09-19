@@ -9,11 +9,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.alkemy.ong.bigtest.BigTest;
-import com.alkemy.ong.infrastructure.database.entity.ContactEntity;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 
-public class ListContactIntegration extends BigTest {
+public class ListContactIntegrationTest extends BigTest {
 
   private static final String URL = "/contacts";
   private static final String NAME = "My Contact";
