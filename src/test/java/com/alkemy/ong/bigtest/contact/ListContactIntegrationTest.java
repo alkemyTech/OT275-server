@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,7 +47,7 @@ public class ListContactIntegrationTest extends BigTest {
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.contacts", hasSize(1)))
-        .andExpect(jsonPath("$.contacts[0].id", equalTo(1)))
+        .andExpect(jsonPath("$.contacts[0].id", notNullValue()))
         .andExpect(jsonPath("$.contacts[0].name", equalTo(NAME)))
         .andExpect(jsonPath("$.contacts[0].phone", equalTo(PHONE)))
         .andExpect(jsonPath("$.contacts[0].email", equalTo(EMAIL)))
