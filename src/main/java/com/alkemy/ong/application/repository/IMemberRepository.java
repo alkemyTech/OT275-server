@@ -12,4 +12,7 @@ public interface IMemberRepository {
   boolean exists(Identifiable<Long> identificable);
 
   Page<Member> findAll(Pageable pageable);
+
+  Member add(Member member);
+
 }

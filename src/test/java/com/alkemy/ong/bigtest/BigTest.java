@@ -7,6 +7,7 @@ import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
 import com.alkemy.ong.infrastructure.database.entity.ActivityEntity;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import com.alkemy.ong.infrastructure.database.entity.CommentEntity;
+import com.alkemy.ong.infrastructure.database.entity.ContactEntity;
 import com.alkemy.ong.infrastructure.database.entity.NewsEntity;
 import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
 import com.alkemy.ong.infrastructure.database.entity.RoleEntity;
@@ -15,6 +16,7 @@ import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IActivitySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICommentSpringRepository;
+import com.alkemy.ong.infrastructure.database.repository.abstraction.IContactSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizationSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
@@ -87,7 +89,11 @@ public abstract class BigTest {
   protected IActivitySpringRepository activityRepository;
 
   @Autowired
+
   protected ITestimonialSpringRepository testimonialRepository;
+
+  protected IContactSpringRepository contactRepository;
+
 
   @Before
   public void setup() {
@@ -108,7 +114,11 @@ public abstract class BigTest {
     newsRepository.deleteAll();
     categoryRepository.deleteAll();
     activityRepository.deleteAll();
+
     testimonialRepository.deleteAll();
+
+    contactRepository.deleteAll();
+
   }
 
   protected void cleanUsersData(UserEntity... users) {
@@ -201,6 +211,15 @@ public abstract class BigTest {
     return commentEntity;
   }
 
+  private ContactEntity buildContact(String name, String phone, String email, String message) {
+    ContactEntity contactEntity = new ContactEntity();
+    contactEntity.setName(name);
+    contactEntity.setPhone(phone);
+    contactEntity.setEmail(email);
+    contactEntity.setMessage(message);
+    return contactEntity;
+  }
+
   private void createOrganization() {
     organizationRepository.save(buildOrganization());
   }
@@ -268,6 +287,10 @@ public abstract class BigTest {
     return newsRepository.save(buildNews(name));
   }
 
+  protected ContactEntity createContact(String name, String phone, String email, String message) {
+    return contactRepository.save(buildContact(name, phone, email, message));
+  }
+
   private CommentEntity saveCommentFor(Long newsId) {
     return commentRepository.save(buildComment(newsId));
   }
@@ -326,5 +349,4 @@ public abstract class BigTest {
   protected String convert(Object requestObject) throws JsonProcessingException {
     return objectMapper.writeValueAsString(requestObject);
   }
-
 }

@@ -30,6 +30,13 @@ public class MemberRepository implements IMemberRepository {
   }
 
   @Override
+  public Member add(Member member) {
+    MemberEntity memberEntity = memberEntityMapper.toEntity(member);
+    memberEntity.setSoftDeleted(false);
+    return memberEntityMapper.toDomain(memberSpringRepository.save(memberEntity));
+  }
+
+  @Override
   public void delete(Identifiable<Long> identifiable) {
     memberSpringRepository.softDelete(identifiable.getId());
 
