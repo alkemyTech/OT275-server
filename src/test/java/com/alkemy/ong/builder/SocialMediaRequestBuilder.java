@@ -12,4 +12,13 @@ public class SocialMediaRequestBuilder {
     return socialMediaRequest;
   }
 
+  public static SocialMediaRequest buildRequest(String facebookUrl,String linkedinUrl
+      ,String instagramUrl) {
+    SocialMediaRequest socialMediaRequest = new SocialMediaRequest();
+    socialMediaRequest.setFacebookUrl(facebookUrl);
+    socialMediaRequest.setLinkedInUrl(linkedinUrl);
+    socialMediaRequest.setInstagramUrl(instagramUrl);
+    return socialMediaRequest;
+  }
+
 }
