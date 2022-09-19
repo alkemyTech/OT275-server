@@ -1,6 +1,7 @@
 package com.alkemy.ong.bigtest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 import com.alkemy.ong.OngApplication;
 import com.alkemy.ong.infrastructure.config.spring.security.common.Role;
 import com.alkemy.ong.infrastructure.database.entity.ActivityEntity;
@@ -156,17 +157,6 @@ public abstract class BigTest {
     userEntity.setEmail(email);
     userEntity.setPassword(PASSWORD_ENCODED);
     userEntity.setRole(roleRepository.findByName(role.getFullRoleName()));
-    userEntity.setSoftDeleted(false);
-    return userEntity;
-  }
-
-  private UserEntity buildUserUpdate(String firstName, String lastName, String imageURL,
-      String password) {
-    UserEntity userEntity = new UserEntity();
-    userEntity.setFirstName(firstName);
-    userEntity.setLastName(lastName);
-    userEntity.setImageUrl(imageURL);
-    userEntity.setPassword(PASSWORD_ENCODED);
     userEntity.setSoftDeleted(false);
     return userEntity;
   }
