@@ -36,6 +36,7 @@ public class AddNewsIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.name", equalTo(NEWS_NAME)))
         .andExpect(jsonPath("$.content", equalTo(NEWS_TEXT)))
         .andExpect(jsonPath("$.imageUrl", equalTo(NEWS_IMAGE)))
+        .andExpect(jsonPath("$.category.id", equalTo(3)))
         .andExpect(jsonPath("$.category.description", equalTo("News description")))
         .andExpect(jsonPath("$.category.imageUrl", equalTo("")))
         .andExpect(jsonPath("$.category.name", equalTo("News")))
