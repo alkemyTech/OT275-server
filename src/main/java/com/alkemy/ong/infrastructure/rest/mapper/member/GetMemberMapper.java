@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GetMemberMapper {
 
-  public final SocialMediaMapper socialMediaMapper;
+  protected final SocialMediaMapper socialMediaMapper;
 
   public List<GetMemberResponse> toResponse(List<Member> members) {
     if (members == null || members.isEmpty()) {
