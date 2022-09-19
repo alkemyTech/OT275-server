@@ -343,4 +343,9 @@ public abstract class BigTest {
         "instagram.com/member", "linkedin.com/member",
         "member.jpg", "member description"));
   }
+
+  protected Long getRandomMemberId(){
+    MemberEntity memberEntity = getRandomMember();
+    return memberEntity.getMemberId();
+  }
 }
