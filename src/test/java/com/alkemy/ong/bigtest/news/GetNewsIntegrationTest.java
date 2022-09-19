@@ -22,15 +22,15 @@ public class GetNewsIntegrationTest extends BigTest {
   public void shouldReturnNewsWhenUserHasAdminRole() throws Exception {
     NewsEntity news = createNews("newsName");
     mockMvc.perform(get(URL, String.valueOf(news.getNewsId()))
-        .header(HttpHeaders.AUTHORIZATION,getAuthorizationTokenForAdminUser()))
-        .andExpect(jsonPath("$.id",notNullValue()))
-        .andExpect(jsonPath("$.name",equalTo(news.getName())))
-        .andExpect(jsonPath("$.content",equalTo(news.getContent())))
-        .andExpect(jsonPath("$.imageUrl",equalTo(news.getImageUrl())))
-        .andExpect(jsonPath("$.category.id",notNullValue()))
-        .andExpect(jsonPath("$.category.description",equalTo(news.getCategory().getDescription())))
-        .andExpect(jsonPath("$.category.imageUrl",equalTo(news.getCategory().getImageUrl())))
-        .andExpect(jsonPath("$.category.name",equalTo(news.getCategory().getName())))
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+        .andExpect(jsonPath("$.id", notNullValue()))
+        .andExpect(jsonPath("$.name", equalTo(news.getName())))
+        .andExpect(jsonPath("$.content", equalTo(news.getContent())))
+        .andExpect(jsonPath("$.imageUrl", equalTo(news.getImageUrl())))
+        .andExpect(jsonPath("$.category.id", notNullValue()))
+        .andExpect(jsonPath("$.category.description", equalTo(news.getCategory().getDescription())))
+        .andExpect(jsonPath("$.category.imageUrl", equalTo(news.getCategory().getImageUrl())))
+        .andExpect(jsonPath("$.category.name", equalTo(news.getCategory().getName())))
         .andExpect(status().isOk());
   }
 
@@ -38,15 +38,15 @@ public class GetNewsIntegrationTest extends BigTest {
   public void shouldReturnNewsWhenUserHasStandardRole() throws Exception {
     NewsEntity news = createNews("newsName");
     mockMvc.perform(get(URL, String.valueOf(news.getNewsId()))
-            .header(HttpHeaders.AUTHORIZATION,getAuthorizationTokenForStandardUser()))
-        .andExpect(jsonPath("$.id",notNullValue()))
-        .andExpect(jsonPath("$.name",equalTo(news.getName())))
-        .andExpect(jsonPath("$.content",equalTo(news.getContent())))
-        .andExpect(jsonPath("$.imageUrl",equalTo(news.getImageUrl())))
-        .andExpect(jsonPath("$.category.id",notNullValue()))
-        .andExpect(jsonPath("$.category.description",equalTo(news.getCategory().getDescription())))
-        .andExpect(jsonPath("$.category.imageUrl",equalTo(news.getCategory().getImageUrl())))
-        .andExpect(jsonPath("$.category.name",equalTo(news.getCategory().getName())))
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.id", notNullValue()))
+        .andExpect(jsonPath("$.name", equalTo(news.getName())))
+        .andExpect(jsonPath("$.content", equalTo(news.getContent())))
+        .andExpect(jsonPath("$.imageUrl", equalTo(news.getImageUrl())))
+        .andExpect(jsonPath("$.category.id", notNullValue()))
+        .andExpect(jsonPath("$.category.description", equalTo(news.getCategory().getDescription())))
+        .andExpect(jsonPath("$.category.imageUrl", equalTo(news.getCategory().getImageUrl())))
+        .andExpect(jsonPath("$.category.name", equalTo(news.getCategory().getName())))
         .andExpect(status().isOk());
   }
 
