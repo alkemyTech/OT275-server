@@ -17,6 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jayway.jsonpath.JsonPath;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -71,6 +72,21 @@ public class CreateMembersIntegrationTest extends BigTest {
 
     Integer memberId= JsonPath.read(memberResponse, "$.memberId");
     assertMemberHasBeenCreated(Long.valueOf(memberId));
+  }
+
+  @Test
+  public void shouldReturnBadRequestWhenNameHasNumbers() throws Exception {
+    mockMvc.perform(post(URL)
+            .content(buildRequest("1",  IMAGE_URL, DESCRIPTION,
+                FACEBOOK_URL, LINKEDIN_URL, INSTAGRAM_URL))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
+        .andExpect(jsonPath("$.message", CoreMatchers.equalTo(INVALID_INPUT_DATA_MESSAGE)))
+        .andExpect(jsonPath("$.moreInfo", hasSize(1)))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Name must contain only spaces and letters.")))
+        .andExpect(status().isBadRequest());
   }
 
 
