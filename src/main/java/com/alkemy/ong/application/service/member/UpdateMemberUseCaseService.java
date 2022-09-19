@@ -9,11 +9,12 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class UpdateMemberUseCaseService implements IUpdateMemberUseCase {
+
   private final IMemberRepository memberRepository;
 
   @Override
   public Member update(Member member) {
-    if (!memberRepository.exists(member::getMemberId)){
+    if (!memberRepository.exists(member::getMemberId)) {
       throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Member"));
     }
     return memberRepository.update(member);

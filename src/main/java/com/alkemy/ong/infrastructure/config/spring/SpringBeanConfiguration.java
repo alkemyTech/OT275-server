@@ -319,7 +319,7 @@ public class SpringBeanConfiguration {
   }
 
   @Bean
-  public IUpdateMemberUseCase updateMemberUseCase(IMemberRepository memberRepository){
+  public IUpdateMemberUseCase updateMemberUseCase(IMemberRepository memberRepository) {
     return new UpdateMemberUseCaseService(memberRepository);
   }
 

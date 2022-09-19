@@ -82,8 +82,8 @@ public class MemberResource {
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<GetMemberResponse> update(
       @PathVariable Long id,
-      @Valid @RequestBody CreateMemberRequest request){
-    Member updatedMember = updateMemberUseCase.update(updateMemberMapper.toDomain(id,request));
+      @Valid @RequestBody CreateMemberRequest request) {
+    Member updatedMember = updateMemberUseCase.update(updateMemberMapper.toDomain(id, request));
     return ResponseEntity.ok().body(updateMemberMapper.toResponse(updatedMember));
   }
 
