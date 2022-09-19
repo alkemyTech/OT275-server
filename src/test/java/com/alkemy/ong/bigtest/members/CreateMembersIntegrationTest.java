@@ -51,6 +51,29 @@ public class CreateMembersIntegrationTest extends BigTest {
         .andExpect(status().isForbidden());
   }
 
+  @Test
+  public void shouldCreateMemberWhenUserHasStandardRole() throws Exception {
+    String memberResponse = mockMvc.perform(post(URL)
+            .content(buildRequest(NAME, IMAGE_URL, DESCRIPTION,
+                FACEBOOK_URL, LINKEDIN_URL, INSTAGRAM_URL))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.name", equalTo(NAME)))
+        .andExpect(jsonPath("$.imageUrl", equalTo(IMAGE_URL)))
+        .andExpect(jsonPath("$.description", equalTo(DESCRIPTION)))
+        .andExpect(jsonPath("$.socialMedia.facebookUrl", equalTo(FACEBOOK_URL)))
+        .andExpect(jsonPath("$.socialMedia.linkedInUrl", equalTo(LINKEDIN_URL)))
+        .andExpect(jsonPath("$.socialMedia.instagramUrl", equalTo(INSTAGRAM_URL)))
+        .andExpect(status().isCreated())
+        .andReturn()
+        .getResponse()
+        .getContentAsString(StandardCharsets.UTF_8);
+
+    Integer memberId= JsonPath.read(memberResponse, "$.memberId");
+    assertMemberHasBeenCreated(Long.valueOf(memberId));
+  }
+
+
 
   private String buildRequest(String name, String imageUrl, String description, String facebookUrl,
       String linkedinUrl, String instagramUrl) throws JsonProcessingException {
