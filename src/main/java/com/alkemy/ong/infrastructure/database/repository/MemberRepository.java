@@ -48,4 +48,9 @@ public class MemberRepository implements IMemberRepository {
 
   }
 
+  @Override
+  public Member update(Member member) {
+    MemberEntity memberEntity = memberEntityMapper.toEntity(member);
+    return memberEntityMapper.toDomain(memberSpringRepository.save(memberEntity));
+  }
 }
