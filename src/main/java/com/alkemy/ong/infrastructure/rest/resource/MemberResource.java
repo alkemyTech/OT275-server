@@ -3,10 +3,12 @@ package com.alkemy.ong.infrastructure.rest.resource;
 import com.alkemy.ong.application.service.member.usecase.ICreateMemberUseCase;
 import com.alkemy.ong.application.service.member.usecase.IDeleteMemberUseCase;
 import com.alkemy.ong.application.service.member.usecase.IListMemberUseCase;
+import com.alkemy.ong.application.service.member.usecase.IUpdateMemberUseCase;
 import com.alkemy.ong.domain.Member;
 import com.alkemy.ong.infrastructure.common.PaginatedResultsRetrieved;
 import com.alkemy.ong.infrastructure.rest.mapper.member.CreateMemberMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.member.ListMemberMapper;
+import com.alkemy.ong.infrastructure.rest.mapper.member.UpdateMemberMapper;
 import com.alkemy.ong.infrastructure.rest.request.member.CreateMemberRequest;
 import com.alkemy.ong.infrastructure.rest.response.member.GetMemberResponse;
 import com.alkemy.ong.infrastructure.rest.response.news.ListMemberResponse;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +41,9 @@ public class MemberResource {
   private final ListMemberMapper listMemberMapper;
   private final PaginatedResultsRetrieved resultsRetrieved;
   private final ICreateMemberUseCase createMemberUseCase;
+  private final IUpdateMemberUseCase updateMemberUseCase;
   private final CreateMemberMapper createMemberMapper;
+  private final UpdateMemberMapper updateMemberMapper;
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ListMemberResponse> list(@PageableDefault(size = 10) Pageable pageable,
@@ -71,4 +76,14 @@ public class MemberResource {
     return new ResponseEntity<>(createMemberMapper.toResponse(createdMember), HttpStatus.CREATED);
   }
 
+  @PutMapping(
+      value = "{id}",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<GetMemberResponse> update(
+      @PathVariable Long id,
+      @Valid @RequestBody CreateMemberRequest request){
+    Member updatedMember = updateMemberUseCase.update(updateMemberMapper.toDomain(id,request));
+    return ResponseEntity.ok().body(updateMemberMapper.toResponse(updatedMember));
+  }
 }
