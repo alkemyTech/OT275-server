@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
-public class AddNewsIntegrationTest extends BigTest {
+public class CreateNewsIntegrationTest extends BigTest {
 
   private static final String URL = "/news";
   private static final String NEWS_NAME = "Name with three spaces";
@@ -166,11 +166,11 @@ public class AddNewsIntegrationTest extends BigTest {
   }
 
   private CreateNewsRequest buildCreateNewsRequest(String name, String text, String image) {
-    CreateNewsRequest request = new CreateNewsRequest();
-    request.setName(name);
-    request.setText(text);
-    request.setImage(image);
-    return request;
+    CreateNewsRequest createNewsRequest = new CreateNewsRequest();
+    createNewsRequest.setName(name);
+    createNewsRequest.setText(text);
+    createNewsRequest.setImage(image);
+    return createNewsRequest;
   }
 
   private void assertNewsHasBeenCreated(Long newsId) {
