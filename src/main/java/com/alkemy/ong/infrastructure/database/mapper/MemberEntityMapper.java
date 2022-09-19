@@ -61,12 +61,16 @@ public class MemberEntityMapper {
       return null;
     }
     MemberEntity memberEntity = new MemberEntity();
+    memberEntity.setMemberId(member.getMemberId());
     memberEntity.setName(member.getName());
     memberEntity.setImageUrl(member.getImageUrl());
     memberEntity.setDescription(member.getDescription());
-    memberEntity.setFacebookUrl(member.getSocialMedia().getFacebookUrl());
-    memberEntity.setInstagramUrl(member.getSocialMedia().getInstagramUrl());
-    memberEntity.setLinkedInUrl(member.getSocialMedia().getLinkedInUrl());
+    SocialMedia socialMedia = member.getSocialMedia();
+    if (socialMedia != null) {
+      memberEntity.setFacebookUrl(socialMedia.getFacebookUrl());
+      memberEntity.setInstagramUrl(socialMedia.getInstagramUrl());
+      memberEntity.setLinkedInUrl(socialMedia.getLinkedInUrl());
+    }
     return memberEntity;
   }
 
