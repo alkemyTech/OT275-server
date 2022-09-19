@@ -89,6 +89,23 @@ public class CreateMembersIntegrationTest extends BigTest {
         .andExpect(status().isBadRequest());
   }
 
+  @Test
+  public void shouldReturnBadRequestWhenNameIsEmpty() throws Exception {
+    mockMvc.perform(post(URL)
+            .content(buildRequest("",  IMAGE_URL, DESCRIPTION,
+                FACEBOOK_URL, LINKEDIN_URL, INSTAGRAM_URL))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
+        .andExpect(jsonPath("$.message", CoreMatchers.equalTo(INVALID_INPUT_DATA_MESSAGE)))
+        .andExpect(jsonPath("$.moreInfo", hasSize(2)))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Name cannot be empty.")))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Name must contain only spaces and letters.")))
+        .andExpect(status().isBadRequest());
+  }
+
 
 
   private String buildRequest(String name, String imageUrl, String description, String facebookUrl,
