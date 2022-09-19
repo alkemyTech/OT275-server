@@ -140,10 +140,10 @@ paths:
   /categories:
 
     post:
+      summary: Creates a new "Category" and persists it to the database.
       tags:
         - Categories
-      summary: Create category
-      operationId: createCategory
+      operationId: create-category
       requestBody:
         required: true
         content:
@@ -152,97 +152,51 @@ paths:
               $ref: '#/components/schemas/CreateCategoryRequest'
       responses:
         "201":
-          description: Category created successfully
+          description: Creation was successful, the created "Category" is returned.
           content:
             application/json:
-              example:
-                id: 2
-                name: new-category
-                description: category-details
-                image: new-category.jpg
+              $ref: '#/components/schemas/GetCategoryResponse'
         "400":
-          description: Bad Request
+          description: The provided body does not have a correct body or misses one or more of the validations.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestCategories'
         "403":
-          description: Forbidden
+          description: Invalid Credentials were provided. Admin credentials needed
           content:
             application/json:
               $ref: '#/components/schemas/Forbidden'
-        "500":
-          description: The server encountered an unexpected problem
-          content:
-            application/json:
-              $ref: '#/components/schemas/InternalServerError'
-
     get:
       tags:
         - Categories
-      summary: Returns a page of categories
-      operationId: getCategories
-      parameters:
-        - in: query
-          name: page
-          allowEmptyValue: true
-          description: Page index
-          required: false
-          schema:
-            type: integer
-        - in: query
-          name: size
-          allowEmptyValue: true
-          description: Page size
-          required: false
-          schema:
-            type: integer
+      summary: Returns the first page of "Categories", listing up to ten elements, "Link" header may include links to subsequent pages if more than ten elements exist.
+      operationId: paginate-categories
       responses:
         "200":
-          description: OK
-          example:
+          description: The first page of results is returned, if there are no "Categories" in the database it returns an empty list with zero pages and no links.
+          headers:
+            Link:
+              description: Links leading to the first, last, next and / or previous page of the results if available.
+              schema:
+                $ref: '#/components/schemas/LinkHeader'
+              type: string
           content:
             application/json:
-              example:
-                page: 0
-                size: 5
-                totalPages: 1
-                categories:
-                  - id: 1
-                    description: books
-                    imageUrl: book.jpg
-                    name: Literature
-                  - id: 2
-                    description: football
-                    imageUrl: football.jpg
-                    name: Sports
-                  - id: 3
-                    description: Entertainment
-                    imageUrl: game.jpg
-                    name: Games
-                  - id: 4
-                    description: Java Frameworks
-                    imageUrl: frameworks.jpg
-                    name: Frameworks
-                  - id: 5
-                    description: Clean Architecture
-                    imageUrl: hexagonal.jpg
-                    name: Software Architecture
+              schema:
+                $ref: '#/components/schemas/ListCategoryResponse'
         "403":
-          description: Authentication has failed or not yet been provided
+          description: Invalid Credentials were provided. User or Admin credentials needed.
           content:
-            application/problem+json:
-              example:
-                statusCode: 403
-                message: "Access denied"
-                moreInfo: "Access Denied. Contact your administrator."
-
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
   /categories/{id}:
-
     get:
+      summary: Returns the "Category" resource identified by the "id" parameter provided in the URI path.
       tags:
         - Categories
-      operationId: get_1
+      operationId: get-category
       parameters:
         - name: id
           in: path
@@ -257,11 +211,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetCategoryResponse'
-
+        "403":
+          description: Invalid Credentials were provided. User or Admin credentials needed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+        "404":
+          description: The given "id" does not corresponds to an entry in the database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryNotFound'
     put:
+      summary: Updates the "Category" resource identified by the "id" parameter provided in the URI path.
       tags:
         - Categories
-      operationId: update_1
+      operationId: update-category
       parameters:
         - name: id
           in: path
@@ -277,16 +243,34 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: The update operation was successful. The updated "Category" is returned.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateCategoryResponse'
-
+                $ref: '#/components/schemas/GetCategoryResponse'
+        "400":
+          description: The provided body does not have a correct misses one of more of the validations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestUpdateCategories'
+        "403":
+          description: Invalid Credentials were provided. Admin credentials needed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+        "404":
+          description: The given "id" does not corresponds to an entry in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryNotFound'
     delete:
+      summary: Deletes the "Category" resource identified by the "id" parameter provided in the URI path, by setting the "isSoftDeleted" attribute to "true".
       tags:
-        - Categories
-      operationId: delete_6
+        - News
+      operationId: delete-category
       parameters:
         - name: id
           in: path
@@ -296,7 +280,19 @@ paths:
             format: int64
       responses:
         "200":
-          description: OK
+          description: The resource has been successfully deleted.
+        "403":
+          description: Invalid Credentials were provided. Admin credentials needed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+        "404":
+          description: The given "id" does not corresponds to an entry in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryNotFound'
 
   /comments:
 
@@ -939,26 +935,13 @@ components:
       properties:
         name:
           type: string
+          example: new category name
         description:
           type: string
+          example: new category description
         imageUrl:
           type: string
-    UpdateCategoryResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          writeOnly: true
-        name:
-          type: string
-          writeOnly: true
-        description:
-          type: string
-          writeOnly: true
-        imageUrl:
-          type: string
-          writeOnly: true
+          example: new category image
     UpdateActivityRequest:
       required:
         - content
@@ -1018,10 +1001,13 @@ components:
       properties:
         name:
           type: string
+          example: new-category-name
         description:
           type: string
+          example: new-category-description
         image:
           type: string
+          example: new-category.jpg
     CreateCategoryResponse:
       type: object
       properties:
@@ -1277,7 +1263,7 @@ components:
           example:
             - Email has invalid format.
             - Password must be between 8 and 16 characters long.
-    BadRequestCategories:
+    BadRequestUpdateCategories:
       type: object
       properties:
         statusCode:
@@ -1288,8 +1274,10 @@ components:
         moreInfo:
           type: array
           items:
-            - $ref: '#/components/schemas/OnlySpaceAndLetters'
-            - $ref: '#/components/schemas/NameCannotBeEmpty'
+            type: string
+          example:
+            - Name cannot be empty.
+            - Name must contain only spaces and letters.
     BadRequestCreateNews:
       type: object
       properties:
@@ -1347,6 +1335,21 @@ components:
           items:
             type: string
           example: News not found.
+    CategoryNotFound:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int64
+          example: 404
+        message:
+          type: string
+          example: Object not found in database.
+        moreInfo:
+          type: array
+          items:
+            type: string
+          example: Category not found.
     ForbiddenLogin:
       type: object
       properties:
@@ -1379,38 +1382,6 @@ components:
             Type: string
           example:
             - Access Denied. Contact your administrator.
-    InternalServerError:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-          format: int64
-        message:
-          type: string
-        moreInfo:
-          type: array
-          items:
-            - $ref: '#/components/schemas/ContentType'
-    ContentType:
-      type: object
-      properties:
-        body:
-          type: string
-    AccessDenied:
-      type: object
-      properties:
-        body:
-          type: string
-    NameCannotBeEmpty:
-      type: object
-      properties:
-        body:
-          type: string
-          value: "Name cannot be empty."
-    OnlySpaceAndLetters:
-      type: object
-      properties:
-        body:
     Pageable:
       type: object
       properties:
@@ -1514,6 +1485,25 @@ components:
         body:
           type: string
           example: Comment content
+    ListCategoryResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          example: 0
+        size:
+          type: integer
+          format: int32
+          example: 10
+        totalPages:
+          type: integer
+          format: int32
+          example: 1
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetCategoryResponse'
   securitySchemes:
     BearerAuth:
       type: http
@@ -1526,6 +1516,7 @@ tags:
     description: Authentication operations for the "Auth" resource.
   - name: Activities
   - name: Categories
+    description: CRUD Operations related to the "Category" resource.
   - name: Comments
   - name: Contact
   - name: Members
