@@ -1,9 +1,12 @@
 package com.alkemy.ong.bigtest.members;
 
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -25,6 +28,18 @@ public class ListMembersIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.moreInfo", hasItem(ACCESS_DENIED_MORE_INFO)))
         .andExpect(status().isForbidden());
   }
+
+  @Test
+  public void shouldReturnEmptyPageWhenThereAraNoMembers() throws Exception {
+    mockMvc.perform(get(URL)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.page", equalTo(0)))
+        .andExpect(jsonPath("$.size", equalTo(10)))
+        .andExpect(jsonPath("$.totalPages", equalTo(0)))
+        .andExpect(jsonPath("$.members").value(empty()))
+        .andExpect(status().isOk());
+  }
+
 }
 
 
