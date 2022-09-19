@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.alkemy.ong.bigtest.BigTest;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +21,9 @@ public class ListUserIntegrationTest extends BigTest {
 
     mockMvc.perform(get(URL)
         .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+
         .andExpect(jsonPath("$.users", hasSize(12)))
+
         .andExpect(status().isOk());
   }
 
