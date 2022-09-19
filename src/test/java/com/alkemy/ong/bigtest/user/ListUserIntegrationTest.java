@@ -2,12 +2,12 @@ package com.alkemy.ong.bigtest.user;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.alkemy.ong.bigtest.BigTest;
-import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,20 +15,26 @@ import org.springframework.http.MediaType;
 
 public class ListUserIntegrationTest extends BigTest {
 
+  private static final String URL = "/users";
+
   @Test
   public void shouldListUsersWhenUserHasAdminRole() throws Exception {
-    UserEntity randomUser = getRandomUser();
-    mockMvc.perform(get("/users")
+
+    mockMvc.perform(get(URL)
         .contentType(MediaType.APPLICATION_JSON)
         .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
-        .andExpect(jsonPath("$.users", hasSize(13)))
+        .andExpect(jsonPath("$.users", hasSize(12)))
+        .andExpect(jsonPath("$.users[0]",hasKey("id")))
+        .andExpect(jsonPath("$.users[0]",hasKey("firstName")))
+        .andExpect(jsonPath("$.users[0]",hasKey("lastName")))
+        .andExpect(jsonPath("$.users[0]",hasKey("email")))
+        .andExpect(jsonPath("$.users[0]",hasKey("role")))
         .andExpect(status().isOk());
-    cleanUsersData(randomUser);
   }
 
   @Test
   public void shouldReturnForbiddenWhenUserHasStandardRole() throws Exception {
-    mockMvc.perform(get("/users")
+    mockMvc.perform(get(URL)
         .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(403)))
         .andExpect(jsonPath("$.message", equalTo(ACCESS_DENIED_MESSAGE)))
