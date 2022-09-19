@@ -45,7 +45,7 @@ public class CreateContactIntegration extends BigTest {
         .getContentAsString(StandardCharsets.UTF_8);
 
     Integer contactId = JsonPath.read(contactResponse, "$.id");
-    assertActivityHasBeenCreated(contactId.longValue());
+    assertContactHasBeenCreated(Long.valueOf(contactId));
   }
 
   @Test
@@ -64,7 +64,7 @@ public class CreateContactIntegration extends BigTest {
         .getContentAsString(StandardCharsets.UTF_8);
 
     Integer contactId = JsonPath.read(contactResponse, "$.id");
-    assertActivityHasBeenCreated(contactId.longValue());
+    assertContactHasBeenCreated(Long.valueOf(contactId));
   }
 
   @Test
@@ -111,7 +111,7 @@ public class CreateContactIntegration extends BigTest {
   }
 
 
-  private void assertActivityHasBeenCreated(Long id) {
+  private void assertContactHasBeenCreated(Long id) {
     Optional<ContactEntity> contactEntity = contactRepository.findById(id);
     assertTrue(contactEntity.isPresent());
     assertThat(contactEntity.get().getDeletedAt()).isNull();
