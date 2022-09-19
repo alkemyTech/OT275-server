@@ -107,6 +107,22 @@ public class CreateMembersIntegrationTest extends BigTest {
   }
 
   @Test
+  public void shouldReturnBadRequestWhenImageHasWhiteSpace() throws Exception {
+    mockMvc.perform(post(URL)
+            .content(buildRequest(NAME, "x x", DESCRIPTION,
+                FACEBOOK_URL, LINKEDIN_URL, INSTAGRAM_URL))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
+        .andExpect(jsonPath("$.message", CoreMatchers.equalTo(INVALID_INPUT_DATA_MESSAGE)))
+        .andExpect(jsonPath("$.moreInfo", hasSize(1)))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Image must be alphanumeric "
+                + "without white spaces.")))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
   public void shouldReturnBadRequestWhenImageIsEmpty() throws Exception {
     mockMvc.perform(post(URL)
             .content(buildRequest(NAME, "", DESCRIPTION,
