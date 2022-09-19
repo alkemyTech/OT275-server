@@ -10,8 +10,8 @@ import com.alkemy.ong.infrastructure.rest.mapper.member.CreateMemberMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.member.ListMemberMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.member.UpdateMemberMapper;
 import com.alkemy.ong.infrastructure.rest.request.member.CreateMemberRequest;
+import com.alkemy.ong.infrastructure.rest.request.member.UpdateMemberRequest;
 import com.alkemy.ong.infrastructure.rest.response.member.GetMemberResponse;
-import com.alkemy.ong.infrastructure.rest.response.member.UpdateMemberResponse;
 import com.alkemy.ong.infrastructure.rest.response.news.ListMemberResponse;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -81,9 +81,9 @@ public class MemberResource {
       value = "{id}",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<UpdateMemberResponse> update(
+  public ResponseEntity<GetMemberResponse> update(
       @PathVariable Long id,
-      @Valid @RequestBody CreateMemberRequest request) {
+      @Valid @RequestBody UpdateMemberRequest request) {
     Member updatedMember = updateMemberUseCase.update(updateMemberMapper.toDomain(id, request));
     return ResponseEntity.ok().body(updateMemberMapper.toResponse(updatedMember));
   }
