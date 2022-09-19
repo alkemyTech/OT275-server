@@ -106,6 +106,23 @@ public class CreateMembersIntegrationTest extends BigTest {
         .andExpect(status().isBadRequest());
   }
 
+  @Test
+  public void shouldReturnBadRequestWhenImageIsEmpty() throws Exception {
+    mockMvc.perform(post(URL)
+            .content(buildRequest(NAME, "", DESCRIPTION,
+                FACEBOOK_URL, LINKEDIN_URL, INSTAGRAM_URL))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.statusCode", CoreMatchers.equalTo(400)))
+        .andExpect(jsonPath("$.message", CoreMatchers.equalTo(INVALID_INPUT_DATA_MESSAGE)))
+        .andExpect(jsonPath("$.moreInfo", hasSize(2)))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Image cannot be empty.")))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Image must be alphanumeric "
+                + "without white spaces.")))
+        .andExpect(status().isBadRequest());
+  }
 
 
   private String buildRequest(String name, String imageUrl, String description, String facebookUrl,
@@ -125,6 +142,5 @@ public class CreateMembersIntegrationTest extends BigTest {
     assertEquals(FACEBOOK_URL,memberEntity.get().getFacebookUrl());
     assertEquals(LINKEDIN_URL,memberEntity.get().getLinkedInUrl());
     assertEquals(INSTAGRAM_URL,memberEntity.get().getInstagramUrl());
-
   }
 }
