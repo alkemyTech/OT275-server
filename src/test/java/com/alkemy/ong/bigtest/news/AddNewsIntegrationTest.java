@@ -76,7 +76,7 @@ public class AddNewsIntegrationTest extends BigTest {
   }
 
   @Test
-  public void shouldReturnBadRequestWhenHasMoreThanFiftyCharacters() throws Exception {
+  public void shouldReturnBadRequestWhenHasMoreThaMaxAllowedCharacters() throws Exception {
     mockMvc.perform(post(URL)
             .content(buildRequest(buildCreateNewsRequest(
                 "aNewsNameContainingMoreThanFiftyCharactersConsecutively",
