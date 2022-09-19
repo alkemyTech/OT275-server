@@ -39,8 +39,10 @@ import com.alkemy.ong.application.service.contact.usecase.ICreateContactUseCase;
 import com.alkemy.ong.application.service.contact.usecase.IListContactUseCase;
 import com.alkemy.ong.application.service.delegate.IAuthenticationManager;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
+import com.alkemy.ong.application.service.member.CreateMemberUseCaseService;
 import com.alkemy.ong.application.service.member.DeleteMemberUseCaseService;
 import com.alkemy.ong.application.service.member.ListMemberUseCaseService;
+import com.alkemy.ong.application.service.member.usecase.ICreateMemberUseCase;
 import com.alkemy.ong.application.service.member.usecase.IDeleteMemberUseCase;
 import com.alkemy.ong.application.service.member.usecase.IListMemberUseCase;
 import com.alkemy.ong.application.service.news.CreateNewsUseCaseService;
@@ -307,6 +309,11 @@ public class SpringBeanConfiguration {
   public IUpdateTestimonialUseCase updateTestimonialUseCase(
       ITestimonialRepository testimonialRepository) {
     return new UpdateTestimonialUseCaseService(testimonialRepository);
+  }
+
+  @Bean
+  public ICreateMemberUseCase createMemberUseCase(IMemberRepository memberRepository) {
+    return new CreateMemberUseCaseService(memberRepository);
   }
 
 }
