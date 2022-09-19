@@ -20,7 +20,7 @@ public class UpdateMemberMapper extends CreateMemberMapper {
     return member;
   }
 
-  public UpdateMemberResponse toResponse(Member member){
+  public UpdateMemberResponse toResponse(Member member) {
     return (UpdateMemberResponse) super.toResponse(member);
   }
 }
