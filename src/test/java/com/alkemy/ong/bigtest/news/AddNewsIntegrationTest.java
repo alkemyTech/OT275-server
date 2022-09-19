@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,9 +34,11 @@ public class AddNewsIntegrationTest extends BigTest {
             .content(buildRequest(buildCreateNewsRequest(NEWS_NAME, NEWS_TEXT, NEWS_IMAGE)))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+        .andExpect(jsonPath("$.id",notNullValue()))
         .andExpect(jsonPath("$.name", equalTo(NEWS_NAME)))
         .andExpect(jsonPath("$.content", equalTo(NEWS_TEXT)))
         .andExpect(jsonPath("$.imageUrl", equalTo(NEWS_IMAGE)))
+        .andExpect(jsonPath("$.category.id", notNullValue()))
         .andExpect(jsonPath("$.category.description", equalTo("News description")))
         .andExpect(jsonPath("$.category.imageUrl", equalTo("")))
         .andExpect(jsonPath("$.category.name", equalTo("News")))
