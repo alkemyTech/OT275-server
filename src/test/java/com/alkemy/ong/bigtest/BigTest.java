@@ -337,4 +337,10 @@ public abstract class BigTest {
   protected String convert(Object requestObject) throws JsonProcessingException {
     return objectMapper.writeValueAsString(requestObject);
   }
+
+  protected MemberEntity getRandomMember() {
+    return memberRepository.save(buildMember("member", "facebook.com/member",
+        "instagram.com/member", "linkedin.com/member",
+        "member.jpg", "member description"));
+  }
 }
