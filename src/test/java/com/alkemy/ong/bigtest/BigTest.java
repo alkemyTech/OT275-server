@@ -89,9 +89,9 @@ public abstract class BigTest {
   protected IActivitySpringRepository activityRepository;
 
   @Autowired
-
   protected ITestimonialSpringRepository testimonialRepository;
 
+  @Autowired
   protected IContactSpringRepository contactRepository;
 
 
