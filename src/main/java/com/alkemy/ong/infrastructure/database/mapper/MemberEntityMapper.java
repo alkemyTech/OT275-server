@@ -35,7 +35,7 @@ public class MemberEntityMapper {
     return members;
   }
 
-  private Member toDomain(MemberEntity entity) {
+  public Member toDomain(MemberEntity entity) {
     if (entity == null) {
       return null;
     }
@@ -55,4 +55,23 @@ public class MemberEntityMapper {
     socialMedia.setLinkedInUrl(entity.getLinkedInUrl());
     return socialMedia;
   }
+
+  public MemberEntity toEntity(Member member) {
+    if (member == null) {
+      return null;
+    }
+    MemberEntity memberEntity = new MemberEntity();
+    memberEntity.setMemberId(member.getMemberId());
+    memberEntity.setName(member.getName());
+    memberEntity.setImageUrl(member.getImageUrl());
+    memberEntity.setDescription(member.getDescription());
+    SocialMedia socialMedia = member.getSocialMedia();
+    if (socialMedia != null) {
+      memberEntity.setFacebookUrl(socialMedia.getFacebookUrl());
+      memberEntity.setInstagramUrl(socialMedia.getInstagramUrl());
+      memberEntity.setLinkedInUrl(socialMedia.getLinkedInUrl());
+    }
+    return memberEntity;
+  }
+
 }
