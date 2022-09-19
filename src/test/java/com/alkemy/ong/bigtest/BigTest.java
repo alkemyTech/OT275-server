@@ -8,6 +8,7 @@ import com.alkemy.ong.infrastructure.database.entity.ActivityEntity;
 import com.alkemy.ong.infrastructure.database.entity.CategoryEntity;
 import com.alkemy.ong.infrastructure.database.entity.CommentEntity;
 import com.alkemy.ong.infrastructure.database.entity.ContactEntity;
+import com.alkemy.ong.infrastructure.database.entity.MemberEntity;
 import com.alkemy.ong.infrastructure.database.entity.NewsEntity;
 import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
 import com.alkemy.ong.infrastructure.database.entity.RoleEntity;
@@ -91,7 +92,7 @@ public abstract class BigTest {
   protected IContactSpringRepository contactRepository;
 
   @Autowired
-  protected IMemberSpringRepository memberSpringRepository;
+  protected IMemberSpringRepository memberRepository;
 
   @Before
   public void setup() {
@@ -113,7 +114,7 @@ public abstract class BigTest {
     categoryRepository.deleteAll();
     activityRepository.deleteAll();
     contactRepository.deleteAll();
-    memberSpringRepository.deleteAll();
+    memberRepository.deleteAll();
   }
 
   protected void cleanUsersData(UserEntity... users) {
@@ -259,6 +260,12 @@ public abstract class BigTest {
     return contactRepository.save(buildContact(name, phone, email, message));
   }
 
+  protected MemberEntity createMember(String name, String facebook, String instagram,
+      String linkedin, String imageUrl, String description) {
+    return memberRepository.save(buildMember(name, facebook, instagram,
+        linkedin, imageUrl, description));
+  }
+
   private CommentEntity saveCommentFor(Long newsId) {
     return commentRepository.save(buildComment(newsId));
   }
@@ -287,6 +294,19 @@ public abstract class BigTest {
     categoryEntity.setImageUrl(imageUrl);
     categoryEntity.setSoftDeleted(false);
     return categoryEntity;
+  }
+
+  protected MemberEntity buildMember(String name, String facebook, String instagram,
+      String linkedin, String imageUrl, String description) {
+    MemberEntity memberEntity = new MemberEntity();
+    memberEntity.setName(name);
+    memberEntity.setDescription(description);
+    memberEntity.setImageUrl(imageUrl);
+    memberEntity.setFacebookUrl(facebook);
+    memberEntity.setLinkedInUrl(linkedin);
+    memberEntity.setInstagramUrl(instagram);
+    memberEntity.setSoftDeleted(false);
+    return memberEntity;
   }
 
   protected void deleteCategory(Long categoryId) {
