@@ -34,8 +34,6 @@ public class ListContactIntegration extends BigTest {
 
   @Test
   public void shouldReturnEmptyListWhenThereAreNoContact() throws Exception {
-    contactRepository.deleteAll();
-
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.contacts").value(empty()))
@@ -44,8 +42,7 @@ public class ListContactIntegration extends BigTest {
 
   @Test
   public void shouldReturnContactListWhenThereAreContacts() throws Exception {
-    contactRepository.deleteAll();
-    saveContact(NAME, PHONE, EMAIL, MESSAGE);
+    createContact(NAME, PHONE, EMAIL, MESSAGE);
 
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
@@ -57,12 +54,4 @@ public class ListContactIntegration extends BigTest {
         .andExpect(status().isOk());
   }
 
-  private void saveContact(String name, String phone, String email, String message) {
-    ContactEntity contactEntity = new ContactEntity();
-    contactEntity.setName(name);
-    contactEntity.setPhone(phone);
-    contactEntity.setEmail(email);
-    contactEntity.setMessage(message);
-    contactRepository.save(contactEntity);
-  }
 }
