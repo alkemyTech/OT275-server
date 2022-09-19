@@ -1,7 +1,7 @@
 package com.alkemy.ong.bigtest.news;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
@@ -31,10 +31,10 @@ public class AddNewsIntegrationTest extends BigTest {
   @Test
   public void shouldCreateNewsWhenUserHasAdminRole() throws Exception {
     String result = mockMvc.perform(post(URL)
-            .content(buildRequest(buildCreateNewsRequest(NEWS_NAME, NEWS_TEXT, NEWS_IMAGE)))
+            .content(buildRequest(NEWS_NAME, NEWS_TEXT, NEWS_IMAGE))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
-        .andExpect(jsonPath("$.id",notNullValue()))
+        .andExpect(jsonPath("$.id", notNullValue()))
         .andExpect(jsonPath("$.name", equalTo(NEWS_NAME)))
         .andExpect(jsonPath("$.content", equalTo(NEWS_TEXT)))
         .andExpect(jsonPath("$.imageUrl", equalTo(NEWS_IMAGE)))
@@ -51,7 +51,7 @@ public class AddNewsIntegrationTest extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenNameIsEmpty() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(buildCreateNewsRequest("",NEWS_TEXT,NEWS_IMAGE)))
+            .content(buildRequest("", NEWS_TEXT, NEWS_IMAGE))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
@@ -65,7 +65,7 @@ public class AddNewsIntegrationTest extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenNameHasANumber() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(buildCreateNewsRequest("Name with 1 number",NEWS_TEXT,NEWS_IMAGE)))
+            .content(buildRequest("Name with 1 number", NEWS_TEXT, NEWS_IMAGE))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
@@ -78,10 +78,10 @@ public class AddNewsIntegrationTest extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenHasMoreThaMaxAllowedCharacters() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(buildCreateNewsRequest(
+            .content(buildRequest(
                 "aNewsNameContainingMoreThanFiftyCharactersConsecutively",
                 NEWS_TEXT,
-                NEWS_IMAGE)))
+                NEWS_IMAGE))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
@@ -94,7 +94,7 @@ public class AddNewsIntegrationTest extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenTextIsEmpty() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(buildCreateNewsRequest(NEWS_NAME,"",NEWS_IMAGE)))
+            .content(buildRequest(NEWS_NAME, "", NEWS_IMAGE))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
@@ -108,7 +108,7 @@ public class AddNewsIntegrationTest extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenTextHasASymbol() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(buildCreateNewsRequest(NEWS_NAME,"Text with 1 symbol!",NEWS_IMAGE)))
+            .content(buildRequest(NEWS_NAME, "Text with 1 symbol!", NEWS_IMAGE))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
@@ -121,34 +121,36 @@ public class AddNewsIntegrationTest extends BigTest {
   @Test
   public void shouldReturnBadRequestWhenImageIsEmpty() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(buildCreateNewsRequest(NEWS_NAME,NEWS_TEXT,"")))
+            .content(buildRequest(NEWS_NAME, NEWS_TEXT, ""))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(2)))
         .andExpect(jsonPath("$.moreInfo", hasItem("Image cannot be empty.")))
-        .andExpect(jsonPath("$.moreInfo", hasItem("Image must be alphanumeric without white spaces.")))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Image must be alphanumeric without white spaces.")))
         .andExpect(status().isBadRequest());
   }
 
   @Test
   public void shouldReturnBadRequestWhenImageHasSpaces() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(buildCreateNewsRequest(NEWS_NAME,NEWS_TEXT,"News Image with 4 spaces")))
+            .content(buildRequest(NEWS_NAME, NEWS_TEXT, "News Image with 4 spaces"))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
-        .andExpect(jsonPath("$.moreInfo", hasItem("Image must be alphanumeric without white spaces.")))
+        .andExpect(
+            jsonPath("$.moreInfo", hasItem("Image must be alphanumeric without white spaces.")))
         .andExpect(status().isBadRequest());
   }
 
   @Test
   public void shouldReturnForbiddenWhenUserHasStandardRole() throws Exception {
     mockMvc.perform(post(URL)
-            .content(buildRequest(buildCreateNewsRequest(NEWS_NAME,NEWS_TEXT,NEWS_IMAGE)))
+            .content(buildRequest(NEWS_NAME, NEWS_TEXT, NEWS_IMAGE))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(403)))
@@ -158,9 +160,9 @@ public class AddNewsIntegrationTest extends BigTest {
         .andExpect(status().isForbidden());
   }
 
-  private String buildRequest(CreateNewsRequest newsRequest)
+  private String buildRequest(String name, String text, String image)
       throws JsonProcessingException {
-    return convert(newsRequest);
+    return convert(buildCreateNewsRequest(name, text, image));
   }
 
   private CreateNewsRequest buildCreateNewsRequest(String name, String text, String image) {
