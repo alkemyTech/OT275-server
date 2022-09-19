@@ -60,7 +60,7 @@ public class UpdateUserIntegrationTest extends BigTest {
   }
 
   @Test
-  public void shouldUpdateWhenUserHasStandardRole() throws Exception {
+  public void shouldReturnForbiddenWhenNoCredentialsAreProvided() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
         .content(buildDefaultRequest())
