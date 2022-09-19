@@ -1,5 +1,6 @@
 package com.alkemy.ong.application.service;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -28,13 +29,14 @@ class ListContactUseCaseServiceTest {
     listContactUseCaseService = new ListContactUseCaseService(contactRepository);
   }
 
- @Test
+  @Test
   void shouldReturnList() {
     List<Contact> contacts = new ArrayList<>();
     given(contactRepository.findAll()).willReturn(contacts);
 
-    listContactUseCaseService.findAll();
+    List<Contact> actualContacts = listContactUseCaseService.findAll();
 
+    assertNotNull(actualContacts);
     verify(contactRepository, times(1)).findAll();
 
   }
