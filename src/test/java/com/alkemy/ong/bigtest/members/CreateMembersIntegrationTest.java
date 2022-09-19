@@ -1,19 +1,22 @@
 package com.alkemy.ong.bigtest.members;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.alkemy.ong.bigtest.BigTest;
 import com.alkemy.ong.builder.CreateMembersRequestBuilder;
-import com.alkemy.ong.builder.SocialMediaRequestBuilder;
-import com.alkemy.ong.infrastructure.rest.request.common.SocialMediaRequest;
-import com.alkemy.ong.infrastructure.rest.request.member.CreateMemberRequest;
+import com.alkemy.ong.infrastructure.database.entity.MemberEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jayway.jsonpath.JsonPath;
+import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -48,10 +51,24 @@ public class CreateMembersIntegrationTest extends BigTest {
         .andExpect(status().isForbidden());
   }
 
+
   private String buildRequest(String name, String imageUrl, String description, String facebookUrl,
       String linkedinUrl, String instagramUrl) throws JsonProcessingException {
     return convert(
         CreateMembersRequestBuilder.buildRequest(name, imageUrl, description, facebookUrl,
             linkedinUrl, instagramUrl));
+  }
+
+  private void assertMemberHasBeenCreated(Long id){
+    Optional<MemberEntity> memberEntity = memberRepository.findById(id);
+    assertTrue(memberEntity.isPresent());
+    assertThat(memberEntity.get().isSoftDeleted()).isFalse();
+    assertEquals(NAME,memberEntity.get().getName());
+    assertEquals(IMAGE_URL,memberEntity.get().getImageUrl());
+    assertEquals(DESCRIPTION,memberEntity.get().getDescription());
+    assertEquals(FACEBOOK_URL,memberEntity.get().getFacebookUrl());
+    assertEquals(LINKEDIN_URL,memberEntity.get().getLinkedInUrl());
+    assertEquals(INSTAGRAM_URL,memberEntity.get().getInstagramUrl());
+
   }
 }
