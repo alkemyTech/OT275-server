@@ -11,6 +11,7 @@ import com.alkemy.ong.infrastructure.database.entity.ContactEntity;
 import com.alkemy.ong.infrastructure.database.entity.NewsEntity;
 import com.alkemy.ong.infrastructure.database.entity.OrganizationEntity;
 import com.alkemy.ong.infrastructure.database.entity.RoleEntity;
+import com.alkemy.ong.infrastructure.database.entity.TestimonialEntity;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IActivitySpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.ICategorySpringRepository;
@@ -19,6 +20,7 @@ import com.alkemy.ong.infrastructure.database.repository.abstraction.IContactSpr
 import com.alkemy.ong.infrastructure.database.repository.abstraction.INewsSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IOrganizationSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IRoleSpringRepository;
+import com.alkemy.ong.infrastructure.database.repository.abstraction.ITestimonialSpringRepository;
 import com.alkemy.ong.infrastructure.database.repository.abstraction.IUserSpringRepository;
 import com.alkemy.ong.infrastructure.rest.request.user.AuthenticationRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -87,7 +89,11 @@ public abstract class BigTest {
   protected IActivitySpringRepository activityRepository;
 
   @Autowired
+  protected ITestimonialSpringRepository testimonialRepository;
+
+  @Autowired
   protected IContactSpringRepository contactRepository;
+
 
   @Before
   public void setup() {
@@ -108,6 +114,7 @@ public abstract class BigTest {
     newsRepository.deleteAll();
     categoryRepository.deleteAll();
     activityRepository.deleteAll();
+    testimonialRepository.deleteAll();
     contactRepository.deleteAll();
   }
 
@@ -152,6 +159,13 @@ public abstract class BigTest {
         "Voorhees",
         ADMIN_EMAIL,
         Role.ADMIN));
+  }
+
+  protected TestimonialEntity saveTestimonial() {
+    return testimonialRepository.save(buildTestimonial(
+        "Testimonial name",
+        "testimonial-image.jpg",
+        "Testimonial content"));
   }
 
   private UserEntity buildUser(String firstName, String lastName, String email, Role role) {
@@ -218,6 +232,15 @@ public abstract class BigTest {
     return organizationEntity;
   }
 
+  private TestimonialEntity buildTestimonial(String name, String imageUrl, String content) {
+    TestimonialEntity testimonial = new TestimonialEntity();
+    testimonial.setName(name);
+    testimonial.setContent(content);
+    testimonial.setImageUrl(imageUrl);
+    testimonial.setSoftDeleted(false);
+    return testimonial;
+  }
+
   protected String getAuthorizationTokenForAdminUser() throws Exception {
     return getAuthorizationTokenForUser(ADMIN_EMAIL);
   }
@@ -238,6 +261,13 @@ public abstract class BigTest {
 
   protected UserEntity getRandomUser() {
     return userRepository.save(buildUser("Michael", "Myers", "michael@myers.com", Role.USER));
+  }
+
+  protected TestimonialEntity getRandomTestimonial() {
+    return testimonialRepository.save(buildTestimonial(
+        "Testimonial name",
+        "testimonial-image.jpg",
+        "Testimonial content"));
   }
 
   protected NewsEntity createNewsWithRandomComment(String name) {
