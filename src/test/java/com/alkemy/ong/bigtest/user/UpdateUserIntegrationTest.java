@@ -4,11 +4,11 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.alkemy.ong.bigtest.BigTest;
 import com.alkemy.ong.builder.UpdateUserRequestBuilder;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 
 public class UpdateUserIntegrationTest extends BigTest {
@@ -45,7 +46,7 @@ public class UpdateUserIntegrationTest extends BigTest {
   }
 
   @Test
-  public void shouldUpdateUserWhenHasUserRole() throws Exception {
+  public void shouldUpdateUserWhenHasStandardUserRole() throws Exception {
     Long randomUserId = getRandomUserId();
 
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
@@ -87,7 +88,7 @@ public class UpdateUserIntegrationTest extends BigTest {
   }
 
   @Test
-  public void shouldReturnBadRequestWhenFirstnameIsNull() throws Exception {
+  public void shouldReturnBadRequestWhenFirstNameIsNull() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
         .content(buildRequest(
@@ -182,7 +183,7 @@ public class UpdateUserIntegrationTest extends BigTest {
   }
 
   @Test
-  public void shouldReturnBadRequestWhenPasswordIsLessThanEight() throws Exception {
+  public void shouldReturnBadRequestWhenPasswordHasLessCharactersThanAllowed() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
         .content(buildRequest(
@@ -201,7 +202,7 @@ public class UpdateUserIntegrationTest extends BigTest {
   }
 
   @Test
-  public void shouldReturnBadRequestWhenPasswordIsGreaterThanSixteen() throws Exception {
+  public void shouldReturnBadRequestWhenPasswordHasGreaterCharactersThanAllowed() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
         .content(buildRequest(
@@ -219,12 +220,16 @@ public class UpdateUserIntegrationTest extends BigTest {
         .andExpect(status().isBadRequest());
   }
 
+  @Transactional
   private void assertUserHasBeenUpdated(Long userId) {
     Optional<UserEntity> userEntity = userRepository.findById(userId);
     assertTrue(userEntity.isPresent());
     assertEquals("Mariano", userEntity.get().getFirstName());
     assertEquals("Toranzo", userEntity.get().getLastName());
     assertEquals("https://s3.com/default-image.jpg", userEntity.get().getImageUrl());
+    assertEquals("michael@myers.com", userEntity.get().getEmail());
+    assertEquals(1, userEntity.get().getRole().getRoleId());
+    assertFalse(userEntity.get().isSoftDeleted());
     assertTrue(passwordEncoder.matches("abcd12345", userEntity.get().getPassword()));
   }
 

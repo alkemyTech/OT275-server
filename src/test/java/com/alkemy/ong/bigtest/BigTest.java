@@ -234,8 +234,8 @@ public abstract class BigTest {
 
   private String getAuthorizationTokenForUser(String email) throws Exception {
     String content = mockMvc.perform(post("/auth/login")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(new AuthenticationRequest(email, PASSWORD))))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(new AuthenticationRequest(email, PASSWORD))))
         .andReturn()
         .getResponse().getContentAsString(StandardCharsets.UTF_8);
 
@@ -305,6 +305,7 @@ public abstract class BigTest {
         "Activity content",
         "https://s3.com/my-activity.jpg"));
   }
+
 
   protected ActivityEntity buildActivity(String name, String content, String image) {
     ActivityEntity activityEntity = new ActivityEntity();
