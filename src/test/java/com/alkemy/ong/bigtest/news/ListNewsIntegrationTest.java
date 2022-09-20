@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 import com.alkemy.ong.bigtest.BigTest;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
@@ -21,23 +22,21 @@ public class ListNewsIntegrationTest extends BigTest {
 
   @Test
   public void shouldListNewsWhenUserHasAdminRole() throws Exception {
-    for (int i = 1; i < 15; i++) {
-      createNews("News number " + i);
-    }
+    createMultipleNews();
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.page", equalTo(0)))
         .andExpect(jsonPath("$.size", equalTo(10)))
         .andExpect(jsonPath("$.totalPages", equalTo(2)))
         .andExpect(jsonPath("$.news", hasSize(10)))
-        .andExpect(jsonPath("$.news[0].id", notNullValue()))
-        .andExpect(jsonPath("$.news[0].name", equalTo("News number 1")))
-        .andExpect(jsonPath("$.news[0].content", equalTo("Content for News number 1")))
-        .andExpect(jsonPath("$.news[0].imageUrl", equalTo("")))
-        .andExpect(jsonPath("$.news[0].category.id", notNullValue()))
-        .andExpect(jsonPath("$.news[0].category.description", equalTo("News description")))
-        .andExpect(jsonPath("$.news[0].category.imageUrl", equalTo("")))
-        .andExpect(jsonPath("$.news[0].category.name", equalTo("News")))
+        .andExpect(jsonPath("$.news[*].id").value(notNullValue()))
+        .andExpect(jsonPath("$.news[*].name").value( hasItem("News number 1")))
+        .andExpect(jsonPath("$.news[*].content").value(hasItem("Content for News number 1")))
+        .andExpect(jsonPath("$.news[*].imageUrl").value(hasItem("")))
+        .andExpect(jsonPath("$.news[*].category.id").value(notNullValue()))
+        .andExpect(jsonPath("$.news[*].category.description").value(hasItem("News description")))
+        .andExpect(jsonPath("$.news[*].category.imageUrl").value(hasItem("")))
+        .andExpect(jsonPath("$.news[*].category.name").value(hasItem("News")))
         .andExpect(header().string(LINK_HEADER, equalTo(
             "<http://localhost/news?page=1&size=10>; rel=\"last\"<http://localhost/news?page=1&size=10>; rel=\"next\"")))
         .andExpect(status().isOk());
@@ -45,23 +44,21 @@ public class ListNewsIntegrationTest extends BigTest {
 
   @Test
   public void shouldListNewsWhenUserHasStandard() throws Exception {
-    for (int i = 1; i < 15; i++) {
-      createNews("News number " + i);
-    }
+    createMultipleNews();
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.page", equalTo(0)))
         .andExpect(jsonPath("$.size", equalTo(10)))
         .andExpect(jsonPath("$.totalPages", equalTo(2)))
         .andExpect(jsonPath("$.news", hasSize(10)))
-        .andExpect(jsonPath("$.news[0].id", notNullValue()))
-        .andExpect(jsonPath("$.news[0].name", equalTo("News number 1")))
-        .andExpect(jsonPath("$.news[0].content", equalTo("Content for News number 1")))
-        .andExpect(jsonPath("$.news[0].imageUrl", equalTo("")))
-        .andExpect(jsonPath("$.news[0].category.id", notNullValue()))
-        .andExpect(jsonPath("$.news[0].category.description", equalTo("News description")))
-        .andExpect(jsonPath("$.news[0].category.imageUrl", equalTo("")))
-        .andExpect(jsonPath("$.news[0].category.name", equalTo("News")))
+        .andExpect(jsonPath("$.news[*].id").value(notNullValue()))
+        .andExpect(jsonPath("$.news[*].name").value( hasItem("News number 1")))
+        .andExpect(jsonPath("$.news[*].content").value(hasItem("Content for News number 1")))
+        .andExpect(jsonPath("$.news[*].imageUrl").value(hasItem("")))
+        .andExpect(jsonPath("$.news[*].category.id").value(notNullValue()))
+        .andExpect(jsonPath("$.news[*].category.description").value(hasItem("News description")))
+        .andExpect(jsonPath("$.news[*].category.imageUrl").value(hasItem("")))
+        .andExpect(jsonPath("$.news[*].category.name").value(hasItem("News")))
         .andExpect(header().string(LINK_HEADER, equalTo(
             "<http://localhost/news?page=1&size=10>; rel=\"last\"<http://localhost/news?page=1&size=10>; rel=\"next\"")))
         .andExpect(status().isOk());
@@ -89,5 +86,11 @@ public class ListNewsIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
         .andExpect(jsonPath("$.moreInfo", hasItem(ACCESS_DENIED_MORE_INFO)))
         .andExpect(status().isForbidden());
+  }
+
+  private void createMultipleNews(){
+    for (int i = 1; i < 15; i++) {
+      createNews("News number " + i);
+    }
   }
 }
