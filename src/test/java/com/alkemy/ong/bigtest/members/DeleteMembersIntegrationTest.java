@@ -29,6 +29,16 @@ public class DeleteMembersIntegrationTest extends BigTest {
         .andExpect(status().isNotFound());
   }
 
+  @Test
+  public void shouldDeleteMember()throws Exception{
+    Long memberId = getRandomMemberId();
+
+    mockMvc.perform(delete(URL, String.valueOf(memberId))
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+        .andExpect(status().isNoContent());
+
+    assertMemberHasBeenDeleted(memberId);
+  }
 
   private void assertMemberHasBeenDeleted(Long randomMemberId) {
     Optional<MemberEntity> member = memberRepository.findById(randomMemberId);
