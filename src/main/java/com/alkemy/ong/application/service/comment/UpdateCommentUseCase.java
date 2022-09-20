@@ -7,6 +7,7 @@ import com.alkemy.ong.application.repository.ICommentRepository;
 import com.alkemy.ong.application.service.comment.usecase.IUpdateCommentUseCase;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.domain.Comment;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -20,9 +21,15 @@ public class UpdateCommentUseCase implements IUpdateCommentUseCase {
     if (!operationAllowed.isAuthorized(comment::getId)) {
       throw new OperationNotPermittedException(ErrorMessage.OPERATION_NOT_PERMITTED.getMessage());
     }
-    if (!commentRepository.exists(comment::getId)) {
+    Optional<Comment> commentFromRepository = commentRepository.find(comment::getId);
+    if (commentFromRepository.isEmpty()) {
       throw new ObjectNotFoundException(ErrorMessage.OBJECT_NOT_FOUND.getMessage("Comment"));
     }
-    return commentRepository.update(comment);
+    return update(commentFromRepository.get(), comment);
+  }
+
+  private Comment update(Comment commentFromRepository, Comment comment) {
+    commentFromRepository.setBody(comment.getBody());
+    return commentRepository.update(commentFromRepository);
   }
 }

@@ -48,6 +48,7 @@ public class CommentEntityMapper {
     entity.setUser(userEntityMapper.toEntity(comment.getCreatedBy()));
     entity.setBody(comment.getBody());
     entity.setNews(newsEntityMapper.toEntity(comment.getAssociatedNews()));
+    entity.setCreateTimestamp(comment.getCreateTimestamp());
     return entity;
   }
 

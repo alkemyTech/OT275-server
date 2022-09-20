@@ -11,6 +11,7 @@ import com.alkemy.ong.application.repository.ICommentRepository;
 import com.alkemy.ong.application.service.comment.UpdateCommentUseCase;
 import com.alkemy.ong.application.service.delegate.IOperationAllowed;
 import com.alkemy.ong.domain.Comment;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +38,6 @@ class UpdateCommentUseCaseTest {
 
   @Test
   void shouldThrowExceptionWhenNotAuthorized() {
-
     given(operationAllowed.isAuthorized(any())).willReturn(false);
 
     assertThrows(OperationNotPermittedException.class,
@@ -46,23 +46,21 @@ class UpdateCommentUseCaseTest {
 
   @Test
   void shouldThrowExceptionWhenCommentDoesNotExist() {
-
     given(operationAllowed.isAuthorized(any())).willReturn(true);
-    given(commentRepository.exists(any())).willReturn(false);
+    given(commentRepository.find(any())).willReturn(Optional.empty());
 
     assertThrows(ObjectNotFoundException.class, () -> updateCommentUseCase.update(comment));
   }
 
   @Test
   void shouldUpdateCommentWhenIsAuthorized() {
-
     given(operationAllowed.isAuthorized(any())).willReturn(true);
-    given(commentRepository.exists(any())).willReturn(true);
+    given(commentRepository.find(any())).willReturn(Optional.of(comment));
     given(commentRepository.update(comment)).willReturn(comment);
 
     updateCommentUseCase.update(comment);
 
-    verify(commentRepository).exists(any());
+    verify(commentRepository).find(any());
     verify(commentRepository).update(comment);
   }
 

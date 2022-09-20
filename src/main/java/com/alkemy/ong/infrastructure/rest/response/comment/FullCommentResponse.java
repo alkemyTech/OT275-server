@@ -8,11 +8,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreateCommentResponse {
+public class FullCommentResponse {
 
   private Long id;
   private String body;
   private String createdBy;
   private String associatedNews;
   private Timestamp createTimestamp;
+
 }

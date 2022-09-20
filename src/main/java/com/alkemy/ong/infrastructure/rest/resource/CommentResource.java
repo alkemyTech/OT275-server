@@ -10,8 +10,7 @@ import com.alkemy.ong.infrastructure.rest.mapper.comment.ListCommentMapper;
 import com.alkemy.ong.infrastructure.rest.mapper.comment.UpdateCommentMapper;
 import com.alkemy.ong.infrastructure.rest.request.comment.CreateCommentRequest;
 import com.alkemy.ong.infrastructure.rest.request.comment.UpdateCommentRequest;
-import com.alkemy.ong.infrastructure.rest.response.comment.CreateCommentResponse;
-import com.alkemy.ong.infrastructure.rest.response.comment.GetCommentResponse;
+import com.alkemy.ong.infrastructure.rest.response.comment.FullCommentResponse;
 import com.alkemy.ong.infrastructure.rest.response.common.ListCommentResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +19,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,19 +55,18 @@ public class CommentResource {
   @PostMapping(
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CreateCommentResponse> create(
+  public ResponseEntity<FullCommentResponse> create(
       @Valid @RequestBody CreateCommentRequest createCommentRequest) {
-    Comment savedComment = createCommentUseCase.create(
+    Comment comment = createCommentUseCase.create(
         createCommentMapper.toDomain(createCommentRequest));
-    CreateCommentResponse response = createCommentMapper.toResponse(savedComment);
-    return new ResponseEntity<>(response, HttpStatus.CREATED);
+    return new ResponseEntity<>(createCommentMapper.toResponse(comment), HttpStatus.CREATED);
   }
 
-  @PutMapping(
+  @PatchMapping(
       value = "/{id}",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<GetCommentResponse> update(
+  public ResponseEntity<FullCommentResponse> update(
       @PathVariable Long id,
       @RequestBody UpdateCommentRequest request) {
     Comment comment = updateCommentUseCase.update(updateCommentMapper.toDomain(id, request));

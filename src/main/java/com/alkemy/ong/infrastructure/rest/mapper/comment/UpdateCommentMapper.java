@@ -5,7 +5,7 @@ import com.alkemy.ong.infrastructure.rest.request.comment.UpdateCommentRequest;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UpdateCommentMapper extends GetCommentMapper {
+public class UpdateCommentMapper extends CreateCommentMapper {
 
   public Comment toDomain(Long id, UpdateCommentRequest request) {
     if (request == null) {

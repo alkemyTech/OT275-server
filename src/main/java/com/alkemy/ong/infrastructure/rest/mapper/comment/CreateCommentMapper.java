@@ -4,7 +4,8 @@ import com.alkemy.ong.domain.Comment;
 import com.alkemy.ong.domain.News;
 import com.alkemy.ong.domain.User;
 import com.alkemy.ong.infrastructure.rest.request.comment.CreateCommentRequest;
-import com.alkemy.ong.infrastructure.rest.response.comment.CreateCommentResponse;
+import com.alkemy.ong.infrastructure.rest.response.comment.FullCommentResponse;
+import java.text.MessageFormat;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,18 +26,21 @@ public class CreateCommentMapper {
     return comment;
   }
 
-  public CreateCommentResponse toResponse(Comment comment) {
+  public FullCommentResponse toResponse(Comment comment) {
     if (comment == null) {
       return null;
     }
-    CreateCommentResponse response = new CreateCommentResponse();
+    FullCommentResponse response = new FullCommentResponse();
     response.setId(comment.getId());
     response.setBody(comment.getBody());
     response.setBody(comment.getBody());
-    response.setCreatedBy(comment.getCreatedBy().getFirstName()
-        + " " + comment.getCreatedBy().getLastName());
+    response.setCreatedBy(getCreatedBy(comment.getCreatedBy()));
     response.setAssociatedNews(comment.getAssociatedNews().getName());
     response.setCreateTimestamp(comment.getCreateTimestamp());
     return response;
+  }
+
+  private String getCreatedBy(User user) {
+    return MessageFormat.format("{0} {1}", user.getFirstName(), user.getLastName());
   }
 }
