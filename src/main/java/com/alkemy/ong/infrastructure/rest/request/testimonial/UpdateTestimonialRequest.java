@@ -4,11 +4,13 @@ import com.alkemy.ong.infrastructure.rest.request.validation.AlphanumericWithWhi
 import com.alkemy.ong.infrastructure.rest.request.validation.CharactersWithWhiteSpaces;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class UpdateTestimonialRequest {
 
   @NotEmpty(message = "Name cannot be empty.")
