@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,19 +56,19 @@ public class ListMembersIntegrationTest extends BigTest {
 
   @Test
   public void shouldReturnPageWhenThereAreMembers() throws Exception {
-   MemberEntity member = createMember(NAME,FACEBOOK_URL,INSTAGRAM_URL,LINKEDIN_URL, IMAGE_URL,DESCRIPTION);
+   createMember(NAME,FACEBOOK_URL,INSTAGRAM_URL,LINKEDIN_URL, IMAGE_URL,DESCRIPTION);
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.page", equalTo(0)))
         .andExpect(jsonPath("$.size", equalTo(10)))
         .andExpect(jsonPath("$.totalPages", equalTo(1)))
-        .andExpect(jsonPath("$.members[0].memberId").value(member.getMemberId()))
-        .andExpect(jsonPath("$.members[0].name").value(NAME))
-        .andExpect(jsonPath("$.members[0].socialMedia.facebookUrl").value(FACEBOOK_URL))
-        .andExpect(jsonPath("$.members[0].socialMedia.linkedInUrl").value(LINKEDIN_URL))
-        .andExpect(jsonPath("$.members[0].socialMedia.instagramUrl").value(INSTAGRAM_URL))
-        .andExpect(jsonPath("$.members[0].imageUrl").value(IMAGE_URL))
-        .andExpect(jsonPath("$.members[0].description").value(DESCRIPTION))
+        .andExpect(jsonPath("$.members[*].memberId").value(notNullValue()))
+        .andExpect(jsonPath("$.members[*].name").value(hasItem(NAME)))
+        .andExpect(jsonPath("$.members[*].socialMedia.facebookUrl").value(hasItem(FACEBOOK_URL)))
+        .andExpect(jsonPath("$.members[*].socialMedia.linkedInUrl").value(hasItem(LINKEDIN_URL)))
+        .andExpect(jsonPath("$.members[*].socialMedia.instagramUrl").value(hasItem(INSTAGRAM_URL)))
+        .andExpect(jsonPath("$.members[*].imageUrl").value(hasItem(IMAGE_URL)))
+        .andExpect(jsonPath("$.members[*].description").value(hasItem(DESCRIPTION)))
         .andExpect(status().isOk());
   }
 }
