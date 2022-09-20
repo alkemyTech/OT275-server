@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.alkemy.ong.bigtest.BigTest;
 import com.alkemy.ong.builder.UpdateUserRequestBuilder;
 import com.alkemy.ong.infrastructure.database.entity.UserEntity;
@@ -19,29 +20,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 
 
 public class UpdateUserIntegrationTest extends BigTest {
 
+  private static final String URL = "/users/{id}";
+
   @Autowired
   private PasswordEncoder passwordEncoder;
-
-
-  private static final String URL = "/users/{id}";
 
   @Test
   public void shouldUpdateUserWhenHasAdminRole() throws Exception {
     Long randomUserId = getRandomUserId();
 
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
-        .content(buildDefaultRequest())
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+            .content(buildDefaultRequest())
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.firstName", equalTo("Mariano")))
         .andExpect(jsonPath("$.lastName", equalTo("Toranzo")))
         .andExpect(jsonPath("$.imageUrl", equalTo("https://s3.com/default-image.jpg")))
         .andExpect(status().isOk());
+
     assertUserHasBeenUpdated(randomUserId);
   }
 
@@ -50,13 +50,14 @@ public class UpdateUserIntegrationTest extends BigTest {
     Long randomUserId = getRandomUserId();
 
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
-        .content(buildDefaultRequest())
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+            .content(buildDefaultRequest())
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.firstName", equalTo("Mariano")))
         .andExpect(jsonPath("$.lastName", equalTo("Toranzo")))
         .andExpect(jsonPath("$.imageUrl", equalTo("https://s3.com/default-image.jpg")))
         .andExpect(status().isOk());
+
     assertUserHasBeenUpdated(randomUserId);
   }
 
@@ -64,8 +65,8 @@ public class UpdateUserIntegrationTest extends BigTest {
   public void shouldReturnForbiddenWhenNoCredentialsAreProvided() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
-        .content(buildDefaultRequest())
-        .contentType(MediaType.APPLICATION_JSON))
+            .content(buildDefaultRequest())
+            .contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.statusCode", equalTo(403)))
         .andExpect(jsonPath("$.message", equalTo(ACCESS_DENIED_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
@@ -77,9 +78,9 @@ public class UpdateUserIntegrationTest extends BigTest {
   public void shouldReturnNotFoundWhenUserDoesNotExist() throws Exception {
     String nonExistentUserId = "999";
     mockMvc.perform(put(URL, nonExistentUserId)
-        .content(buildDefaultRequest())
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+            .content(buildDefaultRequest())
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(404)))
         .andExpect(jsonPath("$.message", equalTo(OBJECT_NOT_FOUND_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
@@ -91,13 +92,12 @@ public class UpdateUserIntegrationTest extends BigTest {
   public void shouldReturnBadRequestWhenFirstNameIsNull() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
-        .content(buildRequest(
-            null,
-            "Toranzo",
-            "https://s3.com/default-image.jpg",
-            "kdiiei18"))
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+            .content(buildRequest(
+                null,
+                "Toranzo",
+                "kdiiei18"))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(2)))
@@ -111,13 +111,12 @@ public class UpdateUserIntegrationTest extends BigTest {
   public void shouldReturnBadRequestWhenLastNameIsNull() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
-        .content(buildRequest(
-            "Mariano",
-            null,
-            "https://s3.com/default-image.jpg",
-            "kdiiei18"))
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+            .content(buildRequest(
+                "Mariano",
+                null,
+                "kdiiei18"))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(2)))
@@ -130,13 +129,12 @@ public class UpdateUserIntegrationTest extends BigTest {
   public void shouldReturnBadRequestWhenFirstNameContainsNumbers() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
-        .content(buildRequest(
-            "You name is 333",
-            "You lastname",
-            "https://s3.com/default-image.jpg",
-            "kdiiei18"))
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+            .content(buildRequest(
+                "You name is 333",
+                "You lastname",
+                "kdiiei18"))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
@@ -149,13 +147,12 @@ public class UpdateUserIntegrationTest extends BigTest {
   public void shouldReturnBadRequestWhenLastNameContainsNumbers() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
-        .content(buildRequest(
-            "Mariano",
-            "You lastname 8754",
-            "https://s3.com/default-image.jpg",
-            "kdiiei18"))
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+            .content(buildRequest(
+                "Mariano",
+                "You lastname 8754",
+                "kdiiei18"))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
@@ -168,13 +165,12 @@ public class UpdateUserIntegrationTest extends BigTest {
   public void shouldReturnBadRequestWhenPasswordIsNull() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
-        .content(buildRequest(
-            "Mariano",
-            "Toranzo",
-            "https://s3.com/default-image.jpg",
-            null))
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+            .content(buildRequest(
+                "Mariano",
+                "Toranzo",
+                null))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
@@ -186,13 +182,12 @@ public class UpdateUserIntegrationTest extends BigTest {
   public void shouldReturnBadRequestWhenPasswordHasLessCharactersThanAllowed() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
-        .content(buildRequest(
-            "Mariano",
-            "Toranzo",
-            "https://s3.com/default-image.jpg",
-            "dalib"))
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+            .content(buildRequest(
+                "Mariano",
+                "Toranzo",
+                "dalib"))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
@@ -205,13 +200,12 @@ public class UpdateUserIntegrationTest extends BigTest {
   public void shouldReturnBadRequestWhenPasswordHasGreaterCharactersThanAllowed() throws Exception {
     Long randomUserId = getRandomUserId();
     mockMvc.perform(put(URL, String.valueOf(randomUserId))
-        .content(buildRequest(
-            "Mariano",
-            "Toranzo",
-            "https://s3.com/default-image.jpg",
-            "dalibkieuywpqppisnel"))
-        .contentType(MediaType.APPLICATION_JSON)
-        .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
+            .content(buildRequest(
+                "Mariano",
+                "Toranzo",
+                "dalibkieuywpqppisnel"))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(400)))
         .andExpect(jsonPath("$.message", equalTo(INVALID_INPUT_DATA_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))
@@ -220,7 +214,6 @@ public class UpdateUserIntegrationTest extends BigTest {
         .andExpect(status().isBadRequest());
   }
 
-  @Transactional
   private void assertUserHasBeenUpdated(Long userId) {
     Optional<UserEntity> userEntity = userRepository.findById(userId);
     assertTrue(userEntity.isPresent());
@@ -237,9 +230,12 @@ public class UpdateUserIntegrationTest extends BigTest {
     return convert(UpdateUserRequestBuilder.defaultRequest());
   }
 
-  private String buildRequest(String firstname, String lastname, String imageUrl, String password)
+  private String buildRequest(String firstname, String lastname, String password)
       throws JsonProcessingException {
-    return convert(
-        UpdateUserRequestBuilder.buildRequest(firstname, lastname, imageUrl, password));
+    return convert(UpdateUserRequestBuilder.buildRequest(
+        firstname,
+        lastname,
+        "https://s3.com/default-image.jpg",
+        password));
   }
 }

@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 import com.alkemy.ong.bigtest.BigTest;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
@@ -30,7 +29,7 @@ public class ListNewsIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.totalPages", equalTo(2)))
         .andExpect(jsonPath("$.news", hasSize(10)))
         .andExpect(jsonPath("$.news[*].id").value(notNullValue()))
-        .andExpect(jsonPath("$.news[*].name").value( hasItem("News number 1")))
+        .andExpect(jsonPath("$.news[*].name").value(hasItem("News number 1")))
         .andExpect(jsonPath("$.news[*].content").value(hasItem("Content for News number 1")))
         .andExpect(jsonPath("$.news[*].imageUrl").value(hasItem("")))
         .andExpect(jsonPath("$.news[*].category.id").value(notNullValue()))
@@ -52,7 +51,7 @@ public class ListNewsIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.totalPages", equalTo(2)))
         .andExpect(jsonPath("$.news", hasSize(10)))
         .andExpect(jsonPath("$.news[*].id").value(notNullValue()))
-        .andExpect(jsonPath("$.news[*].name").value( hasItem("News number 1")))
+        .andExpect(jsonPath("$.news[*].name").value(hasItem("News number 1")))
         .andExpect(jsonPath("$.news[*].content").value(hasItem("Content for News number 1")))
         .andExpect(jsonPath("$.news[*].imageUrl").value(hasItem("")))
         .andExpect(jsonPath("$.news[*].category.id").value(notNullValue()))
@@ -88,7 +87,7 @@ public class ListNewsIntegrationTest extends BigTest {
         .andExpect(status().isForbidden());
   }
 
-  private void createMultipleNews(){
+  private void createMultipleNews() {
     for (int i = 1; i < 15; i++) {
       createNews("News number " + i);
     }
