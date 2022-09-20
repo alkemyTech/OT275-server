@@ -3,7 +3,7 @@ package com.alkemy.ong.bigtest.testimonial;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -72,7 +72,7 @@ public class DeleteTestimonialIntegrationTest extends BigTest {
 
   private void assertTestimonialHasBeenDeleted(Long id) {
     Optional<TestimonialEntity> optionalTestimonialEntity = testimonialRepository.findById(id);
-    assertTrue(!optionalTestimonialEntity.isEmpty());
-    assertEquals(true, optionalTestimonialEntity.get().isSoftDeleted());
+    assertFalse(optionalTestimonialEntity.isEmpty());
+    assertTrue(optionalTestimonialEntity.get().isSoftDeleted());
   }
 }

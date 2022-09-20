@@ -171,7 +171,6 @@ public class CreateTestimonialIntegrationTest extends BigTest {
     assertEquals(TESTIMONIAL_NAME, optionalTestimonialEntity.get().getName());
     assertEquals(TESTIMONIAL_CONTENT, optionalTestimonialEntity.get().getContent());
     assertEquals(TESTIMONIAL_IMAGE, optionalTestimonialEntity.get().getImageUrl());
-    cleanTestimonialData(optionalTestimonialEntity.get());
   }
 
   private String buildRequest(String name, String content, String image)

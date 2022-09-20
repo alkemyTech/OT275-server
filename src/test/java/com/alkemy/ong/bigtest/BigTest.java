@@ -114,11 +114,8 @@ public abstract class BigTest {
     newsRepository.deleteAll();
     categoryRepository.deleteAll();
     activityRepository.deleteAll();
-
     testimonialRepository.deleteAll();
-
     contactRepository.deleteAll();
-
   }
 
   protected void cleanUsersData(UserEntity... users) {
