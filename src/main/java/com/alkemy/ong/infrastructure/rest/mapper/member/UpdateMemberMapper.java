@@ -6,7 +6,7 @@ import com.alkemy.ong.infrastructure.rest.request.member.UpdateMemberRequest;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UpdateMemberMapper extends CreateMemberMapper {
+public class UpdateMemberMapper extends GetMemberMapper {
 
   public UpdateMemberMapper(
       SocialMediaMapper socialMediaMapper) {
