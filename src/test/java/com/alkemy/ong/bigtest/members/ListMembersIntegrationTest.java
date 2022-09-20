@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -57,11 +58,12 @@ public class ListMembersIntegrationTest extends BigTest {
   @Test
   public void shouldReturnPageWhenThereAreMembers() throws Exception {
    createMember(NAME,FACEBOOK_URL,INSTAGRAM_URL,LINKEDIN_URL, IMAGE_URL,DESCRIPTION);
+   createRandomMembers(15);
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.page", equalTo(0)))
         .andExpect(jsonPath("$.size", equalTo(10)))
-        .andExpect(jsonPath("$.totalPages", equalTo(1)))
+        .andExpect(jsonPath("$.totalPages", equalTo(2)))
         .andExpect(jsonPath("$.members[*].memberId").value(notNullValue()))
         .andExpect(jsonPath("$.members[*].name").value(hasItem(NAME)))
         .andExpect(jsonPath("$.members[*].socialMedia.facebookUrl").value(hasItem(FACEBOOK_URL)))
@@ -69,7 +71,15 @@ public class ListMembersIntegrationTest extends BigTest {
         .andExpect(jsonPath("$.members[*].socialMedia.instagramUrl").value(hasItem(INSTAGRAM_URL)))
         .andExpect(jsonPath("$.members[*].imageUrl").value(hasItem(IMAGE_URL)))
         .andExpect(jsonPath("$.members[*].description").value(hasItem(DESCRIPTION)))
+        .andExpect(header().string(LINK_HEADER, equalTo(
+            "<http://localhost/members?page=1&size=10>; rel=\"last\"<http://localhost/members?page=1&size=10>; rel=\"next\"")))
         .andExpect(status().isOk());
+  }
+
+  private void createRandomMembers(int cant){
+    for(int i=0; i<cant;i++){
+      getRandomMember();
+    }
   }
 }
 
