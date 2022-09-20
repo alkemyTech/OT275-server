@@ -40,6 +40,16 @@ public class DeleteMembersIntegrationTest extends BigTest {
     assertMemberHasBeenDeleted(memberId);
   }
 
+  @Test
+  public void shouldReturnForbiddenWhenUserHasStandardRole()throws Exception{
+    mockMvc.perform(delete(URL, "1")
+            .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
+        .andExpect(jsonPath("$.statusCode", equalTo(403)))
+        .andExpect(jsonPath("$.message", equalTo(ACCESS_DENIED_MESSAGE)))
+        .andExpect(jsonPath("$.moreInfo", hasSize(1)))
+        .andExpect(jsonPath("$.moreInfo", hasItem(ACCESS_DENIED_MORE_INFO)))
+        .andExpect(status().isForbidden());
+  }
 
   private void assertMemberHasBeenDeleted(Long randomMemberId) {
     Optional<MemberEntity> member = memberRepository.findById(randomMemberId);
