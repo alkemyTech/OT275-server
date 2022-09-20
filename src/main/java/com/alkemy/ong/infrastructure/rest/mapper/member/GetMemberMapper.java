@@ -33,9 +33,9 @@ public class GetMemberMapper {
     GetMemberResponse response = new GetMemberResponse();
     response.setMemberId(member.getMemberId());
     response.setName(member.getName());
-    response.setSocialMedia(socialMediaMapper.toResponse(member.getSocialMedia()));
     response.setImageUrl(member.getImageUrl());
     response.setDescription(member.getDescription());
+    response.setSocialMedia(socialMediaMapper.toResponse(member.getSocialMedia()));
     return response;
   }
 }

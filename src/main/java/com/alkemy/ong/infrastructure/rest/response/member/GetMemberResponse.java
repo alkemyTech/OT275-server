@@ -14,8 +14,8 @@ public class GetMemberResponse {
 
   private Long memberId;
   private String name;
-  private SocialMediaResponse socialMedia;
   private String imageUrl;
   private String description;
+  private SocialMediaResponse socialMedia;
 
 }
