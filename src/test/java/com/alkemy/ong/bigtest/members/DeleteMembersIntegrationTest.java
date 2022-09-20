@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 
 public class DeleteMembersIntegrationTest extends BigTest {
-  public static String URL = "/members/{id}/";
+  private static final String URL = "/members/{id}/";
 
   @Test
   public void shouldReturnNotFoundWhenMemberDoesNotExist()throws Exception{
