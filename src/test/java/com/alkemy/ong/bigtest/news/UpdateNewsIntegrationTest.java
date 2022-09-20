@@ -119,7 +119,7 @@ public class UpdateNewsIntegrationTest extends BigTest {
   @Test
   public void shouldReturnForbiddenWhenUserHasStandardRole() throws Exception {
 
-    mockMvc.perform(put(URL, String.valueOf(1))
+    mockMvc.perform(put(URL, "1")
             .content(getUpdateRequest(NEWS_NAME, NEWS_CONTENT))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
