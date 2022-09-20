@@ -1,6 +1,6 @@
 package com.alkemy.ong.application.service;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
-public class ListTestimonialUseCaseServiceTest {
+class ListTestimonialUseCaseServiceTest {
 
   @Mock
   private TestimonialRepository testimonialRepository;
@@ -35,9 +35,9 @@ public class ListTestimonialUseCaseServiceTest {
 
     given(testimonialRepository.findAll(pageable)).willReturn(page);
 
-    Page<Testimonial> actualPage = listTestimonialUseCaseService.findAll(pageable);
+    Page<Testimonial> result = listTestimonialUseCaseService.findAll(pageable);
 
-    assertNotNull(actualPage);
+    assertEquals(page, result);
     verify(testimonialRepository, times(1)).findAll(pageable);
   }
 }
