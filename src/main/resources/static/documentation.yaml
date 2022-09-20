@@ -887,7 +887,7 @@ paths:
         "204":
           description: The resource has been successfully deleted.
         "403":
-          description: Invalid credentials were provided. Admin credentials needed.
+          description: Invalid credentials were provided. User or Admin credentials needed.
           content:
             application/json:
               schema:
@@ -1687,4 +1687,5 @@ tags:
   - name: Organization
   - name: Slides
   - name: Testimonials
+    description: CRUD Operations related to the "Testimonial" resource.
   - name: Users
