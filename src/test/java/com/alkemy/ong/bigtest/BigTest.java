@@ -137,10 +137,6 @@ public abstract class BigTest {
     }
   }
 
-  protected void cleanTestimonialData(TestimonialEntity... testimonial) {
-    testimonialRepository.deleteAllInBatch(Arrays.asList(testimonial));
-  }
-
   private void createRoles() {
     if (roleRepository.count() == 0) {
       roleRepository.saveAll(List.of(

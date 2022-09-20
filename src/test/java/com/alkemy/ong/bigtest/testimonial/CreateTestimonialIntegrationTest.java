@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 import com.alkemy.ong.bigtest.BigTest;
 import com.alkemy.ong.infrastructure.database.entity.TestimonialEntity;
 import com.alkemy.ong.infrastructure.rest.request.testimonial.CreateTestimonialRequest;
@@ -157,8 +156,8 @@ public class CreateTestimonialIntegrationTest extends BigTest {
   @Test
   public void shouldReturnForbiddenWhenUserIsNotAuthenticated() throws Exception {
     mockMvc.perform(post(URL)
-        .content(buildRequest(TESTIMONIAL_NAME, TESTIMONIAL_CONTENT, TESTIMONIAL_IMAGE))
-        .contentType(MediaType.APPLICATION_JSON_VALUE))
+            .content(buildRequest(TESTIMONIAL_NAME, TESTIMONIAL_CONTENT, TESTIMONIAL_IMAGE))
+            .contentType(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(jsonPath("$.statusCode", equalTo(403)))
         .andExpect(jsonPath("$.message", equalTo(ACCESS_DENIED_MESSAGE)))
         .andExpect(jsonPath("$.moreInfo", hasSize(1)))

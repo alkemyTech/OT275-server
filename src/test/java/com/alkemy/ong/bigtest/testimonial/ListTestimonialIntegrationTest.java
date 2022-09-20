@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 import com.alkemy.ong.bigtest.BigTest;
 import com.alkemy.ong.infrastructure.database.entity.TestimonialEntity;
 import org.hamcrest.Matchers;
@@ -39,8 +38,6 @@ public class ListTestimonialIntegrationTest extends BigTest {
             .value(hasItem(TESTIMONIAL_IMAGE)))
         .andExpect(jsonPath("$.testimonials", hasSize(1)))
         .andExpect(status().isOk());
-
-    cleanTestimonialData(randomTestimonial);
   }
 
   @Test
@@ -59,8 +56,6 @@ public class ListTestimonialIntegrationTest extends BigTest {
             .value(hasItem(TESTIMONIAL_CONTENT)))
         .andExpect(jsonPath("$.testimonials", hasSize(1)))
         .andExpect(status().isOk());
-
-    cleanTestimonialData(randomTestimonial);
   }
 
   @Test
