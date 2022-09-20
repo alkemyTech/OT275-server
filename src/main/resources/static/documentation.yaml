@@ -191,6 +191,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Forbidden'
+
   /categories/{id}:
     get:
       summary: Returns the "Category" resource identified by the "id" parameter provided in the URI path.
@@ -635,7 +636,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/NewsNotFound'
 
-
   /organization/public:
 
     get:
@@ -763,10 +763,14 @@ paths:
 
   /testimonials:
 
+    security:
+      bearerAuth: [ user, admin ]
+
     post:
+      summary: Creates a new "Testimonial" and persists it in the database.
       tags:
         - Testimonials
-      operationId: create
+      operationId: create-testimonial
       requestBody:
         content:
           application/json:
@@ -774,37 +778,60 @@ paths:
               $ref: '#/components/schemas/CreateTestimonialRequest'
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Creation was successful, the created "Testimonial" is returned.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetTestimonialResponse'
+        "400":
+          description: The provided body does not have a correct body or misses one or more of the validations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestTestimonial'
+        "403":
+          description: Invalid credentials were provided. User or Admin credentials needed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
 
     get:
       tags:
         - Testimonials
-      operationId: list_1
-      parameters:
-        - name: pageable
-          in: query
-          required: true
-          schema:
-            $ref: '#/components/schemas/Pageable'
+      summary: Returns the first page of "Testimonials", listing up to ten elements, "Link" header may include links to subsequent pages if more than ten elements exist.
+      operationId: paginate-testimonials
       responses:
         "200":
-          description: OK
+          description: The first page of results is returned, if there are no "Testimonials" in the database it returns an empty list with zero pages and no links.
+          headers:
+            Link:
+              description: Links leading to the first, last, next and / or previous page of the results if available.
+              schema:
+                $ref: '#/components/schemas/LinkHeader'
+              type: string
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListTestimonialResponse'
+                $ref: '#/components/schemas/ListTestimonialsResponse'
+        "403":
+          description: Invalid credentials were provided. User or Admin credentials needed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
 
   /testimonials/{id}:
 
+    security:
+      bearerAuth: [ user, admin ]
+
     put:
+      summary: Updates the "Testimonial" resource identified by the "ID" parameter provided in the URI path.
       tags:
         - Testimonials
-      operationId: update_1
+      operationId: update-testimonial
       parameters:
         - name: id
           in: path
@@ -820,16 +847,35 @@ paths:
         required: true
       responses:
         "200":
-          description: OK
+          description: The update operation was successful. The updated "Testimonial" is returned.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetTestimonialResponse'
+        "400":
+          description: The provided body does not have a correct misses one of more of the validations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestTestimonial'
+        "403":
+          description: Invalid credentials were provided. Admin credentials needed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+        "404":
+          description: The given "ID" does not corresponds to an entry in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestimonialNotFound'
 
     delete:
+      summary: Deletes the "Testimonial" resource identified by the "ID" parameter provided in the URI path, by setting the "isSoftDeleted" attribute to "true".
       tags:
         - Testimonials
-      operationId: delete_1
+      operationId: delete-testimonial
       parameters:
         - name: id
           in: path
@@ -838,8 +884,20 @@ paths:
             type: integer
             format: int64
       responses:
-        "200":
-          description: OK
+        "204":
+          description: The resource has been successfully deleted.
+        "403":
+          description: Invalid credentials were provided. User or Admin credentials needed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+        "404":
+          description: The given "ID" does not corresponds to an entry in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestimonialNotFound'
 
   /users:
 
@@ -899,6 +957,110 @@ paths:
 
 components:
   schemas:
+    CreateTestimonialRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 0
+          type: string
+          example: Testimonial name
+        content:
+          maxLength: 150
+          minLength: 0
+          type: string
+          example: Testimonial content
+        image:
+          type: string
+          example: https://s3.com/image.jpg
+    UpdateTestimonialRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          maxLength: 50
+          minLength: 0
+          type: string
+          example: Testimonial new name
+        content:
+          maxLength: 150
+          minLength: 0
+          type: string
+          example: Testimonial new content
+        image:
+          type: string
+          example: Testimonial new image URL
+    ListTestimonialsResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          example: 0
+        size:
+          type: integer
+          format: int32
+          example: 10
+        totalPages:
+          type: integer
+          format: int32
+          example: 1
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetTestimonialResponse'
+    GetTestimonialResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Testimonial name
+        content:
+          type: string
+          example: Testimonial content
+        image:
+          type: string
+          example: https://s3.com/image.jpg
+    BadRequestTestimonial:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int64
+          example: 400
+        message:
+          type: string
+          example: Bad Request.
+        moreInfo:
+          type: array
+          items:
+            type: string
+          example:
+            - Content must be alphanumeric.
+            - Name must not be empty.
+            - Name must contain only spaces and letters.
+    TestimonialNotFound:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int64
+          example: 404
+        message:
+          type: string
+          example: Object not found in database.
+        moreInfo:
+          type: array
+          items:
+            type: string
+          example: Testimonial not found.
     UpdateUserRequest:
       required:
         - firstName
@@ -1525,4 +1687,5 @@ tags:
   - name: Organization
   - name: Slides
   - name: Testimonials
+    description: CRUD Operations related to the "Testimonial" resource.
   - name: Users
