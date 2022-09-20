@@ -114,6 +114,7 @@ public abstract class BigTest {
     newsRepository.deleteAll();
     categoryRepository.deleteAll();
     activityRepository.deleteAll();
+    userRepository.deleteAll();
     testimonialRepository.deleteAll();
     contactRepository.deleteAll();
   }
@@ -177,6 +178,11 @@ public abstract class BigTest {
     userEntity.setRole(roleRepository.findByName(role.getFullRoleName()));
     userEntity.setSoftDeleted(false);
     return userEntity;
+  }
+
+  protected Long getRandomUserId() {
+    UserEntity userEntity = getRandomUser();
+    return userEntity.getUserId();
   }
 
   private RoleEntity buildRole(Role role) {
@@ -251,8 +257,8 @@ public abstract class BigTest {
 
   private String getAuthorizationTokenForUser(String email) throws Exception {
     String content = mockMvc.perform(post("/auth/login")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(new AuthenticationRequest(email, PASSWORD))))
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(new AuthenticationRequest(email, PASSWORD))))
         .andReturn()
         .getResponse().getContentAsString(StandardCharsets.UTF_8);
 
@@ -329,6 +335,7 @@ public abstract class BigTest {
         "Activity content",
         "https://s3.com/my-activity.jpg"));
   }
+
 
   protected ActivityEntity buildActivity(String name, String content, String image) {
     ActivityEntity activityEntity = new ActivityEntity();
