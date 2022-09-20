@@ -20,7 +20,7 @@ public class DeleteMembersIntegrationTest extends BigTest {
 
   @Test
   public void shouldReturnNotFoundWhenMemberDoesNotExist()throws Exception{
-    mockMvc.perform(delete(URL, "-1")
+    mockMvc.perform(delete(URL,  "-1")
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.statusCode", equalTo(404)))
         .andExpect(jsonPath("$.message", equalTo(OBJECT_NOT_FOUND_MESSAGE)))
@@ -30,7 +30,7 @@ public class DeleteMembersIntegrationTest extends BigTest {
   }
 
   @Test
-  public void shouldDeleteMember()throws Exception{
+  public void shouldDeleteMemberWhenUserHasAdminRole()throws Exception{
     Long memberId = getRandomMemberId();
 
     mockMvc.perform(delete(URL, String.valueOf(memberId))
@@ -39,6 +39,7 @@ public class DeleteMembersIntegrationTest extends BigTest {
 
     assertMemberHasBeenDeleted(memberId);
   }
+
 
   private void assertMemberHasBeenDeleted(Long randomMemberId) {
     Optional<MemberEntity> member = memberRepository.findById(randomMemberId);

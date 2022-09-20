@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.alkemy.ong.bigtest.BigTest;
+import com.alkemy.ong.infrastructure.database.entity.MemberEntity;
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 
@@ -54,13 +55,13 @@ public class ListMembersIntegrationTest extends BigTest {
 
   @Test
   public void shouldReturnPageWhenThereAreMembers() throws Exception {
-    createMember(NAME,FACEBOOK_URL,INSTAGRAM_URL,LINKEDIN_URL, IMAGE_URL,DESCRIPTION);
+   MemberEntity member = createMember(NAME,FACEBOOK_URL,INSTAGRAM_URL,LINKEDIN_URL, IMAGE_URL,DESCRIPTION);
     mockMvc.perform(get(URL)
             .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForStandardUser()))
         .andExpect(jsonPath("$.page", equalTo(0)))
         .andExpect(jsonPath("$.size", equalTo(10)))
         .andExpect(jsonPath("$.totalPages", equalTo(1)))
-        .andExpect(jsonPath("$.members[0].memberId").value(1))
+        .andExpect(jsonPath("$.members[0].memberId").value(member.getMemberId()))
         .andExpect(jsonPath("$.members[0].name").value(NAME))
         .andExpect(jsonPath("$.members[0].socialMedia.facebookUrl").value(FACEBOOK_URL))
         .andExpect(jsonPath("$.members[0].socialMedia.linkedInUrl").value(LINKEDIN_URL))
