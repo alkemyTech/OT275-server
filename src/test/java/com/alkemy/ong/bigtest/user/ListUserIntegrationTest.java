@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,11 +26,11 @@ public class ListUserIntegrationTest extends BigTest {
         .contentType(MediaType.APPLICATION_JSON)
         .header(HttpHeaders.AUTHORIZATION, getAuthorizationTokenForAdminUser()))
         .andExpect(jsonPath("$.users", hasSize(2)))
-        .andExpect(jsonPath("$.users[0]",hasKey("id")))
-        .andExpect(jsonPath("$.users[0]",hasKey("firstName")))
-        .andExpect(jsonPath("$.users[0]",hasKey("lastName")))
-        .andExpect(jsonPath("$.users[0]",hasKey("email")))
-        .andExpect(jsonPath("$.users[0]",hasKey("role")))
+        .andExpect(jsonPath("$.users[*].id").value(notNullValue()))
+        .andExpect(jsonPath("$.users[*].firstName").value(hasItem("Jason")))
+        .andExpect(jsonPath("$.users[*].lastName").value(hasItem("Voorhees")))
+        .andExpect(jsonPath("$.users[*].email").value(hasItem("jason@voorhees.com")))
+        .andExpect(jsonPath("$.users[*].role").value(notNullValue()))
         .andExpect(status().isOk());
     }
 
