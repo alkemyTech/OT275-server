@@ -15,4 +15,5 @@ public interface IMemberRepository {
 
   Member add(Member member);
 
+  Member update(Member member);
 }
